@@ -1,12 +1,19 @@
 # Stylus Nexus — Agent Plugins Marketplace
 
+![License: MIT](https://img.shields.io/badge/license-MIT-blue)
+![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
+![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
+
 A plugin marketplace for AI coding agents. Plugins here share one body of skills + a pure-Python CLI,
 and install natively into **Claude Code** and **OpenAI Codex**. Other agents (Cursor, Copilot, plain
 terminal) install the same toolkit via its script.
 
-> **Plugins ≠ one-format.** Claude Code and Codex have *separate* plugin systems. This repo carries a
-> **per-host index** so each tool installs from the schema it understands:
-> `.claude-plugin/marketplace.json` (Claude) and `.agents/plugins/marketplace.json` (Codex).
+> ⚠️ **Trust before you install.** Plugins run code on your machine. Review a plugin's source before
+> installing it. Everything here is open-source — links are in the table below.
+
+> **Plugins ≠ one format.** Claude Code and Codex have *separate* plugin systems, so this repo carries
+> a **per-host index**: `.claude-plugin/marketplace.json` (Claude) and `.agents/plugins/marketplace.json`
+> (Codex). You add the *same* marketplace either way; each tool reads the schema it understands.
 
 ---
 
@@ -20,14 +27,14 @@ terminal) install the same toolkit via its script.
 
 ## Install by agent
 
-### Claude Code  (terminal, VS Code extension, JetBrains extension)
+### Claude Code  (terminal · VS Code extension · JetBrains extension)
 
 ```
 /plugin marketplace add stylusnexus/agent-plugins
 /plugin install work-plan@stylus-nexus
 ```
 
-Commands are **namespaced** under the plugin:
+…or browse interactively: `/plugin` → **Discover**. Commands install **namespaced** under the plugin:
 
 | Command | Does |
 |---|---|
@@ -41,7 +48,7 @@ Commands are **namespaced** under the plugin:
 Update: `/plugin update work-plan@stylus-nexus`. Plugin config is shared between the Claude Code CLI
 and its IDE extensions, so installing once covers all three surfaces.
 
-### OpenAI Codex  (CLI, app, IDE extension)
+### OpenAI Codex  (CLI · app · IDE extension)
 
 ```
 codex plugin marketplace add stylusnexus/agent-plugins
@@ -53,7 +60,7 @@ Invoke skills the Codex way (`@work-plan` / `/skills`). Codex reads the dedicate
 
 ### Cursor / GitHub Copilot / plain terminal  (no plugin system)
 
-These don't have a plugin marketplace — install the toolkit directly:
+Install the toolkit directly:
 
 ```bash
 git clone https://github.com/stylusnexus/work-plan-toolkit
@@ -70,7 +77,7 @@ Cursor/Copilot prompt-engineering shims, see the toolkit's
 
 ## Compatibility at a glance
 
-| Agent | How to install | Invoke as | Auto-update |
+| Agent | Install | Invoke as | Update |
 |---|---|---|---|
 | **Claude Code** (CLI + VS Code/JetBrains ext) | `/plugin install work-plan@stylus-nexus` | `/work-plan:brief` … | `/plugin update` |
 | **Codex** (CLI + app + IDE ext) | `codex plugin add work-plan@stylus-nexus` | `@work-plan` / `/skills` | `codex plugin` upgrade |
@@ -80,19 +87,51 @@ Cursor/Copilot prompt-engineering shims, see the toolkit's
 
 ---
 
+## Repository structure
+
+```
+agent-plugins/
+├── .claude-plugin/
+│   └── marketplace.json     # Claude index   (source: github, repo)
+├── .agents/plugins/
+│   └── marketplace.json     # Codex index    (source: url + policy + category)
+├── LICENSE
+└── README.md
+```
+
+Both indexes list the same plugins, pinned to the same release tag — so Claude and Codex install
+identical, reproducible versions.
+
+---
+
 ## Prerequisites
 
 The toolkit shells out to standard tools — install these **before** first use (the script installer
 verifies them; plugin installs assume they're present):
 
-- **`gh`** (GitHub CLI, authenticated: `gh auth login`) — all GitHub state, no tokens stored
-- **`git`**, **`python3` (3.9+)**, **`yq` (mikefarah/yq, the Go build — *not* the Python jq wrapper)**
+- **`gh`** (GitHub CLI, authenticated via `gh auth login`) — all GitHub access; no tokens stored
+- **`git`**, **`python3` (3.9+)**, **`yq`** — the **mikefarah/yq** Go build, *not* the Python jq wrapper
 
 ```bash
 # macOS
 brew install gh git python@3 yq
-# Debian/Ubuntu: gh + yq via their official instructions; apt for git/python3
+# Debian/Ubuntu: gh + yq per their official install docs; apt for git/python3
 # Windows: winget install GitHub.cli Git.Git Python.Python.3 MikeFarah.yq
+```
+
+---
+
+## Update & uninstall
+
+```bash
+# Claude Code
+/plugin update work-plan@stylus-nexus
+/plugin uninstall work-plan@stylus-nexus
+/plugin marketplace remove stylus-nexus
+
+# Codex
+codex plugin remove work-plan@stylus-nexus
+codex plugin marketplace remove stylus-nexus
 ```
 
 ---
@@ -103,9 +142,12 @@ Plugins use **CalVer** (`YYYY.MM.DD+<sha>`), auto-bumped on deploy and synced in
 Each marketplace entry is **pinned to a release tag** (not a moving branch), so installs are
 reproducible; updates land when the tag (and this index's `ref`) advance.
 
-## Notes
+## Resources
 
-- Adding this marketplace is read-only — it registers an install source; nothing runs until you
-  `install`/`add` a plugin.
-- Issues / source for the work-plan plugin live in
-  [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit).
+- Plugin source & issues: [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit)
+- Claude Code plugins: <https://code.claude.com/docs/en/plugins>
+- Codex plugins: <https://developers.openai.com/codex/plugins>
+
+## License
+
+MIT © Stylus Nexus Holdings LLC — see [LICENSE](LICENSE).
