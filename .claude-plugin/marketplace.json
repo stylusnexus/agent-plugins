@@ -1,11 +1,17 @@
 {
   "name": "stylus-nexus",
-  "owner": { "name": "Stylus Nexus" },
+  "owner": {
+    "name": "Stylus Nexus"
+  },
   "description": "Stylus Nexus plugins for Claude Code + Codex.",
   "plugins": [
     {
       "name": "work-plan",
-      "source": { "source": "github", "repo": "stylusnexus/work-plan-toolkit", "ref": "v2026.06.07-80c7f8c" },
+      "source": {
+        "source": "github",
+        "repo": "stylusnexus/work-plan-toolkit",
+        "ref": "v2026.06.07-46f9db9"
+      },
       "description": "Track-aware daily planning over GitHub issues, plus plan-status doc/plan liveness."
     }
   ]
