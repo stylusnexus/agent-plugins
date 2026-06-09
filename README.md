@@ -23,6 +23,8 @@ terminal) install the same toolkit via its script.
 |---|---|---|
 | **work-plan** | Track-aware daily planning over GitHub issues, plus `plan-status` doc/plan liveness. Pure-stdlib CLI + skills. | [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit) |
 
+> **Also available outside the plugin system:** work-plan ships a standalone **[VS Code extension](https://marketplace.visualstudio.com/items?itemName=stylusnexus.work-plan-viewer)** — a visual sidebar, dependency graph, and track editor over the same CLI (VS Code Marketplace + [Open VSX](https://open-vsx.org/extension/stylusnexus/work-plan-viewer)) — and an **npm CLI**: `npm install -g @stylusnexus/work-plan`. See the [toolkit install guide](https://github.com/stylusnexus/work-plan-toolkit#install).
+
 ---
 
 ## Install by agent
