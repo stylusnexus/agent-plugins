@@ -21,7 +21,7 @@ terminal) install the same toolkit via its script.
 
 | Plugin | What it does | Source |
 |---|---|---|
-| **work-plan** | Track-aware daily planning over GitHub issues. Shared tracks (git-synced `.work-plan/` in each repo), AI clustering (`group`/`auto-triage`), coverage reporting, `plan-status` doc liveness. Pure-stdlib CLI + VS Code viewer + skills. | [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit) |
+| **work-plan** | Track-aware daily planning over GitHub issues — shared tracks (git-synced `.work-plan/`), AI clustering (`group`/`auto-triage` with `--limit` for large repos), coverage, `plan-status` doc liveness, batched GraphQL fetches. Pure-Python-stdlib CLI + VS Code viewer (sidebar tree, Mermaid graph, read/write, confirm-gated public-repo writes, 50-row issue cap). | [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit) |
 
 ---
 
@@ -120,6 +120,13 @@ brew install gh git python@3 yq
 ```
 
 ---
+
+## Security
+
+- **No token storage.** The toolkit reuses your existing `gh auth` — it never reads, writes, or stores GitHub credentials.
+- **Public-repo guard.** Every write to a public repo (or unknown visibility) is gated behind a confirm-token flow. The CLI prints `{needs_confirm: true, token: …}` and exits without writing. The VS Code viewer surfaces this as a **"Write anyway / Keep private"** modal. Private repos write straight through.
+- **Local-only writes.** All mutations go to local markdown files — GitHub is never written (except the opt-in `suggest-priorities --apply` for priority labels).
+- **No telemetry, no daemon.** No cache, no sync loop — `git pull` is the sync mechanism for shared tracks.
 
 ## Update & uninstall
 

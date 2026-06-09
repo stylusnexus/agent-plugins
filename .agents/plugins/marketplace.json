@@ -12,7 +12,7 @@
       },
       "policy": { "installation": "AVAILABLE", "authentication": "ON_INSTALL" },
       "category": "Productivity",
-      "description": "Track-aware daily planning over GitHub issues, plus plan-status doc/plan liveness."
+      "description": "Track-aware daily planning over GitHub issues. Shared tracks (git-synced .work-plan/), AI clustering (group/auto-triage), coverage, plan-status doc liveness, batched GraphQL fetches. Includes a VS Code viewer with sidebar tree, Mermaid dependency graph, and read/write."
     }
   ]
 }
