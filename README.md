@@ -21,7 +21,7 @@ terminal) install the same toolkit via its script.
 
 | Plugin | What it does | Source |
 |---|---|---|
-| **work-plan** | Track-aware daily planning over GitHub issues, plus `plan-status` doc/plan liveness. Pure-stdlib CLI + skills. | [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit) |
+| **work-plan** | Track-aware daily planning over GitHub issues. Shared tracks (git-synced `.work-plan/` in each repo), AI clustering (`group`/`auto-triage`), coverage reporting, `plan-status` doc liveness. Pure-stdlib CLI + VS Code viewer + skills. | [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit) |
 
 ---
 
@@ -43,7 +43,7 @@ terminal) install the same toolkit via its script.
 | `/work-plan:orient [track]` | Re-orient on a track / cwd |
 | `/work-plan:hygiene` | Weekly cleanup (refresh + reconcile + duplicates) |
 | `/work-plan:status` | Doc & plan liveness (`plan-status`) |
-| `/work-plan:run <subcommand>` | Anything else (`slot`, `close`, `reconcile`, `group`, `init-repo`, …) |
+| `/work-plan:run <subcommand>` | Anything else (`slot`, `close`, `reconcile`, `group`, `coverage`, `auto-triage`, `init-repo`, …) |
 
 Update: `/plugin update work-plan@stylus-nexus`. Plugin config is shared between the Claude Code CLI
 and its IDE extensions, so installing once covers all three surfaces.
