@@ -21,7 +21,7 @@ terminal) install the same toolkit via its script.
 
 | Plugin | What it does | Source |
 |---|---|---|
-| **work-plan** | Track-aware daily planning over GitHub issues — shared tracks (git-synced `.work-plan/`, optionally pinned to a canonical `plan-branch`), AI clustering (`group`/`auto-triage` with `--limit` for large repos), coverage, `plan-status` doc liveness, batched GraphQL fetches. Pure-Python-stdlib CLI + VS Code viewer (sidebar tree with a visibility×tier exposure badge, Mermaid graph, read/write, confirm-gated public-repo writes, 50-row issue cap). | [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit) |
+| **work-plan** | Track-aware daily planning over GitHub issues — shared tracks (git-synced `.work-plan/`, optionally pinned to a canonical `plan-branch`; `push-track` promotes a private track to it), AI clustering (`group`/`auto-triage` with `--limit` for large repos), coverage, `plan-status` doc liveness with drift detection, batched GraphQL fetches. Pure-Python-stdlib CLI + a theme-aware, accessible VS Code viewer: sidebar tree with a visibility×tier exposure badge, Mermaid graph, a **Plans view** with confirm-gated frontmatter writes (verdict / acknowledge / drift-baseline) + track↔plan links, fast-fail GitHub auth, a gated GitHub issue-close, and confirm-gated public-repo writes. | [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit) |
 
 ---
 
