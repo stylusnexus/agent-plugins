@@ -19,7 +19,7 @@
       "source": {
         "source": "github",
         "repo": "stylusnexus/defect-scan",
-        "ref": "v1.0.0"
+        "ref": "v1.1.0"
       },
       "description": "Language-aware defect hunter: detect stack -> triage by risk -> run real analyzers (ruff/mypy, tsc/eslint) -> reason with 9 battle-tested patterns (billing, key-drift, audience-leak, subprocess-hygiene, partial-fetch, pagination-cap, mock-only-tests, ETL-data-loss, SQL-schema-drift) -> report (confidence-tiered, gh-issue-correlated) -> fix. Depth-capped, project-local tool resolution."
     }
