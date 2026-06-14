@@ -10,7 +10,7 @@
       "source": {
         "source": "github",
         "repo": "stylusnexus/work-plan-toolkit",
-        "ref": "v2026.06.13-22f59a8"
+        "ref": "v2026.06.14-6579bf7"
       },
       "description": "Track-aware daily planning over GitHub issues. Shared tracks (git-synced .work-plan/) optionally pinned to a canonical plan branch (plan-branch; push-track promotes a private track to it), AI clustering (group/auto-triage), coverage, plan-status doc liveness with drift detection, batched GraphQL fetches. Includes a theme-aware, accessible VS Code viewer — sidebar tree with a visibility×tier exposure badge, Mermaid dependency graph, and a Plans view with confirm-gated frontmatter writes (verdict / acknowledge / drift-baseline), track↔plan links, fast-fail GitHub auth, and a gated GitHub issue-close."
     },
