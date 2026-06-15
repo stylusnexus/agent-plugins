@@ -17,16 +17,21 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Productivity",
-      "description": "Track-aware daily planning over GitHub issues. Shared tracks (git-synced .work-plan/) optionally pinned to a canonical plan branch (plan-branch; push-track promotes a private track to it), AI clustering (group/auto-triage), coverage, plan-status doc liveness with drift detection, batched GraphQL fetches, and dependency-aware next-up with per-track ordering presets. Includes a theme-aware, accessible VS Code viewer — sidebar tree with a visibility×tier exposure badge, a Mermaid dependency graph with GitHub-native blocked-by edges, per-issue in-progress badge/toggle, blocked-by/blocking dependency chips, next-up controls (Set Next-Up + Set Next-Up Order preset picker), and a Plans view with confirm-gated frontmatter writes (verdict / acknowledge / drift-baseline), track↔plan links, fast-fail GitHub auth, and a gated GitHub issue-close."
+      "description": "Track-aware daily planning over GitHub issues. Shared tracks (git-synced .work-plan/) optionally pinned to a canonical plan branch (plan-branch; push-track promotes a private track to it), AI clustering (group/auto-triage), coverage, plan-status doc liveness with drift detection, batched GraphQL fetches, and dependency-aware next-up with per-track ordering presets. Includes a theme-aware, accessible VS Code viewer \u2014 sidebar tree with a visibility\u00d7tier exposure badge, a Mermaid dependency graph with GitHub-native blocked-by edges, per-issue in-progress badge/toggle, blocked-by/blocking dependency chips, next-up controls (Set Next-Up + Set Next-Up Order preset picker), and a Plans view with confirm-gated frontmatter writes (verdict / acknowledge / drift-baseline), track\u2194plan links, fast-fail GitHub auth, and a gated GitHub issue-close."
     },
     {
       "name": "defect-scan",
       "source": {
-        "source": "github",
-        "repo": "stylusnexus/defect-scan",
-        "ref": "v1.1.1"
+        "source": "url",
+        "url": "https://github.com/stylusnexus/defect-scan.git",
+        "ref": "v1.5.0"
       },
-      "description": "Language-aware defect hunter: detect stack -> triage by risk -> run real analyzers (ruff/mypy, tsc/eslint) -> reason with 9 battle-tested patterns (billing, key-drift, audience-leak, subprocess-hygiene, partial-fetch, pagination-cap, mock-only-tests, ETL-data-loss, SQL-schema-drift) -> report (confidence-tiered, gh-issue-correlated) -> fix. Depth-capped, project-local tool resolution."
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools",
+      "description": "Language-aware defect hunter for Claude Code AND Codex. Detect stack -> triage by risk -> run real analyzers (ruff/mypy, tsc/eslint, rubocop/brakeman, +optional semgrep/gitleaks/bandit) -> reason with battle-tested patterns + 14 language profiles (python, react-typescript, ruby, go, csharp, java, kotlin, swift, php, rust, yaml, shell, dart) -> report (confidence-tiered, severity/priority, gh-issue-correlated) -> optionally file deduped/labeled issues (--file-issues), apply safe fixes (--fix), or second-opinion via Codex (--cross-model). Runs on macOS/Linux/Windows; model-free eval harness; extensible drop-in profiles/patterns."
     }
   ]
 }
