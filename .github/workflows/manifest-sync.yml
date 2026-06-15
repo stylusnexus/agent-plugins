@@ -1,0 +1,16 @@
+name: manifest-sync
+# The Claude (.claude-plugin) and Codex (.agents) marketplace manifests must stay in
+# sync on every release — a drift hid defect-scan from Codex once. Gate it.
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+      - name: Manifests in sync (plugins + refs)
+        run: sh scripts/check-manifest-sync.sh
