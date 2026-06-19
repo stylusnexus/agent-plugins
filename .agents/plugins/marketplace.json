@@ -24,7 +24,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/stylusnexus/defect-scan.git",
-        "ref": "v1.9.0"
+        "ref": "v1.9.1"
       },
       "policy": {
         "installation": "AVAILABLE",
