@@ -24,14 +24,14 @@
       "source": {
         "source": "url",
         "url": "https://github.com/stylusnexus/defect-scan.git",
-        "ref": "v1.9.1"
+        "ref": "v1.10.0"
       },
       "policy": {
         "installation": "AVAILABLE",
         "authentication": "ON_INSTALL"
       },
       "category": "Developer Tools",
-      "description": "Language-aware defect hunter for Claude Code AND Codex. Detect stack -> triage by risk -> run real analyzers (ruff/mypy, tsc/eslint, rubocop/brakeman, +optional semgrep/gitleaks/bandit) -> reason with battle-tested patterns + 14 language profiles (python, react-typescript, ruby, go, csharp, java, kotlin, swift, php, rust, yaml, shell, dart) -> report (confidence-tiered, severity/priority, gh-issue-correlated) -> optionally file deduped/labeled issues (--file-issues), apply safe fixes (--fix), or second-opinion via Codex (--cross-model). Runs on macOS/Linux/Windows; model-free eval harness; extensible drop-in profiles/patterns."
+      "description": "Language-aware defect hunter for Claude Code AND Codex. Detect stack -> triage by risk -> run real analyzers (ruff/mypy, tsc/eslint, rubocop/brakeman, +optional semgrep/gitleaks/bandit) -> reason with battle-tested patterns + 15 language profiles (python, react-typescript, ruby, go, csharp, java, kotlin, swift, objc, php, rust, yaml, shell, dart) -> report (confidence-tiered, severity/priority, gh-issue-correlated) -> optionally file deduped/labeled issues (--file-issues), apply safe fixes (--fix), or second-opinion via Codex (--cross-model). Runs on macOS/Linux/Windows; model-free eval harness; extensible drop-in profiles/patterns."
     }
   ]
 }
