@@ -19,7 +19,7 @@
       "source": {
         "source": "github",
         "repo": "stylusnexus/defect-scan",
-        "ref": "v1.12.0"
+        "ref": "v1.13.0"
       },
       "description": "Language-aware defect hunter for Claude Code AND Codex. Detect stack -> triage by risk -> run real analyzers (ruff/mypy, tsc/eslint, rubocop/brakeman, +optional semgrep/gitleaks/bandit) -> reason with battle-tested patterns + 15 language profiles (python, react-typescript, ruby, go, csharp, java, kotlin, swift, objc, php, rust, yaml, shell, dart) -> report (confidence-tiered, severity/priority, gh-issue-correlated) -> optionally file deduped/labeled issues (--file-issues), apply safe fixes (--fix), or second-opinion via Codex (--cross-model). Runs on macOS/Linux/Windows (WSL/Git-Bash or PowerShell shim); model-free eval harness; extensible drop-in profiles/patterns."
     }
