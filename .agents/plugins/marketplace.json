@@ -10,7 +10,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/stylusnexus/work-plan-toolkit.git",
-        "ref": "v2026.07.19-8d14b70"
+        "ref": "v2026.07.19-10ab480"
       },
       "policy": {
         "installation": "AVAILABLE",
