@@ -4,9 +4,12 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents. Plugins here share one body of skills + a pure-Python CLI,
-and install natively into **Claude Code** and **OpenAI Codex**. Other agents (Cursor, Copilot, plain
-terminal) install the same toolkit via its script.
+A plugin marketplace for AI coding agents — **8 plugins, 31 skills**. Installs natively into **Claude
+Code** and **OpenAI Codex**, and reaches roughly seventy more agents (Cursor, Copilot, Gemini CLI,
+Windsurf, Zed, opencode, Cline, Continue, Hermes and others) through the Skills CLI.
+
+Every skill is repo-agnostic: it detects your repository's conventions rather than assuming its own,
+and defers to a repo-local version of itself when your project defines one.
 
 > ⚠️ **Trust before you install.** Plugins run code on your machine. Review a plugin's source before
 > installing it. Everything here is open-source — links are in the table below.
@@ -19,16 +22,39 @@ terminal) install the same toolkit via its script.
 
 ## Plugins
 
-| Plugin | What it does | Source |
-|---|---|---|
-| **release-ops** | Four skills for getting a release out the door. `version-check` reads the commits since the last tag and recommends the semver bump; `pr-wait` blocks on CI checks for an open PR and optionally merges on green; `npm-publish` runs the full publish path — preflight, bump, changelog, git push, publish, verify — and rotates an expired npm token through the browser instead of prompting for a one-time code; `dependency-upgrade` treats bulk bumps as a gated pipeline with type checks and tests between batches. | [`plugins/release-ops`](./plugins/release-ops) |
-| **second-opinion** | Five skills on one premise: a single model's confident answer is not evidence. `llm-council` runs a question past five advisors who analyse independently before synthesis; `plan-arbiter` compares, judges, and merges competing plans; `spec-review` checks a spec's claims against the real codebase before code embeds a wrong data-model assumption; `agent-watchdog` audits another agent's work from its session or transcript; `debug-feedback-loop` builds a deterministic pass/fail signal for a bug **before** hypothesising. | [`plugins/second-opinion`](./plugins/second-opinion) |
-| **hardening** | Five pre-launch gates for the unglamorous security work. `rate-limit-audit` inventories every paid-API and auth endpoint and checks each has a limit; `exposure-scan` checks installed packages (npm, Go, PyPI, RubyGems, MCP servers) against threat-intelligence catalogs for known-compromised releases; `auth-hardening` audits session, cookie, CSRF and OAuth-scope config; `webhook-reliability` covers signature verification, idempotency, retries and dead letters; `privacy-audit` inventories what user data is collected and where it lands, checked against the code rather than the policy. | [`plugins/hardening`](./plugins/hardening) |
-| **reporting-comms** | Six skills for the last mile — turning agent output into something a person wants to read. `html` renders plans, reviews, and research as a self-contained HTML artifact; `visual-plan` and `visual-recap` turn text plans and git diffs into interactive documents with diagrams, file maps, and annotated code; `recap-table` produces before/after and what-changed tables; `writing-clearly-and-concisely` and `human-writing` tighten the prose itself and strip AI tells. | [`plugins/reporting-comms`](./plugins/reporting-comms) |
-| **codebase-intel** | Four skills for understanding a codebase before changing it. `codebase-health` reports complexity hotspots, churn, and bus factor; `codebase-architecture-scanner` generates layered architecture docs with C4 and sequence diagrams; `grill-with-docs` challenges a plan against the existing domain model; `read-the-damn-docs` grounds third-party API behavior in current documentation instead of recall. | [`plugins/codebase-intel`](./plugins/codebase-intel) |
-| **ship-pipeline** | Seven repo-agnostic skills for the ship half of the development loop — `start-issue` (full-issue intake, prior-art check, baseline, branch naming), `db-truth` (ground schema claims in the live database; confirm migrations landed), `prove-it` (end-of-work evidence protocol that emits a claim→command→result table and labels anything unprovable **UNVERIFIED**), `review-merge-pipeline` (verify → review → fix → commit → push → PR → merge, detecting the integration branch instead of assuming one), `deploy` (production promotion with merge strategy inferred from history), `db-migration-safety` (expand-contract, idempotent SQL, batched backfills), and `backup-verify` (confirms backups exist **and restore**). Every skill defers to a repo-local version of itself when the project defines one. | [`plugins/ship-pipeline`](./plugins/ship-pipeline) |
-| **defect-scan** | Language-aware defect hunter for Claude Code and Codex. Detects the stack, triages files by risk, runs the real analyzers (ruff/mypy, tsc/eslint, rubocop/brakeman, optionally semgrep/gitleaks/bandit), then reasons over 15 language profiles and reports findings in confidence tiers — correlated against existing GitHub issues, with optional issue filing (`--file-issues`), safe autofix (`--fix`), and a cross-model second opinion (`--cross-model`). | [stylusnexus/defect-scan](https://github.com/stylusnexus/defect-scan) |
-| **work-plan** | Track-aware daily planning over GitHub issues — shared tracks (git-synced `.work-plan/`, optionally pinned to a canonical `plan-branch`; `push-track` promotes a private track to it), AI clustering (`group`/`auto-triage`), coverage, `plan-status` doc liveness, and **dependency-aware next-up**. Pure-Python-stdlib CLI + an accessible VS Code viewer with a **repo-qualified dependency graph**, per-issue in-progress/dependency controls, proactive auto-slot suggestions, and a Plans view with confirm-gated writes and **repository-contained plan links**. Shared-tier paths are contained, plan stamping is hard-link safe, and script installers preserve unmanaged or modified launchers through content-verified ownership. | [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit) |
+### Skill packs
+
+Six packs, grouped by the job rather than the technology. Each pack's README carries a
+**rule-ownership table** so the skills inside it don't compete for the same trigger.
+
+| Pack | # | What it's for | Skills |
+|---|---|---|---|
+| [**ship-pipeline**](./plugins/ship-pipeline) | 7 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote. | `start-issue` `db-truth` `prove-it` `review-merge-pipeline` `deploy` `db-migration-safety` `backup-verify` |
+| [**reporting-comms**](./plugins/reporting-comms) | 6 | The last mile — turning agent output into something a person wants to read. Covers both format and prose. | `html` `visual-plan` `visual-recap` `recap-table` `writing-clearly-and-concisely` `human-writing` |
+| [**second-opinion**](./plugins/second-opinion) | 5 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` |
+| [**hardening**](./plugins/hardening) | 5 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` |
+| [**release-ops**](./plugins/release-ops) | 4 | Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases. | `version-check` `pr-wait` `npm-publish` `dependency-upgrade` |
+| [**codebase-intel**](./plugins/codebase-intel) | 4 | Building an accurate picture of a codebase, and the libraries it leans on, before changing it. | `codebase-health` `codebase-architecture-scanner` `grill-with-docs` `read-the-damn-docs` |
+
+### Tool plugins
+
+Two plugins ship executable code rather than markdown, so they live in their own repositories.
+
+| Plugin | What it does |
+|---|---|
+| [**work-plan**](https://github.com/stylusnexus/work-plan-toolkit) | Track-aware daily planning over GitHub issues — shared git-synced tracks optionally pinned to a canonical plan branch, AI clustering, coverage, doc liveness, and dependency-aware next-up. Pure-stdlib Python CLI plus an accessible VS Code viewer with a repo-qualified dependency graph and confirm-gated writes. |
+| [**defect-scan**](https://github.com/stylusnexus/defect-scan) | Language-aware defect hunter. Detects the stack, triages by risk, runs the real analyzers (ruff/mypy, tsc/eslint, rubocop/brakeman, optionally semgrep/gitleaks/bandit), then reports in confidence tiers across 15 language profiles — correlated against existing issues, with optional issue filing, safe autofix, and a cross-model second opinion. |
+
+### Where to start
+
+If you take exactly one, take **ship-pipeline** — it's the daily loop, and the rest is optional around
+it. **reporting-comms** has the broadest appeal outside any one workflow. **hardening** and
+**second-opinion** are situational but high-value when they apply. **release-ops** and
+**codebase-intel** are deliberately narrow.
+
+These packs have opinions — evidence before "done", detect rather than assume, one rule per owner.
+That's useful if you share them and friction if you don't; each README states the opinion plainly
+rather than burying it.
 
 ---
 
@@ -45,6 +71,7 @@ terminal) install the same toolkit via its script.
 /plugin install hardening@stylus-nexus
 /plugin install release-ops@stylus-nexus
 /plugin install work-plan@stylus-nexus
+/plugin install defect-scan@stylus-nexus
 ```
 
 …or browse interactively: `/plugin` → **Discover**. Commands install **namespaced** under the plugin:
@@ -72,6 +99,7 @@ codex plugin add second-opinion@stylus-nexus
 codex plugin add hardening@stylus-nexus
 codex plugin add release-ops@stylus-nexus
 codex plugin add work-plan@stylus-nexus
+codex plugin add defect-scan@stylus-nexus
 ```
 
 Invoke skills the Codex way (`@work-plan` / `/skills`). Codex reads the dedicated
@@ -111,19 +139,20 @@ Cursor/Copilot prompt-engineering shims, see the toolkit's
 
 ## Compatibility at a glance
 
-**Skill-only plugins** (ship-pipeline, reporting-comms, codebase-intel, second-opinion, hardening, release-ops) reach every agent the Skills CLI supports.
-**work-plan** additionally ships a Python CLI + VS Code viewer, so it needs its own installer off the plugin path.
+The **six skill packs** are plain markdown, so they reach every agent the Skills CLI supports.
+**work-plan** and **defect-scan** ship executable code and install from their own repositories.
 
-| Agent | ship-pipeline | work-plan | Invoke as |
+| Agent | Skill packs | Tool plugins | Invoke as |
 |---|---|---|---|
-| **Claude Code** (CLI + VS Code/JetBrains ext) | `/plugin install ship-pipeline@stylus-nexus` | `/plugin install work-plan@stylus-nexus` | `/ship-pipeline:prove-it` · `/work-plan:brief` |
-| **Codex** (CLI + app + IDE ext) | `codex plugin add ship-pipeline@stylus-nexus` | `codex plugin add work-plan@stylus-nexus` | `@ship-pipeline` / `/skills` |
+| **Claude Code** (CLI · VS Code · JetBrains) | `/plugin install <pack>@stylus-nexus` | `/plugin install work-plan@stylus-nexus` | `/ship-pipeline:prove-it` · `/work-plan:brief` |
+| **Codex** (CLI · app · IDE) | `codex plugin add <pack>@stylus-nexus` | `codex plugin add work-plan@stylus-nexus` | `@ship-pipeline` · `/skills` |
 | **Cursor** | `npx skills add stylusnexus/agent-plugins` | clone + `install.sh` + `.cursorrules` shim | `/prove-it` · `python3 …/work_plan.py` |
 | **GitHub Copilot** | `npx skills add stylusnexus/agent-plugins` | clone + `install.sh` + copilot-instructions shim | `/prove-it` · direct CLI |
 | **Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · Goose · Warp · Amp · Junie · Roo · Qwen Code · Trae · Aider · +more** | `npx skills add stylusnexus/agent-plugins` | — | `/prove-it` |
 | **Any other / terminal** | `npx skills add stylusnexus/agent-plugins -a universal` | clone + `install.sh` | `/prove-it` · direct CLI |
 
-Update skill-only installs with `npx skills update`; plugin installs with `/plugin update` or the Codex equivalent.
+Update skill-pack installs with `npx skills update`; plugin installs with `/plugin update` or the
+Codex equivalent.
 
 ---
 
