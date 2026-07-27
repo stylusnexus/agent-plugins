@@ -6,6 +6,11 @@
   "description": "Stylus Nexus plugins for Claude Code + Codex.",
   "plugins": [
     {
+      "name": "release-ops",
+      "source": "./plugins/release-ops",
+      "description": "Four skills for getting a release out the door. npm-publish runs the full path -- preflight checks, semver bump, changelog entry, git push, publish -- and rotates an expired npm token through the browser instead of stopping to ask for a one-time code. version-check reads the commits since the last tag and recommends the bump. pr-wait blocks on CI checks and optionally merges when they pass. dependency-upgrade treats bulk bumps as a gated pipeline rather than a single update command, running type checks, tests, and E2E between batches."
+    },
+    {
       "name": "second-opinion",
       "source": "./plugins/second-opinion",
       "description": "Five skills built on one premise: a single model's confident answer is not evidence. llm-council runs a question through five advisors who analyse independently before synthesis; plan-arbiter compares, judges, and merges competing plans rather than picking one on vibes; spec-review checks a spec's claims against the real codebase before code is written, catching wrong data-model assumptions early; agent-watchdog audits another agent's work from its session or transcript; and debug-feedback-loop builds a deterministic pass/fail signal for a bug BEFORE hypothesising about causes."
