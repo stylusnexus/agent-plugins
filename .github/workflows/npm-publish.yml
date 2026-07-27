@@ -1,0 +1,69 @@
+name: npm-publish
+# Publishes @stylusnexus/agent-plugins from CI, so publishing never depends on an
+# interactive terminal or a one-time password. Mirrors the approach already used
+# by stylusnexus/work-plan-toolkit.
+#
+# One-time setup:
+#   1. npmjs.com -> Access Tokens -> Generate New Token -> Classic -> Automation
+#      (Automation tokens are built for CI and are not prompted for an OTP.)
+#   2. gh secret set NPM_TOKEN --repo stylusnexus/agent-plugins
+#      (paste the token at the prompt so it never lands in a file or a transcript)
+#
+# Run it from the Actions tab. dry_run is ON by default: it packs and validates
+# without publishing, so the first run cannot surprise you.
+#
+# Later upgrade: once the package exists on npm, this can move to trusted
+# publishing (OIDC) and drop the token entirely -- npm cannot create a package for
+# the first time over OIDC, which is why v1.0.0 goes out with a token.
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Pack and validate only — do not publish"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: validate · pack · publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      # This repository ships markdown, not code — the gates are the test suite.
+      - name: Manifests in sync
+        run: sh scripts/check-manifest-sync.sh
+
+      - name: Skills loadable
+        run: python3 scripts/check-skills.py
+
+      - name: Pack and report contents
+        run: |
+          npm pack --dry-run
+          VER="$(node -p "require('./package.json').version")"
+          NAME="$(node -p "require('./package.json').name")"
+          SKILLS="$(find plugins -name SKILL.md | wc -l | tr -d ' ')"
+          echo "### $NAME@$VER" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- $SKILLS skills across $(ls plugins | wc -l | tr -d ' ') packs" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish
+        if: ${{ !inputs.dry_run }}
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Dry run notice
+        if: ${{ inputs.dry_run }}
+        run: echo "dry_run was true — nothing published. Re-run with dry_run unchecked to publish." >> "$GITHUB_STEP_SUMMARY"
