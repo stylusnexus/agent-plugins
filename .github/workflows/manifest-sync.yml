@@ -1,6 +1,9 @@
 name: manifest-sync
-# The Claude (.claude-plugin) and Codex (.agents) marketplace manifests must stay in
-# sync on every release — a drift hid defect-scan from Codex once. Gate it.
+# Two gates, both for defects that fail SILENTLY in the wild:
+#   1. the Claude (.claude-plugin) and Codex (.agents) manifests drifting apart —
+#      that once hid defect-scan from Codex entirely.
+#   2. a SKILL.md that no harness can load — an unquoted ": " in frontmatter drops
+#      the whole block, so the skill has no description and never triggers.
 on:
   pull_request:
   push:
@@ -14,3 +17,5 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y jq
       - name: Manifests in sync (plugins + refs)
         run: sh scripts/check-manifest-sync.sh
+      - name: Skills loadable (frontmatter, filename case, no stale copies)
+        run: python3 scripts/check-skills.py
