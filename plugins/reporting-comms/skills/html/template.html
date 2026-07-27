@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--
+  Reading-first HTML artifact scaffold.
+  Adapt this for the chosen artifact type (explainer / code-review / decision / report / editor).
+  RULES: one self-contained file · inline CSS only · no network requests · no secrets.
+  Delete the sections you don't need. Keep the summary at the top.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artifact Title</title>
+<style>
+  :root {
+    --bg: #faf9f6;        /* warm off-white */
+    --surface: #ffffff;
+    --ink: #1c1c1a;       /* near-black */
+    --muted: #6b6b66;     /* secondary text */
+    --line: #e7e5df;      /* hairlines */
+    --accent: #c0633f;    /* muted terracotta — use sparingly */
+    --accent-soft: #f6e9e2;
+    --ok: #4d7c52;
+    --warn: #c0633f;
+    --radius: 12px;
+    --maxw: 820px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 48px 24px 96px; }
+  h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; line-height: 1.25; letter-spacing: -0.01em; }
+  h1 { font-size: 2rem; margin: 0 0 8px; }
+  h2 { font-size: 1.3rem; margin: 48px 0 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+  p { margin: 0 0 14px; }
+  a { color: var(--accent); }
+  .lede { color: var(--muted); font-size: 1.05rem; margin-bottom: 4px; }
+  .summary {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 20px 24px; margin: 24px 0 8px;
+  }
+  .summary strong { display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 16px 0; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+  .card h3 { margin-top: 0; }
+  .card .meta { font-size: 0.85rem; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.95rem; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  code, pre { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; }
+  code { background: #f0eee8; padding: 1px 5px; border-radius: 4px; font-size: 0.9em; }
+  pre { background: #1c1c1a; color: #f3f1ea; padding: 16px; border-radius: var(--radius); overflow-x: auto; font-size: 0.85rem; line-height: 1.55; }
+  pre code { background: none; padding: 0; color: inherit; }
+  .pill { display: inline-block; font-size: 0.72rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .pill.block { background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent); }
+  .pill.nit { background: #f1f0ec; color: var(--muted); border: 1px solid var(--line); }
+  .pill.ok { background: #e8f0e9; color: var(--ok); border: 1px solid #cfe0d2; }
+  ul.check { list-style: none; padding: 0; }
+  ul.check li { padding: 6px 0 6px 28px; position: relative; }
+  ul.check li::before { content: "☐"; position: absolute; left: 0; color: var(--accent); }
+  .diagram { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; margin: 16px 0; text-align: center; }
+  .toolbar { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+  button { font: inherit; font-size: 0.85rem; cursor: pointer; background: var(--ink); color: #fff; border: 0; padding: 8px 14px; border-radius: 8px; }
+  button.ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .foot { margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+  @media (max-width: 600px) { .wrap { padding: 32px 16px 64px; } h1 { font-size: 1.6rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Artifact Title</h1>
+  <p class="lede">One-line description of what this is and who it's for.</p>
+
+  <!-- SUMMARY: keep this. The reader should get the gist from the first screen. -->
+  <div class="summary">
+    <strong>Summary</strong>
+    <p>2–4 sentences: what this covers, the key takeaway, and what to do next.</p>
+  </div>
+
+  <!-- Example: cards for "important files" / options / findings -->
+  <h2>Section</h2>
+  <div class="cards">
+    <div class="card"><h3>Item</h3><p class="meta">role / path</p><p>What it does.</p></div>
+    <div class="card"><h3>Item</h3><p class="meta">role / path</p><p>What it does.</p></div>
+  </div>
+
+  <!-- Example: comparison / risk table -->
+  <h2>Comparison</h2>
+  <table>
+    <tr><th>Thing</th><th>Risk</th><th>Notes</th></tr>
+    <tr><td>file / option</td><td><span class="pill block">blocking</span></td><td>why</td></tr>
+    <tr><td>file / option</td><td><span class="pill nit">nit</span></td><td>why</td></tr>
+    <tr><td>file / option</td><td><span class="pill ok">ok</span></td><td>why</td></tr>
+  </table>
+
+  <!-- Example: inline SVG diagram (boxes + arrows). No remote images, ever. -->
+  <h2>Flow</h2>
+  <div class="diagram">
+    <svg viewBox="0 0 520 90" width="100%" style="max-width:520px" role="img" aria-label="A to B to C flow">
+      <g fill="none" stroke="#1c1c1a" stroke-width="1.5">
+        <rect x="10" y="25" width="120" height="40" rx="8" fill="#fff"/>
+        <rect x="200" y="25" width="120" height="40" rx="8" fill="#fff"/>
+        <rect x="390" y="25" width="120" height="40" rx="8" fill="#fff"/>
+        <line x1="130" y1="45" x2="200" y2="45"/><polygon points="200,45 190,40 190,50" fill="#1c1c1a"/>
+        <line x1="320" y1="45" x2="390" y2="45"/><polygon points="390,45 380,40 380,50" fill="#1c1c1a"/>
+      </g>
+      <g fill="#1c1c1a" font-size="13" text-anchor="middle" font-family="Georgia,serif">
+        <text x="70" y="50">Input</text><text x="260" y="50">Process</text><text x="450" y="50">Output</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Example: code block -->
+  <h2>Commands</h2>
+  <pre><code>npm install
+npm run dev</code></pre>
+
+  <!-- Example: checklist -->
+  <h2>Checklist</h2>
+  <ul class="check"><li>First safe step</li><li>Second step</li><li>Verify</li></ul>
+
+  <!-- Optional: export buttons (local only, no network). Remove if not needed. -->
+  <h2>Export</h2>
+  <div class="toolbar">
+    <button onclick="copyMarkdown()">Copy as Markdown</button>
+  </div>
+  <details><summary>Markdown source</summary>
+    <pre id="md"><code># Artifact Title
+
+Summary goes here.</code></pre>
+  </details>
+
+  <div class="foot">Generated as a local, self-contained artifact · no network requests.</div>
+</div>
+
+<script>
+  // Inline, local-only. Never add network calls.
+  function copyMarkdown() {
+    const md = document.getElementById('md').innerText;
+    navigator.clipboard.writeText(md);
+  }
+</script>
+</body>
+</html>
