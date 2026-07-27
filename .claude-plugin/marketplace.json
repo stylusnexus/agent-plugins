@@ -6,6 +6,16 @@
   "description": "Stylus Nexus plugins for Claude Code + Codex.",
   "plugins": [
     {
+      "name": "second-opinion",
+      "source": "./plugins/second-opinion",
+      "description": "Five skills built on one premise: a single model's confident answer is not evidence. llm-council runs a question through five advisors who analyse independently before synthesis; plan-arbiter compares, judges, and merges competing plans rather than picking one on vibes; spec-review checks a spec's claims against the real codebase before code is written, catching wrong data-model assumptions early; agent-watchdog audits another agent's work from its session or transcript; and debug-feedback-loop builds a deterministic pass/fail signal for a bug BEFORE hypothesising about causes."
+    },
+    {
+      "name": "hardening",
+      "source": "./plugins/hardening",
+      "description": "Five pre-launch security gates covering the unglamorous failures that reach production. rate-limit-audit inventories every endpoint calling a paid API and every auth endpoint, then checks each actually has a limit; exposure-scan checks installed packages across npm, Go, PyPI, RubyGems and MCP servers against threat-intelligence catalogs for known-compromised releases; auth-hardening is a session, cookie, CSRF and OAuth-scope audit; webhook-reliability covers signature verification, idempotency, retry and dead letters in both directions; and privacy-audit inventories exactly what user data is collected and where it lands, checked against the code rather than the policy."
+    },
+    {
       "name": "reporting-comms",
       "source": "./plugins/reporting-comms",
       "description": "Six skills for turning agent output into something a person actually wants to read. html renders plans, reviews, research, and comparisons as a single self-contained HTML artifact; visual-plan and visual-recap turn text plans and git diffs into interactive documents with diagrams, file maps, and annotated code; recap-table produces before/after and what-changed tables on demand; and writing-clearly-and-concisely and human-writing tighten the prose itself, stripping AI tells, corporate register, and padding."
