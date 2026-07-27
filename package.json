@@ -1,0 +1,50 @@
+{
+  "name": "@stylusnexus/agent-plugins",
+  "version": "1.0.0",
+  "description": "Agent skill packs for Claude Code, Codex, and ~70 other coding agents — 6 packs, 31 repo-agnostic skills covering the ship loop, reporting, second opinions, hardening, releases, and codebase intelligence.",
+  "keywords": [
+    "claude-code",
+    "codex",
+    "agent-skills",
+    "skills",
+    "ai-agents",
+    "plugin-marketplace",
+    "cursor",
+    "github-copilot",
+    "developer-tools"
+  ],
+  "homepage": "https://github.com/stylusnexus/agent-plugins#readme",
+  "bugs": {
+    "url": "https://github.com/stylusnexus/agent-plugins/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stylusnexus/agent-plugins.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Stylus Nexus",
+    "url": "https://github.com/stylusnexus"
+  },
+  "type": "module",
+  "bin": {
+    "agent-plugins": "bin/agent-plugins.mjs"
+  },
+  "files": [
+    "bin/",
+    "plugins/",
+    ".claude-plugin/",
+    ".agents/",
+    "scripts/check-skills.py",
+    "scripts/check-manifest-sync.sh"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "check": "sh scripts/check-manifest-sync.sh && python3 scripts/check-skills.py"
+  }
+}
