@@ -120,6 +120,14 @@ npx skills add stylusnexus/agent-plugins -a cursor -a github-copilot   # target 
 Skills arrive **un-namespaced** on this path, so they invoke as `/prove-it` rather than
 `/ship-pipeline:prove-it`. Update later with `npx skills update`.
 
+There is also an npm launcher, which forwards to the same Skills CLI and passes arguments through:
+
+```bash
+npx @stylusnexus/agent-plugins              # pick interactively
+npx @stylusnexus/agent-plugins --skill '*'  # install all of them
+npx @stylusnexus/agent-plugins --help
+```
+
 ### work-plan on agents without a plugin system
 
 Install the toolkit directly:
