@@ -21,7 +21,10 @@ terminal) install the same toolkit via its script.
 
 | Plugin | What it does | Source |
 |---|---|---|
+| **reporting-comms** | Six skills for the last mile — turning agent output into something a person wants to read. `html` renders plans, reviews, and research as a self-contained HTML artifact; `visual-plan` and `visual-recap` turn text plans and git diffs into interactive documents with diagrams, file maps, and annotated code; `recap-table` produces before/after and what-changed tables; `writing-clearly-and-concisely` and `human-writing` tighten the prose itself and strip AI tells. | [`plugins/reporting-comms`](./plugins/reporting-comms) |
+| **codebase-intel** | Four skills for understanding a codebase before changing it. `codebase-health` reports complexity hotspots, churn, and bus factor; `codebase-architecture-scanner` generates layered architecture docs with C4 and sequence diagrams; `grill-with-docs` challenges a plan against the existing domain model; `read-the-damn-docs` grounds third-party API behavior in current documentation instead of recall. | [`plugins/codebase-intel`](./plugins/codebase-intel) |
 | **ship-pipeline** | Seven repo-agnostic skills for the ship half of the development loop — `start-issue` (full-issue intake, prior-art check, baseline, branch naming), `db-truth` (ground schema claims in the live database; confirm migrations landed), `prove-it` (end-of-work evidence protocol that emits a claim→command→result table and labels anything unprovable **UNVERIFIED**), `review-merge-pipeline` (verify → review → fix → commit → push → PR → merge, detecting the integration branch instead of assuming one), `deploy` (production promotion with merge strategy inferred from history), `db-migration-safety` (expand-contract, idempotent SQL, batched backfills), and `backup-verify` (confirms backups exist **and restore**). Every skill defers to a repo-local version of itself when the project defines one. | [`plugins/ship-pipeline`](./plugins/ship-pipeline) |
+| **defect-scan** | Language-aware defect hunter for Claude Code and Codex. Detects the stack, triages files by risk, runs the real analyzers (ruff/mypy, tsc/eslint, rubocop/brakeman, optionally semgrep/gitleaks/bandit), then reasons over 15 language profiles and reports findings in confidence tiers — correlated against existing GitHub issues, with optional issue filing (`--file-issues`), safe autofix (`--fix`), and a cross-model second opinion (`--cross-model`). | [stylusnexus/defect-scan](https://github.com/stylusnexus/defect-scan) |
 | **work-plan** | Track-aware daily planning over GitHub issues — shared tracks (git-synced `.work-plan/`, optionally pinned to a canonical `plan-branch`; `push-track` promotes a private track to it), AI clustering (`group`/`auto-triage`), coverage, `plan-status` doc liveness, and **dependency-aware next-up**. Pure-Python-stdlib CLI + an accessible VS Code viewer with a **repo-qualified dependency graph**, per-issue in-progress/dependency controls, proactive auto-slot suggestions, and a Plans view with confirm-gated writes and **repository-contained plan links**. Shared-tier paths are contained, plan stamping is hard-link safe, and script installers preserve unmanaged or modified launchers through content-verified ownership. | [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit) |
 
 ---
@@ -33,6 +36,8 @@ terminal) install the same toolkit via its script.
 ```
 /plugin marketplace add stylusnexus/agent-plugins
 /plugin install ship-pipeline@stylus-nexus
+/plugin install reporting-comms@stylus-nexus
+/plugin install codebase-intel@stylus-nexus
 /plugin install work-plan@stylus-nexus
 ```
 
@@ -55,6 +60,8 @@ and its IDE extensions, so installing once covers all three surfaces.
 ```
 codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add ship-pipeline@stylus-nexus
+codex plugin add reporting-comms@stylus-nexus
+codex plugin add codebase-intel@stylus-nexus
 codex plugin add work-plan@stylus-nexus
 ```
 
@@ -63,7 +70,7 @@ Invoke skills the Codex way (`@work-plan` / `/skills`). Codex reads the dedicate
 
 ### Cursor · GitHub Copilot · Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · ~60 more
 
-Skill-only plugins (currently **ship-pipeline**) install anywhere via the
+Skill-only plugins (**ship-pipeline**, **reporting-comms**, **codebase-intel**) install anywhere via the
 [Skills CLI](https://github.com/vercel-labs/skills), which detects the coding agents you already
 have and writes to each one's skills directory:
 
@@ -95,7 +102,7 @@ Cursor/Copilot prompt-engineering shims, see the toolkit's
 
 ## Compatibility at a glance
 
-**Skill-only plugins** (ship-pipeline) reach every agent the Skills CLI supports.
+**Skill-only plugins** (ship-pipeline, reporting-comms, codebase-intel) reach every agent the Skills CLI supports.
 **work-plan** additionally ships a Python CLI + VS Code viewer, so it needs its own installer off the plugin path.
 
 | Agent | ship-pipeline | work-plan | Invoke as |
@@ -120,11 +127,16 @@ agent-plugins/
 ├── .agents/plugins/
 │   └── marketplace.json     # Codex index    (source: local+path, or url + policy + category)
 ├── plugins/                 # in-repo plugins
-│   └── ship-pipeline/
-│       ├── .claude-plugin/plugin.json
-│       ├── .codex-plugin/plugin.json   # Codex reads its own manifest dir
-│       ├── skills/<name>/SKILL.md
-│       └── README.md
+│   ├── ship-pipeline/
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── .codex-plugin/plugin.json   # Codex reads its own manifest dir
+│   │   ├── skills/<name>/SKILL.md
+│   │   └── README.md
+│   ├── reporting-comms/
+│   └── codebase-intel/
+├── scripts/
+│   ├── check-manifest-sync.sh   # the two indexes must agree
+│   └── check-skills.py          # every SKILL.md must actually load
 ├── LICENSE
 └── README.md
 ```

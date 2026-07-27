@@ -1,0 +1,37 @@
+{
+  "name": "reporting-comms",
+  "version": "1.0.0",
+  "description": "Six skills for turning agent output into something a person actually wants to read. html renders plans, reviews, research, and comparisons as a single self-contained HTML artifact; visual-plan and visual-recap turn text plans and git diffs into interactive documents with diagrams, file maps, and annotated code; recap-table produces before/after and what-changed tables on demand; and writing-clearly-and-concisely and human-writing tighten the prose itself, stripping AI tells, corporate register, and padding.",
+  "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/reporting-comms",
+  "repository": "https://github.com/stylusnexus/agent-plugins",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "reporting",
+    "visualization",
+    "html",
+    "diagrams",
+    "writing",
+    "summaries",
+    "code-review"
+  ],
+  "author": {
+    "name": "Stylus Nexus",
+    "url": "https://github.com/stylusnexus"
+  },
+  "interface": {
+    "displayName": "Reporting & Comms",
+    "shortDescription": "Make agent output readable by humans",
+    "longDescription": "Six skills for turning agent output into something a person actually wants to read. html renders plans, reviews, research, and comparisons as a single self-contained HTML artifact; visual-plan and visual-recap turn text plans and git diffs into interactive documents with diagrams, file maps, and annotated code; recap-table produces before/after and what-changed tables on demand; and writing-clearly-and-concisely and human-writing tighten the prose itself, stripping AI tells, corporate register, and padding.",
+    "developerName": "Stylus Nexus",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Renders reports and reviews as self-contained HTML artifacts",
+      "Turns text plans into interactive visual plans with diagrams and file maps",
+      "Turns a PR, branch, or diff into a visual recap with annotated changes",
+      "Produces before/after and what-changed comparison tables",
+      "Rewrites prose to remove AI-generated patterns and padding"
+    ],
+    "websiteURL": "https://github.com/stylusnexus/agent-plugins"
+  }
+}
