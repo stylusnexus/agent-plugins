@@ -6,6 +6,11 @@
   "description": "Stylus Nexus plugins for Claude Code + Codex.",
   "plugins": [
     {
+      "name": "ship-pipeline",
+      "source": "./plugins/ship-pipeline",
+      "description": "Seven repo-agnostic skills for the ship half of the development loop. start-issue (full-issue intake including comments, prior-art check, baseline capture, branch naming), db-truth (ground schema claims in the live database before designing against them; confirm migrations actually landed after applying), prove-it (end-of-work evidence protocol — discovers what CI actually gates, runs both static gates, checks threaded values at their terminus, performs one real persistence round-trip, and emits a claim→command→result table where anything unprovable is labeled UNVERIFIED rather than assumed), review-merge-pipeline (verify → review → fix → commit → push → PR → merge in one shot, detecting the repo's integration branch instead of assuming one), deploy (production promotion with merge strategy inferred from repository history), db-migration-safety (expand-contract sequencing, idempotent SQL, batched backfills), and backup-verify (confirms backups exist AND actually restore, via a scratch branch with smoke queries and timestamped evidence). Every skill defers to a repo-local version of itself when the project defines one."
+    },
+    {
       "name": "work-plan",
       "source": {
         "source": "github",

@@ -21,6 +21,7 @@ terminal) install the same toolkit via its script.
 
 | Plugin | What it does | Source |
 |---|---|---|
+| **ship-pipeline** | Seven repo-agnostic skills for the ship half of the development loop — `start-issue` (full-issue intake, prior-art check, baseline, branch naming), `db-truth` (ground schema claims in the live database; confirm migrations landed), `prove-it` (end-of-work evidence protocol that emits a claim→command→result table and labels anything unprovable **UNVERIFIED**), `review-merge-pipeline` (verify → review → fix → commit → push → PR → merge, detecting the integration branch instead of assuming one), `deploy` (production promotion with merge strategy inferred from history), `db-migration-safety` (expand-contract, idempotent SQL, batched backfills), and `backup-verify` (confirms backups exist **and restore**). Every skill defers to a repo-local version of itself when the project defines one. | [`plugins/ship-pipeline`](./plugins/ship-pipeline) |
 | **work-plan** | Track-aware daily planning over GitHub issues — shared tracks (git-synced `.work-plan/`, optionally pinned to a canonical `plan-branch`; `push-track` promotes a private track to it), AI clustering (`group`/`auto-triage`), coverage, `plan-status` doc liveness, and **dependency-aware next-up**. Pure-Python-stdlib CLI + an accessible VS Code viewer with a **repo-qualified dependency graph**, per-issue in-progress/dependency controls, proactive auto-slot suggestions, and a Plans view with confirm-gated writes and **repository-contained plan links**. Shared-tier paths are contained, plan stamping is hard-link safe, and script installers preserve unmanaged or modified launchers through content-verified ownership. | [stylusnexus/work-plan-toolkit](https://github.com/stylusnexus/work-plan-toolkit) |
 
 ---
@@ -31,6 +32,7 @@ terminal) install the same toolkit via its script.
 
 ```
 /plugin marketplace add stylusnexus/agent-plugins
+/plugin install ship-pipeline@stylus-nexus
 /plugin install work-plan@stylus-nexus
 ```
 
@@ -52,13 +54,29 @@ and its IDE extensions, so installing once covers all three surfaces.
 
 ```
 codex plugin marketplace add stylusnexus/agent-plugins
+codex plugin add ship-pipeline@stylus-nexus
 codex plugin add work-plan@stylus-nexus
 ```
 
 Invoke skills the Codex way (`@work-plan` / `/skills`). Codex reads the dedicated
 `.agents/plugins/marketplace.json` index (it can't parse Claude's marketplace source format).
 
-### Cursor / GitHub Copilot / plain terminal  (no plugin system)
+### Cursor · GitHub Copilot · Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · ~60 more
+
+Skill-only plugins (currently **ship-pipeline**) install anywhere via the
+[Skills CLI](https://github.com/vercel-labs/skills), which detects the coding agents you already
+have and writes to each one's skills directory:
+
+```bash
+npx skills add stylusnexus/agent-plugins                  # pick interactively
+npx skills add stylusnexus/agent-plugins --skill '*'      # take everything
+npx skills add stylusnexus/agent-plugins -a cursor -a github-copilot   # target specific agents
+```
+
+Skills arrive **un-namespaced** on this path, so they invoke as `/prove-it` rather than
+`/ship-pipeline:prove-it`. Update later with `npx skills update`.
+
+### work-plan on agents without a plugin system
 
 Install the toolkit directly:
 
@@ -77,13 +95,19 @@ Cursor/Copilot prompt-engineering shims, see the toolkit's
 
 ## Compatibility at a glance
 
-| Agent | Install | Invoke as | Update |
+**Skill-only plugins** (ship-pipeline) reach every agent the Skills CLI supports.
+**work-plan** additionally ships a Python CLI + VS Code viewer, so it needs its own installer off the plugin path.
+
+| Agent | ship-pipeline | work-plan | Invoke as |
 |---|---|---|---|
-| **Claude Code** (CLI + VS Code/JetBrains ext) | `/plugin install work-plan@stylus-nexus` | `/work-plan:brief` … | `/plugin update` |
-| **Codex** (CLI + app + IDE ext) | `codex plugin add work-plan@stylus-nexus` | `@work-plan` / `/skills` | `codex plugin` upgrade |
-| **Cursor** | clone + `install.sh` + `.cursorrules` shim | `python3 …/work_plan.py` (alias `wp`) | re-run installer |
-| **GitHub Copilot** | clone + `install.sh` + copilot-instructions shim | direct CLI | re-run installer |
-| **Any other / terminal** | clone + `install.sh` | direct CLI | re-run installer |
+| **Claude Code** (CLI + VS Code/JetBrains ext) | `/plugin install ship-pipeline@stylus-nexus` | `/plugin install work-plan@stylus-nexus` | `/ship-pipeline:prove-it` · `/work-plan:brief` |
+| **Codex** (CLI + app + IDE ext) | `codex plugin add ship-pipeline@stylus-nexus` | `codex plugin add work-plan@stylus-nexus` | `@ship-pipeline` / `/skills` |
+| **Cursor** | `npx skills add stylusnexus/agent-plugins` | clone + `install.sh` + `.cursorrules` shim | `/prove-it` · `python3 …/work_plan.py` |
+| **GitHub Copilot** | `npx skills add stylusnexus/agent-plugins` | clone + `install.sh` + copilot-instructions shim | `/prove-it` · direct CLI |
+| **Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · Goose · Warp · Amp · Junie · Roo · Qwen Code · Trae · Aider · +more** | `npx skills add stylusnexus/agent-plugins` | — | `/prove-it` |
+| **Any other / terminal** | `npx skills add stylusnexus/agent-plugins -a universal` | clone + `install.sh` | `/prove-it` · direct CLI |
+
+Update skill-only installs with `npx skills update`; plugin installs with `/plugin update` or the Codex equivalent.
 
 ---
 
@@ -92,15 +116,22 @@ Cursor/Copilot prompt-engineering shims, see the toolkit's
 ```
 agent-plugins/
 ├── .claude-plugin/
-│   └── marketplace.json     # Claude index   (source: github, repo)
+│   └── marketplace.json     # Claude index   (source: "./plugins/…" or github+repo)
 ├── .agents/plugins/
-│   └── marketplace.json     # Codex index    (source: url + policy + category)
+│   └── marketplace.json     # Codex index    (source: local+path, or url + policy + category)
+├── plugins/                 # in-repo plugins
+│   └── ship-pipeline/
+│       ├── .claude-plugin/plugin.json
+│       ├── .codex-plugin/plugin.json   # Codex reads its own manifest dir
+│       ├── skills/<name>/SKILL.md
+│       └── README.md
 ├── LICENSE
 └── README.md
 ```
 
-Both indexes list the same plugins, pinned to the same release tag — so Claude and Codex install
-identical, reproducible versions.
+Both indexes list the same plugins. Plugins hosted in their own repositories are **pinned to a
+release tag**, so Claude and Codex install identical, reproducible versions; plugins that live in
+this repository are referenced by relative path and version through their own `plugin.json`.
 
 ---
 
