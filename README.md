@@ -47,12 +47,7 @@ Two plugins ship executable code rather than markdown, so they live in their own
 | [**work-plan**](https://github.com/stylusnexus/work-plan-toolkit) | Track-aware daily planning over GitHub issues — shared git-synced tracks optionally pinned to a canonical plan branch, AI clustering, coverage, doc liveness, and dependency-aware next-up. Pure-stdlib Python CLI plus an accessible VS Code viewer with a repo-qualified dependency graph and confirm-gated writes. |
 | [**defect-scan**](https://github.com/stylusnexus/defect-scan) | Language-aware defect hunter. Detects the stack, triages by risk, runs the real analyzers (ruff/mypy, tsc/eslint, rubocop/brakeman, optionally semgrep/gitleaks/bandit), then reports in confidence tiers across 15 language profiles — correlated against existing issues, with optional issue filing, safe autofix, and a cross-model second opinion. |
 
-### Where to start
-
-If you take exactly one, take **ship-pipeline** — it's the daily loop, and the rest is optional around
-it. **reporting-comms** has the broadest appeal outside any one workflow. **hardening** and
-**second-opinion** are situational but high-value when they apply. **release-ops** and
-**codebase-intel** are deliberately narrow.
+### A note on fit
 
 These packs have opinions — evidence before "done", detect rather than assume, one rule per owner.
 That's useful if you share them and friction if you don't; each README states the opinion plainly
@@ -60,79 +55,110 @@ rather than burying it.
 
 ---
 
-## Install by agent
+## Install
+
+Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
+"install everything" is a valid choice — it's 31 skills, all inert until their trigger matches.
 
 ### Claude Code  (terminal · VS Code extension · JetBrains extension)
 
 ```
 /plugin marketplace add stylusnexus/agent-plugins
-/plugin install ship-pipeline@stylus-nexus
-/plugin install reporting-comms@stylus-nexus
-/plugin install codebase-intel@stylus-nexus
-/plugin install second-opinion@stylus-nexus
-/plugin install hardening@stylus-nexus
-/plugin install release-ops@stylus-nexus
-/plugin install work-plan@stylus-nexus
-/plugin install defect-scan@stylus-nexus
 ```
 
-…or browse interactively: `/plugin` → **Discover**. Commands install **namespaced** under the plugin:
+Then pick — one, several, or the lot:
 
-| Command | Does |
-|---|---|
-| `/work-plan:brief` | Multi-track daily snapshot |
-| `/work-plan:handoff <track>` | Wrap up a work block (session log, next-up) |
-| `/work-plan:orient [track]` | Re-orient on a track / cwd |
-| `/work-plan:hygiene` | Weekly cleanup (refresh + reconcile + duplicates) |
-| `/work-plan:status` | Doc & plan liveness (`plan-status`) |
-| `/work-plan:run <subcommand>` | Anything else (`slot`, `close`, `reconcile`, `group`, `coverage`, `auto-triage`, `init-repo`, …) |
+```
+/plugin install ship-pipeline@stylus-nexus       # just the daily loop
+/plugin install hardening@stylus-nexus           # add another whenever
+```
 
-Update: `/plugin update work-plan@stylus-nexus`. Plugin config is shared between the Claude Code CLI
-and its IDE extensions, so installing once covers all three surfaces.
+Or browse them visually with `/plugin` → **Discover**, which lists all eight with descriptions.
 
 ### OpenAI Codex  (CLI · app · IDE extension)
 
 ```
 codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add ship-pipeline@stylus-nexus
-codex plugin add reporting-comms@stylus-nexus
-codex plugin add codebase-intel@stylus-nexus
-codex plugin add second-opinion@stylus-nexus
-codex plugin add hardening@stylus-nexus
-codex plugin add release-ops@stylus-nexus
-codex plugin add work-plan@stylus-nexus
-codex plugin add defect-scan@stylus-nexus
 ```
 
-Invoke skills the Codex way (`@work-plan` / `/skills`). Codex reads the dedicated
-`.agents/plugins/marketplace.json` index (it can't parse Claude's marketplace source format).
+Codex reads its own index at `.agents/plugins/marketplace.json` — same marketplace, different
+schema. Invoke the Codex way: `@ship-pipeline` or `/skills`.
 
-### Cursor · GitHub Copilot · Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · ~60 more
+### Everything else — Cursor · Copilot · Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · ~60 more
 
-Skill-only plugins (**ship-pipeline**, **reporting-comms**, **codebase-intel**, **second-opinion**, **hardening**, **release-ops**) install anywhere via the
-[Skills CLI](https://github.com/vercel-labs/skills), which detects the coding agents you already
-have and writes to each one's skills directory:
+The [Skills CLI](https://github.com/vercel-labs/skills) detects which agents you already have and
+writes to each one's skills directory. No marketplace step — one command does both:
 
 ```bash
-npx skills add stylusnexus/agent-plugins                  # pick interactively
-npx skills add stylusnexus/agent-plugins --skill '*'      # take everything
-npx skills add stylusnexus/agent-plugins -a cursor -a github-copilot   # target specific agents
+npx skills add stylusnexus/agent-plugins                    # choose interactively
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 31 skills
+npx skills add stylusnexus/agent-plugins --skill prove-it   # exactly one
+npx skills add stylusnexus/agent-plugins --list             # see what's there first
 ```
 
-Skills arrive **un-namespaced** on this path, so they invoke as `/prove-it` rather than
-`/ship-pipeline:prove-it`. Update later with `npx skills update`.
-
-There is also an npm launcher, which forwards to the same Skills CLI and passes arguments through:
+Target specific agents instead of all detected ones:
 
 ```bash
-npx @stylusnexus/agent-plugins              # pick interactively
-npx @stylusnexus/agent-plugins --skill '*'  # install all of them
-npx @stylusnexus/agent-plugins --help
+npx skills add stylusnexus/agent-plugins -a cursor -a github-copilot
 ```
 
-### work-plan on agents without a plugin system
+Or via npm, which forwards to the same CLI:
 
-Install the toolkit directly:
+```bash
+npx @stylusnexus/agent-plugins --skill '*'
+```
+
+### What you type afterwards
+
+Where a skill came from decides its name:
+
+| Installed via | Invoke as | Why |
+|---|---|---|
+| Claude Code / Codex plugin | `/ship-pipeline:prove-it` | Plugins namespace their skills, so two packs can share a skill name without colliding |
+| Skills CLI / npm | `/prove-it` | Installed as plain skills, no namespace |
+
+Most skills are **model-invoked** — you don't type them at all. `prove-it` fires when you're
+wrapping up work, `read-the-damn-docs` when you touch an unfamiliar API. Typing the name forces it.
+
+### Which packs to take
+
+| Take | If |
+|---|---|
+| `ship-pipeline` | You want one thing. It's the daily loop. |
+| `reporting-comms` | Your agent's output is hard to read |
+| `hardening` | You're heading for a launch, or touched auth/payments/data-export |
+| `second-opinion` | A decision is expensive to get wrong |
+| `release-ops` | You publish packages |
+| `codebase-intel` | You're new to a codebase, or about to refactor something load-bearing |
+
+`work-plan` and `defect-scan` are tools rather than skill packs — take them if you want GitHub-issue
+planning or a defect scanner specifically.
+
+### Updating and removing
+
+```bash
+npx skills update                                    # Skills CLI installs
+```
+
+```
+/plugin update ship-pipeline@stylus-nexus            # Claude Code
+/plugin uninstall ship-pipeline@stylus-nexus
+/plugin marketplace remove stylus-nexus
+```
+
+```
+codex plugin remove ship-pipeline@stylus-nexus       # Codex
+codex plugin marketplace remove stylus-nexus
+```
+
+Plugin config is shared between the Claude Code CLI and its IDE extensions, so installing once
+covers all three surfaces.
+
+### work-plan without a plugin system
+
+`work-plan` ships a Python CLI and a VS Code viewer, so on agents with no plugin support it installs
+directly:
 
 ```bash
 git clone https://github.com/stylusnexus/work-plan-toolkit
@@ -141,9 +167,16 @@ cd work-plan-toolkit && ./install.sh        # macOS / Linux / WSL
 #   Codex skills dir:      ./install.sh --target=$HOME/.agents
 ```
 
-That gives the bare `/work-plan <subcommand>` (or `python3 .../work_plan.py <subcommand>`). For
-Cursor/Copilot prompt-engineering shims, see the toolkit's
-[README → Compatible tools](https://github.com/stylusnexus/work-plan-toolkit#compatible-tools).
+Its commands are namespaced under the plugin when installed that way:
+
+| Command | Does |
+|---|---|
+| `/work-plan:brief` | Multi-track daily snapshot |
+| `/work-plan:handoff <track>` | Wrap up a work block (session log, next-up) |
+| `/work-plan:orient [track]` | Re-orient on a track / cwd |
+| `/work-plan:hygiene` | Weekly cleanup (refresh + reconcile + duplicates) |
+| `/work-plan:status` | Doc & plan liveness (`plan-status`) |
+| `/work-plan:run <subcommand>` | Anything else (`slot`, `close`, `reconcile`, `group`, `coverage`, …) |
 
 ---
 
@@ -221,21 +254,6 @@ brew install gh git python@3 yq
 - **Public-repo guard.** Every write to a public repo (or unknown visibility) is gated behind a confirm-token flow. The CLI prints `{needs_confirm: true, token: …}` and exits without writing. The VS Code viewer surfaces this as a **"Write anyway / Keep private"** modal. Private repos write straight through.
 - **Local-only writes.** All mutations go to local markdown files — GitHub is never written (except the opt-in `suggest-priorities --apply` for priority labels).
 - **No telemetry, no daemon.** No cache, no sync loop — `git pull` is the sync mechanism for shared tracks.
-
-## Update & uninstall
-
-```bash
-# Claude Code
-/plugin update work-plan@stylus-nexus
-/plugin uninstall work-plan@stylus-nexus
-/plugin marketplace remove stylus-nexus
-
-# Codex
-codex plugin remove work-plan@stylus-nexus
-codex plugin marketplace remove stylus-nexus
-```
-
----
 
 ## Versioning & releases
 
