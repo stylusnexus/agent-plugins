@@ -21,6 +21,7 @@ terminal) install the same toolkit via its script.
 
 | Plugin | What it does | Source |
 |---|---|---|
+| **release-ops** | Four skills for getting a release out the door. `version-check` reads the commits since the last tag and recommends the semver bump; `pr-wait` blocks on CI checks for an open PR and optionally merges on green; `npm-publish` runs the full publish path — preflight, bump, changelog, git push, publish, verify — and rotates an expired npm token through the browser instead of prompting for a one-time code; `dependency-upgrade` treats bulk bumps as a gated pipeline with type checks and tests between batches. | [`plugins/release-ops`](./plugins/release-ops) |
 | **second-opinion** | Five skills on one premise: a single model's confident answer is not evidence. `llm-council` runs a question past five advisors who analyse independently before synthesis; `plan-arbiter` compares, judges, and merges competing plans; `spec-review` checks a spec's claims against the real codebase before code embeds a wrong data-model assumption; `agent-watchdog` audits another agent's work from its session or transcript; `debug-feedback-loop` builds a deterministic pass/fail signal for a bug **before** hypothesising. | [`plugins/second-opinion`](./plugins/second-opinion) |
 | **hardening** | Five pre-launch gates for the unglamorous security work. `rate-limit-audit` inventories every paid-API and auth endpoint and checks each has a limit; `exposure-scan` checks installed packages (npm, Go, PyPI, RubyGems, MCP servers) against threat-intelligence catalogs for known-compromised releases; `auth-hardening` audits session, cookie, CSRF and OAuth-scope config; `webhook-reliability` covers signature verification, idempotency, retries and dead letters; `privacy-audit` inventories what user data is collected and where it lands, checked against the code rather than the policy. | [`plugins/hardening`](./plugins/hardening) |
 | **reporting-comms** | Six skills for the last mile — turning agent output into something a person wants to read. `html` renders plans, reviews, and research as a self-contained HTML artifact; `visual-plan` and `visual-recap` turn text plans and git diffs into interactive documents with diagrams, file maps, and annotated code; `recap-table` produces before/after and what-changed tables; `writing-clearly-and-concisely` and `human-writing` tighten the prose itself and strip AI tells. | [`plugins/reporting-comms`](./plugins/reporting-comms) |
@@ -42,6 +43,7 @@ terminal) install the same toolkit via its script.
 /plugin install codebase-intel@stylus-nexus
 /plugin install second-opinion@stylus-nexus
 /plugin install hardening@stylus-nexus
+/plugin install release-ops@stylus-nexus
 /plugin install work-plan@stylus-nexus
 ```
 
@@ -68,6 +70,7 @@ codex plugin add reporting-comms@stylus-nexus
 codex plugin add codebase-intel@stylus-nexus
 codex plugin add second-opinion@stylus-nexus
 codex plugin add hardening@stylus-nexus
+codex plugin add release-ops@stylus-nexus
 codex plugin add work-plan@stylus-nexus
 ```
 
@@ -76,7 +79,7 @@ Invoke skills the Codex way (`@work-plan` / `/skills`). Codex reads the dedicate
 
 ### Cursor · GitHub Copilot · Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · ~60 more
 
-Skill-only plugins (**ship-pipeline**, **reporting-comms**, **codebase-intel**, **second-opinion**, **hardening**) install anywhere via the
+Skill-only plugins (**ship-pipeline**, **reporting-comms**, **codebase-intel**, **second-opinion**, **hardening**, **release-ops**) install anywhere via the
 [Skills CLI](https://github.com/vercel-labs/skills), which detects the coding agents you already
 have and writes to each one's skills directory:
 
@@ -108,7 +111,7 @@ Cursor/Copilot prompt-engineering shims, see the toolkit's
 
 ## Compatibility at a glance
 
-**Skill-only plugins** (ship-pipeline, reporting-comms, codebase-intel, second-opinion, hardening) reach every agent the Skills CLI supports.
+**Skill-only plugins** (ship-pipeline, reporting-comms, codebase-intel, second-opinion, hardening, release-ops) reach every agent the Skills CLI supports.
 **work-plan** additionally ships a Python CLI + VS Code viewer, so it needs its own installer off the plugin path.
 
 | Agent | ship-pipeline | work-plan | Invoke as |
@@ -141,7 +144,8 @@ agent-plugins/
 │   ├── reporting-comms/
 │   ├── codebase-intel/
 │   ├── second-opinion/
-│   └── hardening/
+│   ├── hardening/
+│   └── release-ops/
 ├── scripts/
 │   ├── check-manifest-sync.sh   # the two indexes must agree
 │   └── check-skills.py          # every SKILL.md must actually load
