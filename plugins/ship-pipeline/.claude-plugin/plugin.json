@@ -1,0 +1,22 @@
+{
+  "name": "ship-pipeline",
+  "version": "1.0.0",
+  "description": "Seven repo-agnostic skills for the ship half of the development loop: issue intake, live-schema grounding, evidence-backed verification, review/PR/merge, and production promotion. Every skill detects the repo's own conventions and defers to a repo-local override when one exists.",
+  "author": {
+    "name": "Stylus Nexus"
+  },
+  "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/ship-pipeline",
+  "repository": "https://github.com/stylusnexus/agent-plugins",
+  "license": "MIT",
+  "keywords": [
+    "workflow",
+    "code-review",
+    "verification",
+    "deployment",
+    "database",
+    "migrations",
+    "git",
+    "pull-request",
+    "ci"
+  ]
+}
