@@ -9,7 +9,7 @@ description: End-of-work evidence protocol that proves a feature WORKS, not that
 
 Features have passed build + typecheck + tests + review + deploy and still been **dead in production**, because no gate ever exercised the real write. Green checks measure what the checks measure — this skill measures whether the feature works. It ends in a table where every claim carries the command that proves it.
 
-**If the current repo has its own `.claude/skills/prove-it/`, that version is authoritative — follow it instead.** This global version is the fallback.
+**If the current repo has its own `.claude/skills/prove-it/` or `.agents/skills/prove-it/`, that version is authoritative — follow it instead.** This global version is the fallback.
 
 **Announce at start:** "Running /prove-it verification."
 

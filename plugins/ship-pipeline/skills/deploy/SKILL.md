@@ -26,7 +26,7 @@ git branch -a | grep -qE '(^|/)(dev)$' && echo "has dev branch" || echo "NO dev 
 
 1. **Branch model.** This skill assumes a `dev` → `main` (default) flow. If the repo has **no `dev`** branch (deploys straight from the default branch, or uses `release/*`), STOP and ask the user how they deploy — don't force a dev→main flow.
 
-2. **Defer to a repo-local deploy runbook if one exists.** Check, in order: the project `CLAUDE.md`/`AGENTS.md` for a "Releasing"/"Deploy" section, a project-level `.claude/skills/deploy/`, `CONTRIBUTING.md`, `docs/DEPLOY*`/`RELEASING*`. **If the repo documents its own deploy process, follow THAT** — use this skill only for scaffolding it leaves unspecified. Some repos explicitly forbid generic deploy automation (e.g. a self-contained version-bump flow); honor that.
+2. **Defer to a repo-local deploy runbook if one exists.** Check, in order: the project `CLAUDE.md`/`AGENTS.md` for a "Releasing"/"Deploy" section, a project-level `.claude/skills/deploy/` or `.agents/skills/deploy/`, `CONTRIBUTING.md`, `docs/DEPLOY*`/`RELEASING*`. **If the repo documents its own deploy process, follow THAT** — use this skill only for scaffolding it leaves unspecified. Some repos explicitly forbid generic deploy automation (e.g. a self-contained version-bump flow); honor that.
 
 3. **Detect post-deploy machinery** so you know which conditional steps apply:
    - **Versioning:** release-please (`release-please-config.json` / `.release-please-manifest.json`) · a version-bump GH workflow (`.github/workflows/*version*`, often committing `VERSION`/manifests with `[skip ci]`) · manual `VERSION` · none.

@@ -9,7 +9,7 @@ description: Ground every database claim in the live database. Repo-agnostic —
 
 Types, specs, docs, ORMs, and memory are NOT schema truth. Only the database is. The incident record behind this skill: a spec ratified by six agent reviewers assumed a column that didn't exist (reality was a many-to-many junction); a type regen against a stale local DB deleted 211 real production type keys; migration tools have exited success without applying, and applied without recording.
 
-**If the current repo has its own `.claude/skills/db-truth/`, that version is authoritative — follow it instead.** This global version is the fallback.
+**If the current repo has its own `.claude/skills/db-truth/` or `.agents/skills/db-truth/`, that version is authoritative — follow it instead.** This global version is the fallback.
 
 **Announce at start:** "Running /db-truth <pre-work | post-apply> verification."
 

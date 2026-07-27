@@ -9,7 +9,7 @@ description: "Issue intake ritual before starting any work on a GitHub issue. Re
 
 Hour-sinks at the start of work trace to the same roots: acting on an issue's title alone, a stale premise, or a wrong branch. This skill front-loads the checks that prevent that. Output is a ~15-line intake packet — never a data dump.
 
-**If the current repo has its own `.claude/skills/start-issue/`, that version is authoritative — follow it instead.** This global version is the fallback for repos without one.
+**If the current repo has its own `.claude/skills/start-issue/` or `.agents/skills/start-issue/`, that version is authoritative — follow it instead.** This global version is the fallback for repos without one.
 
 **Announce at start:** "Running /start-issue intake for #<N>."
 
