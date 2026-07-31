@@ -1,6 +1,6 @@
 ---
 name: human-writing
-description: Write content that sounds natural, conversational, and authentically human - avoiding AI-generated patterns, corporate speak, and generic phrasing
+description: Write content that sounds natural, conversational, and authentically human - avoiding AI-generated patterns, corporate speak, and generic phrasing. Also handles the "humanize this" / "humanise this" trigger - a meaning-preserving rewrite that strips signs of AI writing.
 ---
 
 # Human-Style Writing
@@ -12,6 +12,72 @@ This skill helps you write content that reads like it was written by a real pers
 **Write like you're explaining something to a colleague over coffee, not presenting to a board room.**
 
 Good writing is specific, opinionated, and conversational. Bad writing is generic, safe, and sounds like every other tech blog.
+
+## The "humanize this" Trigger
+
+**Triggers: "humanize this" or "humanise this."** Both spellings. If no text follows the trigger, ask what should be humanized before doing anything else.
+
+This is a *rewrite* mode, distinct from the rest of this skill. The sections below teach you to write well from scratch. This one takes existing text and subtracts machine residue from it.
+
+### The contract
+
+**Do:**
+- Remove every tell in the checklist below that isn't doing genuine work in its sentence.
+- Preserve meaning, facts, figures, names, dates, quotations, citations, and the order of claims exactly.
+- Preserve hedges that reflect real uncertainty. An unsupported claim stated flatly is the worse failure.
+- Return the rewritten text, then a short list of what changed and why.
+
+**Don't:**
+- Add new claims, examples, statistics, sources, or transitions that carry new information.
+- Strengthen a claim past what the original supported. Cutting "arguably" from a genuinely arguable claim is a factual edit wearing a style edit's clothes.
+- Flatten voice into neutral prose. You're removing machine residue, not personality.
+- Guess. If removing a tell requires knowing something the text doesn't state, flag the passage and leave it.
+
+### The checklist
+
+From the Wikipedia editors' guide, [Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing).
+
+**Content**
+- Significance and legacy inflation: "pivotal moment," "represents a shift," "left an indelible mark," "stands as a testament," "deeply rooted"
+- Canned notability: "widely regarded," "has garnered attention," "profiled in"
+- Trailing present-participle pseudo-analysis that asserts a connection without earning it: "highlighting the importance of...," "reflecting a broader trend...," "underscoring the need for..."
+- Promotional register: "boasts a," "vibrant," "nestled in the heart of," "groundbreaking," "rich tapestry," "seamless," "cutting-edge"
+- Vague attribution with no attributable party: "experts argue," "observers have noted," "industry reports suggest," "it is widely believed"
+- The formulaic close: "Despite its success, X faces several challenges..." followed by speculative resolution
+
+**Language**
+- AI vocabulary at density: additionally, align with, bolster, crucial, delve, emphasize, enduring, foster, garner, highlight, intricate, leverage, meticulous, pivotal, realm, robust, showcase, streamline, tapestry, testament, underscore, vibrant. Any one is fine. Six in a page is a tell.
+- Copulative avoidance: "is" inflated to "serves as" / "stands as" / "functions as"; "has" inflated to "boasts" / "features" / "maintains"
+- Negative parallelism, all three shapes: "not only X but also Y," "it's not X, it's Y," "X rather than Y"
+- Reflexive rule-of-three
+- Elegant variation: synonym-swapping to dodge a repetition that was correct
+
+**Style**
+- Title Case Headings
+- Mechanical boldface and "key takeaways" bolding
+- Lists where every bullet is a **bold header:** plus an explanatory clause
+- Em dashes as default subordinate-clause punctuation
+- Emoji as formatting; tables for content that wasn't tabular; curly quotes; skipped heading levels
+
+**Leakage to the user**
+- "I hope this helps," "let me know if you'd like me to expand," "great question"
+- Knowledge-cutoff disclaimers; unsubstituted placeholders (`[Company Name]`, `[citation needed]`)
+
+**Model residue** — always cut, never stylistic
+- ChatGPT: `contentReference`, `oaicite`, `turn0search0`
+- Gemini: `[cite: 1]`, `[span_1]`
+- Grok: `grok_card`, `grok_render_citation_card_json`
+- DeepSeek: lenticular brackets, dagger symbols
+- Perplexity: `attached_file`, `ppl-ai-file-upload`
+
+### Guards against over-scrubbing
+
+The guide's own caveats constrain how hard you scrub: AI detectors have non-trivial error rates, and humans distinguish AI text at roughly chance. **These are tells, not proof.** The signal is density and co-occurrence, never a single instance — most items above appear in good human prose at low frequency.
+
+- **Rule-of-three** targets padding triples, not three-part structures doing analytical work. Cut the third adjective that was filler; keep the third cause that was a cause.
+- **Protect the signs of human writing:** irregular syntax, fragments that land, a long sentence followed by three words, specific choices the writer could defend. These are the target state, not defects.
+- **A load-bearing tell stays.** Flag it in the change list with the reason. Flagged retention is a correct outcome, not a failure.
+- The output is not detector-proof, and that isn't the standard being met. Say so if asked.
 
 ## What Makes Writing Sound AI-Generated
 
