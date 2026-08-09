@@ -23,7 +23,7 @@
     {
       "name": "reporting-comms",
       "source": "./plugins/reporting-comms",
-      "description": "Six skills for turning agent output into something a person actually wants to read. html renders plans, reviews, research, and comparisons as a single self-contained HTML artifact; visual-plan and visual-recap turn text plans and git diffs into interactive documents with diagrams, file maps, and annotated code; recap-table produces before/after and what-changed tables on demand; and writing-clearly-and-concisely and human-writing tighten the prose itself, stripping AI tells, corporate register, and padding."
+      "description": "Seven skills for turning agent output into something a person actually wants to read, and getting their judgment back. html renders plans, reviews, research, and comparisons as a single self-contained HTML artifact; visual-plan and visual-recap turn text plans and git diffs into interactive documents with diagrams, file maps, and annotated code; recap-table produces before/after and what-changed tables on demand; writing-clearly-and-concisely and human-writing tighten the prose itself, stripping AI tells, corporate register, and padding; and redline runs the other direction, handing a draft back to the human to edit and comment on in a browser and returning one Markdown review the agent applies."
     },
     {
       "name": "codebase-intel",
@@ -40,7 +40,7 @@
       "source": {
         "source": "github",
         "repo": "stylusnexus/work-plan-toolkit",
-        "ref": "v2026.07.23-e8b226f"
+        "ref": "v2026.08.09-a68a27e"
       },
       "description": "Track-aware daily planning over GitHub issues. Shared tracks (git-synced .work-plan/) optionally pinned to a canonical plan branch (plan-branch; push-track promotes a private track to it), AI clustering (group/auto-triage), coverage, plan-status doc liveness with drift detection, batched GraphQL fetches, and dependency-aware next-up with per-track ordering presets. Includes a theme-aware, accessible VS Code viewer — sidebar tree with a visibility×tier exposure badge, a repo-qualified Mermaid dependency graph, per-issue in-progress badge/toggle and dependency chips, next-up controls, proactive auto-slot suggestions with a compare-and-swap collision guard, and a Plans view with confirm-gated frontmatter writes and repository-contained plan links. Installer ownership is content-verified so unmanaged or modified launchers are preserved."
     },
