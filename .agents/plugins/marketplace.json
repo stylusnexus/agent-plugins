@@ -55,7 +55,7 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Developer Tools",
-      "description": "Six skills for turning agent output into something a person actually wants to read. html renders plans, reviews, research, and comparisons as a single self-contained HTML artifact; visual-plan and visual-recap turn text plans and git diffs into interactive documents with diagrams, file maps, and annotated code; recap-table produces before/after and what-changed tables on demand; and writing-clearly-and-concisely and human-writing tighten the prose itself, stripping AI tells, corporate register, and padding."
+      "description": "Seven skills for turning agent output into something a person actually wants to read, and getting their judgment back. html renders plans, reviews, research, and comparisons as a single self-contained HTML artifact; visual-plan and visual-recap turn text plans and git diffs into interactive documents with diagrams, file maps, and annotated code; recap-table produces before/after and what-changed tables on demand; writing-clearly-and-concisely and human-writing tighten the prose itself, stripping AI tells, corporate register, and padding; and redline runs the other direction, handing a draft back to the human to edit and comment on in a browser and returning one Markdown review the agent applies."
     },
     {
       "name": "codebase-intel",
@@ -88,7 +88,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/stylusnexus/work-plan-toolkit.git",
-        "ref": "v2026.07.23-e8b226f"
+        "ref": "v2026.08.09-a68a27e"
       },
       "policy": {
         "installation": "AVAILABLE",
