@@ -15,30 +15,177 @@
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="The agent-plugins catalogue: ten plugins, 61 skills, and cards for each skill pack.">
+  <meta property="og:image:alt" content="The agent-plugins catalogue: skill-pack cards for Claude Code, Codex, and other coding agents.">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Agent Plugins: Skill Packs for Claude Code and Codex">
   <meta name="twitter:description" content="Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.">
   <meta name="twitter:image" content="https://stylusnexus.github.io/agent-plugins/img/social.png">
-  <meta name="twitter:image:alt" content="The agent-plugins catalogue: ten plugins, 61 skills, and cards for each skill pack.">
+  <meta name="twitter:image:alt" content="The agent-plugins catalogue: skill-pack cards for Claude Code, Codex, and other coding agents.">
+  <meta name="theme-color" content="#f3f1f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#100e16" media="(prefers-color-scheme: dark)">
   <link rel="icon" href="https://stylusnexus.github.io/favicon.ico">
   <link rel="apple-touch-icon" href="https://stylusnexus.github.io/apple-touch-icon.png">
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareSourceCode",
-  "name": "agent-plugins",
-  "url": "https://stylusnexus.github.io/agent-plugins/",
-  "codeRepository": "https://github.com/stylusnexus/agent-plugins",
-  "description": "Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.",
-  "license": "https://opensource.org/licenses/MIT",
-  "programmingLanguage": "Markdown",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Stylus Nexus",
-    "url": "https://stylusnexus.github.io/"
-  }
+  "@graph": [
+    {
+      "@type": "SoftwareSourceCode",
+      "name": "agent-plugins",
+      "url": "https://stylusnexus.github.io/agent-plugins/",
+      "codeRepository": "https://github.com/stylusnexus/agent-plugins",
+      "description": "Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.",
+      "license": "https://opensource.org/licenses/MIT",
+      "isAccessibleForFree": true,
+      "keywords": "Claude Code plugins, Codex plugins, agent skills, skill packs, Skills CLI",
+      "sameAs": [
+        "https://www.npmjs.com/package/@stylusnexus/agent-plugins"
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "Stylus Nexus",
+        "url": "https://stylusnexus.github.io/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Stylus Nexus",
+        "url": "https://stylusnexus.github.io/"
+      },
+      "hasPart": {
+        "@type": "ItemList",
+        "name": "Skill packs",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "ship-pipeline",
+            "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/ship-pipeline",
+            "description": "The daily loop: read the issue, ground assumptions in the live database, prove it works, then review, merge, and promote. One issue or a batch."
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "reporting-comms",
+            "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/reporting-comms",
+            "description": "The last mile: turning agent output into something a person wants to read, and getting their judgment back."
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "second-opinion",
+            "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/second-opinion",
+            "description": "Built on one premise: a single model's confident answer is not evidence. Councils, arbitration, and specs checked against the actual codebase."
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "hardening",
+            "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/hardening",
+            "description": "The unglamorous pre-launch gates: a missing rate limit, an unsigned webhook, a compromised transitive dependency."
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "release-ops",
+            "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/release-ops",
+            "description": "Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases."
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "name": "codebase-intel",
+            "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/codebase-intel",
+            "description": "Building an accurate picture of a codebase, and the libraries it leans on, before committing to a change."
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "name": "product-strategy",
+            "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/product-strategy",
+            "description": "Deciding what to build and why: vision, strategy, value, objectives, roadmaps, and discovery. A chief PM that teaches as it goes and labels evidence apart from assumption."
+          },
+          {
+            "@type": "ListItem",
+            "position": 8,
+            "name": "go-to-market",
+            "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/go-to-market",
+            "description": "Getting a product noticed on a small team's hours: positioning, copy, launches, community, outreach, email, and measurement. It drafts; it never posts or sends for you."
+          }
+        ]
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Stylus Nexus",
+          "item": "https://stylusnexus.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "agent-plugins",
+          "item": "https://stylusnexus.github.io/agent-plugins/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I install agent-plugins in Claude Code?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Run /plugin marketplace add stylusnexus/agent-plugins, then /plugin install ship-pipeline@stylus-nexus for each pack you want. Skills then carry the pack name, as in /ship-pipeline:prove-it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I install agent-plugins in Codex?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Run codex plugin marketplace add stylusnexus/agent-plugins, then codex plugin add ship-pipeline@stylus-nexus for each pack you want. Invoke a skill with $ship-pipeline:prove-it, or run /skills."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I install agent-plugins in Cursor, Copilot, or another agent?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Run npx skills add stylusnexus/agent-plugins. The Skills CLI detects which agents you have and writes the skills into each one; add --skill and skill names to take only some."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I keep agent-plugins up to date?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "In Claude Code, enable auto-update for the stylus-nexus marketplace under /plugin, Marketplaces. In Codex, run codex plugin marketplace upgrade stylus-nexus, then add each pack again. With the Skills CLI, run npx skills update."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is ship-pipeline?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ship-pipeline is the agent-plugins skill pack for the daily loop: it reads the issue, grounds assumptions in the live database, proves the change works, then reviews, merges, and promotes it, for one issue or a batch."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is a skill called /prove-it in one agent and /ship-pipeline:prove-it in another?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Claude Code and Codex plugins prefix skills with the pack name. Skills installed through the Skills CLI or npm have no prefix."
+          }
+        }
+      ]
+    }
+  ]
 }
   </script>
   <style>
@@ -126,7 +273,9 @@
     box-shadow: 0 1px 2px var(--shadow);
   }
   .plugin-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
-  .plugin-name { font-family: var(--mono); font-size: 1.03rem; font-weight: 600; letter-spacing: -.01em; }
+  .plugin-name { font-family: var(--mono); font-size: 1.03rem; font-weight: 600; letter-spacing: -.01em; margin: 0; }
+  .plugin-name a { color: inherit; text-decoration: none; }
+  .plugin-name a:hover { text-decoration: underline; }
   .plugin-n {
     font-family: var(--mono); font-size: var(--s--1); color: var(--ink-faint);
     font-variant-numeric: tabular-nums; white-space: nowrap;
@@ -138,11 +287,6 @@
     background: var(--sunk); border-radius: 3px; padding: .15rem .42rem; white-space: nowrap;
   }
   .chip.agent { background: transparent; border: 1px dashed var(--rule); }
-  .new {
-    font-family: var(--mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;
-    color: var(--accent); border: 1px solid currentColor; border-radius: 3px; padding: .05rem .35rem;
-    margin-left: .45rem; vertical-align: .1em;
-  }
 
   .install { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); }
   .surface {
@@ -181,6 +325,9 @@
   .note strong { font-weight: 650; }
   .note p { font-size: .95rem; color: var(--ink-soft); }
 
+  .faq { display: flex; flex-direction: column; gap: 1.1rem; max-width: 68ch; }
+  .qa h3 { font-family: var(--sans); font-size: 1rem; font-weight: 650; margin: 0 0 .25rem; }
+  .qa p { color: var(--ink-soft); font-size: .95rem; }
   footer {
     border-top: 1px solid var(--rule); padding-top: 1.1rem;
     font-family: var(--mono); font-size: var(--s--1); color: var(--ink-faint);
@@ -197,14 +344,16 @@
     <div class="eyebrow">stylusnexus / agent-plugins</div>
     <h1>Skills for agents that have to ship something.</h1>
     <p class="lede">
-      Ten plugins for Claude Code, Codex, and around seventy other coding agents: eight skill packs
-      for building, shipping, deciding what to build, and getting it noticed, plus two tools.
+      agent-plugins is an open-source (MIT) plugin marketplace from Stylus Nexus: ten plugins and 61
+      skills that install natively into Claude Code and OpenAI Codex, and into about seventy other
+      coding agents through the Skills CLI. Eight are skill packs for building, shipping, deciding what
+      to build, and getting it noticed; two are tools.
     </p>
     <div class="counts">
       <div class="count"><b>10</b><span>plugins</span></div>
       <div class="count"><b>61</b><span>skills</span></div>
       <div class="count"><b>~70</b><span>agents supported</span></div>
-      <div class="count"><b>MIT</b><span>licence</span></div>
+      <div class="count"><b>MIT</b><span>license</span></div>
     </div>
   </header>
 
@@ -220,7 +369,7 @@
 
     <div class="grid">
       <article class="plugin">
-        <div class="plugin-top"><span class="plugin-name">ship-pipeline</span><span class="plugin-n">9 skills</span></div>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/ship-pipeline">ship-pipeline</a></h3><span class="plugin-n">9 skills</span></div>
         <p>The daily loop: read the issue, ground assumptions in the live database, prove it works, then review, merge, and promote. One issue or a batch.</p>
         <div class="chips">
           <span class="chip">start-issue</span><span class="chip">db-truth</span><span class="chip">prove-it</span>
@@ -230,7 +379,7 @@
       </article>
 
       <article class="plugin">
-        <div class="plugin-top"><span class="plugin-name">reporting-comms</span><span class="plugin-n">7 skills</span></div>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/reporting-comms">reporting-comms</a></h3><span class="plugin-n">7 skills</span></div>
         <p>The last mile: turning agent output into something a person wants to read, and getting their judgment back.</p>
         <div class="chips">
           <span class="chip">html</span><span class="chip">visual-plan</span><span class="chip">visual-recap</span>
@@ -240,7 +389,7 @@
       </article>
 
       <article class="plugin">
-        <div class="plugin-top"><span class="plugin-name">second-opinion</span><span class="plugin-n">5 skills</span></div>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/second-opinion">second-opinion</a></h3><span class="plugin-n">5 skills</span></div>
         <p>Built on one premise: a single model's confident answer is not evidence. Councils, arbitration, and specs checked against the actual codebase.</p>
         <div class="chips">
           <span class="chip">llm-council</span><span class="chip">plan-arbiter</span><span class="chip">spec-review</span>
@@ -249,7 +398,7 @@
       </article>
 
       <article class="plugin">
-        <div class="plugin-top"><span class="plugin-name">hardening</span><span class="plugin-n">5 skills</span></div>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/hardening">hardening</a></h3><span class="plugin-n">5 skills</span></div>
         <p>The unglamorous pre-launch gates: a missing rate limit, an unsigned webhook, a compromised transitive dependency.</p>
         <div class="chips">
           <span class="chip">rate-limit-audit</span><span class="chip">exposure-scan</span><span class="chip">auth-hardening</span>
@@ -258,7 +407,7 @@
       </article>
 
       <article class="plugin">
-        <div class="plugin-top"><span class="plugin-name">release-ops</span><span class="plugin-n">5 skills</span></div>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/release-ops">release-ops</a></h3><span class="plugin-n">5 skills</span></div>
         <p>Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases.</p>
         <div class="chips">
           <span class="chip">version-check</span><span class="chip">pr-wait</span><span class="chip">the-waiting</span>
@@ -267,7 +416,7 @@
       </article>
 
       <article class="plugin">
-        <div class="plugin-top"><span class="plugin-name">codebase-intel</span><span class="plugin-n">4 skills</span></div>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/codebase-intel">codebase-intel</a></h3><span class="plugin-n">4 skills</span></div>
         <p>Building an accurate picture of a codebase, and the libraries it leans on, before committing to a change.</p>
         <div class="chips">
           <span class="chip">codebase-health</span><span class="chip">codebase-architecture-scanner</span>
@@ -276,7 +425,7 @@
       </article>
 
       <article class="plugin">
-        <div class="plugin-top"><span class="plugin-name">product-strategy<span class="new">new</span></span><span class="plugin-n">14 skills · 2 agents</span></div>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/product-strategy">product-strategy</a></h3><span class="plugin-n">14 skills · 2 agents</span></div>
         <p>Deciding what to build and why: vision, strategy, value, objectives, roadmaps, and discovery. A chief PM that teaches as it goes and labels evidence apart from assumption.</p>
         <div class="chips">
           <span class="chip">product-manager</span><span class="chip">pm-vision</span><span class="chip">pm-strategy</span>
@@ -289,7 +438,7 @@
       </article>
 
       <article class="plugin">
-        <div class="plugin-top"><span class="plugin-name">go-to-market<span class="new">new</span></span><span class="plugin-n">12 skills · 2 agents</span></div>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/go-to-market">go-to-market</a></h3><span class="plugin-n">12 skills · 2 agents</span></div>
         <p>Getting a product noticed on a small team's hours: positioning, copy, launches, community, outreach, email, and measurement. It drafts; it never posts or sends for you.</p>
         <div class="chips">
           <span class="chip">marketing-lead</span><span class="chip">mk-positioning</span><span class="chip">mk-audience</span>
@@ -312,11 +461,11 @@
     </div>
     <div class="grid">
       <article class="plugin">
-        <div class="plugin-top"><span class="plugin-name">work-plan</span><span class="plugin-n">CLI + viewer</span></div>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/work-plan-toolkit">work-plan</a></h3><span class="plugin-n">CLI + viewer</span></div>
         <p>Track-aware daily planning over GitHub issues: shared tracks, AI clustering, coverage, and dependency-aware next-up. Pure-stdlib Python CLI plus an accessible VS Code viewer with a repo-qualified dependency graph.</p>
       </article>
       <article class="plugin">
-        <div class="plugin-top"><span class="plugin-name">defect-scan</span><span class="plugin-n">15 languages</span></div>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/defect-scan">defect-scan</a></h3><span class="plugin-n">15 languages</span></div>
         <p>Language-aware defect hunter. Detects the stack, triages files by risk, runs the real analyzers (ruff, mypy, tsc, eslint, rubocop, brakeman), then reports findings in confidence tiers, correlated against existing issues.</p>
       </article>
     </div>
@@ -325,12 +474,12 @@
   <section>
     <div>
       <h2>Installing</h2>
-      <p class="sub">Add the marketplace once, then take whichever packs you want.</p>
+      <p class="sub">Add the marketplace once, then take whichever packs you want. Plugins run code on your machine, so review a plugin's source before installing it.</p>
     </div>
     <div class="install">
       <div class="surface">
         <span class="badge b-claude">Claude Code</span>
-        <h3>Plugin marketplace</h3>
+        <h3>Install in Claude Code</h3>
         <p class="who">Terminal, VS Code, and JetBrains extensions share one config, so one install covers all three.</p>
 <pre>/plugin marketplace add stylusnexus/agent-plugins
 /plugin install ship-pipeline@stylus-nexus</pre>
@@ -339,16 +488,16 @@
 
       <div class="surface">
         <span class="badge b-codex">Codex</span>
-        <h3>Plugin marketplace</h3>
+        <h3>Install in Codex</h3>
         <p class="who">CLI, app, and IDE extension. Codex reads its own index, so the same marketplace works unchanged.</p>
 <pre>codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add ship-pipeline@stylus-nexus</pre>
-        <p class="who">Type <code>$ship-pipeline:prove-it</code> or run <code>/skills</code>. To update, run <code>codex plugin marketplace upgrade stylus-nexus</code>, then the add command again.</p>
+        <p class="who">Type <code>$ship-pipeline:prove-it</code> or run <code>/skills</code>. In the ChatGPT app, type <code>@</code>. To update, run <code>codex plugin marketplace upgrade stylus-nexus</code>, then the add command again.</p>
       </div>
 
       <div class="surface">
         <span class="badge b-any">~70 more</span>
-        <h3>Skills CLI</h3>
+        <h3>Install in Cursor, Copilot, Gemini CLI and more</h3>
         <p class="who">Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, Goose, Warp, Aider and more. Detects which agents you already have.</p>
 <pre>npx skills add stylusnexus/agent-plugins
 npx skills add stylusnexus/agent-plugins --skill prove-it deploy</pre>
@@ -379,6 +528,18 @@ npx skills add stylusnexus/agent-plugins --skill prove-it deploy</pre>
         view: evidence before "done", detect rather than assume, one rule per owner. Each README states
         the opinion plainly, so you can tell quickly whether it fits how you work.
       </p>
+    </div>
+  </section>
+
+  <section>
+    <div><h2>Questions</h2></div>
+    <div class="faq">
+      <div class="qa"><h3>How do I install agent-plugins in Claude Code?</h3><p>Run <code>/plugin marketplace add stylusnexus/agent-plugins</code>, then <code>/plugin install ship-pipeline@stylus-nexus</code> for each pack you want. Skills then carry the pack name, as in <code>/ship-pipeline:prove-it</code>.</p></div>
+      <div class="qa"><h3>How do I install agent-plugins in Codex?</h3><p>Run <code>codex plugin marketplace add stylusnexus/agent-plugins</code>, then <code>codex plugin add ship-pipeline@stylus-nexus</code> for each pack you want. Invoke a skill with <code>$ship-pipeline:prove-it</code>, or run <code>/skills</code>.</p></div>
+      <div class="qa"><h3>How do I install agent-plugins in Cursor, Copilot, or another agent?</h3><p>Run <code>npx skills add stylusnexus/agent-plugins</code>. The Skills CLI detects which agents you have and writes the skills into each one; add <code>--skill</code> and skill names to take only some.</p></div>
+      <div class="qa"><h3>How do I keep agent-plugins up to date?</h3><p>In Claude Code, enable auto-update for the stylus-nexus marketplace under <code>/plugin</code>, Marketplaces. In Codex, run <code>codex plugin marketplace upgrade stylus-nexus</code>, then add each pack again. With the Skills CLI, run <code>npx skills update</code>.</p></div>
+      <div class="qa"><h3>What is ship-pipeline?</h3><p>ship-pipeline is the agent-plugins skill pack for the daily loop: it reads the issue, grounds assumptions in the live database, proves the change works, then reviews, merges, and promotes it, for one issue or a batch.</p></div>
+      <div class="qa"><h3>Why is a skill called /prove-it in one agent and /ship-pipeline:prove-it in another?</h3><p>Claude Code and Codex plugins prefix skills with the pack name. Skills installed through the Skills CLI or npm have no prefix.</p></div>
     </div>
   </section>
 

@@ -5,6 +5,9 @@
 # has no business in this PUBLIC MIT marketplace's shipped text.
 #
 # Scope is plugins/*/skills/**, plugins/*/agents/**, and plugins/*/README.md.
+# The root README.md and site/ (the GitHub Pages catalogue) are public too, but
+# they name this org's repos and publisher on purpose, so they're checked
+# against the private overlay only (failures and warnings), like docs/ below.
 # plugin.json and LICENSE are never scanned -- the publisher name there is
 # legitimate and the whole point of the LICENSE file.
 #
@@ -153,6 +156,36 @@ elif [ -d docs ]; then
   echo "no private-terms overlay available -- skipping docs/ check" >&2
 fi
 
+# Public pages outside plugins/: the root README and the Pages site. Private
+# overlay terms fail; warn: vocabulary warns. Public-list terms don't apply here
+# (these pages link this org's repos by design).
+PAGES=""
+[ -f README.md ] && PAGES="README.md"
+[ -d site ] && PAGES="$PAGES site"
+if [ -n "$PAGES" ] && [ -s "$OVERLAY_FILE" ]; then
+  while IFS= read -r pattern; do
+    case "$pattern" in
+      ''|'#'*) continue ;;
+      warn:*)
+        # shellcheck disable=SC2086
+        hits=$(grep -rniIE "${pattern#warn:}" $PAGES 2>/dev/null || true)
+        if [ -n "$hits" ]; then
+          echo "WARNING: private-product vocabulary (from the private list) found; check these lines:" >&2
+          report_warning "$hits"
+          warned=1
+        fi
+        continue ;;
+    esac
+    # shellcheck disable=SC2086
+    hits=$(grep -rniIE "$pattern" $PAGES 2>/dev/null || true)
+    if [ -n "$hits" ]; then
+      echo "PRIVATE TERM (from the private list) found in README.md or site/ at:" >&2
+      echo "$hits" | cut -d: -f1,2 | sed 's/^/  /' >&2
+      fail=1
+    fi
+  done < "$OVERLAY_FILE"
+fi
+
 [ "$warned" = 1 ] && echo "warnings above are not failures: confirm each line is generic, or rewrite it" >&2
-[ "$fail" = 0 ] && echo "no private terms found in plugins/*/skills, plugins/*/agents, plugins/*/README.md, or docs/"
+[ "$fail" = 0 ] && echo "no private terms found in plugins/*/skills, plugins/*/agents, plugins/*/README.md, docs/, README.md, or site/"
 exit "$fail"
