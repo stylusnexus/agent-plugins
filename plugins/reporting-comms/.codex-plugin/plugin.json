@@ -1,6 +1,5 @@
 {
   "name": "reporting-comms",
-  "version": "1.0.0",
   "description": "Seven skills for turning agent output into something a person actually wants to read, and getting their judgment back. html renders plans, reviews, research, and comparisons as a single self-contained HTML artifact; visual-plan and visual-recap turn text plans and git diffs into interactive documents with diagrams, file maps, and annotated code; recap-table produces before/after and what-changed tables on demand; writing-clearly-and-concisely and human-writing tighten the prose itself, stripping AI tells, corporate register, and padding; and redline runs the other direction, handing a draft back to the human to edit and comment on in a browser and returning one Markdown review the agent applies.",
   "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/reporting-comms",
   "repository": "https://github.com/stylusnexus/agent-plugins",

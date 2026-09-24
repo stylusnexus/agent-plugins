@@ -1,0 +1,115 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "ship-pipeline",
+      "description": "The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote — one issue or a batch.",
+      "skills": [
+        "backup-verify",
+        "db-migration-safety",
+        "db-truth",
+        "deploy",
+        "prove-it",
+        "review-merge-pipeline",
+        "review-slop",
+        "ship-issues",
+        "start-issue"
+      ]
+    },
+    {
+      "title": "reporting-comms",
+      "description": "The last mile — turning agent output into something a person wants to read, and getting their judgment back.",
+      "skills": [
+        "html",
+        "human-writing",
+        "recap-table",
+        "redline",
+        "visual-plan",
+        "visual-recap",
+        "writing-clearly-and-concisely"
+      ]
+    },
+    {
+      "title": "second-opinion",
+      "description": "One premise: a single model's confident answer is not evidence.",
+      "skills": [
+        "agent-watchdog",
+        "debug-feedback-loop",
+        "llm-council",
+        "plan-arbiter",
+        "spec-review"
+      ]
+    },
+    {
+      "title": "hardening",
+      "description": "The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency.",
+      "skills": [
+        "auth-hardening",
+        "exposure-scan",
+        "privacy-audit",
+        "rate-limit-audit",
+        "webhook-reliability"
+      ]
+    },
+    {
+      "title": "release-ops",
+      "description": "Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases.",
+      "skills": [
+        "dependency-upgrade",
+        "npm-publish",
+        "pr-wait",
+        "the-waiting",
+        "version-check"
+      ]
+    },
+    {
+      "title": "product-strategy",
+      "description": "Deciding what to build and why — vision, strategy, value, objectives, roadmaps and discovery, taught as it goes.",
+      "skills": [
+        "pm-canvas",
+        "pm-capabilities",
+        "pm-discovery",
+        "pm-growth",
+        "pm-market-analysis",
+        "pm-objectives",
+        "pm-roadmap",
+        "pm-strategy",
+        "pm-strategy-fit",
+        "pm-teams",
+        "pm-value-proposition",
+        "pm-vision",
+        "pm-visuals",
+        "product-manager"
+      ]
+    },
+    {
+      "title": "go-to-market",
+      "description": "Getting a product noticed on a small team's hours — positioning, copy, launches, community, outreach, email and measurement.",
+      "skills": [
+        "marketing-lead",
+        "mk-audience",
+        "mk-brand-kit",
+        "mk-community",
+        "mk-copy",
+        "mk-founder-content",
+        "mk-launch",
+        "mk-lifecycle",
+        "mk-measurement",
+        "mk-outreach",
+        "mk-positioning",
+        "mk-search"
+      ]
+    },
+    {
+      "title": "codebase-intel",
+      "description": "Building an accurate picture of a codebase, and the libraries it leans on, before changing it.",
+      "skills": [
+        "codebase-architecture-scanner",
+        "codebase-health",
+        "grill-with-docs",
+        "read-the-damn-docs"
+      ]
+    }
+  ]
+}

@@ -64,10 +64,12 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add reporting-comms@stylus-nexus
 ```
 
+In Codex, type `$html` (or any skill name after `$`) to use a skill, or run `/skills` to pick one.
+
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill '*'
+npx skills add stylusnexus/agent-plugins --skill html human-writing recap-table redline visual-plan visual-recap writing-clearly-and-concisely
 ```
 
 Skills arrive un-namespaced on this path, so they invoke as `/html`, `/redline`.

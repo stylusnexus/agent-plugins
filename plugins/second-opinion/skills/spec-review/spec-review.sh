@@ -165,7 +165,7 @@ Review for these defect classes:
    and ordering; feature-flag / rollback story.
 8. SECURITY & COMPLIANCE — auth, row-level security, input/output trust
    boundaries, and any project-specific compliance rules visible in repo docs
-   (e.g. CLAUDE.md). Note violations.
+   (e.g. CLAUDE.md or AGENTS.md). Note violations.
 9. TESTABILITY & ROLLOUT — how is this verified, gated, and reverted?
 
 OUTPUT FORMAT (markdown):

@@ -52,10 +52,12 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add hardening@stylus-nexus
 ```
 
+In Codex, type `$rate-limit-audit` (or any skill name after `$`) to use a skill, or run `/skills` to pick one.
+
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill '*'
+npx skills add stylusnexus/agent-plugins --skill auth-hardening exposure-scan privacy-audit rate-limit-audit webhook-reliability
 ```
 
 Skills arrive un-namespaced on this path, so they invoke as `/rate-limit-audit`.

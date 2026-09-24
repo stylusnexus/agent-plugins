@@ -30,8 +30,10 @@ Not for: reviewing code changes (use `/codex:review`); pure prose/marketing docs
 
 ## Usage
 
+`spec-review.sh` ships next to this SKILL.md. Invoke it via a path relative to this skill's own directory:
+
 ```bash
-~/.claude/skills/spec-review/spec-review.sh [TARGET] [-- extra focus text]
+<this skill's directory>/spec-review.sh [TARGET] [-- extra focus text]
 ```
 
 - `TARGET` = a spec **file**, a spec **folder** (bundles requirements+design+tasks),
