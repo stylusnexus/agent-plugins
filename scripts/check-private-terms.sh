@@ -26,6 +26,15 @@
 #      repository secret for CI on the owner's own pushes/PRs. Empty on
 #      fork PRs, which then run with the public list only.
 #
+# Warning tier: an overlay line that starts with "warn:" is a warning, not a
+# failure. It is for a private product's VOCABULARY (its domain nouns), which
+# names miss: a worked example lifted from the product can leak it without
+# naming it. Some of those words are also ordinary English, so a hit asks a
+# person to look rather than blocking the PR. In GitHub Actions each hit
+# becomes a ::warning annotation on the PR (file and line only); locally the
+# matching line is printed too, since a local terminal is private. Warning
+# patterns never run against docs/.
+#
 # One extra check: docs/ (internal planning material, never shipped) is
 # scanned against ONLY the local/secret overlay, never the public list --
 # docs/ legitimately discusses the owner's private products by name, so the
@@ -64,6 +73,20 @@ fi
 cat "$OVERLAY_FILE" >> "$PATTERNS_FILE"
 
 fail=0
+warned=0
+
+report_warning() {
+  # $1 = grep hits (file:line:text), never echoed to CI logs with the text
+  echo "$1" | while IFS= read -r hit; do
+    file=$(echo "$hit" | cut -d: -f1)
+    line=$(echo "$hit" | cut -d: -f2)
+    if [ "${GITHUB_ACTIONS:-}" = "true" ]; then
+      echo "::warning file=$file,line=$line::Possible private-product vocabulary (from the private list). Check this line was not lifted from a private product."
+    else
+      echo "  $hit" >&2
+    fi
+  done
+}
 
 : > "$SCAN_LIST_ALL"
 : > "$SCAN_LIST_NO_README"
@@ -77,6 +100,14 @@ if [ -s "$SCAN_LIST_ALL" ]; then
   while IFS= read -r pattern; do
     case "$pattern" in
       ''|'#'*) continue ;;
+      warn:*)
+        hits=$(xargs -0 grep -rniIE "${pattern#warn:}" < "$SCAN_LIST_ALL" 2>/dev/null || true)
+        if [ -n "$hits" ]; then
+          echo "WARNING: private-product vocabulary (from the private list) found; check these lines:" >&2
+          report_warning "$hits"
+          warned=1
+        fi
+        continue ;;
     esac
     if [ "$pattern" = "Stylus Nexus" ]; then
       scan_list="$SCAN_LIST_NO_README"
@@ -110,6 +141,7 @@ if [ -d docs ] && [ -s "$OVERLAY_FILE" ]; then
     case "$pattern" in
       ''|'#'*) continue ;;
     esac
+    case "$pattern" in warn:*) continue ;; esac
     hits=$(grep -rniIE "$pattern" docs 2>/dev/null || true)
     if [ -n "$hits" ]; then
       echo "PRIVATE TERM (from the private list) found in docs/ at:" >&2
@@ -121,5 +153,6 @@ elif [ -d docs ]; then
   echo "no private-terms overlay available -- skipping docs/ check" >&2
 fi
 
+[ "$warned" = 1 ] && echo "warnings above are not failures: confirm each line is generic, or rewrite it" >&2
 [ "$fail" = 0 ] && echo "no private terms found in plugins/*/skills, plugins/*/agents, plugins/*/README.md, or docs/"
 exit "$fail"
