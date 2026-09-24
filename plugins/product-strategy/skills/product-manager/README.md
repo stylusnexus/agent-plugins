@@ -7,14 +7,14 @@ One chief PM, thirteen focused support skills, and a business-capability modelin
 ### Claude Code
 ```
 /plugin marketplace add stylusnexus/agent-plugins
-/plugin install product-management@stylus-nexus
+/plugin install product-strategy@stylus-nexus
 ```
-Skills are namespaced: `/product-management:pm-strategy`, and so on. The chief PM skill is `/product-management:product-manager`.
+Skills are namespaced: `/product-strategy:pm-strategy`, and so on. The chief PM skill is `/product-strategy:product-manager`.
 
 ### Codex
 ```
 codex plugin marketplace add stylusnexus/agent-plugins
-codex plugin add product-management@stylus-nexus
+codex plugin add product-strategy@stylus-nexus
 ```
 In Codex, type `$product-manager` to use the skill, or run `/skills` to pick one ([Codex docs](https://developers.openai.com/codex/skills)).
 
