@@ -1,0 +1,48 @@
+name: ci
+# Repo hygiene gates for a public MIT marketplace of markdown + scripts:
+#   1. check-links.py           -- every relative link/anchor in the docs resolves
+#   2. check-readme.py          -- README tables match the skills that actually exist
+#   3. check-private-terms.sh   -- no owner-private names/paths ship in skill/agent text
+#   4. test-plugin-scripts.sh   -- any plugin script's own unit tests actually run
+#   5. cspell                   -- spelling, so a typo doesn't ship in installed skill text
+#
+# manifest-sync.yml covers the Claude/Codex manifest-sync and SKILL.md-loadability
+# gates separately; this workflow is the rest of the hygiene surface.
+#
+# Job id is `hygiene`, not `check` -- manifest-sync.yml's job id IS `check`,
+# and an unnamed job's status-check context defaults to its id. Two jobs
+# reporting the same context overwrite each other's status.
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  hygiene:
+    name: hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Links and anchors resolve
+        run: python3 scripts/check-links.py
+
+      - name: README tables match plugins/ on disk
+        run: python3 scripts/check-readme.py
+
+      - name: No owner-private terms in shipped skill/agent text
+        env:
+          PRIVATE_TERMS: ${{ secrets.PRIVATE_TERMS }}
+        run: sh scripts/check-private-terms.sh
+
+      - name: Plugin script unit tests
+        run: sh scripts/test-plugin-scripts.sh
+
+      - name: Spelling
+        run: npx --yes cspell@10.3.4 --no-progress "plugins/**/*.md" "README.md"
