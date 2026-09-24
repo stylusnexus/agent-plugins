@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Agent Plugins: Skill Packs for Claude Code and Codex</title>
+  <meta name="description" content="Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.">
+  <link rel="canonical" href="https://stylusnexus.github.io/agent-plugins/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Stylus Nexus">
+  <meta property="og:url" content="https://stylusnexus.github.io/agent-plugins/">
+  <meta property="og:title" content="Agent Plugins: Skill Packs for Claude Code and Codex">
+  <meta property="og:description" content="Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.">
+  <meta property="og:image" content="https://stylusnexus.github.io/agent-plugins/img/social.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The agent-plugins catalogue: ten plugins, 61 skills, and cards for each skill pack.">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Agent Plugins: Skill Packs for Claude Code and Codex">
+  <meta name="twitter:description" content="Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.">
+  <meta name="twitter:image" content="https://stylusnexus.github.io/agent-plugins/img/social.png">
+  <meta name="twitter:image:alt" content="The agent-plugins catalogue: ten plugins, 61 skills, and cards for each skill pack.">
+  <link rel="icon" href="https://stylusnexus.github.io/favicon.ico">
+  <link rel="apple-touch-icon" href="https://stylusnexus.github.io/apple-touch-icon.png">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "agent-plugins",
+  "url": "https://stylusnexus.github.io/agent-plugins/",
+  "codeRepository": "https://github.com/stylusnexus/agent-plugins",
+  "description": "Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.",
+  "license": "https://opensource.org/licenses/MIT",
+  "programmingLanguage": "Markdown",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Stylus Nexus",
+    "url": "https://stylusnexus.github.io/"
+  }
+}
+  </script>
+  <style>
+  :root {
+    --paper:      #f3f1f7;
+    --card:       #fbfafd;
+    --sunk:       #e7e3ef;
+    --rule:       #d3cde0;
+    --ink:        #17151f;
+    --ink-soft:   #4c465e;
+    --ink-faint:  #6f6887;
+    --accent:     #5b3fd6;
+    --codex:      #0f7a63;
+    --shadow:     rgba(23, 21, 31, .07);
+
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --serif: ui-serif, Iowan Old Style, Palatino, "Palatino Linotype", Georgia, serif;
+
+    --s--1: clamp(.75rem, .73rem + .1vw, .81rem);
+    --s-0:  clamp(1rem, .97rem + .15vw, 1.06rem);
+    --s-1:  clamp(1.18rem, 1.1rem + .38vw, 1.4rem);
+    --s-2:  clamp(1.5rem, 1.32rem + .85vw, 2.05rem);
+    --s-3:  clamp(2.1rem, 1.7rem + 1.9vw, 3.4rem);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #100e16; --card: #191622; --sunk: #221e2e; --rule: #322c42;
+      --ink: #ece9f3; --ink-soft: #aca4c0; --ink-faint: #8f87a4;
+      --accent: #a992ff; --codex: #4cc6a8; --shadow: rgba(0,0,0,.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #100e16; --card: #191622; --sunk: #221e2e; --rule: #322c42;
+    --ink: #ece9f3; --ink-soft: #aca4c0; --ink-faint: #8f87a4;
+    --accent: #a992ff; --codex: #4cc6a8; --shadow: rgba(0,0,0,.45);
+  }
+
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--sans); font-size: var(--s-0); line-height: 1.6;
+    margin: 0; padding-inline: clamp(1rem,.5rem + 2.5vw,2rem);
+    padding-block: clamp(1.4rem,1rem + 3vw,4rem) 5rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  .page { max-width: 74rem; margin-inline: auto; display: flex; flex-direction: column; gap: 3.5rem; }
+  p { margin: 0; text-wrap: pretty; }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+  code { font-family: var(--mono); font-size: .88em; }
+
+  .mast { display: flex; flex-direction: column; gap: 1rem; max-width: 48ch; }
+  .eyebrow {
+    font-family: var(--mono); font-size: var(--s--1); letter-spacing: .15em;
+    text-transform: uppercase; color: var(--ink-faint);
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 600; font-size: var(--s-3);
+    line-height: 1.02; letter-spacing: -.02em; margin: 0; text-wrap: balance;
+  }
+  .lede { font-size: var(--s-1); line-height: 1.45; color: var(--ink-soft); }
+
+  .counts { display: flex; flex-wrap: wrap; gap: .4rem 2.5rem; margin-top: .4rem; }
+  .count { display: flex; flex-direction: column; }
+  .count b {
+    font-family: var(--mono); font-size: var(--s-2); font-weight: 600;
+    color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1.1;
+  }
+  .count span { font-size: var(--s--1); color: var(--ink-faint); letter-spacing: .04em; }
+
+  h2 {
+    font-family: var(--serif); font-size: var(--s-2); font-weight: 600;
+    margin: 0 0 .35rem; letter-spacing: -.015em; text-wrap: balance;
+  }
+  .sub { color: var(--ink-soft); max-width: 62ch; }
+  section { display: flex; flex-direction: column; gap: 1.4rem; }
+
+  .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr)); }
+  .plugin {
+    background: var(--card); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 1.15rem 1.2rem 1.25rem; display: flex; flex-direction: column; gap: .7rem;
+    box-shadow: 0 1px 2px var(--shadow);
+  }
+  .plugin-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .plugin-name { font-family: var(--mono); font-size: 1.03rem; font-weight: 600; letter-spacing: -.01em; }
+  .plugin-n {
+    font-family: var(--mono); font-size: var(--s--1); color: var(--ink-faint);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .plugin p { font-size: .93rem; color: var(--ink-soft); line-height: 1.5; }
+  .chips { display: flex; flex-wrap: wrap; gap: .32rem; margin-top: .1rem; }
+  .chip {
+    font-family: var(--mono); font-size: .72rem; color: var(--ink-soft);
+    background: var(--sunk); border-radius: 3px; padding: .15rem .42rem; white-space: nowrap;
+  }
+  .chip.agent { background: transparent; border: 1px dashed var(--rule); }
+  .new {
+    font-family: var(--mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent); border: 1px solid currentColor; border-radius: 3px; padding: .05rem .35rem;
+    margin-left: .45rem; vertical-align: .1em;
+  }
+
+  .install { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); }
+  .surface {
+    background: var(--card); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 1.1rem 1.15rem; display: flex; flex-direction: column; gap: .6rem; min-width: 0;
+  }
+  .surface h3 { font-family: var(--sans); font-size: 1rem; font-weight: 650; margin: 0; }
+  .surface .who { font-size: .85rem; color: var(--ink-faint); line-height: 1.45; }
+  pre {
+    margin: 0; background: var(--sunk); border-radius: 4px; padding: .7rem .8rem;
+    overflow-x: auto; font-family: var(--mono); font-size: .8rem; line-height: 1.65; color: var(--ink);
+  }
+  .badge {
+    align-self: flex-start; font-family: var(--mono); font-size: .68rem; letter-spacing: .09em;
+    text-transform: uppercase; font-weight: 600; padding: .16rem .45rem;
+    border: 1px solid currentColor; border-radius: 3px;
+  }
+  .b-claude { color: var(--accent); }
+  .b-codex  { color: var(--codex); }
+  .b-any    { color: var(--ink-faint); }
+
+  .rec { display: flex; flex-direction: column; }
+  .rec-row {
+    display: grid; grid-template-columns: minmax(0, 22rem) 1fr; gap: .4rem 1.2rem;
+    padding: .7rem 0; border-bottom: 1px solid var(--rule); align-items: baseline;
+  }
+  .rec-row:first-child { border-top: 1px solid var(--rule); }
+  .rec-row p:first-child { font-size: .95rem; color: var(--ink); }
+  .rec-row p:last-child { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .rec-row b { font-family: var(--mono); font-size: .85rem; font-weight: 600; color: var(--accent); }
+
+  .note {
+    background: var(--sunk); border-left: 3px solid var(--accent);
+    border-radius: 0 5px 5px 0; padding: 1rem 1.15rem; display: flex; flex-direction: column; gap: .55rem;
+  }
+  .note strong { font-weight: 650; }
+  .note p { font-size: .95rem; color: var(--ink-soft); }
+
+  footer {
+    border-top: 1px solid var(--rule); padding-top: 1.1rem;
+    font-family: var(--mono); font-size: var(--s--1); color: var(--ink-faint);
+    display: flex; flex-wrap: wrap; gap: .4rem 1.5rem;
+  }
+  @media (max-width: 34rem) { .rec-row { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="mast">
+    <div class="eyebrow">stylusnexus / agent-plugins</div>
+    <h1>Skills for agents that have to ship something.</h1>
+    <p class="lede">
+      Ten plugins for Claude Code, Codex, and around seventy other coding agents: eight skill packs
+      for building, shipping, deciding what to build, and getting it noticed, plus two tools.
+    </p>
+    <div class="counts">
+      <div class="count"><b>10</b><span>plugins</span></div>
+      <div class="count"><b>61</b><span>skills</span></div>
+      <div class="count"><b>~70</b><span>agents supported</span></div>
+      <div class="count"><b>MIT</b><span>licence</span></div>
+    </div>
+  </header>
+
+  <section>
+    <div>
+      <h2>Skill packs</h2>
+      <p class="sub">
+        Eight packs, grouped by the job rather than the technology. Each pack's README carries a
+        rule-ownership table, so the skills inside it don't compete for the same trigger. Dashed
+        chips are agents, which run in Claude Code.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="plugin">
+        <div class="plugin-top"><span class="plugin-name">ship-pipeline</span><span class="plugin-n">9 skills</span></div>
+        <p>The daily loop: read the issue, ground assumptions in the live database, prove it works, then review, merge, and promote. One issue or a batch.</p>
+        <div class="chips">
+          <span class="chip">start-issue</span><span class="chip">db-truth</span><span class="chip">prove-it</span>
+          <span class="chip">review-slop</span><span class="chip">review-merge-pipeline</span><span class="chip">deploy</span>
+          <span class="chip">ship-issues</span><span class="chip">db-migration-safety</span><span class="chip">backup-verify</span>
+        </div>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top"><span class="plugin-name">reporting-comms</span><span class="plugin-n">7 skills</span></div>
+        <p>The last mile: turning agent output into something a person wants to read, and getting their judgment back.</p>
+        <div class="chips">
+          <span class="chip">html</span><span class="chip">visual-plan</span><span class="chip">visual-recap</span>
+          <span class="chip">recap-table</span><span class="chip">writing-clearly-and-concisely</span>
+          <span class="chip">human-writing</span><span class="chip">redline</span>
+        </div>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top"><span class="plugin-name">second-opinion</span><span class="plugin-n">5 skills</span></div>
+        <p>Built on one premise: a single model's confident answer is not evidence. Councils, arbitration, and specs checked against the actual codebase.</p>
+        <div class="chips">
+          <span class="chip">llm-council</span><span class="chip">plan-arbiter</span><span class="chip">spec-review</span>
+          <span class="chip">agent-watchdog</span><span class="chip">debug-feedback-loop</span>
+        </div>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top"><span class="plugin-name">hardening</span><span class="plugin-n">5 skills</span></div>
+        <p>The unglamorous pre-launch gates: a missing rate limit, an unsigned webhook, a compromised transitive dependency.</p>
+        <div class="chips">
+          <span class="chip">rate-limit-audit</span><span class="chip">exposure-scan</span><span class="chip">auth-hardening</span>
+          <span class="chip">webhook-reliability</span><span class="chip">privacy-audit</span>
+        </div>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top"><span class="plugin-name">release-ops</span><span class="plugin-n">5 skills</span></div>
+        <p>Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases.</p>
+        <div class="chips">
+          <span class="chip">version-check</span><span class="chip">pr-wait</span><span class="chip">the-waiting</span>
+          <span class="chip">npm-publish</span><span class="chip">dependency-upgrade</span>
+        </div>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top"><span class="plugin-name">codebase-intel</span><span class="plugin-n">4 skills</span></div>
+        <p>Building an accurate picture of a codebase, and the libraries it leans on, before committing to a change.</p>
+        <div class="chips">
+          <span class="chip">codebase-health</span><span class="chip">codebase-architecture-scanner</span>
+          <span class="chip">grill-with-docs</span><span class="chip">read-the-damn-docs</span>
+        </div>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top"><span class="plugin-name">product-strategy<span class="new">new</span></span><span class="plugin-n">14 skills · 2 agents</span></div>
+        <p>Deciding what to build and why: vision, strategy, value, objectives, roadmaps, and discovery. A chief PM that teaches as it goes and labels evidence apart from assumption.</p>
+        <div class="chips">
+          <span class="chip">product-manager</span><span class="chip">pm-vision</span><span class="chip">pm-strategy</span>
+          <span class="chip">pm-strategy-fit</span><span class="chip">pm-canvas</span><span class="chip">pm-value-proposition</span>
+          <span class="chip">pm-objectives</span><span class="chip">pm-roadmap</span><span class="chip">pm-discovery</span>
+          <span class="chip">pm-growth</span><span class="chip">pm-market-analysis</span><span class="chip">pm-capabilities</span>
+          <span class="chip">pm-teams</span><span class="chip">pm-visuals</span>
+          <span class="chip agent">product-manager</span><span class="chip agent">business-capability-modeler</span>
+        </div>
+      </article>
+
+      <article class="plugin">
+        <div class="plugin-top"><span class="plugin-name">go-to-market<span class="new">new</span></span><span class="plugin-n">12 skills · 2 agents</span></div>
+        <p>Getting a product noticed on a small team's hours: positioning, copy, launches, community, outreach, email, and measurement. It drafts; it never posts or sends for you.</p>
+        <div class="chips">
+          <span class="chip">marketing-lead</span><span class="chip">mk-positioning</span><span class="chip">mk-audience</span>
+          <span class="chip">mk-copy</span><span class="chip">mk-brand-kit</span><span class="chip">mk-search</span>
+          <span class="chip">mk-launch</span><span class="chip">mk-community</span><span class="chip">mk-founder-content</span>
+          <span class="chip">mk-outreach</span><span class="chip">mk-lifecycle</span><span class="chip">mk-measurement</span>
+          <span class="chip agent">marketing-lead</span><span class="chip agent">audience-scout</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <h2>Tool plugins</h2>
+      <p class="sub">
+        Two plugins ship executable code rather than markdown, so they live in their own repositories
+        and install from there.
+      </p>
+    </div>
+    <div class="grid">
+      <article class="plugin">
+        <div class="plugin-top"><span class="plugin-name">work-plan</span><span class="plugin-n">CLI + viewer</span></div>
+        <p>Track-aware daily planning over GitHub issues: shared tracks, AI clustering, coverage, and dependency-aware next-up. Pure-stdlib Python CLI plus an accessible VS Code viewer with a repo-qualified dependency graph.</p>
+      </article>
+      <article class="plugin">
+        <div class="plugin-top"><span class="plugin-name">defect-scan</span><span class="plugin-n">15 languages</span></div>
+        <p>Language-aware defect hunter. Detects the stack, triages files by risk, runs the real analyzers (ruff, mypy, tsc, eslint, rubocop, brakeman), then reports findings in confidence tiers, correlated against existing issues.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <h2>Installing</h2>
+      <p class="sub">Add the marketplace once, then take whichever packs you want.</p>
+    </div>
+    <div class="install">
+      <div class="surface">
+        <span class="badge b-claude">Claude Code</span>
+        <h3>Plugin marketplace</h3>
+        <p class="who">Terminal, VS Code, and JetBrains extensions share one config, so one install covers all three.</p>
+<pre>/plugin marketplace add stylusnexus/agent-plugins
+/plugin install ship-pipeline@stylus-nexus</pre>
+        <p class="who">Skills carry the pack name: <code>/ship-pipeline:prove-it</code>. To get updates automatically, open <code>/plugin</code> → Marketplaces → stylus-nexus → Enable auto-update.</p>
+      </div>
+
+      <div class="surface">
+        <span class="badge b-codex">Codex</span>
+        <h3>Plugin marketplace</h3>
+        <p class="who">CLI, app, and IDE extension. Codex reads its own index, so the same marketplace works unchanged.</p>
+<pre>codex plugin marketplace add stylusnexus/agent-plugins
+codex plugin add ship-pipeline@stylus-nexus</pre>
+        <p class="who">Type <code>$ship-pipeline:prove-it</code> or run <code>/skills</code>. To update, run <code>codex plugin marketplace upgrade stylus-nexus</code>, then the add command again.</p>
+      </div>
+
+      <div class="surface">
+        <span class="badge b-any">~70 more</span>
+        <h3>Skills CLI</h3>
+        <p class="who">Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, Goose, Warp, Aider and more. Detects which agents you already have.</p>
+<pre>npx skills add stylusnexus/agent-plugins
+npx skills add stylusnexus/agent-plugins --skill prove-it deploy</pre>
+        <p class="who">Skills arrive without the pack name: <code>/prove-it</code>. Update with <code>npx skills update</code>. Covers all eight skill packs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div>
+      <h2>Where to start</h2>
+      <p class="sub">Pick the goal closest to yours. If you only take one pack, take ship-pipeline.</p>
+    </div>
+    <div class="rec">
+      <div class="rec-row"><p>Ship code every day without breaking things</p><p><b>ship-pipeline</b><b>second-opinion</b></p></div>
+      <div class="rec-row"><p>Get ready to launch</p><p><b>hardening</b><b>release-ops</b><b>go-to-market</b></p></div>
+      <div class="rec-row"><p>Decide what to build, and why</p><p><b>product-strategy</b><b>second-opinion</b></p></div>
+      <div class="rec-row"><p>Get a product noticed on a few hours a week</p><p><b>go-to-market</b><b>reporting-comms</b></p></div>
+      <div class="rec-row"><p>Find your way around an unfamiliar codebase</p><p><b>codebase-intel</b><b>reporting-comms</b></p></div>
+      <div class="rec-row"><p>Make agent output easier to read and review</p><p><b>reporting-comms</b></p></div>
+    </div>
+
+    <div class="note">
+      <strong>These packs have opinions.</strong>
+      <p>
+        They're repo-agnostic: every skill detects your conventions rather than assuming them, and defers
+        to a repo-local version of itself when your project defines one. They still hold a point of
+        view: evidence before "done", detect rather than assume, one rule per owner. Each README states
+        the opinion plainly, so you can tell quickly whether it fits how you work.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <span>MIT © Stylus Nexus Holdings LLC</span>
+    <a href="https://github.com/stylusnexus/agent-plugins">github.com/stylusnexus/agent-plugins</a>
+    <a href="https://stylusnexus.github.io/">More from Stylus Nexus</a>
+    <a href="https://www.npmjs.com/package/@stylusnexus/agent-plugins">npm package</a>
+  </footer>
+
+</div>
+</body>
+</html>
