@@ -1,0 +1,37 @@
+{
+  "name": "product-management",
+  "version": "1.0.0",
+  "description": "A chief product manager and teacher, thirteen focused skills and a business-capability specialist for deciding what to build and why. Works through vision, strategy, value proposition, objectives and North Star metrics, roadmaps, discovery and experiments, growth, market analysis and team design, labelling evidence and assumptions as it goes and explaining each choice for people without product training.",
+  "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/product-management",
+  "repository": "https://github.com/stylusnexus/agent-plugins",
+  "license": "MIT",
+  "keywords": [
+    "product-management",
+    "strategy",
+    "roadmap",
+    "okr",
+    "north-star",
+    "discovery",
+    "experiments",
+    "value-proposition"
+  ],
+  "author": {
+    "name": "Stylus Nexus",
+    "url": "https://github.com/stylusnexus"
+  },
+  "interface": {
+    "displayName": "Product Management",
+    "shortDescription": "Decide what to build and why",
+    "longDescription": "A chief product manager and teacher, thirteen focused skills and a business-capability specialist for deciding what to build and why. Works through vision, strategy, value proposition, objectives and North Star metrics, roadmaps, discovery and experiments, growth, market analysis and team design, labelling evidence and assumptions as it goes and explaining each choice for people without product training.",
+    "developerName": "Stylus Nexus",
+    "category": "Productivity",
+    "capabilities": [
+      "Coaches product strategy from vision to roadmap, explaining each choice",
+      "Drafts strategy canvases, value propositions, OKRs and outcome roadmaps",
+      "Plans discovery: interviews, journey maps, Kano surveys and A/B tests",
+      "Looks up product metric definitions from a bundled catalog",
+      "Keeps evidence, assumptions and decisions visibly separate"
+    ],
+    "websiteURL": "https://github.com/stylusnexus/agent-plugins"
+  }
+}

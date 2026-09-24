@@ -1,0 +1,282 @@
+[
+  {
+    "id": "ACQ-1",
+    "category": "Awareness & Acquisition",
+    "name": "Unique Visitors",
+    "definition": "Distinct people reaching a defined marketing or product surface within a period.",
+    "caution": "Deduplicate across devices carefully; a spike from bot or crawler traffic looks identical to real interest until filtered."
+  },
+  {
+    "id": "ACQ-2",
+    "category": "Awareness & Acquisition",
+    "name": "Visitor-to-Signup Rate",
+    "definition": "Signups in a period divided by unique visitors in the same window and cohort.",
+    "caution": "State the attribution window explicitly; a visitor who signs up two weeks later still belongs in the numerator under most conventions, which changes the rate."
+  },
+  {
+    "id": "ACQ-3",
+    "category": "Awareness & Acquisition",
+    "name": "Customer Acquisition Cost (CAC)",
+    "definition": "Fully loaded acquisition spend (media, tooling, a reasonable share of sales/marketing salaries) divided by new customers acquired in the same period.",
+    "caution": "Partially loaded CAC that excludes salaries or tooling looks better than reality and cannot be compared across teams that load it differently."
+  },
+  {
+    "id": "ACQ-4",
+    "category": "Awareness & Acquisition",
+    "name": "Cost per Lead (CPL)",
+    "definition": "Acquisition spend divided by marketing-qualified leads generated in the period.",
+    "caution": "A cheap lead that never converts is not evidence of efficient acquisition; pair with downstream conversion rate."
+  },
+  {
+    "id": "ACQ-5",
+    "category": "Awareness & Acquisition",
+    "name": "Channel Mix",
+    "definition": "Share of new signups or revenue attributed to each acquisition channel under a single, stated attribution model.",
+    "caution": "Last-click, first-click and multi-touch models assign the same conversion to different channels; name the model before comparing periods."
+  },
+  {
+    "id": "ACQ-6",
+    "category": "Awareness & Acquisition",
+    "name": "Click-Through Rate (CTR)",
+    "definition": "Clicks on a specific placement divided by impressions of that placement.",
+    "caution": "A high CTR on a misleading placement can depress everything downstream; read it alongside the conversion rate that follows the click."
+  },
+  {
+    "id": "ACT-1",
+    "category": "Activation",
+    "name": "Activation Rate",
+    "definition": "New users reaching a defined first-value milestone divided by new users who signed up, within a set window.",
+    "caution": "The milestone must be validated against later retention with real cohort data; an arbitrary action (profile completed, first click) is not automatically meaningful."
+  },
+  {
+    "id": "ACT-2",
+    "category": "Activation",
+    "name": "Time-to-First-Value (TTFV)",
+    "definition": "Elapsed time from signup to the first value milestone, reported as a distribution rather than a single average.",
+    "caution": "An average hides the users who never reach the milestone at all; report the non-reaching share separately."
+  },
+  {
+    "id": "ACT-3",
+    "category": "Activation",
+    "name": "Onboarding Completion Rate",
+    "definition": "Users finishing every required step of the onboarding flow divided by users who started it.",
+    "caution": "Completion is not the same as value achieved; a user can finish every step and still not understand the product."
+  },
+  {
+    "id": "ACT-4",
+    "category": "Activation",
+    "name": "Aha-Moment Reach Rate",
+    "definition": "Share of new users performing the specific action that cohort analysis has shown correlates with later retention, within the activation window.",
+    "caution": "The action must be discovered from the product's own retention data, not borrowed from another product's case study."
+  },
+  {
+    "id": "ACT-5",
+    "category": "Activation",
+    "name": "Product-Qualified Lead (PQL) Rate",
+    "definition": "Free or trial users meeting a documented usage threshold believed to predict purchase readiness, divided by all free or trial users in the cohort.",
+    "caution": "A usage threshold is a hypothesis about intent, not proof of it; validate it against actual conversions before wiring it into sales handoff."
+  },
+  {
+    "id": "ACT-6",
+    "category": "Activation",
+    "name": "Trial-to-Paid Conversion Rate",
+    "definition": "Trials that convert to a paid plan divided by trials that reached a decision point (expired or converted) within the window.",
+    "caution": "Excluding trials still in progress from the denominator inflates the rate; state whether in-flight trials are counted."
+  },
+  {
+    "id": "ENG-1",
+    "category": "Engagement & Habit",
+    "name": "Daily Active Users (DAU)",
+    "definition": "Distinct users performing a defined qualifying action on a given calendar day.",
+    "caution": "Define the qualifying action precisely; counting every page load makes DAU trivially easy to inflate."
+  },
+  {
+    "id": "ENG-2",
+    "category": "Engagement & Habit",
+    "name": "Weekly Active Users (WAU)",
+    "definition": "Distinct users performing the qualifying action within a rolling or calendar week.",
+    "caution": "State rolling versus calendar week; the two conventions produce different numbers near week boundaries."
+  },
+  {
+    "id": "ENG-3",
+    "category": "Engagement & Habit",
+    "name": "Monthly Active Users (MAU)",
+    "definition": "Distinct users performing the qualifying action within a rolling 30 days or a calendar month.",
+    "caution": "Calendar-month MAU and trailing-30-day MAU are not interchangeable; pick one convention and keep it fixed across periods."
+  },
+  {
+    "id": "ENG-4",
+    "category": "Engagement & Habit",
+    "name": "Stickiness (DAU/MAU)",
+    "definition": "Daily active users divided by monthly active users for the same window, expressed as a percentage.",
+    "caution": "Only meaningful for products with an expected daily-use cadence; a weekly-cadence tool will show low stickiness by design, not by failure."
+  },
+  {
+    "id": "ENG-5",
+    "category": "Engagement & Habit",
+    "name": "L28 (Active Days per 28)",
+    "definition": "Average number of distinct active days per user across a trailing 28-day window.",
+    "caution": "Sits between a snapshot ratio and a cohort curve; still needs the same qualifying-action definition as DAU to be comparable."
+  },
+  {
+    "id": "ENG-6",
+    "category": "Engagement & Habit",
+    "name": "Feature Adoption Rate",
+    "definition": "Users who used a specific feature at least once divided by users exposed to (or eligible for) that feature, within a window.",
+    "caution": "Separate exposure from eligibility; a feature behind a flag or a paywall will show a misleadingly low rate if the denominator is the whole user base."
+  },
+  {
+    "id": "RET-1",
+    "category": "Retention & Health",
+    "name": "Cohort Retention Rate",
+    "definition": "Of a cohort that started in period zero, the share still meeting the active-user definition in period N.",
+    "caution": "Compare cohorts at equal ages (week 4 vs. week 4), never a young cohort's early number against an old cohort's mature one."
+  },
+  {
+    "id": "RET-2",
+    "category": "Retention & Health",
+    "name": "Customer (Logo) Churn Rate",
+    "definition": "Customers lost in a period divided by customers at the start of the period.",
+    "caution": "Logo churn treats a $10/month account and a six-figure account identically; pair with revenue churn before drawing conclusions."
+  },
+  {
+    "id": "RET-3",
+    "category": "Retention & Health",
+    "name": "Gross Revenue Retention (GRR)",
+    "definition": "Starting recurring revenue minus downgrades and cancellations in the period, divided by starting recurring revenue; capped at 100%.",
+    "caution": "Excludes expansion by definition, so a healthy GRR can still coexist with flat growth if nothing is being upsold."
+  },
+  {
+    "id": "RET-4",
+    "category": "Retention & Health",
+    "name": "Net Revenue Retention (NRR)",
+    "definition": "Starting recurring revenue plus expansion minus downgrades and cancellations in the period, divided by starting recurring revenue.",
+    "caution": "Excludes new-customer revenue; a rising NRR alongside falling new-logo growth is not the same story as broad-based health."
+  },
+  {
+    "id": "RET-5",
+    "category": "Retention & Health",
+    "name": "Customer Health Score",
+    "definition": "A documented, weighted composite of usage, support and billing signals used to flag accounts at risk of churn.",
+    "caution": "Expose the weights and their validation against actual churn; an unvalidated composite is a plausible-looking guess, not a measurement."
+  },
+  {
+    "id": "RET-6",
+    "category": "Retention & Health",
+    "name": "Repeat Usage Rate",
+    "definition": "Users or customers with a second qualifying usage or purchase event divided by those with a first, within a defined window.",
+    "caution": "A short window undercounts genuinely repeat users who simply return on a longer natural cycle; check the product's real use cadence first."
+  },
+  {
+    "id": "MON-1",
+    "category": "Monetization & Unit Economics",
+    "name": "Monthly Recurring Revenue (MRR)",
+    "definition": "Recurring subscription revenue normalized to a monthly figure, under the organization's stated policy for discounts and usage components.",
+    "caution": "Not the same as cash collected; a multi-year prepaid contract still normalizes to its monthly-equivalent rate."
+  },
+  {
+    "id": "MON-2",
+    "category": "Monetization & Unit Economics",
+    "name": "Annual Recurring Revenue (ARR)",
+    "definition": "MRR annualized under the organization's normalization policy, typically MRR multiplied by twelve.",
+    "caution": "A run rate, not a signed or guaranteed backlog; treat it as a snapshot, not a forecast."
+  },
+  {
+    "id": "MON-3",
+    "category": "Monetization & Unit Economics",
+    "name": "Average Revenue Per Account (ARPA)",
+    "definition": "Recurring revenue for the period divided by the number of paying accounts in that period.",
+    "caution": "State whether the account count is a period average or an ending count; the two produce different denominators."
+  },
+  {
+    "id": "MON-4",
+    "category": "Monetization & Unit Economics",
+    "name": "CAC Payback Period",
+    "definition": "CAC divided by average monthly gross margin contributed per customer; the number of months to recoup acquisition cost.",
+    "caution": "Uses gross margin per customer, not revenue per customer; substituting revenue overstates how fast CAC is actually recovered."
+  },
+  {
+    "id": "MON-5",
+    "category": "Monetization & Unit Economics",
+    "name": "LTV:CAC Ratio",
+    "definition": "Modeled customer lifetime value divided by CAC for a comparable cohort.",
+    "caution": "LTV is modeled and sensitive to the churn assumption feeding it; treat a precise-looking ratio from thin retention data as a rough estimate."
+  },
+  {
+    "id": "MON-6",
+    "category": "Monetization & Unit Economics",
+    "name": "Rule of 40",
+    "definition": "Year-over-year revenue growth rate plus profit margin (or free-cash-flow margin), summed as a single check on growth-versus-efficiency balance for a subscription business. A widely used SaaS investor convention — Brad Feld popularized it in 2015, citing a late-stage investor he heard describe it at a board meeting (see [Feld's own post](https://feld.com/archives/2015/02/rule-40-healthy-saas-company/) and [Wikipedia](https://en.wikipedia.org/wiki/Rule_of_40)) — not a formal academic result.",
+    "caution": "A young company can clear 40 on hypergrowth alone while burning cash unsustainably; read the two components separately, not just the sum."
+  },
+  {
+    "id": "MON-7",
+    "category": "Monetization & Unit Economics",
+    "name": "Magic Number",
+    "definition": "Net new annualized recurring revenue added in a quarter, divided by sales-and-marketing spend in the prior quarter; a sales-efficiency signal common in SaaS investor analysis.",
+    "caution": "Distorted by a single large deal landing at quarter's edge; look at a rolling average rather than one quarter in isolation."
+  },
+  {
+    "id": "SAT-1",
+    "category": "Satisfaction & Advocacy",
+    "name": "Net Promoter Score (NPS)",
+    "definition": "Percent of promoters (9-10) minus percent of detractors (0-6) on the standard 0-10 likelihood-to-recommend question (Fred Reichheld, \"The One Number You Need to Grow,\" Harvard Business Review, 2003).",
+    "caution": "The denominator includes passives (7-8), who are excluded from the numerator; NPS is a stated attitude, not observed referral behavior."
+  },
+  {
+    "id": "SAT-2",
+    "category": "Satisfaction & Advocacy",
+    "name": "Customer Satisfaction (CSAT)",
+    "definition": "Share of survey respondents choosing a \"satisfied\" rating on a declared scale, immediately after a specific interaction.",
+    "caution": "No universal scale exists; never merge results from differently worded questions or different scale lengths."
+  },
+  {
+    "id": "SAT-3",
+    "category": "Satisfaction & Advocacy",
+    "name": "Customer Effort Score (CES)",
+    "definition": "Survey measure of how much effort a customer had to expend to get their need met (Dixon, Freeman & Toman, \"Stop Trying to Delight Your Customers,\" Harvard Business Review, 2010).",
+    "caution": "Scale direction (agree/disagree wording) changes whether a lower or higher number is better; state the wording used."
+  },
+  {
+    "id": "SAT-4",
+    "category": "Satisfaction & Advocacy",
+    "name": "Product/Market Fit Survey Score",
+    "definition": "Share of active users who report they would be \"very disappointed\" if the product disappeared, from the Sean Ellis product/market-fit test.",
+    "caution": "The commonly cited 40% threshold is a rule of thumb from Ellis's own writing, not a validated cutoff for every category or business model."
+  },
+  {
+    "id": "SAT-5",
+    "category": "Satisfaction & Advocacy",
+    "name": "Referral Coefficient (K-factor)",
+    "definition": "Invitations sent per existing user, multiplied by the conversion rate of those invitations into new active users, for a defined referral cycle.",
+    "caution": "A K-factor above 1 implies compounding growth only if the invitation and conversion rates hold as the base grows; both typically decay with scale."
+  },
+  {
+    "id": "FLOW-1",
+    "category": "Delivery Flow",
+    "name": "Deployment Frequency",
+    "definition": "How often the team ships changes to production within a period. One of the four DORA metrics (Forsgren, Humble & Kim, *Accelerate*, 2018; DORA's public State of DevOps research).",
+    "caution": "A high count of trivial or reverted deploys is not the same signal as frequent, safe delivery of real change."
+  },
+  {
+    "id": "FLOW-2",
+    "category": "Delivery Flow",
+    "name": "Lead Time for Changes",
+    "definition": "Elapsed time from a code change being committed to that change running in production. A DORA metric.",
+    "caution": "State whether the clock includes queued review and approval time, not just build and deploy time, or the figure understates real lead time."
+  },
+  {
+    "id": "FLOW-3",
+    "category": "Delivery Flow",
+    "name": "Change Failure Rate",
+    "definition": "Share of production deployments that cause a degradation requiring remediation (rollback, hotfix, or incident). A DORA metric.",
+    "caution": "Requires a consistent, agreed definition of what counts as a failed change; an inconsistent definition makes trend comparisons meaningless."
+  },
+  {
+    "id": "FLOW-4",
+    "category": "Delivery Flow",
+    "name": "Time to Restore Service",
+    "definition": "Elapsed time from a production incident's detection to its resolution. A DORA metric.",
+    "caution": "Detection time itself varies with monitoring coverage; a gap in monitoring can make restoration look fast because the clock started late."
+  }
+]
