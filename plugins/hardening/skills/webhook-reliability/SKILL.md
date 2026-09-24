@@ -85,7 +85,7 @@ Webhooks fail silently by nature — there's no user staring at a spinner when o
 
 ## Output / Evidence
 
-Show Eve: the signature verification code path, the idempotency table/constraint, a captured example of a duplicate delivery being correctly skipped (log line or test), and the dead-letter table schema plus how it's monitored. For an audit of an existing webhook, report which of the above are present vs missing per handler.
+Show the user: the signature verification code path, the idempotency table/constraint, a captured example of a duplicate delivery being correctly skipped (log line or test), and the dead-letter table schema plus how it's monitored. For an audit of an existing webhook, report which of the above are present vs missing per handler.
 
 ## Stop Conditions
 
