@@ -58,7 +58,10 @@ Same as above, plus:
   `references/` file rather than presenting it as original.
 - No owner-private names, products, or internal paths in skill or agent text — this
   ships to every installer. `scripts/check-private-terms.sh` enforces this against
-  `scripts/private-terms.txt`.
+  `scripts/private-terms.txt`, plus a private list the maintainers hold. A PR can
+  also get a warning that a line may use a private product's vocabulary: that
+  isn't a failure, but check the line was written for this repo and not lifted
+  from elsewhere.
 
 ## Running the checks locally
 
