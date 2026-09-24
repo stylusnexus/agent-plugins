@@ -170,10 +170,10 @@ If there are uncommitted changes, commit them:
 git add <specific files>
 git commit -m "<conventional commit message>
 
-Co-Authored-By: Claude <noreply@anthropic.com>"
+<host agent's co-author trailer, if it uses one — e.g. Co-Authored-By: Claude <noreply@anthropic.com>>"
 ```
 
-Follow the project's commit conventions (check CLAUDE.md or AGENTS.md). Use conventional commits by default. The Co-Authored-By trailer should match the current model identity — check the conversation's environment block for the model name and ID.
+Follow the project's commit conventions (check CLAUDE.md or AGENTS.md). Use conventional commits by default. Any co-author trailer should match the current model identity — check the conversation's environment block for the model name and ID.
 
 ### Step 5: Push
 

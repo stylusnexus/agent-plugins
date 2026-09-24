@@ -1,6 +1,6 @@
 # Stylus Nexus — Agent Plugins Marketplace
 
-[![skills.sh](https://skills.sh/b/stylusnexus/agent-plugins)](https://skills.sh/stylusnexus/agent-plugins)
+[![skills.sh](https://img.shields.io/badge/skills.sh-listed-black)](https://skills.sh/stylusnexus/agent-plugins)
 [![npm](https://img.shields.io/npm/v/@stylusnexus/agent-plugins)](https://www.npmjs.com/package/@stylusnexus/agent-plugins)
 [![npm downloads](https://img.shields.io/npm/dm/@stylusnexus/agent-plugins)](https://www.npmjs.com/package/@stylusnexus/agent-plugins)
 [![CI](https://github.com/stylusnexus/agent-plugins/actions/workflows/ci.yml/badge.svg)](https://github.com/stylusnexus/agent-plugins/actions/workflows/ci.yml)
@@ -52,7 +52,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 <details>
 <summary><b>ship-pipeline</b> · 9 skills</summary>
 
-| Skill | Use it when |
+| Skill | What it covers |
 |---|---|
 | `backup-verify` | Backup existence and restore-testing; the go/no-go before a risky mutation |
 | `db-migration-safety` | Writing schema change — expand-contract sequencing, idempotency, backfills |
@@ -61,7 +61,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 | `prove-it` | Evidence standards, gate discovery, the evidence table, `UNVERIFIED` labeling |
 | `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection, head-SHA and required-check confirmation before merge |
 | `review-slop` | Report-only slop findings, severity calibration, and suggested repair criteria |
-| `ship-issues` | Batch orchestration — per-issue status, grouping into branches, consult-before-asking, post-deploy validation, the batch report. |
+| `ship-issues` | Batch orchestration — per-issue status, grouping into branches, consult-before-asking, post-deploy validation, the batch report. Owns no step the skills above own. |
 | `start-issue` | Issue comprehension, prior-art checking, baseline capture, branch naming |
 
 [Pack README →](./plugins/ship-pipeline)
@@ -71,15 +71,15 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 <details>
 <summary><b>reporting-comms</b> · 7 skills</summary>
 
-| Skill | Use it when |
+| Skill | What it covers |
 |---|---|
-| `html` | Output is complex enough that a wall of terminal text loses it — plans, code reviews, research, comparisons, configs, reports. |
-| `human-writing` | Text reads as machine-generated: corporate speak, generic phrasing, the familiar AI cadence. |
-| `recap-table` | Someone asks "what did you change?" or wants a before/after comparison. |
-| `redline` | The human needs to judge a draft, plan, or report and describing the problems in chat is slower than fixing them. |
+| `html` | Output is complex enough that a wall of terminal text loses it — plans, code reviews, research, comparisons, configs, reports. Produces one self-contained, reading-first HTML file. |
+| `human-writing` | Text reads as machine-generated: corporate speak, generic phrasing, the familiar AI cadence. Rewrites toward something conversational and specific. |
+| `recap-table` | Someone asks "what did you change?" or wants a before/after comparison. Produces the table, not another paragraph. |
+| `redline` | The human needs to judge a draft, plan, or report and describing the problems in chat is slower than fixing them. Opens it in a browser for direct editing and anchored comments; returns one Markdown review. |
 | `visual-plan` | A text plan would land better as an interactive document: diagrams, file maps, annotated code, open questions, and UI review where it helps. |
 | `visual-recap` | A PR, branch, commit, or diff needs explaining — renders it with diagrams, file maps, API and schema summaries, and annotated diffs. |
-| `writing-clearly-and-concisely` | Any prose a human will read — docs, commit messages, error messages, explanations. |
+| `writing-clearly-and-concisely` | Any prose a human will read — docs, commit messages, error messages, explanations. Applies Strunk's rules and cuts what isn't carrying weight. |
 
 [Pack README →](./plugins/reporting-comms)
 
@@ -88,13 +88,13 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 <details>
 <summary><b>second-opinion</b> · 5 skills</summary>
 
-| Skill | Use it when |
+| Skill | What it covers |
 |---|---|
 | `agent-watchdog` | Another agent's work needs watching, auditing, comparing, or fixing, from a session ID or transcript. |
 | `debug-feedback-loop` | A bug needs a fast, deterministic pass/fail signal before hypothesising about causes — the step most debugging skips. |
 | `llm-council` | A question, idea, or decision is consequential enough to want five advisors analysing it independently before synthesis — rather than one answer delivered confidently. |
-| `plan-arbiter` | Two or more plans are on the table and someone has to compare, cross-review, merge, judge, or arbitrate between them. |
-| `spec-review` | A spec or requirements doc is drafted or about to be implemented. |
+| `plan-arbiter` | Two or more plans are on the table and someone has to compare, cross-review, merge, judge, or arbitrate between them. Picks on reasoning, not on whichever was written last. |
+| `spec-review` | A spec or requirements doc is drafted or about to be implemented. Verifies its claims against the real codebase — catching wrong data-model assumptions before code embeds them. |
 
 [Pack README →](./plugins/second-opinion)
 
@@ -103,12 +103,12 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 <details>
 <summary><b>hardening</b> · 5 skills</summary>
 
-| Skill | Use it when |
+| Skill | What it covers |
 |---|---|
 | `auth-hardening` | Auth is in place and needs auditing — session and cookie configuration, CSRF, OAuth scopes, per-route protection. |
-| `exposure-scan` | Periodically, and after any dependency change. |
-| `privacy-audit` | User data is collected and someone needs to say exactly what and where. |
-| `rate-limit-audit` | Before launch, or after adding an endpoint that calls a paid API (LLM, email, SMS) or handles auth. |
+| `exposure-scan` | Periodically, and after any dependency change. Checks installed packages across npm, Go, PyPI, RubyGems, and MCP servers against threat-intelligence catalogs for known-compromised releases. |
+| `privacy-audit` | User data is collected and someone needs to say exactly what and where. Produces the inventory and checks it against the code and infra — not against what the privacy policy claims. |
+| `rate-limit-audit` | Before launch, or after adding an endpoint that calls a paid API (LLM, email, SMS) or handles auth. Inventories every such endpoint and checks each actually has a limit. |
 | `webhook-reliability` | Designing or reviewing webhooks in either direction: signature verification, idempotency, retry and backoff, dead letters, monitoring. |
 
 [Pack README →](./plugins/hardening)
@@ -118,13 +118,13 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 <details>
 <summary><b>release-ops</b> · 5 skills</summary>
 
-| Skill | Use it when |
+| Skill | What it covers |
 |---|---|
-| `dependency-upgrade` | Bulk dependency bumps. |
-| `npm-publish` | Publishing to npm or bun — preflight checks, semver bump, changelog entry, git push, publish, verify. |
+| `dependency-upgrade` | Bulk dependency bumps. Treats them as a gated pipeline — inventory, batch, then type check, test, and E2E between batches — rather than one update command and hope. |
+| `npm-publish` | Publishing to npm or bun — preflight checks, semver bump, changelog entry, git push, publish, verify. Rotates an expired npm token through the browser instead of stopping to ask for a one-time code. |
 | `pr-wait` | A PR is open and you want to block on CI rather than watch it, optionally merging when checks pass. |
-| `the-waiting` | CI is running and you want to know how long is really left, or why a run is still pending. |
-| `version-check` | You need to decide the next version. |
+| `the-waiting` | CI is running and you want to know how long is really left, or why a run is still pending. Estimates each job from its own history, spots runs stuck behind a cancelled one, and suggests something small to do meanwhile. Named for Tom Petty's "The Waiting", because it is the hardest part. |
+| `version-check` | You need to decide the next version. Reads the commits since the last tag and recommends major, minor, or patch, with the reasoning. |
 
 [Pack README →](./plugins/release-ops)
 
@@ -133,14 +133,14 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 <details>
 <summary><b>product-strategy</b> · 14 skills · 2 agents</summary>
 
-| Skill | Use it when |
+| Skill | What it covers |
 |---|---|
 | `pm-canvas` | Filling in, teaching, or reviewing a one-page product strategy canvas. |
 | `pm-capabilities` | Mapping the business capabilities a strategy needs, and the gaps. |
 | `pm-discovery` | Planning interviews, testing assumptions, Kano surveys, journey maps, or A/B tests. |
 | `pm-growth` | Acquisition, activation, retention, referral loops, and monetization. |
 | `pm-market-analysis` | Five Forces, PESTLE, SWOT, and other views of the market around you. |
-| `pm-objectives` | Setting OKRs, key metrics, or a North Star metric. |
+| `pm-objectives` | Setting OKRs, key metrics, or a North Star metric. Includes a 40-entry metric catalog. |
 | `pm-roadmap` | Building an outcome roadmap, prioritizing, or writing a PRD or user stories. |
 | `pm-strategy` | Choosing where to play and how to win, and the trade-offs that come with it. |
 | `pm-strategy-fit` | Checking that strategic choices reinforce each other and are hard to copy. |
@@ -148,7 +148,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 | `pm-value-proposition` | Working out customer value, alternatives, and a value curve. |
 | `pm-vision` | Defining a mission, vision, or winning aspiration: what success should mean. |
 | `pm-visuals` | Turning any of the above into a diagram (Mermaid by default) or an HTML page. |
-| `product-manager` | You want a chief PM to lead the work end to end, or to teach you while you do it. |
+| `product-manager` | You want a chief PM to lead the work end to end, or to teach you while you do it. Routes to the skills below. |
 
 Agents (Claude Code): `business-capability-modeler` `product-manager`
 
@@ -159,9 +159,9 @@ Agents (Claude Code): `business-capability-modeler` `product-manager`
 <details>
 <summary><b>go-to-market</b> · 12 skills · 2 agents</summary>
 
-| Skill | Use it when |
+| Skill | What it covers |
 |---|---|
-| `marketing-lead` | You want a marketing plan, or don't know why nobody is using the product. |
+| `marketing-lead` | You want a marketing plan, or don't know why nobody is using the product. Routes to the skills below and teaches as it goes. |
 | `mk-audience` | Choosing the first customer, writing an ideal customer profile, and finding who influences the buyer. |
 | `mk-brand-kit` | Settling a product's voice, palette, fonts, and logo use, and picking a design tool. |
 | `mk-community` | Taking part in Discord servers, subreddits, forums, and open-source communities without spamming them. |
@@ -171,7 +171,7 @@ Agents (Claude Code): `business-capability-modeler` `product-manager`
 | `mk-lifecycle` | Waitlist, onboarding, activation, upgrade, and win-back email sequences. |
 | `mk-measurement` | Choosing what to measure, reading whether a channel worked, and running trustworthy experiments. |
 | `mk-outreach` | Cold email, press and podcast pitches, design partners, and warm introductions. |
-| `mk-positioning` | Working out who the product is for, what it beats, and how to say it in one line. |
+| `mk-positioning` | Working out who the product is for, what it beats, and how to say it in one line. Built on April Dunford's positioning method. |
 | `mk-search` | Getting found in search and cited by AI assistants: citable pages, `llms.txt`, test-question panels. |
 
 Agents (Claude Code): `audience-scout` `marketing-lead`
@@ -183,12 +183,12 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 <details>
 <summary><b>codebase-intel</b> · 4 skills</summary>
 
-| Skill | Use it when |
+| Skill | What it covers |
 |---|---|
 | `codebase-architecture-scanner` | You need architecture documentation that doesn't exist yet — layered high-level and detailed docs, with C4 context and sequence diagrams. |
-| `codebase-health` | Onboarding somewhere unfamiliar, planning a refactor, or diagnosing why one area keeps breaking. |
+| `codebase-health` | Onboarding somewhere unfamiliar, planning a refactor, or diagnosing why one area keeps breaking. Reports complexity hotspots, churn, bus factor, and velocity from git history. |
 | `grill-with-docs` | A plan is drafted and needs challenging against the domain model that's already there, sharpening terminology and updating docs rather than inventing parallel vocabulary. |
-| `read-the-damn-docs` | Anything touching a third-party API, library, framework, CLI, cloud service, or provider SDK. |
+| `read-the-damn-docs` | Anything touching a third-party API, library, framework, CLI, cloud service, or provider SDK. Goes to current documentation instead of trusting recall. |
 
 [Pack README →](./plugins/codebase-intel)
 
@@ -309,7 +309,7 @@ codex plugin add ship-pipeline@stylus-nexus
 ```
 
 Codex reads its own index at `.agents/plugins/marketplace.json` — same marketplace, different
-schema. In the Codex CLI and IDE extension, type `$` and a skill name (`$prove-it`) or run `/skills`
+schema. In the Codex CLI and IDE extension, type `$` and a skill name (`$ship-pipeline:prove-it`; plugin skills carry the pack name, as in Claude Code) or run `/skills`
 to pick one; in the ChatGPT app, type `@`.
 
 ### Everything else — Cursor · Copilot · Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · ~60 more
@@ -344,7 +344,7 @@ Where a skill came from decides its name:
 | Installed via | Invoke as | Why |
 |---|---|---|
 | Claude Code plugin | `/ship-pipeline:prove-it` | Plugins namespace their skills, so two packs can share a skill name without colliding |
-| Codex plugin | `$prove-it`, or `/skills` to pick | Codex mentions skills with `$` (the ChatGPT app uses `@`) |
+| Codex plugin | `$ship-pipeline:prove-it`, or `/skills` to pick | Codex also prefixes plugin skills with the pack name, and mentions them with `$` (the ChatGPT app uses `@`) |
 | Skills CLI / npm | `/prove-it` | Installed as plain skills, no namespace |
 
 Most skills are **model-invoked** — you don't type them at all. `prove-it` fires when you're
@@ -446,7 +446,7 @@ The **eight skill packs** are plain markdown, so they reach every agent the Skil
 | Agent | Skill packs | Tool plugins | Invoke as |
 |---|---|---|---|
 | **Claude Code** (CLI · VS Code · JetBrains) | `/plugin install <pack>@stylus-nexus` | `/plugin install work-plan@stylus-nexus` | `/ship-pipeline:prove-it` · `/work-plan:brief` |
-| **Codex** (CLI · app · IDE) | `codex plugin add <pack>@stylus-nexus` | `codex plugin add work-plan@stylus-nexus` | `$prove-it` · `/skills` |
+| **Codex** (CLI · app · IDE) | `codex plugin add <pack>@stylus-nexus` | `codex plugin add work-plan@stylus-nexus` | `$ship-pipeline:prove-it` · `/skills` |
 | **Cursor** | `npx skills add stylusnexus/agent-plugins` | clone + `install.sh` + `.cursorrules` shim | `/prove-it` · `python3 …/work_plan.py` |
 | **GitHub Copilot** | `npx skills add stylusnexus/agent-plugins` | clone + `install.sh` + copilot-instructions shim | `/prove-it` · direct CLI |
 | **Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · Goose · Warp · Amp · Junie · Roo · Qwen Code · Trae · Aider · +more** | `npx skills add stylusnexus/agent-plugins` | — | `/prove-it` |
