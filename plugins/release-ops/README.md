@@ -1,6 +1,6 @@
 # Release Ops
 
-Four skills for getting a release out the door — deciding the version, waiting on CI, publishing, and keeping dependencies current between releases.
+Five skills for getting a release out the door — deciding the version, waiting on CI, publishing, and keeping dependencies current between releases.
 
 ---
 
@@ -10,6 +10,7 @@ Four skills for getting a release out the door — deciding the version, waiting
 |---|---|
 | `version-check` | You need to decide the next version. Reads the commits since the last tag and recommends major, minor, or patch, with the reasoning. |
 | `pr-wait` | A PR is open and you want to block on CI rather than watch it, optionally merging when checks pass. |
+| `the-waiting` | CI is running and you want to know how long is really left, or why a run is still pending. Estimates each job from its own history, spots runs stuck behind a cancelled one, and suggests something small to do meanwhile. Named for Tom Petty's "The Waiting", because it is the hardest part. |
 | `npm-publish` | Publishing to npm or bun — preflight checks, semver bump, changelog entry, git push, publish, verify. Rotates an expired npm token through the browser instead of stopping to ask for a one-time code. |
 | `dependency-upgrade` | Bulk dependency bumps. Treats them as a gated pipeline — inventory, batch, then type check, test, and E2E between batches — rather than one update command and hope. |
 
@@ -21,6 +22,7 @@ Four skills for getting a release out the door — deciding the version, waiting
 |---|---|
 | `version-check` | Deciding *what* the next version should be |
 | `pr-wait` | Waiting on CI for an open PR, and merging on green |
+| `the-waiting` | Explaining a wait: time left, stuck runs, and what to do meanwhile. Never cancels, reruns, or merges |
 | `npm-publish` | Everything from bump to published artifact, including auth |
 | `dependency-upgrade` | Incoming dependency changes and the gates between batches |
 
