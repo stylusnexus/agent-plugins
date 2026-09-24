@@ -31,7 +31,7 @@ Six packs, grouped by the job rather than the technology. Each pack's README car
 
 | Pack | # | What it's for | Skills |
 |---|---|---|---|
-| [**ship-pipeline**](./plugins/ship-pipeline) | 7 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote. | `start-issue` `db-truth` `prove-it` `review-merge-pipeline` `deploy` `db-migration-safety` `backup-verify` |
+| [**ship-pipeline**](./plugins/ship-pipeline) | 8 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `db-migration-safety` `backup-verify` |
 | [**reporting-comms**](./plugins/reporting-comms) | 7 | The last mile — turning agent output into something a person wants to read, and getting their judgment back. | `html` `visual-plan` `visual-recap` `recap-table` `writing-clearly-and-concisely` `human-writing` `redline` |
 | [**second-opinion**](./plugins/second-opinion) | 5 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` |
 | [**hardening**](./plugins/hardening) | 5 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` |
