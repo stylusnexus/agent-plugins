@@ -1,0 +1,495 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Redline</title>
+<!--
+  redline — self-contained review page. No network requests, no dependencies.
+  The agent replaces DOC_TITLE, SOURCE_PATH, REVIEW_MODE and the CONTENT block.
+  Everything else ships as-is.
+-->
+<style>
+  :root {
+    --bg: #fbfaf8; --fg: #1a1a1a; --muted: #6b6b6b; --rule: #e2e0dc;
+    --accent: #b3441a; --accent-soft: #fdefe9; --edit: #1a6b4a; --edit-soft: #e6f4ee;
+    --card: #ffffff; --shadow: 0 1px 3px rgba(0,0,0,.08), 0 8px 24px rgba(0,0,0,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16161a; --fg: #e8e6e3; --muted: #9a9a9a; --rule: #2e2e34;
+      --accent: #ff8a5c; --accent-soft: #3a2117; --edit: #5fd3a0; --edit-soft: #16302a;
+      --card: #1e1e24; --shadow: 0 1px 3px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 17px/1.65 ui-serif, Georgia, "Iowan Old Style", serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    position: sticky; top: 0; z-index: 40; background: var(--bg);
+    border-bottom: 1px solid var(--rule); padding: 10px 20px;
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px;
+  }
+  header .doc { font-weight: 600; }
+  header .mode {
+    color: var(--muted); border: 1px solid var(--rule);
+    border-radius: 999px; padding: 2px 9px; font-size: 11px;
+  }
+  header .spacer { flex: 1; }
+  header .count { color: var(--muted); font-variant-numeric: tabular-nums; }
+  button {
+    font: inherit; font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px;
+    border: 1px solid var(--rule); background: var(--card); color: var(--fg);
+    border-radius: 7px; padding: 6px 13px; cursor: pointer;
+  }
+  button:hover { border-color: var(--muted); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  button.primary:disabled { opacity: .4; cursor: default; }
+  button.primary:disabled:hover { border-color: var(--accent); }
+  button.ghost { border-color: transparent; color: var(--muted); }
+
+  main { max-width: 46rem; margin: 0 auto; padding: 44px 24px 60vh; }
+  /* Reserve the gutter the fixed rail occupies, so cards never sit on the text. */
+  @media (min-width: 1181px) { body { padding-right: 302px; } }
+  #content:focus { outline: none; }
+  #content [data-rl] { position: relative; border-radius: 3px; }
+  #content [data-rl].dirty { background: var(--edit-soft); box-shadow: -10px 0 0 var(--edit-soft), 10px 0 0 var(--edit-soft); }
+  #content [data-rl].commented { background: var(--accent-soft); box-shadow: -10px 0 0 var(--accent-soft), 10px 0 0 var(--accent-soft); }
+  #content [data-flag] { background: var(--accent-soft); border-bottom: 2px dotted var(--accent); padding: 1px 0; }
+  #content pre { overflow-x: auto; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 7px; }
+  #content img, #content svg { max-width: 100%; height: auto; }
+  #content table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
+  #content th, #content td { border: 1px solid var(--rule); padding: 6px 10px; text-align: left; }
+  mark.rl-anchor { background: var(--accent-soft); border-bottom: 2px solid var(--accent); padding: 1px 0; }
+
+  #bubble {
+    position: absolute; z-index: 50; display: none;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+  }
+  #bubble button { box-shadow: var(--shadow); background: var(--fg); color: var(--bg); border-color: var(--fg); }
+
+  #rail { position: fixed; top: 56px; right: 16px; width: 270px; max-height: calc(100vh - 76px); overflow-y: auto; z-index: 30; }
+  @media (max-width: 1180px) { #rail { position: static; width: auto; max-height: none; margin: 0 auto 40px; max-width: 46rem; padding: 0 24px; } }
+  .card {
+    background: var(--card); border: 1px solid var(--rule); border-left: 3px solid var(--accent);
+    border-radius: 7px; padding: 11px 12px; margin-bottom: 9px; box-shadow: var(--shadow);
+    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; line-height: 1.5;
+  }
+  .card blockquote {
+    margin: 0 0 7px; padding-left: 9px; border-left: 2px solid var(--rule);
+    color: var(--muted); font-style: italic; font-size: 12px;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .card textarea {
+    width: 100%; border: 1px solid var(--rule); border-radius: 5px; padding: 6px 8px;
+    font: inherit; resize: vertical; min-height: 58px; background: var(--bg); color: var(--fg);
+  }
+  .card textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+  .card .row { display: flex; gap: 6px; margin-top: 7px; align-items: center; }
+  .card .row .spacer { flex: 1; }
+  .card .tag {
+    font-size: 10px; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--muted); font-weight: 600;
+  }
+  .card.triage .row { flex-wrap: wrap; }
+  .card.triage button.sel { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  #done { display: none; padding: 14px 16px; margin: 0 auto 30px; max-width: 46rem;
+    background: var(--edit-soft); border: 1px solid var(--edit); border-radius: 7px;
+    font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; }
+  #done code { background: var(--bg); padding: 1px 5px; border-radius: 4px; }
+  .hint { color: var(--muted); font-family: ui-sans-serif, system-ui, sans-serif;
+    font-size: 12.5px; max-width: 46rem; margin: 0 auto 26px; padding: 0 24px; }
+</style>
+
+<header>
+  <span class="doc" id="docname">DOC_TITLE</span>
+  <span class="mode" id="modelabel">review</span>
+  <span class="spacer"></span>
+  <span class="count" id="count">nothing yet</span>
+  <button class="ghost" id="revert">Revert edits</button>
+  <button class="primary" id="send" disabled>Send</button>
+</header>
+
+<p class="hint" id="hint"></p>
+<div id="done"></div>
+<div id="rail"><div id="overallslot"></div><div id="cards"></div></div>
+
+<main>
+  <div id="content"><!--CONTENT--></div>
+</main>
+
+<div id="bubble"><button id="addcomment">Comment</button></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var DOC   = "DOC_TITLE";
+  var SRC   = "SOURCE_PATH";
+  var MODE  = "REVIEW_MODE";           // "comment" (read-only) | "edit" (edit + comment)
+  var KEY   = "redline:" + SRC;
+
+  var content = document.getElementById("content");
+  var rail    = document.getElementById("rail");
+  var bubble  = document.getElementById("bubble");
+  var sendBtn = document.getElementById("send");
+  var countEl = document.getElementById("count");
+
+  var comments = [];   // {id, kind, quote, prefix, suffix, block, note, triage}
+  var originals = {};  // blockId -> original text
+  var seq = 0;
+
+  // ---- setup -------------------------------------------------------------
+
+  var BLOCKS = "p,li,h1,h2,h3,h4,h5,h6,blockquote,td,pre,figcaption,dd,dt";
+
+  function initBlocks() {
+    var nodes = content.querySelectorAll("[data-block],[data-container]," + BLOCKS);
+    Array.prototype.forEach.call(nodes, function (el) {
+      if (el.closest("[data-rl]") && el.closest("[data-rl]") !== el) return;
+      if (!el.hasAttribute("data-rl")) el.setAttribute("data-rl", "b" + (++seq));
+      originals[el.getAttribute("data-rl")] = el.innerHTML;
+    });
+  }
+
+  function label(el) {
+    return el.getAttribute("data-block") || el.getAttribute("data-container") ||
+           (el.tagName.toLowerCase() + " · " + text(el).slice(0, 32).trim() + "…");
+  }
+  function text(el) { return (el.textContent || "").replace(/\s+/g, " ").trim(); }
+
+  // A self-rendering page (charts, scripted DOM) must never be edited in place:
+  // the script rewrites the DOM and the "edit" we captured is meaningless.
+  function selfRendering() {
+    return content.querySelector("script,canvas,[data-live]") !== null;
+  }
+
+  var editable = MODE === "edit" && !selfRendering();
+  document.getElementById("modelabel").textContent = editable ? "edit + comment" : "comment only";
+  document.getElementById("docname").textContent = DOC;
+  document.getElementById("hint").textContent = editable
+    ? "Type over any text to change it. Select a phrase to comment on it. Then hit Send."
+    : (MODE === "edit"
+        ? "This page renders itself with script, so editing is off to avoid corrupting it. Select a phrase to comment on it, then hit Send."
+        : "Select any phrase to comment on it, then hit Send. Editing is off for this pass.");
+
+  if (editable) {
+    content.setAttribute("contenteditable", "true");
+    content.setAttribute("spellcheck", "true");
+    content.addEventListener("input", function (e) {
+      var el = e.target && e.target.closest ? e.target.closest("[data-rl]") : null;
+      if (el) el.classList.add("dirty");
+      save(); render();
+    });
+  }
+
+  // ---- selection → comment ----------------------------------------------
+
+  function contextFor(range) {
+    var host = range.startContainer.parentElement ?
+               range.startContainer.parentElement.closest("[data-rl]") : null;
+    var whole = host ? text(host) : "";
+    var quote = range.toString().replace(/\s+/g, " ").trim();
+    var at = whole.indexOf(quote);
+    return {
+      block: host ? label(host) : "",
+      prefix: at > 0 ? whole.slice(Math.max(0, at - 32), at) : "",
+      suffix: at >= 0 ? whole.slice(at + quote.length, at + quote.length + 32) : ""
+    };
+  }
+
+  document.addEventListener("mouseup", function () {
+    setTimeout(function () {
+      var sel = window.getSelection();
+      if (!sel || sel.isCollapsed || !sel.rangeCount) { bubble.style.display = "none"; return; }
+      var range = sel.getRangeAt(0);
+      if (!content.contains(range.commonAncestorContainer)) { bubble.style.display = "none"; return; }
+      if (!range.toString().trim()) { bubble.style.display = "none"; return; }
+      var r = range.getBoundingClientRect();
+      bubble.style.display = "block";
+      bubble.style.left = (window.scrollX + r.left) + "px";
+      bubble.style.top  = (window.scrollY + r.bottom + 7) + "px";
+    }, 10);
+  });
+
+  document.getElementById("addcomment").addEventListener("click", function () {
+    var sel = window.getSelection();
+    if (!sel || !sel.rangeCount) return;
+    var range = sel.getRangeAt(0);
+    var quote = range.toString().replace(/\s+/g, " ").trim();
+    if (!quote) return;
+    var ctx = contextFor(range);
+
+    var id = "c" + (++seq);
+    var mark = document.createElement("mark");
+    mark.className = "rl-anchor";
+    mark.setAttribute("data-for", id);
+    try { range.surroundContents(mark); }
+    catch (err) { /* selection crosses element boundaries — keep the comment, skip the highlight */ }
+
+    comments.push({ id: id, kind: "selection", quote: quote, prefix: ctx.prefix,
+                    suffix: ctx.suffix, block: ctx.block, note: "" });
+    sel.removeAllRanges();
+    bubble.style.display = "none";
+    save(); render();
+    var ta = document.querySelector('[data-card="' + id + '"] textarea');
+    if (ta) ta.focus();
+  });
+
+  // Click a whole block to comment on it (images, charts, callouts, tables).
+  content.addEventListener("click", function (e) {
+    if (editable) return;                       // in edit mode a click places the caret
+    var el = e.target.closest ? e.target.closest("[data-container],figure,img,table") : null;
+    if (!el || !content.contains(el)) return;
+    var id = "c" + (++seq);
+    comments.push({ id: id, kind: "block", quote: text(el).slice(0, 140),
+                    prefix: "", suffix: "", block: label(el), note: "" });
+    save(); render();
+  });
+
+  // ---- triage mode -------------------------------------------------------
+  // Pre-flagged spans (a scanner's hits) arrive as <span data-flag="pattern">.
+  // Each becomes a card the human sorts into violation / exception.
+
+  function initFlags() {
+    var flags = content.querySelectorAll("[data-flag]");
+    Array.prototype.forEach.call(flags, function (el) {
+      var id = "f" + (++seq);
+      el.setAttribute("data-for", id);
+      el.classList.add("flagged");
+      comments.push({ id: id, kind: "triage", quote: text(el),
+                      prefix: "", suffix: "", block: el.getAttribute("data-flag"),
+                      note: "", triage: null });
+    });
+  }
+
+  // ---- rail --------------------------------------------------------------
+
+  function render() {
+    var cards = document.getElementById("cards");
+    cards.innerHTML = "";
+    comments.forEach(function (c) {
+      var card = document.createElement("div");
+      card.className = "card" + (c.kind === "triage" ? " triage" : "");
+      card.setAttribute("data-card", c.id);
+
+      var tag = document.createElement("div");
+      tag.className = "tag";
+      tag.textContent = c.kind === "triage" ? ("flagged · " + c.block)
+                      : (c.kind === "block" ? "block" : (c.block || "comment"));
+      card.appendChild(tag);
+
+      var q = document.createElement("blockquote");
+      q.textContent = c.quote;
+      card.appendChild(q);
+
+      if (c.kind === "triage") {
+        var row = document.createElement("div");
+        row.className = "row";
+        [["violation", "Violation"], ["exception", "Exception"]].forEach(function (pair) {
+          var b = document.createElement("button");
+          b.textContent = pair[1];
+          if (c.triage === pair[0]) b.className = "sel";
+          b.addEventListener("click", function () {
+            c.triage = (c.triage === pair[0]) ? null : pair[0];
+            save(); render();
+          });
+          row.appendChild(b);
+        });
+        card.appendChild(row);
+      }
+
+      var ta = document.createElement("textarea");
+      ta.value = c.note;
+      ta.placeholder = c.kind === "triage" ? "why (optional)" : "what's wrong with this?";
+      ta.addEventListener("input", function () { c.note = ta.value; save(); updateCount(); });
+      card.appendChild(ta);
+
+      var row2 = document.createElement("div");
+      row2.className = "row";
+      var sp = document.createElement("span"); sp.className = "spacer"; row2.appendChild(sp);
+      var del = document.createElement("button");
+      del.className = "ghost"; del.textContent = "Remove";
+      del.addEventListener("click", function () { drop(c.id); });
+      row2.appendChild(del);
+      card.appendChild(row2);
+
+      cards.appendChild(card);
+    });
+    updateCount();
+  }
+
+  function drop(id) {
+    comments = comments.filter(function (c) { return c.id !== id; });
+    var m = content.querySelector('[data-for="' + id + '"]');
+    if (m && m.tagName === "MARK") { m.replaceWith(document.createTextNode(m.textContent)); }
+    else if (m) { m.classList.remove("flagged"); }
+    save(); render();
+  }
+
+  function edits() {
+    var out = [];
+    Object.keys(originals).forEach(function (id) {
+      var el = content.querySelector('[data-rl="' + id + '"]');
+      if (!el) return;
+      var before = stripMarks(originals[id]);
+      var after  = stripMarks(el.innerHTML);
+      if (before !== after) out.push({ block: label(el), before: plain(before), after: plain(after) });
+    });
+    return out;
+  }
+  function stripMarks(html) {
+    var d = document.createElement("div"); d.innerHTML = html;
+    Array.prototype.forEach.call(d.querySelectorAll("mark.rl-anchor,[data-flag]"), function (m) {
+      m.replaceWith(document.createTextNode(m.textContent));
+    });
+    return d.innerHTML.replace(/\s+/g, " ").trim();
+  }
+  function plain(html) {
+    var d = document.createElement("div"); d.innerHTML = html;
+    return (d.textContent || "").replace(/\s+/g, " ").trim();
+  }
+
+  function updateCount() {
+    var e = edits().length;
+    var c = comments.filter(function (x) { return x.note.trim() || x.triage; }).length;
+    var bits = [];
+    if (e) bits.push(e + (e === 1 ? " edit" : " edits"));
+    if (c) bits.push(c + (c === 1 ? " comment" : " comments"));
+    countEl.textContent = bits.length ? bits.join(" · ") : "nothing yet";
+    sendBtn.disabled = !bits.length && !overall();
+  }
+  function overall() { return (document.getElementById("overall") || {}).value || ""; }
+
+  // ---- persistence -------------------------------------------------------
+
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify({
+        comments: comments, html: editable ? content.innerHTML : null
+      }));
+    } catch (err) { /* private mode — the review still works, it just won't survive a reload */ }
+  }
+  function restore() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return false;
+      var d = JSON.parse(raw);
+      if (d.html && editable) content.innerHTML = d.html;
+      comments = d.comments || [];
+      comments.forEach(function (c) { var n = parseInt(c.id.slice(1), 10); if (n > seq) seq = n; });
+      return true;
+    } catch (err) { return false; }
+  }
+
+  // ---- output ------------------------------------------------------------
+
+  function markdown() {
+    var e = edits();
+    var withNotes = comments.filter(function (c) { return c.note.trim() || c.triage; });
+    var L = [];
+    L.push("# Redline — " + DOC);
+    L.push("");
+    L.push("- source: `" + SRC + "`");
+    L.push("- " + e.length + " edit(s), " + withNotes.length + " comment(s)");
+    L.push("");
+
+    var note = overall().trim();
+    if (note) { L.push("## Overall"); L.push(""); L.push(note); L.push(""); }
+
+    if (e.length) {
+      L.push("## Edits the human already made");
+      L.push("");
+      L.push("These are decisions, not suggestions. Apply each `after` verbatim to the source.");
+      L.push("");
+      e.forEach(function (x) {
+        L.push("### " + x.block);
+        L.push("");
+        L.push("- **before:** " + x.before);
+        L.push("- **after:** " + x.after);
+        L.push("");
+      });
+    }
+
+    var triage = withNotes.filter(function (c) { return c.kind === "triage"; });
+    if (triage.length) {
+      L.push("## Triage");
+      L.push("");
+      L.push("| flag | text | verdict | why |");
+      L.push("|---|---|---|---|");
+      triage.forEach(function (c) {
+        L.push("| " + c.block + " | " + c.quote.replace(/\|/g, "\\|") + " | " +
+               (c.triage || "undecided") + " | " + c.note.replace(/\|/g, "\\|").replace(/\n/g, " ") + " |");
+      });
+      L.push("");
+    }
+
+    var plain2 = withNotes.filter(function (c) { return c.kind !== "triage"; });
+    if (plain2.length) {
+      L.push("## Comments");
+      L.push("");
+      plain2.forEach(function (c, i) {
+        L.push("### " + (i + 1) + ". " + (c.block || "comment"));
+        L.push("");
+        L.push("> " + c.quote);
+        L.push("");
+        if (c.prefix || c.suffix) {
+          L.push("_anchor: …" + c.prefix + "**" + c.quote + "**" + c.suffix + "…_");
+          L.push("");
+        }
+        L.push(c.note.trim());
+        L.push("");
+      });
+    }
+    return L.join("\n");
+  }
+
+  sendBtn.addEventListener("click", function () {
+    var md = markdown();
+    var name = DOC.replace(/\.[^.]+$/, "").replace(/[^\w.-]+/g, "-") + ".redline.md";
+    var blob = new Blob([md], { type: "text/markdown" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 4000);
+
+    var done = document.getElementById("done");
+    done.style.display = "block";
+    done.innerHTML = "<strong>Sent.</strong> Saved as <code>" + name +
+      "</code> — your agent picks it up from your downloads folder. " +
+      "Keep this tab open; it reloads when the agent has applied your notes.";
+    done.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+
+  document.getElementById("revert").addEventListener("click", function () {
+    if (!confirm("Discard your edits and comments, and restore the page as the agent left it?")) return;
+    try { localStorage.removeItem(KEY); } catch (err) {}
+    location.reload();
+  });
+
+  // ---- boot --------------------------------------------------------------
+
+  initBlocks();
+  var had = restore();
+  if (!had) initFlags();
+  if (had) {                                    // re-attach highlights after a reload
+    comments.forEach(function (c) {
+      var m = content.querySelector('[data-for="' + c.id + '"]');
+      if (m) m.classList.add(c.kind === "triage" ? "flagged" : "rl-anchor");
+    });
+  }
+
+  var ov = document.createElement("div");
+  ov.className = "card";
+  ov.style.borderLeftColor = "var(--muted)";
+  ov.innerHTML = '<div class="tag">overall</div>' +
+                 '<textarea id="overall" placeholder="anything about the whole thing"></textarea>';
+  document.getElementById("overallslot").appendChild(ov);
+  ov.querySelector("textarea").addEventListener("input", updateCount);
+
+  render();
+})();
+</script>
