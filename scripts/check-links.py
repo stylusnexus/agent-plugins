@@ -44,7 +44,7 @@ def github_slug(text):
     text = re.sub(r'[*_~]', '', text)
     text = text.strip().lower()
     text = re.sub(r'[^\w\s-]', '', text, flags=re.UNICODE)
-    text = re.sub(r'\s+', '-', text)
+    text = re.sub(r'\s', '-', text)  # GitHub maps each space to '-'; runs are not collapsed
     return text
 
 
