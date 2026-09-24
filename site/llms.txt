@@ -1,0 +1,11 @@
+# agent-plugins
+
+> Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.
+
+Install into Claude Code or Codex from the plugin marketplace (`stylusnexus/agent-plugins`), or into other agents with `npx skills add stylusnexus/agent-plugins`.
+
+## Links
+
+- [Catalogue](https://stylusnexus.github.io/agent-plugins/): every pack, its skills, and install steps for each agent.
+- [Repository](https://github.com/stylusnexus/agent-plugins): source, per-pack READMEs, and the full skill index.
+- [npm package](https://www.npmjs.com/package/@stylusnexus/agent-plugins): installs through the Skills CLI.
