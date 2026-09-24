@@ -30,8 +30,10 @@ Not for: reviewing code changes (use `/codex:review`); pure prose/marketing docs
 
 ## Usage
 
+`spec-review.sh` ships next to this SKILL.md. Invoke it via a path relative to this skill's own directory:
+
 ```bash
-~/.claude/skills/spec-review/spec-review.sh [TARGET] [-- extra focus text]
+<this skill's directory>/spec-review.sh [TARGET] [-- extra focus text]
 ```
 
 - `TARGET` = a spec **file**, a spec **folder** (bundles requirements+design+tasks),
@@ -45,9 +47,9 @@ Not for: reviewing code changes (use `/codex:review`); pure prose/marketing docs
 # explicit file
 spec-review.sh docs/superpowers/specs/2026-05-30-foo-design.md
 # folder spec (.spec-workflow style)
-spec-review.sh .spec-workflow/specs/MVP-plot-lifecycle
+spec-review.sh .spec-workflow/specs/checkout-redesign
 # bare name + focus
-spec-review.sh plot-lifecycle -- scrutinize the credit-deduction math
+spec-review.sh checkout-redesign -- scrutinize the refund math
 # auto-detect newest spec
 spec-review.sh
 ```

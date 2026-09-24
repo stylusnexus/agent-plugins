@@ -1,6 +1,5 @@
 {
   "name": "codebase-intel",
-  "version": "1.0.0",
   "description": "Four skills for building an accurate picture of a codebase and the libraries it depends on, before committing to a change. codebase-health surfaces complexity hotspots, churn, and bus factor when onboarding or planning a refactor; codebase-architecture-scanner generates layered architecture documentation with C4 and sequence diagrams; grill-with-docs challenges a plan against the existing domain model and sharpens terminology; and read-the-damn-docs stops guesses about third-party API behavior by going to the current documentation first.",
   "author": {
     "name": "Stylus Nexus"

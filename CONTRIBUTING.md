@@ -67,6 +67,7 @@ sh scripts/check-manifest-sync.sh      # the two marketplace manifests agree
 python3 scripts/check-skills.py        # every SKILL.md is loadable
 python3 scripts/check-links.py         # every relative link/anchor resolves
 python3 scripts/check-readme.py        # README tables match plugins/ on disk
+python3 scripts/gen-catalog.py --check # README catalogue and skills.sh.json are current
 sh scripts/check-private-terms.sh      # no owner-private terms in skill/agent text
 sh scripts/test-plugin-scripts.sh      # any plugin script's own tests pass
 npx --yes cspell@10 --no-progress "plugins/**/*.md" "README.md"
@@ -98,5 +99,7 @@ merge unless a maintainer adds it as one.
 - Keep a PR scoped to one pack or one concern where practical.
 - If your skill changes the skill set of a pack, run `check-readme.py` — it will
   tell you exactly which README table is now out of sync.
+- After changing a pack's skill table, run `python3 scripts/gen-catalog.py` to
+  regenerate the root README catalogue and `skills.sh.json`.
 - New skills need at least one worked example in the SKILL.md body, not just the
   frontmatter description.

@@ -51,12 +51,12 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add go-to-market@stylus-nexus
 ```
 
-In Codex, type `$marketing-lead` (or any skill name after `$`) to use a skill, or run `/skills` to pick one.
+In Codex, type `$` and a skill name to use it (`$go-to-market:marketing-lead`; Codex prefixes plugin skills with the pack name), or run `/skills` to pick one.
 
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill '*'
+npx skills add stylusnexus/agent-plugins --skill marketing-lead mk-audience mk-brand-kit mk-community mk-copy mk-founder-content mk-launch mk-lifecycle mk-measurement mk-outreach mk-positioning mk-search
 ```
 
 Skills arrive un-namespaced on this path, so they invoke as `/marketing-lead`.
