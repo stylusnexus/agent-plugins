@@ -86,8 +86,15 @@ if [ -s "$SCAN_LIST_ALL" ]; then
     [ -s "$scan_list" ] || continue
     hits=$(xargs -0 grep -rniIE "$pattern" < "$scan_list" 2>/dev/null || true)
     if [ -n "$hits" ]; then
-      echo "PRIVATE TERM '$pattern' found:" >&2
-      echo "$hits" | sed 's/^/  /' >&2
+      if grep -Fxq -- "$pattern" "$DENYLIST"; then
+        echo "PRIVATE TERM '$pattern' found:" >&2
+        echo "$hits" | sed 's/^/  /' >&2
+      else
+        # Overlay terms are private: CI logs on a public repo are public, so
+        # report only file:line -- never the term or the matching text.
+        echo "PRIVATE TERM (from the private list) found at:" >&2
+        echo "$hits" | cut -d: -f1,2 | sed 's/^/  /' >&2
+      fi
       fail=1
     fi
   done < "$PATTERNS_FILE"
@@ -105,8 +112,8 @@ if [ -d docs ] && [ -s "$OVERLAY_FILE" ]; then
     esac
     hits=$(grep -rniIE "$pattern" docs 2>/dev/null || true)
     if [ -n "$hits" ]; then
-      echo "PRIVATE TERM '$pattern' found in docs/:" >&2
-      echo "$hits" | sed 's/^/  /' >&2
+      echo "PRIVATE TERM (from the private list) found in docs/ at:" >&2
+      echo "$hits" | cut -d: -f1,2 | sed 's/^/  /' >&2
       fail=1
     fi
   done < "$OVERLAY_FILE"
