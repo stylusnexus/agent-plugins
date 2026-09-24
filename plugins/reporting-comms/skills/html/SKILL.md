@@ -1,6 +1,6 @@
 ---
 name: html
-description: Turn complex output (plans, code reviews, research, comparisons, configs, reports) into a single self-contained, reading-first HTML artifact. Structure before style, inline CSS only, no network calls, Markdown export for handoff. Use when the user says "make this an HTML page/report/artifact", "turn this into HTML", "/html", asks for a visual explainer, decision page, code-review page, a summary, recap, wrap-up or handover page (including "make it ADHD friendly" or "accessible"), or a small one-file editor, or when a terminal answer is too long/dense to read comfortably.
+description: Turn complex output (plans, code reviews, research, comparisons, configs, reports) into a single self-contained, reading-first HTML artifact. Structure before style, inline CSS only, no network calls, Markdown export for handoff. Use when the user says "make this an HTML page/report/artifact", "turn this into HTML", "/html", asks for a visual explainer, decision page, code-review page, a summary, recap, wrap-up or handover *page* (including "make it ADHD friendly" or "accessible"; branch or PR recaps use visual-recap, recap tables use recap-table), or a small one-file editor, or when a terminal answer is too long/dense to read comfortably.
 args: "<what to turn into an artifact, e.g. 'turn this code review into a readable page'>"
 ---
 
@@ -60,18 +60,18 @@ Pick the one that fits. Each maps to a section layout in `template.html`.
 - **Code review page** — from a git diff. Include: short summary of the change, files changed, a **risk level per file**, key code snippets with inline explanations beside them, possible bugs, missing tests, suggested fixes, and a final merge checklist. Make it readable for a developer who has 10 minutes. Make the risk *visible*, not pretty.
 - **Decision page** — comparing options. For each option: what it means, when it's useful, cost, risk, complexity, what could go wrong, best use case. Add a comparison table, a final recommendation, and a **"What I would do first"** section. The page makes the decision easier to *see* — it does not make it for them.
 - **Report / research summary** — summary, key findings, comparison table where relevant, and clear takeaways.
-- **Summary page** — a recap of a conversation, working tree, or set of instructions that someone should take in at a glance. For a branch or PR with annotated code, use `visual-recap` instead. Read the real target first (`git status`, `git log --oneline -20`, `git diff --stat`, the changed files); never summarize from memory, and show unknown values as unknown. Lay it out in this order:
+- **Summary page** — a recap of a conversation, working tree, or set of instructions that someone should take in at a glance. For a branch or PR with annotated code, use `visual-recap` instead. Read the real target first: for a working tree, `git status`, `git log --oneline -20`, `git diff --stat` and the changed files; for a conversation, the transcript; for instructions, the actual file. Never summarize from memory, and show unknown values as unknown. Lay it out in this order:
   1. **Title plus one line** saying what this is.
   2. **At a glance** — three to five numbers or states, set large.
   3. **The body** — the shape of the work, carried by drawings. This is most of the page.
   4. **Decisions** — at most five, one short line each, each with a state mark.
   5. **Open and next** — state marks with a few words each. Omit if empty.
 
-  Pick the drawing by the content: sequence → flow or timeline; quantity or change → bar or line; share → stacked bar or dot grid; change → before/after columns; state across items → grid of marks; connections → node diagram; one number that matters → set it huge on its own. A table or a bullet list is text in a grid, not a visual — at most one table per summary page.
+  Pick the drawing by the content: sequence → flow or timeline; quantity → bar; trend over time → line; share → stacked bar or dot grid; change → before/after columns; state across items → grid of marks; connections → node diagram; one number that matters → set it huge on its own. A table or a bullet list is text in a grid, not a visual — at most one table per summary page.
 
   **Budget — check the markup before writing the file, and fix any failure:**
-  - Body words stay under 200. Exclude headings, figures, and labels of five words or fewer; a sentence moved into SVG `<text>` still counts.
-  - Every section has a drawing. A words-only section gets drawn or cut. In Decisions and Open, a state mark beside each line counts as the drawing.
+  - Body words stay under 200. Exclude headings, figures, and labels (text inside a figure or mark, five words or fewer); a sentence moved into SVG `<text>` still counts.
+  - Every section after the title has a drawing. A words-only section gets drawn or cut. Large numbers count as the drawing for At a glance; a state mark beside each line counts for Decisions and Open.
   - No three text blocks in a row, and no prose run longer than two sentences.
   - More drawings than paragraphs overall.
 
@@ -93,10 +93,10 @@ You are writing SVG blind, so build geometry where collisions cannot happen:
 
 When the user says "ADHD friendly", "autistic", "dyslexia", or "accessible", apply these on top of the chosen pattern:
 
-- **Everyone:** one idea per block; point first, detail after; literal words, no idiom; every number gets a unit and a comparison ("12 files, up from 4"); nothing hidden behind clicks, tabs, or tooltips; no motion; semantic HTML with alt text on every SVG and 4.5:1 body contrast.
-- **ADHD:** fits on two screens, about 1,600px tall at desktop width (cut, don't shrink); the next step in a box at the top, repeated at the bottom; each section scannable in five seconds; color codes state (done, blocked, open) and means the same thing everywhere; lists capped at six.
+- **Everyone:** one idea per block; point first, detail after; literal words, no idiom; every number gets a unit and a comparison ("12 files, up from 4"); nothing hidden behind clicks, tabs, or tooltips; no motion; semantic HTML; every SVG gets `role="img"` and a `<title>` or `aria-label`; 4.5:1 body contrast.
+- **ADHD:** fits on two screens, about 1,600px tall at desktop width (cut, don't shrink); the next step in a box at the top, repeated at the bottom; each section scannable in five seconds; color codes state and means the same thing everywhere (done `--ok`, blocked `--warn`, open `--muted`); lists capped at six.
 - **Autistic:** literal headings ("What changed", not "The journey"); one line under the title listing the sections in order; undecided things labeled undecided; recommendations in their own marked block, apart from facts; muted palette.
-- **Dyslexia:** line height 1.6 to 1.8, slightly open letter spacing, 55 to 70 character lines; no italics or all caps for emphasis, use weight; a sans face where I, l and 1 differ; after delivering, offer a warmer background in one line.
+- **Dyslexia:** line height 1.6 to 1.8, letter spacing 0.02 to 0.05em, 55 to 70 character lines; no italics or all caps for emphasis, use weight; a sans face where I, l and 1 differ; after delivering, offer a warmer background in one line.
 - **ADHD and autistic together:** autistic rules win on structure and labels; ADHD rules win on length and priority.
 
 ## Safety checklist (run before declaring done)
