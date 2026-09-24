@@ -4,7 +4,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents — **8 plugins, 32 skills**. Installs natively into **Claude
+A plugin marketplace for AI coding agents — **8 plugins, 33 skills**. Installs natively into **Claude
 Code** and **OpenAI Codex**, and reaches roughly seventy more agents (Cursor, Copilot, Gemini CLI,
 Windsurf, Zed, opencode, Cline, Continue, Hermes and others) through the Skills CLI.
 
@@ -31,7 +31,7 @@ Six packs, grouped by the job rather than the technology. Each pack's README car
 
 | Pack | # | What it's for | Skills |
 |---|---|---|---|
-| [**ship-pipeline**](./plugins/ship-pipeline) | 7 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote. | `start-issue` `db-truth` `prove-it` `review-merge-pipeline` `deploy` `db-migration-safety` `backup-verify` |
+| [**ship-pipeline**](./plugins/ship-pipeline) | 8 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `db-migration-safety` `backup-verify` |
 | [**reporting-comms**](./plugins/reporting-comms) | 7 | The last mile — turning agent output into something a person wants to read, and getting their judgment back. | `html` `visual-plan` `visual-recap` `recap-table` `writing-clearly-and-concisely` `human-writing` `redline` |
 | [**second-opinion**](./plugins/second-opinion) | 5 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` |
 | [**hardening**](./plugins/hardening) | 5 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` |
@@ -58,7 +58,7 @@ rather than burying it.
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
-"install everything" is a valid choice — it's 32 skills, all inert until their trigger matches.
+"install everything" is a valid choice — it's 33 skills, all inert until their trigger matches.
 
 ### Claude Code  (terminal · VS Code extension · JetBrains extension)
 
@@ -92,7 +92,7 @@ writes to each one's skills directory. No marketplace step — one command does 
 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
-npx skills add stylusnexus/agent-plugins --skill '*'        # all 32 skills
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 33 skills
 npx skills add stylusnexus/agent-plugins --skill prove-it   # exactly one
 npx skills add stylusnexus/agent-plugins --list             # see what's there first
 ```
