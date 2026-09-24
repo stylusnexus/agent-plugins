@@ -1,0 +1,21 @@
+# AI search: evidence vs. hype
+
+This file exists specifically to keep this skill from overstating llms.txt or "AI markup" claims — read it before making any recommendation about either.
+
+## What's VERIFIED
+1. **Google's SEO Starter Guide**: content quality and usefulness matter more than any technical trick; crawlability and letting Google render the page as users see it are foundational; valid structured data "makes your pages eligible for many special features" in Search results (review stars, carousels, and more) — it's an eligibility enhancer, not a requirement. Keyword density, meta keywords, and minimum word counts explicitly don't matter. — https://developers.google.com/search/docs/fundamentals/seo-starter-guide, accessed 2026-09-24.
+2. **Google's AI-features page states directly**: "There are no additional requirements to appear in AI Overviews or AI Mode, nor other special optimizations necessary," and "You don't need to create new machine readable files, AI text files, or markup to appear in these features." Standard SEO fundamentals apply; AI Overview/AI Mode traffic already shows up in normal Search Console reporting. — https://developers.google.com/search/docs/appearance/ai-features, accessed 2026-09-24.
+3. **llms.txt is a real, documented spec** (Jeremy Howard/Answer.AI, first published September 2024, v2 in 2026, at llmstxt.org). Only a top-level H1 is required. It is a community convention, not a W3C/IETF web standard. — https://llmstxt.org/, accessed 2026-09-24.
+4. **GEO academic research exists**: a controlled study (Aggarwal, Murahari, Rajpurohit, Kalyan, Narasimhan, Deshpande, "GEO: Generative Engine Optimization," KDD 2024 — https://arxiv.org/abs/2311.09735) found specific content-optimization techniques could raise a source's visibility in generative-engine answers by up to 40%, varying by domain. The *existence* of such research is verified at the abstract level; the specific technique list is not (full text wasn't reviewed here) — don't cite specific tactics from this paper without reading the full text first.
+5. **John Mueller (Google) posted on Bluesky, 2025-06-17: "FWIW no AI system currently uses llms.txt."** — confirmed first-hand from the post itself (https://bsky.app/profile/johnmu.com/post/3lrshm4gggs2v, timestamped 2025-06-17T12:10 UTC), reported the next day by Search Engine Roundtable (https://www.seroundtable.com/google-ai-llms-txt-39607.html, published 2025-06-18). Treat this as a real Google statement, not a rumor — but it's one person's statement on one day, not a policy document; a future post could update it.
+
+## What's NOT VERIFIED (flag, don't assert)
+- Which companies have adopted llms.txt — from search summaries only, not confirmed on their own sites.
+
+## The bottom line for this skill
+Do not build or recommend an llms.txt file, or any AI-specific markup, on the promise that it will improve Google AI Overview citations — Google's own documentation states plainly that no such file or markup is required to appear in AI Overviews or AI Mode, and Google's Mueller has said directly that no AI system was using the file as of his June 2025 post. If an owner wants one anyway: it's a small, cheap file (one required heading), it may help AI coding agents or tools that read docs directly at inference time, and there's no harm in adding it. Present it that way every time — **optional and low-cost, not a ranking lever; don't prioritize it over citable content** — and never let it substitute for the fundamentals in [citable writing](citable-writing.md) and [hub structure](hub-and-spoke-and-eeat.md), which are the actually-verified levers for both classic and AI search.
+
+Separately: the GEO academic finding (up to 40% visibility lift from content changes) is real evidence that *some* content-level optimization affects AI-answer visibility — this is a different claim from the llms.txt/markup claim, and shouldn't be blurred with it. It supports investing in fact-dense, well-structured content; it says nothing about markup files.
+
+## What to hand off for implementation
+Any actual llms.txt file, schema/JSON-LD, sitemap, or crawler-configuration work goes to whoever implements the site technically, framed with the caveats above intact — don't let the caveats get dropped in the handoff.
