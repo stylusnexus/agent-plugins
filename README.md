@@ -36,7 +36,7 @@ Seven packs, grouped by the job rather than the technology. Each pack's README c
 | [**second-opinion**](./plugins/second-opinion) | 5 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` |
 | [**hardening**](./plugins/hardening) | 5 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` |
 | [**release-ops**](./plugins/release-ops) | 5 | Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` |
-| [**product-management**](./plugins/product-management) | 14 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps and discovery, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` |
+| [**product-strategy**](./plugins/product-strategy) | 14 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps and discovery, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` |
 | [**codebase-intel**](./plugins/codebase-intel) | 4 | Building an accurate picture of a codebase, and the libraries it leans on, before changing it. | `codebase-health` `codebase-architecture-scanner` `grill-with-docs` `read-the-damn-docs` |
 
 ### Tool plugins
@@ -219,7 +219,7 @@ agent-plugins/
 │   ├── second-opinion/
 │   ├── hardening/
 │   ├── release-ops/
-│   └── product-management/
+│   └── product-strategy/
 ├── scripts/
 │   ├── check-manifest-sync.sh   # the two indexes must agree
 │   └── check-skills.py          # every SKILL.md must actually load
