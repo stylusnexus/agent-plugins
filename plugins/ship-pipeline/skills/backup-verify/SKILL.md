@@ -57,10 +57,10 @@ This is the mandatory gate referenced by [[db-migration-safety]] before any prod
 
 ## Output / Evidence
 
-Report to Eve: backup mechanism + timestamp of the backup used, the restore command run, smoke query results (row counts, integrity check), and confirmation the scratch environment was cleaned up. This evidence is what unblocks a migration gated by [[db-migration-safety]] — link back to it rather than re-describing.
+Report to the user: backup mechanism + timestamp of the backup used, the restore command run, smoke query results (row counts, integrity check), and confirmation the scratch environment was cleaned up. This evidence is what unblocks a migration gated by [[db-migration-safety]] — link back to it rather than re-describing.
 
 ## Stop Conditions
 
-- No backup mechanism found at all (no PITR, no scheduled backup, no recent `pg_dump`) — stop, surface this to Eve immediately, this is a standing risk independent of whatever task prompted the check.
+- No backup mechanism found at all (no PITR, no scheduled backup, no recent `pg_dump`) — stop, surface this to the user immediately, this is a standing risk independent of whatever task prompted the check.
 - Restore drill fails (restore errors out, or smoke queries show missing/corrupted data) — stop, do not proceed with any pending migration, escalate as its own incident since it means backups are not actually protecting the business.
 - Row counts in the restored copy are wildly inconsistent with production (e.g., off by an order of magnitude) — stop and investigate before treating the backup as valid.

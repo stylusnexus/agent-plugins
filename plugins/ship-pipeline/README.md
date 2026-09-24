@@ -1,6 +1,6 @@
 # Ship Pipeline
 
-Eight repo-agnostic skills for the ship half of the development loop — from reading the issue to promoting to production, with evidence at every gate.
+Nine repo-agnostic skills for the ship half of the development loop — from reading the issue to promoting to production, with evidence at every gate.
 
 Every skill detects the repository's own conventions rather than assuming a house style, and each **defers to a repo-local version of itself** when the project defines one (`.claude/skills/<name>/`). Install it globally; override it per-repo where a project has stronger rules.
 
@@ -16,6 +16,7 @@ Every skill detects the repository's own conventions rather than assuming a hous
 | **Inspect** | `review-slop` | Reports needless complexity, validation gaps, misleading test coverage, and prose problems with evidence and acceptance criteria. Makes no edits. |
 | **Ship** | `review-merge-pipeline` | One shot: verify → review → fix → commit → push → PR → merge. Detects the merge target instead of assuming one. |
 | **Promote** | `deploy` | Integration branch → production, with the repo's own merge strategy inferred from its history. |
+| **Batch** | `ship-issues` | Carries a set of issues through the loop above in one run: grounds and groups them, reports status before any edit, then calls `start-issue`, `prove-it` and `review-merge-pipeline` per group. For a ship/deploy/release request it also runs `deploy` once for the whole batch and validates against production; for an "implement and merge" request it stops after the merges. |
 | **Schema** | `db-migration-safety` | Expand-contract migrations, idempotent SQL, batched backfills. |
 | **Schema** | `backup-verify` | Confirms backups exist **and actually restore** — into a scratch branch, with smoke queries and timestamped evidence. |
 
@@ -29,7 +30,7 @@ Trust-but-verify presumes a claim is sound and spot-checks it. `prove-it` invert
 
 ## Rule ownership
 
-Each concern lives in exactly one skill. When a task crosses domains, the owner below keeps the rule and the others name only the handoff — this is what stops eight skills from firing on the same prompt.
+Each concern lives in exactly one skill. When a task crosses domains, the owner below keeps the rule and the others name only the handoff — this is what stops nine skills from firing on the same prompt.
 
 | Skill | Owns |
 |---|---|
@@ -39,8 +40,9 @@ Each concern lives in exactly one skill. When a task crosses domains, the owner 
 | `backup-verify` | Backup existence and restore-testing; the go/no-go before a risky mutation |
 | `prove-it` | Evidence standards, gate discovery, the evidence table, `UNVERIFIED` labeling |
 | `review-slop` | Report-only slop findings, severity calibration, and suggested repair criteria |
-| `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection |
+| `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection, head-SHA and required-check confirmation before merge |
 | `deploy` | Production promotion, merge strategy, release-tooling compatibility |
+| `ship-issues` | Batch orchestration — per-issue status, grouping into branches, consult-before-asking, post-deploy validation, the batch report. Owns no step the skills above own. |
 
 The three database skills are the pairing most worth keeping straight: **`db-truth` reads, `db-migration-safety` writes, `backup-verify` is the safety net before either touches production.**
 
@@ -85,6 +87,7 @@ The skills shell out to standard tooling; install what your workflow touches:
 
 ## Safety notes
 
+- `ship-issues` runs the whole loop for every issue you pass it, but "the whole loop" depends on how you ask: a ship/deploy/release request merges the batch AND deploys it to production; an "implement and merge" request stops after the merges and does not run `deploy` — though merged code may already be live if your host deploys from the branch it merged into. Either way it never bypasses a failing or missing required check.
 - `review-merge-pipeline` merges pull requests. Read it before first use, and pass `--no-merge` to stop at PR creation while you get a feel for it.
 - `deploy` promotes to production. It fast-forwards local refs and compares against fresh upstream state before acting.
 - `backup-verify` and `db-migration-safety` are deliberately conservative: they print the affected scope before any destructive step.
