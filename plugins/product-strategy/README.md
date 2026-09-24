@@ -1,4 +1,4 @@
-# Product Management
+# Product Strategy
 
 A chief product manager and teacher, thirteen focused skills and a business-capability specialist for deciding what to build and why. Built for product managers and for people with no product training: it starts from what you already know, labels evidence and assumptions, explains each choice, and leaves the decisions with you.
 
@@ -39,16 +39,16 @@ Two Claude Code agents ship alongside: `product-manager` (the same chief PM, in 
 
 ```
 /plugin marketplace add stylusnexus/agent-plugins
-/plugin install product-management@stylus-nexus
+/plugin install product-strategy@stylus-nexus
 ```
 
-Skills are namespaced: `/product-management:product-manager`.
+Skills are namespaced: `/product-strategy:product-manager`.
 
 ### Codex
 
 ```
 codex plugin marketplace add stylusnexus/agent-plugins
-codex plugin add product-management@stylus-nexus
+codex plugin add product-strategy@stylus-nexus
 ```
 
 In Codex, type `$product-manager` (or any skill name after `$`) to use a skill, or run `/skills` to pick one.

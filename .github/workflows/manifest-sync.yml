@@ -20,4 +20,4 @@ jobs:
       - name: Skills loadable (frontmatter, filename case, no stale copies)
         run: python3 scripts/check-skills.py
       - name: Bundled plugin scripts
-        run: python3 -B -m unittest discover -s plugins/product-management/scripts/tests -v
+        run: python3 -B -m unittest discover -s plugins/product-strategy/scripts/tests -v
