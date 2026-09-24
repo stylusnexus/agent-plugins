@@ -168,36 +168,36 @@ This skill generates documentation at three levels:
        participant Auth
        participant AI
 
-       User->>App: Click "Generate NPC"
-       App->>API: POST /api/generate-npc
+       User->>App: Click "Summarize"
+       App->>API: POST /api/summarize
        API->>Auth: Verify token
        Auth-->>API: Token valid
-       API->>AI: Generate NPC
-       AI-->>API: NPC data
-       API->>App: Return NPC
-       App->>User: Display NPC
+       API->>AI: Summarize document
+       AI-->>API: Summary text
+       API->>App: Return summary
+       App->>User: Display summary
    ```
 
    **Entity Relationship Diagram**:
    ```mermaid
    erDiagram
-       USER ||--o{ NPC : creates
+       USER ||--o{ DOCUMENT : uploads
        USER {
            uuid id PK
            string email
            string tier
        }
-       NPC {
+       DOCUMENT {
            uuid id PK
            uuid user_id FK
-           string name
-           json stats
+           string title
+           json metadata
            timestamp created_at
        }
-       NPC ||--o{ PLOT_HOOK : has
-       PLOT_HOOK {
+       DOCUMENT ||--o{ SUMMARY : has
+       SUMMARY {
            uuid id PK
-           uuid npc_id FK
+           uuid document_id FK
            text content
        }
    ```

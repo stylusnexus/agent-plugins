@@ -7,8 +7,8 @@ Writes two things:
      root README: every pack's skills and agents, then an A-Z index.
   2. skills.sh.json: one skills.sh grouping per pack, in pack-table order.
 
-Each skill's one-line summary is the first sentence of its row in the pack's
-own README table, so the pack README stays the single place it's written.
+Each skill's summary is its row in the pack's own README table, so the pack
+README stays the single place it's written.
 Pack order and pack descriptions come from the root README's pack table.
 
   python3 scripts/gen-catalog.py          # rewrite both files
@@ -43,19 +43,17 @@ def pack_table(readme_text):
     return packs
 
 
-def first_sentence(text):
-    text = text.replace("**", "").strip().rstrip("|").strip()
-    m = re.search(r"(?<!e\.g)(?<!i\.e)\.(\s|$)", text)
-    return text[: m.start() + 1] if m else text
+def clean(text):
+    return text.replace("**", "").strip().rstrip("|").strip()
 
 
 def skill_rows(pack):
-    """skill -> one-line summary, from the first table in the pack README."""
+    """skill -> summary, from the first table row naming it in the pack README."""
     with open(os.path.join(PLUGINS_DIR, pack, "README.md"), encoding="utf-8") as fh:
         text = fh.read()
     rows = {}
     for m in re.finditer(r"^\| `([a-z0-9-]+)` \| (.+)$", text, re.M):
-        rows.setdefault(m.group(1), first_sentence(m.group(2)))
+        rows.setdefault(m.group(1), clean(m.group(2)))
     return rows
 
 
@@ -81,7 +79,7 @@ def build(readme_text):
         agents = agents_of(pack)
         out.append(f"<details>\n<summary><b>{pack}</b> · {len(skills)} skills"
                    f"{f' · {len(agents)} agents' if agents else ''}</summary>\n")
-        out.append("| Skill | Use it when |\n|---|---|")
+        out.append("| Skill | What it covers |\n|---|---|")
         out.extend(f"| `{s}` | {rows[s]} |" for s in skills)
         if agents:
             out.append(f"\nAgents (Claude Code): {' '.join(f'`{a}`' for a in agents)}")
