@@ -1,0 +1,27 @@
+# Writing and sequencing a cold outreach message
+
+A cold message — email or LinkedIn, to one named person — starts from what's legally required, not from a writing formula. The law sets a floor; everything else is judgment about that one recipient.
+
+## The legal floor (email)
+
+**US recipients (CAN-SPAM):** the law covers all commercial email, and "makes no exception for business-to-business email" — a first cold email to a stranger is covered exactly like a newsletter. Every message needs an accurate From/Reply-To that identifies who's writing, a subject line that "must accurately reflect the content of the message," clear disclosure that it's an ad, a valid physical postal address, and a working opt-out that's honored within 10 business days. Using an outside tool or a hired sender doesn't transfer the legal responsibility. Source: FTC, "CAN-SPAM Act: A Compliance Guide for Business" — https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business
+
+**EU recipients (GDPR + ePrivacy Directive):** GDPR's Recital 47 states that "the processing of personal data for direct marketing purposes may be regarded as carried out for a legitimate interest," which is one of the lawful bases Article 6(1)(f) sets out: processing that's "necessary for the purposes of the legitimate interests pursued by the controller," balanced against "the interests or fundamental rights and freedoms of the data subject." Source: Regulation (EU) 2016/679, Recital 47 and Art. 6(1)(f) — https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32016R0679 (official text; Art. 6(1)(f) also mirrored at https://gdpr-info.eu/art-6-gdpr/). That's the GDPR side. Separately, the EU's ePrivacy Directive requires prior consent for direct marketing by electronic mail to "subscribers" generally (with a soft-opt-in exception for existing customers marketing similar products), but explicitly leaves the rules for "subscribers other than natural persons" — i.e., companies — to each member state's own national law. Source: Directive 2002/58/EC, Art. 13 — https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32002L0058. Practical read: a legitimate-interest basis under the GDPR does not by itself confirm the outreach is compliant everywhere in the EU — check the specific recipient country's own implementation before a campaign, rather than assuming one EU-wide rule.
+
+**UK recipients (PECR):** emailing a company (a corporate subscriber) isn't restricted the way emailing an individual is, but sole traders and some partnerships count as individual subscribers, who need either consent or the "soft opt-in" (contact obtained through a prior sale negotiation, marketing your own similar product, opt-out offered at collection and in every message since). Source: ICO, "Business-to-business marketing" — https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/
+
+## Deliverability, even at small volume
+
+Authenticate the sending domain with SPF and DKIM. Google's own threshold applies once a sender reaches 5,000+ messages/day to Gmail accounts: that tier additionally needs DMARC and a one-click unsubscribe link, "clearly visible," in every marketing message — a small team won't hit that volume, but the SPF/DKIM baseline applies to every sender regardless of size. Google states senders should keep the spam rate reported in Postmaster Tools "below 0.3%" and recommends staying under 0.10% well before that; it doesn't publish a bounce-rate number, so treat a rising bounce rate as a list-quality problem to fix on its own terms. Source: Google, "Email sender guidelines" — https://support.google.com/a/answer/81126?hl=en. Pace sends per address rather than blasting a whole list at once.
+
+## What the message has to do
+
+Everything above is the floor; it says nothing about whether the message gets read. This suite's own reasoning, not a cited study: a recipient can tell within a sentence or two whether a message was written for them specifically or dropped into a template with their name swapped in — a mass-personalized template that only substitutes a name or company still reads as a template. Beyond the legal floor above (honest sender identity, a real opt-out), the one fixed requirement is at least one specific, checked fact about this recipient — not a guess. There's no required order or formula beyond that; write to the person in front of you.
+
+## Follow-ups
+
+Persistence matters more than a clever single message: don't treat one unanswered email as a final no. There's no universally "right" number of follow-ups — MISSING INFORMATION on a defensible general figure; this plugin's own default practice, not a cited external method, is a short sequence: the original message plus two follow-ups, each spaced several days apart, then stop if the last one goes unanswered — adjust per campaign rather than treating it as fixed. Every follow-up is a new commercial message under the same rules above — same honest subject line, same working opt-out, same 10-business-day honor window. Stop the moment someone opts out or says no; "not now" isn't "never," but a clear no ends it.
+
+## Non-email channels (e.g. LinkedIn)
+
+The legal floor above is email-specific; LinkedIn messaging isn't covered by CAN-SPAM or PECR, but the platform's own connection and messaging limits still apply and change over time — check LinkedIn's current help documentation before planning volume, rather than assuming last year's limits hold.
