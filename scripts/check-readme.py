@@ -232,7 +232,7 @@ def check_site():
         html = fh.read()
     cards = {}
     for art in re.findall(r'<article class="plugin">(.*?)</article>', html, re.S):
-        m = re.search(r'<span class="plugin-name">([a-z0-9-]+)', art)
+        m = re.search(r'class="plugin-name">(?:<a [^>]*>)?([a-z0-9-]+)', art)
         if m:
             cards[m.group(1)] = art
     total = 0

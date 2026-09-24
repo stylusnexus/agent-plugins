@@ -9,3 +9,20 @@ Install into Claude Code or Codex from the plugin marketplace (`stylusnexus/agen
 - [Catalogue](https://stylusnexus.github.io/agent-plugins/): every pack, its skills, and install steps for each agent.
 - [Repository](https://github.com/stylusnexus/agent-plugins): source, per-pack READMEs, and the full skill index.
 - [npm package](https://www.npmjs.com/package/@stylusnexus/agent-plugins): installs through the Skills CLI.
+
+## Skill packs
+
+- [ship-pipeline](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/ship-pipeline/README.md): The daily loop: read the issue, ground assumptions in the live database, prove it works, then review, merge, and promote. One issue or a batch.
+- [reporting-comms](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/reporting-comms/README.md): The last mile: turning agent output into something a person wants to read, and getting their judgment back.
+- [second-opinion](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/second-opinion/README.md): Built on one premise: a single model's confident answer is not evidence. Councils, arbitration, and specs checked against the actual codebase.
+- [hardening](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/hardening/README.md): The unglamorous pre-launch gates: a missing rate limit, an unsigned webhook, a compromised transitive dependency.
+- [release-ops](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/release-ops/README.md): Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases.
+- [codebase-intel](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/codebase-intel/README.md): Building an accurate picture of a codebase, and the libraries it leans on, before committing to a change.
+- [product-strategy](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/product-strategy/README.md): Deciding what to build and why: vision, strategy, value, objectives, roadmaps, and discovery. A chief PM that teaches as it goes and labels evidence apart from assumption.
+- [go-to-market](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/go-to-market/README.md): Getting a product noticed on a small team's hours: positioning, copy, launches, community, outreach, email, and measurement. It drafts; it never posts or sends for you.
+
+## Optional
+
+- [Full README](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/README.md): install, update, and removal commands for every agent, plus every skill by pack.
+- [work-plan](https://github.com/stylusnexus/work-plan-toolkit): track-aware daily planning over GitHub issues; a Python CLI and VS Code viewer.
+- [defect-scan](https://github.com/stylusnexus/defect-scan): language-aware defect hunter that runs your real analyzers across 15 languages.
