@@ -1,1 +1,3 @@
 .vscode/
+.DS_Store
+scripts/private-terms.local.txt

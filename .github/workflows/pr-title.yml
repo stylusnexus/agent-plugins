@@ -1,0 +1,44 @@
+name: pr-title
+# This repo squash-merges, so the PR title becomes the permanent commit message.
+# Conventional-format titles keep `git log` and the changelog readable. Catch
+# an off-format title on every PR instead of noticing it later in history.
+#
+# pull_request_target, not plain pull_request: this check doesn't need secrets
+# or elevated permissions (it only reads the title via the default GITHUB_TOKEN,
+# and there's no checkout step, so there's no untrusted-code-execution risk) --
+# plain pull_request would work for that part. What pull_request_target buys is
+# running THIS repo's copy of the workflow against fork PRs, not the fork's own
+# copy -- with plain pull_request, a fork PR can edit its own workflow file to
+# skip or weaken this check. Permissions stay minimal below regardless.
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+
+permissions:
+  pull-requests: read
+
+jobs:
+  main:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            feat
+            fix
+            chore
+            docs
+            test
+            refactor
+            perf
+            ci
+            build
+            style
+            revert
