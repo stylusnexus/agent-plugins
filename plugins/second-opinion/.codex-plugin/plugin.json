@@ -1,6 +1,5 @@
 {
   "name": "second-opinion",
-  "version": "1.0.0",
   "description": "Five skills built on one premise: a single model's confident answer is not evidence. llm-council runs a question through five advisors who analyse independently before synthesis; plan-arbiter compares, judges, and merges competing plans rather than picking one on vibes; spec-review checks a spec's claims against the real codebase before code is written, catching wrong data-model assumptions early; agent-watchdog audits another agent's work from its session or transcript; and debug-feedback-loop builds a deterministic pass/fail signal for a bug BEFORE hypothesising about causes.",
   "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/second-opinion",
   "repository": "https://github.com/stylusnexus/agent-plugins",

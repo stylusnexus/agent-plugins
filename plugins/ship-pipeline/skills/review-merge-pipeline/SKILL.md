@@ -124,7 +124,7 @@ Focus the review on:
 - Bugs and logic errors
 - Security vulnerabilities
 - Accessibility issues
-- Project convention violations (check CLAUDE.md)
+- Project convention violations (check CLAUDE.md or AGENTS.md)
 
 **If `--cross-model` flag is set:** ALSO dispatch a parallel review via Codex's native `review` subcommand. Codex catches a different class of issues than the layered Claude reviewer (different model = different blind spots). Run in the SAME message as the layered review, not after, so both run in parallel.
 
@@ -170,10 +170,10 @@ If there are uncommitted changes, commit them:
 git add <specific files>
 git commit -m "<conventional commit message>
 
-Co-Authored-By: Claude <noreply@anthropic.com>"
+<host agent's co-author trailer, if it uses one — e.g. Co-Authored-By: Claude <noreply@anthropic.com>>"
 ```
 
-Follow the project's commit conventions (check CLAUDE.md). Use conventional commits by default. The Co-Authored-By trailer should match the current model identity — check the conversation's environment block for the model name and ID.
+Follow the project's commit conventions (check CLAUDE.md or AGENTS.md). Use conventional commits by default. Any co-author trailer should match the current model identity — check the conversation's environment block for the model name and ID.
 
 ### Step 5: Push
 
@@ -198,12 +198,14 @@ gh pr create --base "$BASE" --title "<conventional commit title>" --body "$(cat 
 ## Test plan
 - [ ] <verification steps>
 
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
+<host agent's standard attribution trailer, if it has one — e.g. Claude Code's
+"🤖 Generated with [Claude Code](https://claude.com/claude-code)"; Codex has its
+own trailer or none. Omit this line entirely if the host doesn't use one.>
 EOF
 )"
 ```
 
-**If the project uses milestones:** Add `--milestone "<milestone name>"` if you can determine the right one from context (check CLAUDE.md, issue references, or memory).
+**If the project uses milestones:** Add `--milestone "<milestone name>"` if you can determine the right one from context (check CLAUDE.md or AGENTS.md, issue references, or memory).
 
 **If the PR closes an issue:** Include `Closes #<number>` in the body.
 

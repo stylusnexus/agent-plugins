@@ -1,6 +1,5 @@
 {
   "name": "ship-pipeline",
-  "version": "1.0.0",
   "description": "Nine repo-agnostic skills for the ship half of the development loop: issue intake, live-schema grounding, evidence-backed verification, report-only slop review, review/PR/merge, production promotion, and a batch orchestrator that carries several issues through all of it. Every skill detects the repo's own conventions and defers to a repo-local override when one exists.",
   "author": {
     "name": "Stylus Nexus"
