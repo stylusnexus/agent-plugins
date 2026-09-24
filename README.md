@@ -4,7 +4,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents — **8 plugins, 35 skills**. Installs natively into **Claude
+A plugin marketplace for AI coding agents — **9 plugins, 49 skills**. Installs natively into **Claude
 Code** and **OpenAI Codex**, and reaches roughly seventy more agents (Cursor, Copilot, Gemini CLI,
 Windsurf, Zed, opencode, Cline, Continue, Hermes and others) through the Skills CLI.
 
@@ -26,7 +26,7 @@ and defers to a repo-local version of itself when your project defines one.
 
 ### Skill packs
 
-Six packs, grouped by the job rather than the technology. Each pack's README carries a
+Seven packs, grouped by the job rather than the technology. Each pack's README carries a
 **rule-ownership table** so the skills inside it don't compete for the same trigger.
 
 | Pack | # | What it's for | Skills |
@@ -36,6 +36,7 @@ Six packs, grouped by the job rather than the technology. Each pack's README car
 | [**second-opinion**](./plugins/second-opinion) | 5 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` |
 | [**hardening**](./plugins/hardening) | 5 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` |
 | [**release-ops**](./plugins/release-ops) | 5 | Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` |
+| [**product-management**](./plugins/product-management) | 14 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps and discovery, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` |
 | [**codebase-intel**](./plugins/codebase-intel) | 4 | Building an accurate picture of a codebase, and the libraries it leans on, before changing it. | `codebase-health` `codebase-architecture-scanner` `grill-with-docs` `read-the-damn-docs` |
 
 ### Tool plugins
@@ -58,7 +59,7 @@ rather than burying it.
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
-"install everything" is a valid choice — it's 35 skills, all inert until their trigger matches.
+"install everything" is a valid choice — it's 49 skills, all inert until their trigger matches.
 
 ### Claude Code  (terminal · VS Code extension · JetBrains extension)
 
@@ -73,7 +74,7 @@ Then pick — one, several, or the lot:
 /plugin install hardening@stylus-nexus           # add another whenever
 ```
 
-Or browse them visually with `/plugin` → **Discover**, which lists all eight with descriptions.
+Or browse them visually with `/plugin` → **Discover**, which lists all nine with descriptions.
 
 ### OpenAI Codex  (CLI · app · IDE extension)
 
@@ -92,7 +93,7 @@ writes to each one's skills directory. No marketplace step — one command does 
 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
-npx skills add stylusnexus/agent-plugins --skill '*'        # all 35 skills
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 49 skills
 npx skills add stylusnexus/agent-plugins --skill prove-it   # exactly one
 npx skills add stylusnexus/agent-plugins --list             # see what's there first
 ```
@@ -182,7 +183,7 @@ Its commands are namespaced under the plugin when installed that way:
 
 ## Compatibility at a glance
 
-The **six skill packs** are plain markdown, so they reach every agent the Skills CLI supports.
+The **seven skill packs** are plain markdown, so they reach every agent the Skills CLI supports.
 **work-plan** and **defect-scan** ship executable code and install from their own repositories.
 
 | Agent | Skill packs | Tool plugins | Invoke as |
@@ -217,7 +218,8 @@ agent-plugins/
 │   ├── codebase-intel/
 │   ├── second-opinion/
 │   ├── hardening/
-│   └── release-ops/
+│   ├── release-ops/
+│   └── product-management/
 ├── scripts/
 │   ├── check-manifest-sync.sh   # the two indexes must agree
 │   └── check-skills.py          # every SKILL.md must actually load
