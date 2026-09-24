@@ -78,10 +78,10 @@ Each phase is its own migration and its own deploy. Collapsing steps 1 and 4 int
 
 ## Output / Evidence
 
-Show Eve: the classification (additive/constraint/destructive), the backup confirmation (snapshot ID + timestamp), the branch test result, and — for backfills — row counts before/after and how long the batched run took.
+Show the user: the classification (additive/constraint/destructive), the backup confirmation (snapshot ID + timestamp), the branch test result, and — for backfills — row counts before/after and how long the batched run took.
 
 ## Stop Conditions
 
 - No backup confirmed within 24h — stop, do not proceed, surface this before any mutation ([[backup-verify]]).
 - A single migration combines add-constraint with the column's initial creation on a table with existing rows — stop and split it.
-- Migration touches auth/billing tables (`User`, `Customer`, `Subscription`) — escalate to a second pair of eyes (Eve or partner) regardless of how small the change looks.
+- Migration touches auth/billing tables (`User`, `Customer`, `Subscription`) — escalate to a second reviewer regardless of how small the change looks.

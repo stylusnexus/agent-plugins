@@ -81,10 +81,10 @@ NextAuth v5 (Auth.js) gets the cookie/CSRF/session-signing basics right by defau
 
 ## Output / Evidence
 
-Report to Eve as a table: route, session check present (Y/N), ownership/role check present (Y/N), rate limit present (Y/N for auth-adjacent routes). Flag any route missing an ownership check as high-priority regardless of how the rest of the audit goes.
+Report to the user as a table: route, session check present (Y/N), ownership/role check present (Y/N), rate limit present (Y/N for auth-adjacent routes). Flag any route missing an ownership check as high-priority regardless of how the rest of the audit goes.
 
 ## Stop Conditions
 
-- Found a route with no auth check at all handling user data mutation — flag as a security bug immediately, don't bundle it in with routine findings; confirm with Eve before any public disclosure or fix timeline commitment.
+- Found a route with no auth check at all handling user data mutation — flag as a security bug immediately, don't bundle it in with routine findings; confirm with the user before any public disclosure or fix timeline commitment.
 - OAuth client secret found in client-shipped code — stop and treat as a credential leak: rotate the secret at the provider immediately, then fix the code.
 - Any place storing plaintext passwords or unhashed reset tokens — stop, this is a fundamental fix, not a hardening tweak.

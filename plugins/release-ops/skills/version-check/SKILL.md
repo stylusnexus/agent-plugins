@@ -21,20 +21,22 @@ Use this skill before running `npm publish` or when deciding what version to bum
 2. Get the diff since that tag: `git diff <tag>..HEAD --stat` and `git log <tag>..HEAD --oneline`
 3. Analyze the changes against these rules:
 
+The examples below use a fictional package, `acme-sdk` — substitute the real repo's own file paths and exported names.
+
 ### Pre-1.0 Rules (current package version starts with 0.x)
 
 | Bump | Trigger |
 |---|---|
-| **Minor** (0.x.0 -> 0.(x+1).0) | Any breaking change: renamed/removed exports from `src/index.ts`, changed required fields in `src/types/index.ts`, removed or renamed public methods in `src/agent-armor.ts` |
-| **Patch** (0.x.y -> 0.x.(y+1)) | Bug fixes, new patterns in `src/patterns/default-patterns.ts`, new eval samples, documentation, non-breaking additions |
+| **Minor** (0.x.0 -> 0.(x+1).0) | Any breaking change: renamed/removed exports from `src/index.ts`, changed required fields in `src/types/index.ts`, removed or renamed public methods in `src/client.ts` |
+| **Patch** (0.x.y -> 0.x.(y+1)) | Bug fixes, new entries in `src/config/default-config.ts`, new eval samples, documentation, non-breaking additions |
 
 ### Post-1.0 Rules (package version >= 1.0.0)
 
 | Bump | Trigger |
 |---|---|
 | **Major** (x.0.0 -> (x+1).0.0) | Breaking changes: renamed/removed exports, changed required fields in types, removed/renamed public methods |
-| **Minor** (x.y.0 -> x.(y+1).0) | New features: new detectors, new config options, new public methods (backward-compatible) |
-| **Patch** (x.y.z -> x.y.(z+1)) | Bug fixes, pattern updates, documentation changes |
+| **Minor** (x.y.0 -> x.(y+1).0) | New features: new resource adapters, new config options, new public methods (backward-compatible) |
+| **Patch** (x.y.z -> x.y.(z+1)) | Bug fixes, config updates, documentation changes |
 
 ### Breaking Change Signals
 
@@ -64,13 +66,13 @@ Recommendation: MINOR bump -> 0.3.0
 Reason: Breaking changes detected
 
 Evidence:
-  - src/types/index.ts: Added required 'source' field to Threat interface
-  - src/agent-armor.ts: Renamed scanContent() to scanSync()
-  - src/index.ts: Added new type exports (MLConfig, ThreatSource)
+  - src/types/index.ts: Added required 'region' field to Widget interface
+  - src/client.ts: Renamed fetchWidget() to fetchWidgetSync()
+  - src/index.ts: Added new type exports (RetryConfig, WidgetSource)
 
 Changed files:
   src/types/index.ts (modified)
-  src/agent-armor.ts (modified)
+  src/client.ts (modified)
   ...
 ```
 

@@ -25,7 +25,7 @@ Run the typecheck AND the build — neither substitutes for the other (builds ca
 
 ## Step 2: Targeted tests, honestly run
 
-- New behavior must have a test that **fails without the change**. Name it. If you can't articulate which test that is, the behavior is untested.
+- New behavior must have a test that **fails without the change**. Name it. If you can't articulate which test that is, the behavior is untested. Prove it: revert only the fix, run the test and watch it fail, then restore the fix — and say you did.
 - Server-only code runs in a node test environment, not the jsdom default.
 - DB-writing tests: confirm which env file the runner loads before letting them write anywhere.
 - Never adapt production code to satisfy a mock; fix the mock. Mocks must respect schema invariants.

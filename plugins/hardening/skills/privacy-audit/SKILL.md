@@ -52,5 +52,5 @@ A data-map table plus a findings list with file:line references for every leak f
 
 ## Stop Conditions
 - A PII leak is found in a **production** log stream or a live API response → report it immediately as the top finding, don't bury it under lower-priority items; this may need an urgent fix and log scrubbing/rotation, not just a backlog ticket.
-- The audit surfaces a legal gap (no GDPR delete path, undisclosed data collection, BYOK keys stored in plaintext) → do not attempt to unilaterally draft policy language or push a schema migration to "fix" it; flag it and hand off to `legal-docs` (for policy text) or a scoped implementation task with Eve's sign-off (for the encryption/migration fix), since these touch production data.
-- Any finding requires reading `github-recovery-codes.txt` or similar secrets to verify → stop and confirm with Eve first, per workspace rules.
+- The audit surfaces a legal gap (no GDPR delete path, undisclosed data collection, BYOK keys stored in plaintext) → do not attempt to unilaterally draft policy language or push a schema migration to "fix" it; flag it and hand off to `legal-docs` (for policy text) or a scoped implementation task with the user's sign-off (for the encryption/migration fix), since these touch production data.
+- Any finding requires reading a recovery-code file or similar secret to verify → stop and confirm with the user first.
