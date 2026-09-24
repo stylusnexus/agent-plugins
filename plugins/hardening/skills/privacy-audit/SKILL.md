@@ -15,11 +15,11 @@ The rule is explicit: **a privacy policy is required if any user data is collect
    - Any Zod schema in a route handler with fields beyond `id`/`createdAt` — `grep -rn "z.object" --include="*.ts"` and read what each schema captures.
    - Stripe customer/subscription metadata (`stripe.customers.create`, `metadata:` blocks) — Stripe stores whatever you attach.
    - PostHog `capture()`/`identify()` calls — check `properties:` payloads for anything beyond anonymous event data (email, name, IP if not stripped).
-   - File uploads (campaign assets, avatars) — where do they land (S3/R2/local disk) and is there EXIF/metadata scrubbing?
+   - File uploads (user documents, avatars) — where do they land (S3/R2/local disk) and is there EXIF/metadata scrubbing?
    - BYOK products: the user's own Anthropic/OpenAI API key — this is the most sensitive field in the product. Confirm it is encrypted at rest, never logged, and never returned in any API response after initial save.
 
 2. **Build the data map.** For every field found, record: field name → source (which form/event) → storage location (table.column, PostHog event property, Stripe metadata key, log line) → retention (indefinite / N days / until account deletion) → who else sees it (third-party processor: Stripe, PostHog, email provider, Sentry/Better Stack).
-   - Table format works well here — one row per data category (email, name, BYOK key, IP, campaign content, payment method) with those five columns.
+   - Table format works well here — one row per data category (email, name, BYOK key, IP, user-created content, payment method) with those five columns.
 
 3. **Check privacy-policy alignment.** Read the live privacy policy (or draft from `legal-docs` skill if none exists) and confirm every row in the data map is disclosed. Flag:
    - Data collected but not mentioned in the policy (the common miss: PostHog session recordings, IP addresses in logs, third-party sub-processors not listed).
