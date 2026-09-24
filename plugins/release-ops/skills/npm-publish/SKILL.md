@@ -15,6 +15,8 @@ allowed-tools: Bash(agent-browser:*), Bash(npm:*), Bash(bun:*), Bash(git:*), Bas
 
 **You MUST run these scripts. Do NOT skip steps.**
 
+The scripts ship in `scripts/` next to this SKILL.md. Below, `SKILL_DIR` means this skill's own directory: in Claude Code that's `${CLAUDE_SKILL_DIR}`; on other hosts, set `SKILL_DIR` to the folder this file was loaded from before running the first script.
+
 ## Step 1: Preflight
 
 ```bash
@@ -80,7 +82,7 @@ Tell user: "Complete the OTP checkbox in your browser if prompted."
 bash ${SKILL_DIR}/scripts/verify.sh <package-name> <version>
 ```
 
-Run with `run_in_background: true`. Exponential backoff (5s, 10s, 20s, 40s, 60s).
+Run in the background (`run_in_background: true` in Claude Code, or your host's equivalent async/background execution). Exponential backoff (5s, 10s, 20s, 40s, 60s).
 
 ## Key Architecture Principle
 

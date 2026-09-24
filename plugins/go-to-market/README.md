@@ -56,7 +56,7 @@ In Codex, type `$marketing-lead` (or any skill name after `$`) to use a skill, o
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill '*'
+npx skills add stylusnexus/agent-plugins --skill marketing-lead mk-audience mk-brand-kit mk-community mk-copy mk-founder-content mk-launch mk-lifecycle mk-measurement mk-outreach mk-positioning mk-search
 ```
 
 Skills arrive un-namespaced on this path, so they invoke as `/marketing-lead`.

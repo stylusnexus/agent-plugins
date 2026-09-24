@@ -28,10 +28,10 @@ The script auto-adds `$(go env GOPATH)/bin` to PATH for its own run and prints t
 
 ## How to run
 
-The script lives next to this file. Invoke it via its absolute path:
+`scan.sh` ships next to this SKILL.md. Invoke it via a path relative to this skill's own directory:
 
 ```bash
-bash ~/.claude/skills/exposure-scan/scan.sh <command>
+bash <this skill's directory>/scan.sh <command>
 ```
 
 | Command | What it does | Speed |
@@ -43,8 +43,8 @@ bash ~/.claude/skills/exposure-scan/scan.sh <command>
 | `catalogs` | Show which catalogs are in use + entry counts | instant |
 
 **Recommended flow:**
-1. `bash ~/.claude/skills/exposure-scan/scan.sh refresh` — get current threat intel (do this first; intel updates faster than the binary).
-2. `bash ~/.claude/skills/exposure-scan/scan.sh quick` — fast match against installed packages.
+1. `scan.sh refresh` — get current threat intel (do this first; intel updates faster than the binary).
+2. `scan.sh quick` — fast match against installed packages.
 3. Only escalate to `deep` if quick is clean but you want full `$HOME` coverage, or you're investigating a specific reported compromise.
 
 ## Catalog freshness (the one thing to understand)

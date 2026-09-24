@@ -56,7 +56,7 @@ In Codex, type `$product-manager` (or any skill name after `$`) to use a skill, 
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill '*'
+npx skills add stylusnexus/agent-plugins --skill pm-canvas pm-capabilities pm-discovery pm-growth pm-market-analysis pm-objectives pm-roadmap pm-strategy pm-strategy-fit pm-teams pm-value-proposition pm-vision pm-visuals product-manager
 ```
 
 Skills arrive un-namespaced on this path, so they invoke as `/product-manager`.

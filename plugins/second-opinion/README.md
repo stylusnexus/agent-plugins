@@ -52,10 +52,12 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add second-opinion@stylus-nexus
 ```
 
+In Codex, type `$plan-arbiter` (or any skill name after `$`) to use a skill, or run `/skills` to pick one.
+
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill '*'
+npx skills add stylusnexus/agent-plugins --skill agent-watchdog debug-feedback-loop llm-council plan-arbiter spec-review
 ```
 
 Skills arrive un-namespaced on this path, so they invoke as `/plan-arbiter`.

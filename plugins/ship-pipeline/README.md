@@ -66,11 +66,13 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add ship-pipeline@stylus-nexus
 ```
 
+In Codex, type `$prove-it` (or any skill name after `$`) to use a skill, or run `/skills` to pick one.
+
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
 npx skills add stylusnexus/agent-plugins            # pick interactively
-npx skills add stylusnexus/agent-plugins --skill '*'  # take all of them
+npx skills add stylusnexus/agent-plugins --skill backup-verify db-migration-safety db-truth deploy prove-it review-merge-pipeline review-slop ship-issues start-issue  # this pack
 ```
 
 The [Skills CLI](https://github.com/vercel-labs/skills) detects which agents you have installed and writes to each one's skills directory. Skills arrive un-namespaced here, so they invoke as `/prove-it` rather than `/ship-pipeline:prove-it`.

@@ -1,6 +1,5 @@
 {
   "name": "hardening",
-  "version": "1.0.0",
   "description": "Five pre-launch security gates covering the unglamorous failures that reach production. rate-limit-audit inventories every endpoint calling a paid API and every auth endpoint, then checks each actually has a limit; exposure-scan checks installed packages across npm, Go, PyPI, RubyGems and MCP servers against threat-intelligence catalogs for known-compromised releases; auth-hardening is a session, cookie, CSRF and OAuth-scope audit; webhook-reliability covers signature verification, idempotency, retry and dead letters in both directions; and privacy-audit inventories exactly what user data is collected and where it lands, checked against the code rather than the policy.",
   "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/hardening",
   "repository": "https://github.com/stylusnexus/agent-plugins",
