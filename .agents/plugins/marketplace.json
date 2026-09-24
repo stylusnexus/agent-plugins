@@ -123,6 +123,19 @@
       },
       "category": "Productivity",
       "description": "A chief product manager and teacher, thirteen focused skills and a business-capability specialist for deciding what to build and why. Works through vision, strategy, value proposition, objectives and North Star metrics, roadmaps, discovery and experiments, growth, market analysis and team design, labelling evidence and assumptions as it goes and explaining each choice for people without product training."
+    },
+    {
+      "name": "go-to-market",
+      "source": {
+        "source": "local",
+        "path": "./plugins/go-to-market"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "description": "A head of marketing and eleven focused skills for positioning, audience, copy, brand, search and answer-engine visibility, launches, community, founder-led content, outreach, lifecycle email and measurement. Built for small teams and solo builders: plans start from a goal and the hours you actually have, favour honest persuasion over tricks, and explain the marketing reasoning as they go."
     }
   ]
 }
