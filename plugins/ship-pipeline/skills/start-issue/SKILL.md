@@ -23,7 +23,7 @@ Body AND every comment. Extract: scope, explicit out-of-scope notes, acceptance 
 
 ## Step 2: Verify the work isn't already done
 
-In repos with a dev→main promotion flow, issues typically close at MAIN — an OPEN issue may already be merged to the integration branch. Prior phases also satisfy later phases incidentally.
+GitHub closes an issue with a closing keyword when its PR merges into the repository's **default branch** — regardless of merge method — and the default branch is not always the production branch. In a dev→main promotion flow where `dev` is the GitHub default, an issue closes at the `dev` merge, before production ever sees it; check `gh repo view --json defaultBranchRef` rather than assuming `main`. Either way, an OPEN issue may already be merged to the integration branch. Prior phases also satisfy later phases incidentally.
 
 ```bash
 gh pr list --state all --search "<N>" --json number,title,state,baseRefName,mergedAt --limit 10

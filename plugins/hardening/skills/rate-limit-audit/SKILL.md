@@ -85,7 +85,7 @@ A rate limiter that's configured but never tested is a rate limiter that might n
 
 ## Output / Evidence
 
-Show Eve the inventory table (route / class / limiter present / tested), and the raw burst-test output (`uniq -c` counts of status codes) for at least the two highest-risk routes. A limiter claimed without a burst-test result attached should be treated as unverified.
+Show the user the inventory table (route / class / limiter present / tested), and the raw burst-test output (`uniq -c` counts of status codes) for at least the two highest-risk routes. A limiter claimed without a burst-test result attached should be treated as unverified.
 
 ## Stop Conditions
 
