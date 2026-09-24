@@ -45,6 +45,7 @@
     "access": "public"
   },
   "scripts": {
-    "check": "sh scripts/check-manifest-sync.sh && python3 scripts/check-skills.py"
+    "check": "sh scripts/check-manifest-sync.sh && python3 scripts/check-skills.py",
+    "lint": "python3 scripts/check-links.py && python3 scripts/check-readme.py && sh scripts/check-private-terms.sh && sh scripts/test-plugin-scripts.sh && npx --yes cspell@10.3.4 --no-progress \"plugins/**/*.md\" \"README.md\""
   }
 }
