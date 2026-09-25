@@ -47,7 +47,9 @@ def check_gh(args: list[str]) -> None:
                 continue
             if method.upper() != "GET":
                 raise NotReadOnly(f"gh api method {method!r} is not GET")
-        if any(a == "graphql" or a.endswith("/graphql") for a in args[1:2]):
+        if any("method-override" in a.lower() for a in args):
+            raise NotReadOnly("gh api with a method-override header")
+        if any(a.lower().rstrip("/").split("?")[0].endswith("graphql") for a in args[1:]):
             raise NotReadOnly("gh api graphql can mutate; not allowed")
         return
     if tuple(args[:2]) not in GH_READ:

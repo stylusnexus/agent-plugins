@@ -22,7 +22,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from rr_common import JS_CODE, PY_CODE, TEMPLATES, detect_stack, read, walk  # noqa: E402
+from rr_common import JS_CODE, PY_CODE, TEMPLATES, detect_stack, inside, read, walk  # noqa: E402
 
 JS_AUTH = (r"requireAuth|requireUser|requireAdmin|require[A-Z]\w*Admin|withAuth|withApiAuth|getAuthenticatedUser"
            r"|auth\.getUser|getUser\(|getServerSession|getSession|currentUser\(|\bauth\(\)|getToken\(|jwtVerify"
@@ -90,8 +90,8 @@ def rls_replay(root: Path, dirs) -> dict | None:
     """Replay SQL migrations in path order. None when there are no SQL migrations."""
     files = []
     for d in dirs:
-        base = root / d
-        if base.is_dir():
+        base = inside(root, d)  # a dir that escapes the repo is ignored
+        if base and base.is_dir():
             files += sorted(base.rglob("*.sql"))
     if not files:
         return None
