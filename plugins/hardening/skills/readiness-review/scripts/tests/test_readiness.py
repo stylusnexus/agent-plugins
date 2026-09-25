@@ -251,6 +251,39 @@ class OperatorOwnsPathsTests(unittest.TestCase):
         write_report.check_out_dir(self.tmp / "outside" / "r", [str(self.repo)])
 
 
+class ReviewCopyExclusionTests(unittest.TestCase):
+    def test_credentials_binaries_and_large_files_are_skipped(self):
+        files = {
+            "app/page.tsx": "ok", "docs/readme.md": "ok",
+            ".npmrc": "//registry:_authToken=x", ".pypirc": "x", ".netrc": "x", ".git-credentials": "x",
+            "certs/server.pem": "x", "certs/server.KEY": "x", "certs/a.p12": "x", "certs/a.pfx": "x",
+            "keys/id_rsa": "x", "keys/id_ed25519.pub": "x", ".aws/credentials": "x", ".ssh/config": "x",
+            ".docker/config.json": "x", "deploy/gcp-credentials.json": "x", "deploy/my-service-account.json": "x",
+            "img/logo.png": "x", "models/m.onnx": "x", "data/blob.txt": "abc\0def",
+            "big.txt": "a" * 2000,
+        }
+        with tempfile.TemporaryDirectory() as src, tempfile.TemporaryDirectory() as dest:
+            for rel, text in files.items():
+                p = Path(src) / rel
+                p.parent.mkdir(parents=True, exist_ok=True)
+                p.write_text(text)
+            # a real (empty) git repo, so the normal `git ls-files --others` listing is exercised
+            __import__("subprocess").run(["git", "init", "-q", src], check=True)
+            skipped = make_review_copy.copy(Path(src).resolve(), Path(dest), max_bytes=1000)
+            got = {str(p.relative_to(dest)) for p in Path(dest).rglob("*") if p.is_file()}
+            self.assertEqual(got, {"app/page.tsx", "docs/readme.md"})
+            self.assertEqual(skipped["secret_or_excluded"], 15)
+            self.assertEqual(skipped["binary"], 3)
+            self.assertEqual(skipped["too_large"], 1)
+            self.assertEqual(skipped["too_large_bytes"], 2000)
+            self.assertEqual(make_review_copy.leftovers(Path(dest)), [])
+
+    def test_leftover_check_catches_a_credential_file(self):
+        with tempfile.TemporaryDirectory() as dest:
+            (Path(dest) / ".npmrc").write_text("x")
+            self.assertEqual(make_review_copy.leftovers(Path(dest)), [".npmrc"])
+
+
 class ReportWriteTests(unittest.TestCase):
     def test_never_overwrites_and_redacts(self):
         with tempfile.TemporaryDirectory() as d:
