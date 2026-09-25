@@ -13,6 +13,9 @@ docs aren't updated to match:
   3. Each plugins/<pack>/README.md must mention every skill under that pack's
      skills/ directory (found as a table cell that is exactly one backticked
      name), and mention no skill that doesn't exist.
+  4. The GitHub Pages catalogue (site/index.html) must have a card for every
+     pack with the right skill count and one chip per skill, and its headline
+     plugin and skill counts must match the README's.
 
 The table format is read from the README rather than hardcoded (look for the
 header row whose first cell is "Pack" / "Plugin"), so formatting can move
@@ -219,15 +222,58 @@ def check_plugin_readmes():
             errors.append(f"{readme}: table(s) mention skill(s) not in this pack: {sorted(extra)}")
 
 
+SITE_INDEX = os.path.join("site", "index.html")
+
+
+def check_site():
+    if not os.path.isfile(SITE_INDEX):
+        return
+    with open(SITE_INDEX, encoding="utf-8") as fh:
+        html = fh.read()
+    cards = {}
+    for art in re.findall(r'<article class="plugin">(.*?)</article>', html, re.S):
+        m = re.search(r'class="plugin-name">(?:<a [^>]*>)?([a-z0-9-]+)', art)
+        if m:
+            cards[m.group(1)] = art
+    total = 0
+    for pack in sorted(os.listdir(PLUGINS_DIR)):
+        real = actual_skills(pack)
+        if not real:
+            continue
+        total += len(real)
+        art = cards.get(pack)
+        if art is None:
+            errors.append(f"{SITE_INDEX}: no card for pack '{pack}'")
+            continue
+        n = re.search(r'<span class="plugin-n">(\d+) skills', art)
+        if not n or int(n.group(1)) != len(real):
+            errors.append(f"{SITE_INDEX}: card '{pack}' should say {len(real)} skills")
+        chips = set(re.findall(r'<span class="chip">([a-z0-9-]+)</span>', art))
+        if chips != set(real):
+            errors.append(
+                f"{SITE_INDEX}: card '{pack}' chips differ from plugins/{pack}/skills/: "
+                f"missing {sorted(set(real) - chips)}, extra {sorted(chips - set(real))}"
+            )
+    with open(ROOT_README, encoding="utf-8") as fh:
+        headline = re.search(r'\*\*(\d+)\s+plugins?,\s*(\d+)\s+skills?\*\*', fh.read())
+    site_plugins = re.search(r'<b>(\d+)</b><span>plugins</span>', html)
+    site_skills = re.search(r'<b>(\d+)</b><span>skills</span>', html)
+    if not site_skills or int(site_skills.group(1)) != total:
+        errors.append(f"{SITE_INDEX}: headline skill count should be {total}")
+    if headline and (not site_plugins or site_plugins.group(1) != headline.group(1)):
+        errors.append(f"{SITE_INDEX}: headline plugin count should be {headline.group(1)}")
+
+
 def main():
     check_root_readme()
     check_plugin_readmes()
+    check_site()
     if errors:
         print(f"{len(errors)} README/skill-set mismatch(es) found:\n", file=sys.stderr)
         for e in errors:
             print(f"  {e}", file=sys.stderr)
         return 1
-    print("README pack tables, plugin READMEs, and headline counts all match plugins/ on disk")
+    print("README pack tables, plugin READMEs, headline counts, and the Pages catalogue all match plugins/ on disk")
     return 0
 
 
