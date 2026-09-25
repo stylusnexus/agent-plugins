@@ -43,6 +43,27 @@ def load_config(path: Path | None) -> dict:
     return yaml.safe_load(text) or {}
 
 
+def inside(root: Path, rel: str) -> Path | None:
+    """root/rel if it is relative, stays inside root once resolved (no .. or symlink escape); else None."""
+    if not isinstance(rel, str) or not rel or Path(rel).is_absolute():
+        return None
+    root = root.resolve()
+    target = (root / rel).resolve()
+    return target if target == root or root in target.parents else None
+
+
+def symlinked_component(path: Path) -> Path | None:
+    """The first existing component of an (unresolved, absolute) path that is a symlink, if any.
+    Root-owned links (the OS's own, like /var -> /private/var on macOS) are allowed: a reviewed
+    repo can't plant one."""
+    cur = Path(path.anchor)
+    for part in path.parts[1:]:
+        cur = cur / part
+        if cur.is_symlink() and cur.lstat().st_uid != 0:
+            return cur
+    return None
+
+
 def read(p: Path) -> str:
     try:
         return p.read_text(errors="replace")

@@ -14,9 +14,11 @@ product:
   audience: freelancers who bill a handful of clients a month
   promise: send a professional invoice in under two minutes
 
-# Where to write reports. Default: ~/readiness-reports/<repo folder name>/
-# Keep this OUTSIDE the repo unless the folder is gitignored.
-report_dir: ~/readiness-reports/example-invoices
+# Where reports go is NOT set here: the person running the review chooses
+# it (--report-dir, else READINESS_REPORT_DIR, else
+# ~/.readiness-review/reports/<repo folder name>/). A report_dir key in this
+# file is ignored, because this file belongs to the repo being reviewed.
+# For the same reason, paths below that point outside the repo are ignored.
 
 # One area gets a deep read per run, in turn (ISO week number mod the number
 # of areas), so the whole codebase is covered every len(areas) runs.
@@ -57,8 +59,9 @@ github:
 # never table rows, in a read-only session. Point url_env at a READ-ONLY role
 # -- see the SKILL.md for the three SQL lines that create one.
 database:
-  url_env: READINESS_DATABASE_URL         # variable NAME, looked up in env, then env_file
-  env_file: .env                          # relative to the repo root; never copied or printed
+  url_env: READINESS_DATABASE_URL         # variable NAME, looked up ONLY in env_file (the operator's
+                                          # --db-env-var also allows the shell environment)
+  env_file: .env                          # inside the repo; never copied or printed
   schemas: [public]
   public_roles: [anon]                    # the role your public/anonymous key maps to, if any
 

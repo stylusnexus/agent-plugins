@@ -11,6 +11,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import completeness_scan  # noqa: E402
 import db_facts  # noqa: E402
 import findings  # noqa: E402
+import gather_facts  # noqa: E402
+import rr_common  # noqa: E402
 import gh_facts  # noqa: E402
 import make_review_copy  # noqa: E402
 import security_scan  # noqa: E402
@@ -116,7 +118,11 @@ class DbGuardTests(unittest.TestCase):
         for sql in ("select * from users", "select email from public.profiles",
                     "update pg_catalog.pg_class set relname = 'x'", "delete from pg_policies",
                     "select 1; drop table notes", "insert into pg_class values (1)",
-                    "select * from pg_class c join accounts a on true"):
+                    "select * from pg_class c join accounts a on true",
+                    "select * from pg_catalog.pg_class c, users u",
+                    "select pg_read_file('/etc/passwd')", "select dblink('host=x', 'select 1')",
+                    "select set_config('default_transaction_read_only', 'off', false)",
+                    "select query_to_xml('select * from users', true, true, '')"):
             with self.assertRaises(db_facts.GuardError, msg=sql):
                 db_facts.assert_catalog_only(sql)
 
@@ -157,12 +163,68 @@ class GhAllowlistTests(unittest.TestCase):
         for args in (["issue", "create", "--title", "x"], ["issue", "comment", "1"], ["pr", "merge", "1"],
                      ["api", "-X", "POST", "repos/o/r/issues"], ["api", "--method=PATCH", "repos/o/r"],
                      ["api", "repos/o/r/issues", "-f", "title=x"], ["api", "repos/o/r/labels", "--input", "x.json"],
-                     ["api", "graphql", "-F", "query=mutation{}"], ["label", "create", "x"]):
+                     ["api", "graphql", "-F", "query=mutation{}"], ["label", "create", "x"],
+                     ["api", "-XPOST", "repos/o/r/issues"], ["api", "-H", "X-HTTP-Method-Override: POST", "repos/o/r"],
+                     ["api", "--method", "GET", "graphql"], ["api", "-X", "GET", "graphql", "--paginate"],
+                     ["api", "--paginate", "/graphql"]):
             with self.assertRaises(gh_facts.NotReadOnly, msg=args):
                 gh_facts.check_gh(args)
         for args in (["push"], ["commit", "-m", "x"], ["checkout", "main"], ["remote", "add", "x", "y"]):
             with self.assertRaises(gh_facts.NotReadOnly):
                 gh_facts.check_git(args)
+
+
+class OperatorOwnsPathsTests(unittest.TestCase):
+    """The reviewed repo's config must not choose where we write, what we read, or which DB we reach."""
+
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp()).resolve()
+        self.addCleanup(lambda: __import__("shutil").rmtree(self.tmp, ignore_errors=True))
+        self.repo = self.tmp / "repo"
+        (self.repo / "sub").mkdir(parents=True)
+        (self.tmp / "outside").mkdir()
+        (self.repo / "escape").symlink_to(self.tmp / "outside")
+
+    def test_inside_rejects_absolute_parent_and_symlink_escape(self):
+        self.assertIsNotNone(rr_common.inside(self.repo, "sub"))
+        for bad in ("/etc", "../outside", "sub/../../outside", "escape", ""):
+            self.assertIsNone(rr_common.inside(self.repo, bad), bad)
+
+    def test_report_dir_ignores_config_and_refuses_repo_and_symlinks(self):
+        with mock.patch.dict(os.environ, {"HOME": str(self.tmp)}, clear=False):
+            os.environ.pop("READINESS_REPORT_DIR", None)
+            d = gather_facts.report_dir(self.repo, None)
+        self.assertEqual(d, self.tmp / ".readiness-review" / "reports" / "repo")
+        with self.assertRaises(SystemExit):
+            gather_facts.report_dir(self.repo, str(self.repo / "reports"))
+        with self.assertRaises(SystemExit):
+            gather_facts.report_dir(self.repo, str(self.repo / "escape" / "r"))
+        res = gather_facts.gather(self.repo, {"report_dir": "/tmp/evil"}, 1, None)
+        self.assertNotIn("report_dir", res)
+        self.assertTrue(any(x.startswith("report_dir") for x in res["config_values_ignored"]))
+
+    def test_config_paths_and_db_env_stay_inside_repo(self):
+        cfg = {"scan": {"migrations_dirs": ["../outside", "sub"]},
+               "database": {"url_env": "OPERATOR_PROD_URL", "env_file": "../outside/.env"},
+               "review_areas": [{"name": "a", "paths": ["src", "/etc", "../x"], "focus": "f"}]}
+        res = gather_facts.gather(self.repo, cfg, 0, None)
+        self.assertEqual(res["live_database"]["status"], "NOT VERIFIED")
+        self.assertIn("scan.migrations_dirs '../outside': outside the repo", res["config_values_ignored"])
+        self.assertEqual(res["area"]["paths"], ["src"])
+        self.assertEqual(res["area"]["paths_dropped_unsafe"], 2)
+
+    def test_repo_named_variable_is_not_read_from_operator_environment(self):
+        (self.repo / ".env").write_text("")
+        with mock.patch.dict(os.environ, {"OPERATOR_PROD_URL": "postgresql://u:p@prod/db"}):
+            self.assertIsNone(db_facts.load_env_value("OPERATOR_PROD_URL", str(self.repo / ".env"), file_only=True))
+            self.assertIsNotNone(db_facts.load_env_value("OPERATOR_PROD_URL", str(self.repo / ".env")))
+
+    def test_write_report_refuses_symlink_and_forbidden_trees(self):
+        with self.assertRaises(SystemExit):
+            write_report.check_out_dir(self.repo / "escape" / "r", [])
+        with self.assertRaises(SystemExit):
+            write_report.check_out_dir(self.repo / "sub" / "r", [str(self.repo)])
+        write_report.check_out_dir(self.tmp / "outside" / "r", [str(self.repo)])
 
 
 class ReportWriteTests(unittest.TestCase):

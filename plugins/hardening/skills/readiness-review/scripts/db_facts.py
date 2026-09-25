@@ -81,7 +81,39 @@ where n.nspname = any(%s) and c.relkind = 'v'
 
 FORBIDDEN = re.compile(r"\b(insert|update|delete|truncate|drop|alter|create|grant|revoke|copy|merge|call|do|"
                        r"vacuum|analyze|lock|set|reset|refresh|comment|execute|prepare|listen|notify|into)\b")
+# functions that read files, reach the network, change settings, or run a query given as text
+UNSAFE_FN = re.compile(r"\b(pg_read_\w*|pg_ls_\w*|pg_stat_file|lo_\w+|dblink\w*|set_config|pg_terminate_backend|"
+                       r"pg_cancel_backend|pg_sleep\w*|pg_reload_conf|pg_rotate_logfile|\w+_to_xml\w*|"
+                       r"query_to_\w+|pg_advisory\w*|nextval|setval)\s*\(")
 SOURCE = re.compile(r"\b(?:from|join)\s+([\w.]+)")
+FROM_END = re.compile(r"\b(where|join|group|order|limit|on|union|having)\b")
+
+
+def from_list_extras(body: str) -> list[str]:
+    """Relations after the first in each comma-separated FROM list (commas inside parentheses ignored)."""
+    out = []
+    for m in re.finditer(r"\bfrom\s+", body):
+        depth, item, items = 0, "", []
+        i = m.end()
+        while i < len(body):
+            ch = body[i]
+            if ch == "(":
+                depth += 1
+            elif ch == ")":
+                if depth == 0:
+                    break
+                depth -= 1
+            elif depth == 0 and (ch == ";" or FROM_END.match(body, i) and body[i - 1] in " \n\t"):
+                break
+            if ch == "," and depth == 0:
+                items.append(item)
+                item = ""
+            else:
+                item += ch
+            i += 1
+        items.append(item)
+        out += [x.split()[0] for x in items[1:] if x.split()]
+    return out
 CATALOG = re.compile(r"^(pg_catalog\.|information_schema\.|pg_[a-z_]+$|unnest$)")
 
 
@@ -98,7 +130,10 @@ def assert_catalog_only(sql: str) -> None:
     bad = FORBIDDEN.search(body)
     if bad:
         raise GuardError(f"forbidden keyword in catalog query: {bad.group(1)}")
-    for src in SOURCE.findall(body):
+    bad = UNSAFE_FN.search(body)
+    if bad:
+        raise GuardError(f"function not allowed in a catalog query: {bad.group(1)}")
+    for src in SOURCE.findall(body) + from_list_extras(body):
         if not CATALOG.match(src):
             raise GuardError(f"query reads a non-catalog relation: {src}")
 
@@ -164,9 +199,9 @@ def summarize(tables, policies, secdef, views, writable, cred, missing_roles, mi
     return out
 
 
-def load_env_value(name: str, env_file: str | None) -> str | None:
-    """The variable from the environment, else from a KEY=VALUE .env file. Nothing else is read into env."""
-    if os.environ.get(name):
+def load_env_value(name: str, env_file: str | None, file_only: bool = False) -> str | None:
+    """The variable from the environment (unless file_only), else from a KEY=VALUE .env file."""
+    if not file_only and os.environ.get(name):
         return os.environ[name]
     if not env_file or not Path(env_file).is_file():
         return None
@@ -198,13 +233,15 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Read-only catalog facts about a live Postgres database (no table rows).")
     ap.add_argument("--env-var", required=True, help="name of the variable holding the connection string")
     ap.add_argument("--env-file", help="the target repo's local .env file to look the variable up in")
+    ap.add_argument("--env-file-only", action="store_true",
+                    help="ignore the process environment (used when the variable name came from the repo's config)")
     ap.add_argument("--schema", action="append", default=[])
     ap.add_argument("--public-role", action="append", default=[], help="role the public/anonymous key maps to (e.g. anon)")
     ap.add_argument("--migration-tables", help="JSON file: tables the migrations create (schema-less names = public)")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args(argv)
 
-    url = load_env_value(args.env_var, args.env_file)
+    url = load_env_value(args.env_var, args.env_file, args.env_file_only)
     if not url:
         _emit({"status": "NOT CONFIGURED", "reason": f"{args.env_var} is not set in the environment or the .env file"}, args.json)
         return 3

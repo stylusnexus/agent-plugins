@@ -29,7 +29,31 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from rr_common import detect_stack, find_config, load_config  # noqa: E402
+from rr_common import detect_stack, find_config, inside, load_config, symlinked_component  # noqa: E402
+
+
+def report_dir(repo: Path, flag: str | None) -> Path:
+    """Where the report goes. Chosen by the OPERATOR (flag, then READINESS_REPORT_DIR, then a fixed
+    folder in their home), never by the reviewed repo. Refused if it is inside the repo or reached
+    through a symlink."""
+    raw = flag or os.environ.get("READINESS_REPORT_DIR") or f"~/.readiness-review/reports/{repo.name}"
+    d = Path(os.path.abspath(Path(raw).expanduser()))
+    link = symlinked_component(d)
+    if link:
+        raise SystemExit(f"refusing report dir {d}: {link} is a symlink")
+    if d.resolve() == repo or repo in d.resolve().parents:
+        raise SystemExit(f"refusing report dir {d}: it is inside the reviewed repo")
+    return d
+
+
+def safe_area(area: dict | None) -> dict | None:
+    """Drop area paths that are absolute or climb out of the repo: the reviewer reads only its copy."""
+    if not area:
+        return area
+    paths = [x for x in area.get("paths") or [] if isinstance(x, str) and not Path(x).is_absolute()
+             and ".." not in Path(x).parts]
+    dropped = len(area.get("paths") or []) - len(paths)
+    return {**area, "paths": paths, **({"paths_dropped_unsafe": dropped} if dropped else {})}
 
 
 def pick_area(areas: list, week: int, name: str | None = None) -> dict | None:
@@ -57,22 +81,27 @@ def run_json(args: list[str], env=None) -> dict | str:
         return f"NOT VERIFIED: {Path(args[0]).name} exited {r.returncode} ({tail})"
 
 
-def gather(repo: Path, cfg: dict, week: int, area_name: str | None) -> dict:
+def gather(repo: Path, cfg: dict, week: int, area_name: str | None, db_env_var: str | None = None) -> dict:
     scan_cfg = cfg.get("scan") or {}
     sec_args = [str(HERE / "security_scan.py"), "--path", str(repo), "--json"]
     for p in scan_cfg.get("auth_patterns") or []:
         sec_args += ["--auth-pattern", p]
     for p in scan_cfg.get("service_key_patterns") or []:
         sec_args += ["--service-key-pattern", p]
+    ignored = []
+    if "report_dir" in cfg:
+        ignored.append("report_dir: the report location is the operator's choice (--report-dir), not the repo's")
     for d in scan_cfg.get("migrations_dirs") or []:
-        sec_args += ["--migrations-dir", d]
+        if inside(repo, d):
+            sec_args += ["--migrations-dir", d]
+        else:
+            ignored.append(f"scan.migrations_dirs {d!r}: outside the repo")
 
     out: dict = {
         "repo_path": str(repo),
         "product": cfg.get("product") or {},
-        "report_dir": str(Path(cfg.get("report_dir") or f"~/readiness-reports/{repo.name}").expanduser()),
         "stack": detect_stack(repo),
-        "area": pick_area(cfg.get("review_areas") or [], week, area_name),
+        "area": safe_area(pick_area(cfg.get("review_areas") or [], week, area_name)),
         "security_scan": run_json(sec_args),
         "completeness_scan": run_json([str(HERE / "completeness_scan.py"), "--path", str(repo), "--json"]),
     }
@@ -90,12 +119,22 @@ def gather(repo: Path, cfg: dict, week: int, area_name: str | None) -> dict:
     out["github"] = run_json(gh_args)
     out["launch_blockers_note"] = (cfg.get("launch_blockers") or {}).get("note")
 
+    # The repo config may name a variable, but it is looked up ONLY in the repo's own .env file
+    # (inside the repo, no symlink escape), never in the operator's environment -- otherwise a
+    # reviewed repo could point this at any database the operator has credentials for. The
+    # operator widens that with --db-env-var.
     db = cfg.get("database") or {}
-    if not db.get("url_env"):
+    env_file = inside(repo, db.get("env_file", ".env"))
+    if not (db_env_var or db.get("url_env")):
         out["live_database"] = {"status": "NOT CONFIGURED", "reason": "no database.url_env in the config"}
+    elif not db_env_var and not env_file:
+        out["live_database"] = {"status": "NOT VERIFIED", "reason": "database.env_file is outside the repo; ignored"}
     else:
-        db_args = [str(HERE / "db_facts.py"), "--env-var", db["url_env"], "--json",
-                   "--env-file", str(repo / db.get("env_file", ".env"))]
+        db_args = [str(HERE / "db_facts.py"), "--env-var", db_env_var or db["url_env"], "--json"]
+        if env_file:
+            db_args += ["--env-file", str(env_file)]
+        if not db_env_var:
+            db_args += ["--env-file-only"]
         for s in db.get("schemas") or []:
             db_args += ["--schema", s]
         for r in db.get("public_roles") or []:
@@ -108,6 +147,7 @@ def gather(repo: Path, cfg: dict, week: int, area_name: str | None) -> dict:
                 db_args += ["--migration-tables", str(mt)]
             out["live_database"] = run_json(db_args, env=dict(os.environ))
 
+    out["config_values_ignored"] = ignored
     sec = out["security_scan"]
     if isinstance(sec, dict) and sec.get("routes_total") == 0 and (out["stack"]["nextjs"] or out["stack"]["fastapi"]
                                                                     or out["stack"]["flask"]):
@@ -122,6 +162,10 @@ def main(argv=None) -> int:
     ap.add_argument("--config", help="config file (default: .readiness-review.yaml in the repo)")
     ap.add_argument("--week", type=int, default=date.today().isocalendar()[1])
     ap.add_argument("--area", help="review this area by name instead of the week's rotation")
+    ap.add_argument("--report-dir", help="where the report goes (default: $READINESS_REPORT_DIR, "
+                                         "else ~/.readiness-review/reports/<repo>); never taken from the repo")
+    ap.add_argument("--db-env-var", help="operator's choice of variable holding a read-only connection string; "
+                                         "looked up in the environment, then the repo's .env")
     args = ap.parse_args(argv)
     repo = Path(args.path).resolve()
     if not repo.is_dir():
@@ -129,7 +173,9 @@ def main(argv=None) -> int:
         return 2
     cfg_path = Path(args.config) if args.config else find_config(repo)
     cfg = load_config(cfg_path)
-    res = gather(repo, cfg, args.week, args.area)
+    out_dir = report_dir(repo, args.report_dir)
+    res = gather(repo, cfg, args.week, args.area, args.db_env_var)
+    res["report_dir"] = str(out_dir)
     res["config"] = str(cfg_path) if cfg_path else "none found: defaults used"
     # passed through untouched for the product walk; the scripts never act on them
     for k in ("product_walk", "test_account", "exercise"):
