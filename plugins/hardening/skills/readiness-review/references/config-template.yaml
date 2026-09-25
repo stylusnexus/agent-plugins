@@ -46,12 +46,16 @@ launch_blockers:
   issues: [101, 102, 117]
   note: cut-line agreed for the public launch
 
+# Regexes in this file are capped at 200 characters; one that doesn't
+# compile, or nests quantifiers like (a+)+, is skipped and reported.
 # Regex over changed file paths: files matching it that changed in the last
 # github.days days get a closer read.
 risky_paths: '(middleware\.ts|next\.config|migrations/|src/app/api/|src/lib/(auth|billing|db)/)'
 
 github:
-  repo: example-org/example-invoices     # default: parsed from the origin remote
+  # The repo is always this checkout's own GitHub remote. A different repo
+  # named here is ignored; the operator can override with --github-repo.
+  repo: example-org/example-invoices
   days: 7                                 # window for risky changes
   count_labels: [bug, security]           # open-issue counts to report
 

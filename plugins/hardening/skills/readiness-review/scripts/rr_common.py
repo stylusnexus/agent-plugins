@@ -52,6 +52,27 @@ def inside(root: Path, rel: str) -> Path | None:
     return target if target == root or root in target.parents else None
 
 
+REGEX_MAX_LEN = 200
+# a quantified group that itself contains a quantifier, e.g. (a+)+ or (\w*x)* -- the classic
+# catastrophic-backtracking shape
+NESTED_QUANTIFIER = re.compile(r"\((?:[^()\\]|\\.)*[+*}](?:[^()\\]|\\.)*\)\s*[+*{]")
+
+
+def regex_problem(pattern) -> str | None:
+    """Why a config-supplied regex is unsafe to run, or None if it may be used."""
+    if not isinstance(pattern, str) or not pattern:
+        return "not a non-empty string"
+    if len(pattern) > REGEX_MAX_LEN:
+        return f"longer than {REGEX_MAX_LEN} characters"
+    if NESTED_QUANTIFIER.search(pattern):
+        return "nested quantifier (can hang the scan)"
+    try:
+        re.compile(pattern)
+    except re.error as e:
+        return f"does not compile ({e})"
+    return None
+
+
 def symlinked_component(path: Path) -> Path | None:
     """The first existing component of an (unresolved, absolute) path that is a symlink, if any.
     Root-owned links (the OS's own, like /var -> /private/var on macOS) are allowed: a reviewed
