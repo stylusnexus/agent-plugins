@@ -105,12 +105,14 @@ Mehrotra
 mikefarah
 minimised
 misattributes
+mktemp
 Moesta
 momtestbook
 mortems
 mypy
 Nango
 Nango's
+netrc
 NEXTAUTH
 nolint
 Noriaki
@@ -136,7 +138,9 @@ pretotyping
 producttalk
 PRPM
 prpmdev
+psycopg
 pyproject
+pyyaml
 Quiller
 Qwen
 Rachitsky's
