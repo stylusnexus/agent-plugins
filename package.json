@@ -1,6 +1,6 @@
 {
   "name": "@stylusnexus/agent-plugins",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Agent skill packs for Claude Code, Codex, and ~70 other coding agents — 8 packs, 61 repo-agnostic skills covering the ship loop, reporting, second opinions, hardening, releases, codebase intelligence, product strategy, and go-to-market.",
   "keywords": [
     "claude-code",
