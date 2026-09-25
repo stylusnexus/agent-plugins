@@ -112,6 +112,7 @@ mortems
 mypy
 Nango
 Nango's
+netrc
 NEXTAUTH
 nolint
 Noriaki
