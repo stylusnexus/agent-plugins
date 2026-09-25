@@ -1,6 +1,6 @@
 {
   "name": "hardening",
-  "description": "Five pre-launch security gates covering the unglamorous failures that reach production. rate-limit-audit inventories every endpoint calling a paid API and every auth endpoint, then checks each actually has a limit; exposure-scan checks installed packages across npm, Go, PyPI, RubyGems and MCP servers against threat-intelligence catalogs for known-compromised releases; auth-hardening is a session, cookie, CSRF and OAuth-scope audit; webhook-reliability covers signature verification, idempotency, retry and dead letters in both directions; and privacy-audit inventories exactly what user data is collected and where it lands, checked against the code rather than the policy.",
+  "description": "Six pre-launch gates covering the unglamorous failures that reach production. rate-limit-audit inventories every endpoint calling a paid API and every auth endpoint, then checks each actually has a limit; exposure-scan checks installed packages across npm, Go, PyPI, RubyGems and MCP servers against threat-intelligence catalogs for known-compromised releases; auth-hardening is a session, cookie, CSRF and OAuth-scope audit; webhook-reliability covers signature verification, idempotency, retry and dead letters in both directions; privacy-audit inventories exactly what user data is collected and where it lands, checked against the code rather than the policy; and readiness-review is a read-only launch-readiness report covering code health, live database structure, and a look-only walk of the product as a non-admin test user, ending in a findings list the human files.",
   "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/hardening",
   "repository": "https://github.com/stylusnexus/agent-plugins",
   "license": "MIT",
@@ -12,7 +12,9 @@
     "authentication",
     "webhooks",
     "privacy",
-    "pre-launch"
+    "pre-launch",
+    "launch-readiness",
+    "code-health"
   ],
   "author": {
     "name": "Stylus Nexus",
@@ -21,7 +23,7 @@
   "interface": {
     "displayName": "Hardening",
     "shortDescription": "The boring security work that still ships bugs",
-    "longDescription": "Five pre-launch security gates covering the unglamorous failures that reach production. rate-limit-audit inventories every endpoint calling a paid API and every auth endpoint, then checks each actually has a limit; exposure-scan checks installed packages across npm, Go, PyPI, RubyGems and MCP servers against threat-intelligence catalogs for known-compromised releases; auth-hardening is a session, cookie, CSRF and OAuth-scope audit; webhook-reliability covers signature verification, idempotency, retry and dead letters in both directions; and privacy-audit inventories exactly what user data is collected and where it lands, checked against the code rather than the policy.",
+    "longDescription": "Six pre-launch gates covering the unglamorous failures that reach production. rate-limit-audit inventories every endpoint calling a paid API and every auth endpoint, then checks each actually has a limit; exposure-scan checks installed packages across npm, Go, PyPI, RubyGems and MCP servers against threat-intelligence catalogs for known-compromised releases; auth-hardening is a session, cookie, CSRF and OAuth-scope audit; webhook-reliability covers signature verification, idempotency, retry and dead letters in both directions; privacy-audit inventories exactly what user data is collected and where it lands, checked against the code rather than the policy; and readiness-review is a read-only launch-readiness report covering code health, live database structure, and a look-only walk of the product as a non-admin test user, ending in a findings list the human files.",
     "developerName": "Stylus Nexus",
     "category": "Developer Tools",
     "capabilities": [
@@ -29,7 +31,8 @@
       "Scans installed packages against supply-chain threat-intelligence catalogs",
       "Audits session, cookie, CSRF and OAuth-scope configuration",
       "Reviews webhooks for signature verification, idempotency and dead letters",
-      "Produces a data inventory checked against the code, not the privacy policy"
+      "Produces a data inventory checked against the code, not the privacy policy",
+      "Writes one read-only launch-readiness report: code health, live database, and a look-only product walk"
     ],
     "websiteURL": "https://github.com/stylusnexus/agent-plugins"
   }
