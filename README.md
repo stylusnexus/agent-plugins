@@ -17,7 +17,7 @@ Windsurf, Zed, opencode, Cline, Continue, Hermes and others) through the Skills 
 Every skill is repo-agnostic: it detects your repository's conventions rather than assuming its own,
 and defers to a repo-local version of itself when your project defines one.
 
-**[Browse the catalogue →](https://claude.ai/code/artifact/667c2158-4833-4535-a5c5-a5597dea8fea)** — every pack, what it's for, and how to install it on your agent.
+**[Browse the catalogue →](https://stylusnexus.github.io/agent-plugins/)** — every pack, what it's for, and how to install it on your agent.
 
 > ⚠️ **Trust before you install.** Plugins run code on your machine. Review a plugin's source before
 > installing it. Everything here is open-source — links are in the table below.
@@ -484,6 +484,7 @@ agent-plugins/
 │   ├── gen-catalog.py           # writes the skill catalogue and skills.sh.json
 │   ├── check-links.py           # relative links and anchors resolve
 │   └── check-private-terms.sh   # nothing private ships in a skill
+├── site/                        # the catalogue page, published to GitHub Pages
 ├── skills.sh.json               # skills.sh groupings, one per pack
 ├── LICENSE
 └── README.md
