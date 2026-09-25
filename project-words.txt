@@ -105,6 +105,7 @@ Mehrotra
 mikefarah
 minimised
 misattributes
+mktemp
 Moesta
 momtestbook
 mortems
@@ -136,7 +137,9 @@ pretotyping
 producttalk
 PRPM
 prpmdev
+psycopg
 pyproject
+pyyaml
 Quiller
 Qwen
 Rachitsky's
