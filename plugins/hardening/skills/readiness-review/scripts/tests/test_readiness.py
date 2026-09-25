@@ -219,6 +219,30 @@ class OperatorOwnsPathsTests(unittest.TestCase):
             self.assertIsNone(db_facts.load_env_value("OPERATOR_PROD_URL", str(self.repo / ".env"), file_only=True))
             self.assertIsNotNone(db_facts.load_env_value("OPERATOR_PROD_URL", str(self.repo / ".env")))
 
+    def test_config_cannot_aim_github_reads_at_another_repo(self):
+        ignored = []
+        with mock.patch.object(gather_facts, "repo_from_remote", return_value="own-org/own-repo"):
+            self.assertEqual(gather_facts.github_repo(self.repo, "victim-org/private", None, ignored), "own-org/own-repo")
+            self.assertTrue(ignored and ignored[0].startswith("github.repo 'victim-org/private'"))
+            ignored.clear()
+            self.assertEqual(gather_facts.github_repo(self.repo, "Own-Org/own-repo", None, ignored), "own-org/own-repo")
+            self.assertEqual(ignored, [])
+            self.assertEqual(gather_facts.github_repo(self.repo, "victim-org/private", "op/choice", ignored), "op/choice")
+        with mock.patch.object(gather_facts, "repo_from_remote", side_effect=RuntimeError("no remote")):
+            self.assertIsNone(gather_facts.github_repo(self.repo, "victim-org/private", None, ignored))
+            self.assertEqual(len(ignored), 1)
+
+    def test_hostile_config_regexes_are_skipped(self):
+        ignored = []
+        ok = gather_facts.safe_patterns(
+            [r"requireMember\(", "(a+)+$", r"(\w*x)*y", "x" * 201, "([unclosed", 7], "scan.auth_patterns", ignored)
+        self.assertEqual(ok, [r"requireMember\("])
+        self.assertEqual(len(ignored), 5)
+        self.assertTrue(any("nested quantifier" in x for x in ignored))
+        self.assertTrue(any("does not compile" in x for x in ignored))
+        res = gather_facts.gather(self.repo, {"risky_paths": "(a*)*b", "scan": {"auth_patterns": ["(x+)+"]}}, 0, None)
+        self.assertEqual(sum("nested quantifier" in x for x in res["config_values_ignored"]), 2)
+
     def test_write_report_refuses_symlink_and_forbidden_trees(self):
         with self.assertRaises(SystemExit):
             write_report.check_out_dir(self.repo / "escape" / "r", [])

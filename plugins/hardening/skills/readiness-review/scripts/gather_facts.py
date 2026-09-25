@@ -29,7 +29,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-from rr_common import detect_stack, find_config, inside, load_config, symlinked_component  # noqa: E402
+from gh_facts import repo_from_remote  # noqa: E402
+from rr_common import detect_stack, find_config, inside, load_config, regex_problem, symlinked_component  # noqa: E402
 
 
 def report_dir(repo: Path, flag: str | None) -> Path:
@@ -81,14 +82,40 @@ def run_json(args: list[str], env=None) -> dict | str:
         return f"NOT VERIFIED: {Path(args[0]).name} exited {r.returncode} ({tail})"
 
 
-def gather(repo: Path, cfg: dict, week: int, area_name: str | None, db_env_var: str | None = None) -> dict:
+def github_repo(repo: Path, cfg_repo, flag: str | None, ignored: list) -> str | None:
+    """The operator's --github-repo, else the checkout's own GitHub remote. A config value that
+    names anything else is ignored: the reviewed repo must not aim the reads at another repo."""
+    if flag:
+        return flag
+    try:
+        own = repo_from_remote(str(repo))
+    except Exception:
+        own = None
+    if cfg_repo and (not own or str(cfg_repo).lower() != own.lower()):
+        ignored.append(f"github.repo {cfg_repo!r}: not this checkout's own GitHub remote (use --github-repo)")
+    return own
+
+
+def safe_patterns(values, key: str, ignored: list) -> list[str]:
+    out = []
+    for v in values or []:
+        why = regex_problem(v)
+        if why:
+            ignored.append(f"{key} {str(v)[:60]!r}: {why}")
+        else:
+            out.append(v)
+    return out
+
+
+def gather(repo: Path, cfg: dict, week: int, area_name: str | None, db_env_var: str | None = None,
+           github_repo_flag: str | None = None) -> dict:
     scan_cfg = cfg.get("scan") or {}
-    sec_args = [str(HERE / "security_scan.py"), "--path", str(repo), "--json"]
-    for p in scan_cfg.get("auth_patterns") or []:
-        sec_args += ["--auth-pattern", p]
-    for p in scan_cfg.get("service_key_patterns") or []:
-        sec_args += ["--service-key-pattern", p]
     ignored = []
+    sec_args = [str(HERE / "security_scan.py"), "--path", str(repo), "--json"]
+    for p in safe_patterns(scan_cfg.get("auth_patterns"), "scan.auth_patterns", ignored):
+        sec_args += ["--auth-pattern", p]
+    for p in safe_patterns(scan_cfg.get("service_key_patterns"), "scan.service_key_patterns", ignored):
+        sec_args += ["--service-key-pattern", p]
     if "report_dir" in cfg:
         ignored.append("report_dir: the report location is the operator's choice (--report-dir), not the repo's")
     for d in scan_cfg.get("migrations_dirs") or []:
@@ -108,14 +135,16 @@ def gather(repo: Path, cfg: dict, week: int, area_name: str | None, db_env_var: 
 
     gh_cfg = cfg.get("github") or {}
     gh_args = [str(HERE / "gh_facts.py"), "--path", str(repo), "--json", "--days", str(gh_cfg.get("days", 7))]
-    if gh_cfg.get("repo"):
-        gh_args += ["--repo", gh_cfg["repo"]]
+    gh_repo = github_repo(repo, gh_cfg.get("repo"), github_repo_flag, ignored)
+    if gh_repo:
+        gh_args += ["--repo", gh_repo]
     for l in gh_cfg.get("count_labels") or []:
         gh_args += ["--label", l]
     for n in (cfg.get("launch_blockers") or {}).get("issues") or []:
         gh_args += ["--blocker", str(n)]
-    if cfg.get("risky_paths"):
-        gh_args += ["--risky-paths", cfg["risky_paths"]]
+    risky = safe_patterns([cfg["risky_paths"]] if cfg.get("risky_paths") else [], "risky_paths", ignored)
+    if risky:
+        gh_args += ["--risky-paths", risky[0]]
     out["github"] = run_json(gh_args)
     out["launch_blockers_note"] = (cfg.get("launch_blockers") or {}).get("note")
 
@@ -164,6 +193,7 @@ def main(argv=None) -> int:
     ap.add_argument("--area", help="review this area by name instead of the week's rotation")
     ap.add_argument("--report-dir", help="where the report goes (default: $READINESS_REPORT_DIR, "
                                          "else ~/.readiness-review/reports/<repo>); never taken from the repo")
+    ap.add_argument("--github-repo", help="owner/name to read, overriding the checkout's own GitHub remote")
     ap.add_argument("--db-env-var", help="operator's choice of variable holding a read-only connection string; "
                                          "looked up in the environment, then the repo's .env")
     args = ap.parse_args(argv)
@@ -174,7 +204,7 @@ def main(argv=None) -> int:
     cfg_path = Path(args.config) if args.config else find_config(repo)
     cfg = load_config(cfg_path)
     out_dir = report_dir(repo, args.report_dir)
-    res = gather(repo, cfg, args.week, args.area, args.db_env_var)
+    res = gather(repo, cfg, args.week, args.area, args.db_env_var, args.github_repo)
     res["report_dir"] = str(out_dir)
     res["config"] = str(cfg_path) if cfg_path else "none found: defaults used"
     # passed through untouched for the product walk; the scripts never act on them
