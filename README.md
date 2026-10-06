@@ -272,7 +272,7 @@ Two plugins ship executable code rather than markdown, so they live in their own
 
 | Plugin | What it does |
 |---|---|
-| [**work-plan**](https://github.com/stylusnexus/work-plan-toolkit) | Track-aware daily planning over GitHub issues — shared git-synced tracks optionally pinned to a canonical plan branch, AI clustering, coverage, doc liveness, and dependency-aware next-up. Pure-stdlib Python CLI plus an accessible VS Code viewer with a repo-qualified dependency graph and confirm-gated writes. |
+| [**work-plan**](https://github.com/stylusnexus/work-plan-toolkit) | Track-aware daily planning over GitHub issues — shared git-synced tracks optionally pinned to a canonical plan branch, AI clustering, coverage, doc liveness, and dependency-aware next-up. Pure-stdlib Python CLI plus an accessible VS Code viewer with a repo-qualified dependency graph and confirm-gated writes. Includes a one-command dependency check (`doctor`), a stale-tracks view and label search. |
 | [**defect-scan**](https://github.com/stylusnexus/defect-scan) | Language-aware defect hunter. Detects the stack, triages by risk, runs the real analyzers (ruff/mypy, tsc/eslint, rubocop/brakeman, optionally semgrep/gitleaks/bandit), then reports in confidence tiers across 15 language profiles — correlated against existing issues, with optional issue filing, safe autofix, and a cross-model second opinion. |
 
 ### A note on fit
