@@ -17,6 +17,8 @@ The batch layer above `start-issue`. `start-issue` sets up ONE issue; this skill
 
 **Announce at start:** "Running /ship-issues for #A, #B, #C."
 
+**Optional progress bar (Claude Code 2.1.286 or newer).** Nothing in this skill depends on it. You own the bar for the whole batch: create it once with id `ship-issues`, and do not create one per issue or let `start-issue` create its own when you run its steps. If a `task_progress` tool is in your tool list (it comes from the `task-progress` mod in [stylusnexus/claude-mods](https://github.com/stylusnexus/claude-mods); install with `/plugin marketplace add stylusnexus/claude-mods`, then `/plugin install task-progress@stylusnexus-mods`), load it with ToolSearch if it is deferred, then create the plan right after the announcement: a stage per phase (Ground, Decide, Implement, Ship, Deploy, Validate) and a short, unique step title per issue group. Update it as each group moves, set `needs_input` before asking the user a question, and mark it done at the final report. The bar shows only what you report, so it is never evidence that a step is done. If the tool is not there, ignore this paragraph and run every phase as written.
+
 ## Phase 1 — Ground (no edits)
 
 1. **Refresh refs and learn the branch model.** Fetch the primary remote (`git remote -v` — don't assume `origin`). Read the default branch from the host, not memory: `gh repo view --json defaultBranchRef --jq .defaultBranchRef.name`. Detect the integration branch the way `review-merge-pipeline` does. Compare against remote-tracking refs by full name (`refs/remotes/<remote>/<branch>`): a local branch named `<remote>/<branch>` would otherwise shadow it.
