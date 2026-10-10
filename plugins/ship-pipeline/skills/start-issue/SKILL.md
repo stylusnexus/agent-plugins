@@ -71,6 +71,8 @@ Test cases (plain English): <3-6 bullets a non-engineer can read>
 Plan next: <plan mode | inline plan | trivial-fix, proceeding>
 ```
 
+**Progress bar.** Only when you were invoked directly: if `task_progress` is available (the `task-progress` mod; it is deferred, so load it with ToolSearch first) and "Plan next" has three or more steps, create a plan with id `start-issue-<N>` and those steps right after the packet, and update it as you work. If you are running inside `ship-issues` (or any batch skill), that skill owns the bar: create nothing here, and mark this issue's step done in its plan instead. The bar shows only what you report, so it is never evidence that a step is done. Skip it if the tool is absent.
+
 ## Stop conditions
 
 - Issue already shipped → report, don't build.
