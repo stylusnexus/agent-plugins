@@ -1,6 +1,6 @@
 # Ship Pipeline
 
-Seven repo-agnostic skills for the ship half of the development loop — from reading the issue to promoting to production, with evidence at every gate.
+Eight repo-agnostic skills for the ship half of the development loop — from reading the issue to promoting to production, with evidence at every gate.
 
 Every skill detects the repository's own conventions rather than assuming a house style, and each **defers to a repo-local version of itself** when the project defines one (`.claude/skills/<name>/`). Install it globally; override it per-repo where a project has stronger rules.
 
@@ -13,6 +13,7 @@ Every skill detects the repository's own conventions rather than assuming a hous
 | **Intake** | `start-issue` | Reads the full issue — body *and* comments, where scope changes hide. Checks whether the work already shipped, captures a baseline, branches off the detected integration branch. |
 | **Ground** | `db-truth` | Verifies schema claims against the live database before you design against them, and confirms migrations actually landed after you apply them. |
 | **Verify** | `prove-it` | End-of-work evidence protocol. Discovers what CI *actually* gates, runs both static gates, checks threaded values at their terminus, does one real round-trip, and emits a claim→command→result table. |
+| **Inspect** | `review-slop` | Reports needless complexity, validation gaps, misleading test coverage, and prose problems with evidence and acceptance criteria. Makes no edits. |
 | **Ship** | `review-merge-pipeline` | One shot: verify → review → fix → commit → push → PR → merge. Detects the merge target instead of assuming one. |
 | **Promote** | `deploy` | Integration branch → production, with the repo's own merge strategy inferred from its history. |
 | **Schema** | `db-migration-safety` | Expand-contract migrations, idempotent SQL, batched backfills. |
@@ -28,7 +29,7 @@ Trust-but-verify presumes a claim is sound and spot-checks it. `prove-it` invert
 
 ## Rule ownership
 
-Each concern lives in exactly one skill. When a task crosses domains, the owner below keeps the rule and the others name only the handoff — this is what stops seven skills from firing on the same prompt.
+Each concern lives in exactly one skill. When a task crosses domains, the owner below keeps the rule and the others name only the handoff — this is what stops eight skills from firing on the same prompt.
 
 | Skill | Owns |
 |---|---|
@@ -37,6 +38,7 @@ Each concern lives in exactly one skill. When a task crosses domains, the owner 
 | `db-migration-safety` | **Writing** schema change — expand-contract sequencing, idempotency, backfills |
 | `backup-verify` | Backup existence and restore-testing; the go/no-go before a risky mutation |
 | `prove-it` | Evidence standards, gate discovery, the evidence table, `UNVERIFIED` labeling |
+| `review-slop` | Report-only slop findings, severity calibration, and suggested repair criteria |
 | `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection |
 | `deploy` | Production promotion, merge strategy, release-tooling compatibility |
 
