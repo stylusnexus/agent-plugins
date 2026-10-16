@@ -1,0 +1,20 @@
+{
+  "id": "pareto-analysis",
+  "title": "Find where the volume concentrates",
+  "license": "MIT",
+  "source_urls": [
+    "https://asq.org/quality-resources/pareto"
+  ],
+  "license_url": "https://opensource.org/license/mit/",
+  "framework_credit": null,
+  "attribution": "Stylus Nexus",
+  "pareto_context": "Fictional support-ticket example",
+  "pareto_unit": "Ticket count",
+  "pareto_status": "fictional",
+  "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+  "outputs": [
+    "pareto-analysis.svg",
+    "pareto-analysis.pdf"
+  ],
+  "combined_page": 1
+}

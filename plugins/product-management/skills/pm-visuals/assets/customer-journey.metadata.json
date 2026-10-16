@@ -1,0 +1,15 @@
+{
+  "id": "customer-journey",
+  "title": "Follow the job through the customer’s eyes",
+  "license": "MIT",
+  "source_urls": [],
+  "license_url": "https://opensource.org/license/mit/",
+  "framework_credit": null,
+  "attribution": "Stylus Nexus",
+  "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+  "outputs": [
+    "customer-journey.svg",
+    "customer-journey.pdf"
+  ],
+  "combined_page": 6
+}

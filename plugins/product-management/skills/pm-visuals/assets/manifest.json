@@ -1,0 +1,144 @@
+{
+  "title": "Stylus Nexus product workshop toolkit",
+  "license_expression": "MIT AND CC-BY-SA-4.0",
+  "license_scope": "Pages/slides 1-6: MIT artwork. Pages/slides 7-8: CC-BY-SA-4.0 adaptations; retain attribution and share alike when adapting those works.",
+  "size_points": [
+    960,
+    540
+  ],
+  "assets": [
+    {
+      "id": "pareto-analysis",
+      "title": "Find where the volume concentrates",
+      "license": "MIT",
+      "source_urls": [
+        "https://asq.org/quality-resources/pareto"
+      ],
+      "license_url": "https://opensource.org/license/mit/",
+      "framework_credit": null,
+      "attribution": "Stylus Nexus",
+      "pareto_context": "Fictional support-ticket example",
+      "pareto_unit": "Ticket count",
+      "pareto_status": "fictional",
+      "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+      "outputs": [
+        "pareto-analysis.svg",
+        "pareto-analysis.pdf"
+      ],
+      "combined_page": 1
+    },
+    {
+      "id": "five-forces",
+      "title": "Read the pressures around an industry",
+      "license": "MIT",
+      "source_urls": [
+        "https://www.isc.hbs.edu/strategy/business-strategy/Pages/the-five-forces.aspx"
+      ],
+      "license_url": "https://opensource.org/license/mit/",
+      "framework_credit": "Michael E. Porter",
+      "attribution": "Stylus Nexus",
+      "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+      "outputs": [
+        "five-forces.svg",
+        "five-forces.pdf"
+      ],
+      "combined_page": 2
+    },
+    {
+      "id": "outcome-roadmap",
+      "title": "Sequence outcomes, then commit to learning",
+      "license": "MIT",
+      "source_urls": [
+        "https://www.prodpad.com/blog/invented-now-next-later-roadmap/"
+      ],
+      "license_url": "https://opensource.org/license/mit/",
+      "framework_credit": "Janna Bastow (Now / Next / Later)",
+      "attribution": "Stylus Nexus",
+      "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+      "outputs": [
+        "outcome-roadmap.svg",
+        "outcome-roadmap.pdf"
+      ],
+      "combined_page": 3
+    },
+    {
+      "id": "value-curve",
+      "title": "Make differences in value explicit",
+      "license": "MIT",
+      "source_urls": [],
+      "license_url": "https://opensource.org/license/mit/",
+      "framework_credit": null,
+      "attribution": "Stylus Nexus",
+      "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+      "outputs": [
+        "value-curve.svg",
+        "value-curve.pdf"
+      ],
+      "combined_page": 4
+    },
+    {
+      "id": "assumption-map",
+      "title": "Test the assumptions that can break the plan",
+      "license": "MIT",
+      "source_urls": [],
+      "license_url": "https://opensource.org/license/mit/",
+      "framework_credit": null,
+      "attribution": "Stylus Nexus",
+      "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+      "outputs": [
+        "assumption-map.svg",
+        "assumption-map.pdf"
+      ],
+      "combined_page": 5
+    },
+    {
+      "id": "customer-journey",
+      "title": "Follow the job through the customer’s eyes",
+      "license": "MIT",
+      "source_urls": [],
+      "license_url": "https://opensource.org/license/mit/",
+      "framework_credit": null,
+      "attribution": "Stylus Nexus",
+      "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+      "outputs": [
+        "customer-journey.svg",
+        "customer-journey.pdf"
+      ],
+      "combined_page": 6
+    },
+    {
+      "id": "strategy-canvas",
+      "title": "Product Strategy Canvas",
+      "license": "CC-BY-SA-4.0",
+      "source_urls": [
+        "https://www.productcompass.pm/p/product-strategy-canvas"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "framework_credit": null,
+      "attribution": "Paweł Huryn / The Product Compass, Product Strategy Canvas v1.2, © 2024",
+      "changes": "Original vector layout adapted from the bundled Markdown template; prompts condensed for workshop use.",
+      "outputs": [
+        "strategy-canvas.svg",
+        "strategy-canvas.pdf"
+      ],
+      "combined_page": 7
+    },
+    {
+      "id": "value-proposition",
+      "title": "Connect customer progress to a credible promise",
+      "license": "CC-BY-SA-4.0",
+      "source_urls": [
+        "https://www.productcompass.pm/p/how-to-design-value-proposition-template"
+      ],
+      "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "framework_credit": null,
+      "attribution": "The Product Compass & Behind Product Lines; Paweł Huryn and Aatir Abdul Rauf",
+      "changes": "Original vector layout adapted from the bundled Markdown template; prompts condensed for workshop use.",
+      "outputs": [
+        "value-proposition.svg",
+        "value-proposition.pdf"
+      ],
+      "combined_page": 8
+    }
+  ]
+}

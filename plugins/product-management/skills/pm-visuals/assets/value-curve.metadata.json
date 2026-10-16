@@ -1,0 +1,15 @@
+{
+  "id": "value-curve",
+  "title": "Make differences in value explicit",
+  "license": "MIT",
+  "source_urls": [],
+  "license_url": "https://opensource.org/license/mit/",
+  "framework_credit": null,
+  "attribution": "Stylus Nexus",
+  "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+  "outputs": [
+    "value-curve.svg",
+    "value-curve.pdf"
+  ],
+  "combined_page": 4
+}

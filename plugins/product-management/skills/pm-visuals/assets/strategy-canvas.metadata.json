@@ -1,0 +1,17 @@
+{
+  "id": "strategy-canvas",
+  "title": "Product Strategy Canvas",
+  "license": "CC-BY-SA-4.0",
+  "source_urls": [
+    "https://www.productcompass.pm/p/product-strategy-canvas"
+  ],
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "framework_credit": null,
+  "attribution": "Paweł Huryn / The Product Compass, Product Strategy Canvas v1.2, © 2024",
+  "changes": "Original vector layout adapted from the bundled Markdown template; prompts condensed for workshop use.",
+  "outputs": [
+    "strategy-canvas.svg",
+    "strategy-canvas.pdf"
+  ],
+  "combined_page": 7
+}

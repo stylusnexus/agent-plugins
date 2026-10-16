@@ -1,0 +1,17 @@
+{
+  "id": "value-proposition",
+  "title": "Connect customer progress to a credible promise",
+  "license": "CC-BY-SA-4.0",
+  "source_urls": [
+    "https://www.productcompass.pm/p/how-to-design-value-proposition-template"
+  ],
+  "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "framework_credit": null,
+  "attribution": "The Product Compass & Behind Product Lines; Paweł Huryn and Aatir Abdul Rauf",
+  "changes": "Original vector layout adapted from the bundled Markdown template; prompts condensed for workshop use.",
+  "outputs": [
+    "value-proposition.svg",
+    "value-proposition.pdf"
+  ],
+  "combined_page": 8
+}

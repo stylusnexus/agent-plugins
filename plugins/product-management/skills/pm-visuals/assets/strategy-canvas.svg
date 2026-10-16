@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+<title>Product Strategy Canvas</title>
+<rect x="0" y="0" width="960" height="540" fill="#FAF9F5" stroke="none"/>
+<text x="36" y="31" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="700" fill="#087F78">STYLUS NEXUS  /  PRODUCT WORKSHOP</text>
+<text x="36" y="76" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#203B3B">Product Strategy Canvas</text>
+<text x="36" y="99" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#526B69">Product / owner: __________________    Segment: __________________    Date / status: __________________</text>
+<line x1="36" y1="117" x2="924" y2="117" stroke="#CADBD5" stroke-width="1"/>
+<line x1="36" y1="498" x2="924" y2="498" stroke="#CADBD5" stroke-width="1"/>
+<text x="36" y="520" font-family="Arial, Helvetica, sans-serif" font-size="8" font-weight="400" fill="#526B69">Adapted layout: Paweł Huryn / The Product Compass · Product Strategy Canvas v1.2 · CC BY-SA 4.0</text>
+<rect x="36" y="139" width="172" height="125" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="36" y="139" width="4" height="125" fill="#087F78" stroke="none"/>
+<text x="52" y="165" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Vision</text>
+<text x="52" y="188.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Future worth creating</text>
+<text x="52" y="206.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Values that shape choices</text>
+<text x="52" y="234" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Choice: ______________</text>
+<text x="52" y="252" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Evidence: ____________</text>
+<rect x="215" y="139" width="172" height="125" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="215" y="139" width="4" height="125" fill="#087F78" stroke="none"/>
+<text x="231" y="165" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Market Segments</text>
+<text x="231" y="188.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Jobs + chosen context</text>
+<text x="231" y="206.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Who are we excluding?</text>
+<text x="231" y="234" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Choice: ______________</text>
+<text x="231" y="252" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Evidence: ____________</text>
+<rect x="394" y="139" width="172" height="125" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="394" y="139" width="4" height="125" fill="#087F78" stroke="none"/>
+<text x="410" y="165" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Relative Costs</text>
+<text x="410" y="188.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Advantage + cost drivers</text>
+<text x="410" y="206.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Broad or focused scope?</text>
+<text x="410" y="234" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Choice: ______________</text>
+<text x="410" y="252" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Evidence: ____________</text>
+<rect x="573" y="139" width="172" height="125" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="573" y="139" width="4" height="125" fill="#087F78" stroke="none"/>
+<text x="589" y="165" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Value Proposition</text>
+<text x="589" y="188.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Before → how → after</text>
+<text x="589" y="206.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Alternative + difference</text>
+<text x="589" y="234" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Choice: ______________</text>
+<text x="589" y="252" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Evidence: ____________</text>
+<rect x="752" y="139" width="172" height="125" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="752" y="139" width="4" height="125" fill="#087F78" stroke="none"/>
+<text x="768" y="165" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Trade-offs</text>
+<text x="768" y="188.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">What we decline + why</text>
+<text x="768" y="206.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Sacrifice + revisit trigger</text>
+<text x="768" y="234" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Choice: ______________</text>
+<text x="768" y="252" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Evidence: ____________</text>
+<rect x="36" y="276" width="172" height="125" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="36" y="276" width="4" height="125" fill="#087F78" stroke="none"/>
+<text x="52" y="302" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Key Metrics</text>
+<text x="52" y="325.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Outcome + guardrail</text>
+<text x="52" y="343.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Baseline / target / source</text>
+<text x="52" y="371" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Choice: ______________</text>
+<text x="52" y="389" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Evidence: ____________</text>
+<rect x="215" y="276" width="172" height="125" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="215" y="276" width="4" height="125" fill="#087F78" stroke="none"/>
+<text x="231" y="302" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Growth</text>
+<text x="231" y="325.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Channels + growth motion</text>
+<text x="231" y="343.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Retention logic + evidence</text>
+<text x="231" y="371" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Choice: ______________</text>
+<text x="231" y="389" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Evidence: ____________</text>
+<rect x="394" y="276" width="172" height="125" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="394" y="276" width="4" height="125" fill="#087F78" stroke="none"/>
+<text x="410" y="302" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Capabilities</text>
+<text x="410" y="325.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Abilities + resources</text>
+<text x="410" y="343.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Current gaps + partners</text>
+<text x="410" y="371" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Choice: ______________</text>
+<text x="410" y="389" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Evidence: ____________</text>
+<rect x="573" y="276" width="172" height="125" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="573" y="276" width="4" height="125" fill="#087F78" stroke="none"/>
+<text x="589" y="302" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Can’t / Won’t</text>
+<text x="589" y="325.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Who could copy us?</text>
+<text x="589" y="343.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Barriers + incentive conflicts</text>
+<text x="589" y="371" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Choice: ______________</text>
+<text x="589" y="389" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Evidence: ____________</text>
+<rect x="752" y="276" width="172" height="125" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="752" y="276" width="4" height="125" fill="#087F78" stroke="none"/>
+<text x="768" y="302" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Ask Yourself</text>
+<text x="768" y="325.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Do choices reinforce?</text>
+<text x="768" y="343.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Tensions + what must be true</text>
+<text x="768" y="371" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Choice: ______________</text>
+<text x="768" y="389" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="400" fill="#526B69">Evidence: ____________</text>
+<rect x="36" y="427" width="888" height="54" fill="#E6F2EE" stroke="none"/>
+<text x="49" y="448" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#203B3B">Consequential choice: __________________   Riskiest assumption / test: __________________</text>
+<text x="49" y="468" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#526B69">Owner: __________________    Next review trigger: __________________    Linked objective: __________________</text>
+</svg>

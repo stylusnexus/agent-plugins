@@ -1,0 +1,15 @@
+{
+  "id": "assumption-map",
+  "title": "Test the assumptions that can break the plan",
+  "license": "MIT",
+  "source_urls": [],
+  "license_url": "https://opensource.org/license/mit/",
+  "framework_credit": null,
+  "attribution": "Stylus Nexus",
+  "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+  "outputs": [
+    "assumption-map.svg",
+    "assumption-map.pdf"
+  ],
+  "combined_page": 5
+}

@@ -1,0 +1,13 @@
+# Guided research interviews
+
+Adapted from Paweł Huryn, User Interviews: The Ultimate Guide to Research Interviews, December 9, 2023. This guide supports preparation and analysis, not unsolicited recruitment or recording.
+
+1. Define the product decision and research questions: what do we need to understand? Distinguish those from the conversational questions a participant can answer. Separate needs research from usability evaluation; use the appropriate method rather than selling an idea during a research interview.
+2. Choose relevant participants and recruitment channels; note selection bias, missing segments and incentives. Draft outreach when requested, but do not send it or offer payment without authorization. Consent to an interview is not automatically consent to recording, transcription, reuse or broad sharing.
+3. Prepare one or two neutral episode prompts and follow-ups. Example: “Tell me about the last time you tried to [job].” Ask what triggered it, what happened next, alternatives, consequences and workarounds. Let the participant correct your interpretation. Do not insist on five successive whys or frame participants as dishonest because recall/opinions can be imperfect.
+4. Explain purpose and roles, confirm voluntary participation and recording arrangements, and allow skipping or stopping. Use a note-taker or approved transcript method when available. Involve relevant disciplines without overwhelming the participant or making three attendees mandatory for a solo project.
+5. Listen and follow useful surprises. Distinguish exact quotes from paraphrase and interpretation. Do not invent emotions, importance scores, dates or action owners. Avoid leading praise, solution pitching and promises. A concept-test question can be appropriate in a separate method; it is not universally forbidden.
+6. Close by asking what was missed, summarize for correction and ask separately about future contact. Keep access and retention proportional to the agreed use; do not freely distribute a participant contact list.
+7. Produce an evidence-linked summary: participant ID/context, episode timeline, job/outcome, actions/workarounds, reported thoughts/feelings, problems/consequences, counterevidence, limitations and next research decision. Feed source IDs into the discovery digest, journey map or opportunity analysis.
+
+Teach by drafting one prompt and explaining why it helps. Offer a regular cadence suited to access and learning needs; weekly interviews are an option, not a compulsory quota. Interview reports offer perspective, not measured prevalence or definitive causal explanations. AI rehearsal is synthetic material, never a substitute participant.

@@ -1,0 +1,17 @@
+{
+  "id": "five-forces",
+  "title": "Read the pressures around an industry",
+  "license": "MIT",
+  "source_urls": [
+    "https://www.isc.hbs.edu/strategy/business-strategy/Pages/the-five-forces.aspx"
+  ],
+  "license_url": "https://opensource.org/license/mit/",
+  "framework_credit": "Michael E. Porter",
+  "attribution": "Stylus Nexus",
+  "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+  "outputs": [
+    "five-forces.svg",
+    "five-forces.pdf"
+  ],
+  "combined_page": 2
+}

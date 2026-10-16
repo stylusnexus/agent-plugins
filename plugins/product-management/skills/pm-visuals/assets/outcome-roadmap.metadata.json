@@ -1,0 +1,17 @@
+{
+  "id": "outcome-roadmap",
+  "title": "Sequence outcomes, then commit to learning",
+  "license": "MIT",
+  "source_urls": [
+    "https://www.prodpad.com/blog/invented-now-next-later-roadmap/"
+  ],
+  "license_url": "https://opensource.org/license/mit/",
+  "framework_credit": "Janna Bastow (Now / Next / Later)",
+  "attribution": "Stylus Nexus",
+  "changes": "Original Stylus Nexus vector artwork; no source diagram reproduced.",
+  "outputs": [
+    "outcome-roadmap.svg",
+    "outcome-roadmap.pdf"
+  ],
+  "combined_page": 3
+}

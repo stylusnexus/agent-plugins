@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+<title>Read the pressures around an industry</title>
+<rect x="0" y="0" width="960" height="540" fill="#FAF9F5" stroke="none"/>
+<text x="36" y="31" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="700" fill="#087F78">STYLUS NEXUS  /  PRODUCT WORKSHOP</text>
+<text x="36" y="76" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#203B3B">Read the pressures around an industry</text>
+<text x="36" y="99" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#526B69">Porter&#x27;s Five Forces · Define the industry and geography before judging competitive pressure.</text>
+<line x1="36" y1="117" x2="924" y2="117" stroke="#CADBD5" stroke-width="1"/>
+<line x1="36" y1="498" x2="924" y2="498" stroke="#CADBD5" stroke-width="1"/>
+<text x="36" y="520" font-family="Arial, Helvetica, sans-serif" font-size="8" font-weight="400" fill="#526B69">Original Stylus Nexus artwork · MIT · Working template: replace prompts with evidence.</text>
+<line x1="480" y1="239" x2="480" y2="256" stroke="#087F78" stroke-width="2"/>
+<line x1="480" y1="347" x2="480" y2="364" stroke="#087F78" stroke-width="2"/>
+<line x1="312" y1="300" x2="336" y2="300" stroke="#087F78" stroke-width="2"/>
+<line x1="624" y1="300" x2="648" y2="300" stroke="#087F78" stroke-width="2"/>
+<rect x="336" y="137" width="288" height="102" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="336" y="137" width="4" height="102" fill="#087F78" stroke="none"/>
+<text x="352" y="163" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Threat of new entrants</text>
+<text x="352" y="186.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Entry barriers, scale, switching costs?</text>
+<text x="352" y="204.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Evidence: __________  Pressure: ____</text>
+<rect x="36" y="251" width="276" height="105" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="36" y="251" width="4" height="105" fill="#087F78" stroke="none"/>
+<text x="52" y="277" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Supplier bargaining power</text>
+<text x="52" y="300.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Concentration? Unique inputs?</text>
+<text x="52" y="318.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Switching costs? Evidence: ______</text>
+<rect x="336" y="256" width="288" height="91" fill="#087F78" stroke="none"/>
+<text x="356" y="289" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">Rivalry among existing firms</text>
+<text x="356" y="313" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#FFFFFF">Growth, differentiation, exit barriers?</text>
+<text x="356" y="333" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#FFFFFF">Industry boundary: ______________</text>
+<rect x="648" y="251" width="276" height="105" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="648" y="251" width="4" height="105" fill="#087F78" stroke="none"/>
+<text x="664" y="277" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Buyer bargaining power</text>
+<text x="664" y="300.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Concentration? Price sensitivity?</text>
+<text x="664" y="318.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Alternatives? Evidence: _________</text>
+<rect x="336" y="364" width="288" height="104" fill="#FFFFFF" stroke="#CADBD5"/>
+<rect x="336" y="364" width="4" height="104" fill="#087F78" stroke="none"/>
+<text x="352" y="390" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#087F78">Threat of substitutes</text>
+<text x="352" y="413.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Other ways to meet the same need?</text>
+<text x="352" y="431.5" font-family="Arial, Helvetica, sans-serif" font-size="10.5" font-weight="400" fill="#526B69">Price / performance? Switching ease?</text>
+<text x="40" y="391" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="700" fill="#087F78">WORKSHOP QUESTION</text>
+<text x="40" y="413" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="400" fill="#203B3B">Which pressure changes our choices?</text>
+<text x="40" y="434" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#526B69">Response: _____________________</text>
+<text x="650" y="401" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#526B69">Framework: Michael E. Porter</text>
+<text x="650" y="423" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#526B69">Assess evidence, direction and timing.</text>
+<text x="650" y="445" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="400" fill="#526B69">High / medium / low is a discussion aid.</text>
+</svg>

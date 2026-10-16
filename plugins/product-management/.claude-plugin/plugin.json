@@ -1,0 +1,20 @@
+{
+  "name": "product-management",
+  "version": "1.0.0",
+  "description": "Fourteen product management skills for guided strategy, discovery, objectives, roadmaps, growth, capability modeling and evidence-based visual artifacts. Includes offline review templates and local discovery/metrics tools.",
+  "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/product-management",
+  "repository": "https://github.com/stylusnexus/agent-plugins",
+  "license": "MIT AND CC-BY-SA-4.0",
+  "keywords": [
+    "product-management",
+    "strategy",
+    "discovery",
+    "roadmap",
+    "metrics",
+    "coaching",
+    "capabilities"
+  ],
+  "author": {
+    "name": "Stylus Nexus"
+  }
+}

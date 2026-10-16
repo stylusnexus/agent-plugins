@@ -1,0 +1,387 @@
+[
+  {
+    "id": "M01",
+    "category": "Acquisition",
+    "name": "Bounce Rate",
+    "definition": "Share of sessions classified as bounced.",
+    "caution": "Use the analytics tool’s explicit definition; single-page visits are not universally bounces."
+  },
+  {
+    "id": "M02",
+    "category": "Acquisition",
+    "name": "Conversion Rate",
+    "definition": "Eligible users or visits completing a defined action divided by eligible users or visits.",
+    "caution": "Specify unit, cohort, attribution and conversion window."
+  },
+  {
+    "id": "M03",
+    "category": "Acquisition",
+    "name": "Landing Page Conversion Rate",
+    "definition": "Eligible landing-page visitors completing the chosen action divided by eligible visitors.",
+    "caution": "Separate pages and traffic cohorts; define repeat visits."
+  },
+  {
+    "id": "M04",
+    "category": "Acquisition",
+    "name": "Customer Acquisition Cost (CAC)",
+    "definition": "Defined acquisition costs divided by newly acquired customers.",
+    "caution": "State included costs, timing, customer definition and attribution lag."
+  },
+  {
+    "id": "M05",
+    "category": "Acquisition",
+    "name": "Cost Per Acquisition (CPA)",
+    "definition": "Campaign costs divided by attributed target actions.",
+    "caution": "An action need not be a paying customer; distinguish from CAC."
+  },
+  {
+    "id": "M06",
+    "category": "Acquisition",
+    "name": "Channel Effectiveness",
+    "definition": "Comparison of channel outcomes against costs and goals.",
+    "caution": "A family of measures, not one standard formula; compare retained value."
+  },
+  {
+    "id": "M07",
+    "category": "Acquisition",
+    "name": "Traffic Source Distribution",
+    "definition": "Share of eligible traffic attributed to each source.",
+    "caution": "Define attribution model and unknown/direct traffic."
+  },
+  {
+    "id": "M08",
+    "category": "Acquisition",
+    "name": "Cost Per Click (CPC)",
+    "definition": "Advertising spend divided by attributable clicks.",
+    "caution": "Cheap clicks do not establish customer value."
+  },
+  {
+    "id": "M09",
+    "category": "Acquisition",
+    "name": "Click-Through Rate (CTR)",
+    "definition": "Clicks divided by impressions for a defined placement.",
+    "caution": "Specify total or unique counts; check downstream outcomes."
+  },
+  {
+    "id": "M10",
+    "category": "Activation",
+    "name": "Time to Value (TTV)",
+    "definition": "Elapsed time from a defined starting event to a meaningful value event.",
+    "caution": "Report distribution and users who never reach value, not just successful users."
+  },
+  {
+    "id": "M11",
+    "category": "Activation",
+    "name": "Onboarding Completion Rate",
+    "definition": "Eligible starters completing a defined onboarding flow within a window.",
+    "caution": "Completion does not necessarily mean achieved value."
+  },
+  {
+    "id": "M12",
+    "category": "Activation",
+    "name": "User Activation Rate",
+    "definition": "Eligible users reaching a defined value-related milestone within a window.",
+    "caution": "Validate the milestone’s relationship to value and retention."
+  },
+  {
+    "id": "M13",
+    "category": "Activation",
+    "name": "Trial-to-Paid Conversion Rate",
+    "definition": "Eligible trials becoming paid within a defined window.",
+    "caution": "Account for trials still running and consistent cohort timing."
+  },
+  {
+    "id": "M14",
+    "category": "Activation",
+    "name": "First-time User Conversion Rate",
+    "definition": "First-time users completing a specified action within a window.",
+    "caution": "Define first-time identity and action."
+  },
+  {
+    "id": "M15",
+    "category": "Activation",
+    "name": "Product Qualified Leads (PQL)",
+    "definition": "Users meeting documented product-usage qualification rules.",
+    "caution": "A rule-based count or rate, not automatic proof of purchase intent."
+  },
+  {
+    "id": "M16",
+    "category": "Activation",
+    "name": "Product Qualified Accounts (PQA)",
+    "definition": "Accounts meeting documented account-level qualification rules.",
+    "caution": "Define aggregation across users and account eligibility."
+  },
+  {
+    "id": "M17",
+    "category": "Engagement",
+    "name": "Daily Active Users (DAU)",
+    "definition": "Distinct users performing qualifying activity in a day.",
+    "caution": "Specify activity, timezone and identity deduplication."
+  },
+  {
+    "id": "M18",
+    "category": "Engagement",
+    "name": "Monthly Active Users (MAU)",
+    "definition": "Distinct users performing qualifying activity in a month.",
+    "caution": "Calendar month and rolling 30 days are different conventions."
+  },
+  {
+    "id": "M19",
+    "category": "Engagement",
+    "name": "Stickiness",
+    "definition": "A stated DAU-to-MAU ratio.",
+    "caution": "Define the daily statistic and matching window; not suitable for every usage cadence."
+  },
+  {
+    "id": "M20",
+    "category": "Engagement",
+    "name": "User Satisfaction (CSAT)",
+    "definition": "Survey satisfaction measure using a declared scale and aggregation.",
+    "caution": "Define satisfied responses and denominator; report response bias."
+  },
+  {
+    "id": "M21",
+    "category": "Engagement",
+    "name": "Session Length",
+    "definition": "Elapsed duration of a defined session.",
+    "caution": "Inactivity timeout and background activity matter; longer can mean friction."
+  },
+  {
+    "id": "M22",
+    "category": "Engagement",
+    "name": "Session Frequency",
+    "definition": "Sessions per user in a defined window.",
+    "caution": "Specify eligible population and expected use cadence."
+  },
+  {
+    "id": "M23",
+    "category": "Engagement",
+    "name": "Feature Usage",
+    "definition": "Adoption, frequency or depth of a defined feature interaction.",
+    "caution": "Separate availability, exposure and successful use; no single standard formula."
+  },
+  {
+    "id": "M24",
+    "category": "Engagement",
+    "name": "Customer Effort Score (CES)",
+    "definition": "Survey measure of perceived effort or ease.",
+    "caution": "Scale wording determines direction; lower is not universally better."
+  },
+  {
+    "id": "M25",
+    "category": "Engagement",
+    "name": "Task Success Rate",
+    "definition": "Successful eligible attempts divided by eligible task attempts.",
+    "caution": "Define task, success, partial success and assisted attempts."
+  },
+  {
+    "id": "M26",
+    "category": "Engagement",
+    "name": "User Feedback Score",
+    "definition": "A defined aggregation of user ratings.",
+    "caution": "No universal scale; do not merge incompatible questions or scales."
+  },
+  {
+    "id": "M27",
+    "category": "Retention",
+    "name": "Churn Rate",
+    "definition": "Share of an eligible starting population lost in a defined period.",
+    "caution": "Distinguish customer, user-activity and revenue churn; define lost and reactivation."
+  },
+  {
+    "id": "M28",
+    "category": "Retention",
+    "name": "User Retention Rate",
+    "definition": "Share of an eligible starting cohort meeting a return/value criterion.",
+    "caution": "State exact-day, rolling or bounded-window convention."
+  },
+  {
+    "id": "M29",
+    "category": "Retention",
+    "name": "Cohort Retention Analysis",
+    "definition": "Retention compared across groups with a common starting condition.",
+    "caution": "An analysis method, not a single number; compare equal cohort ages."
+  },
+  {
+    "id": "M30",
+    "category": "Retention",
+    "name": "User Renewal Rate",
+    "definition": "Eligible contracts or subscriptions renewed divided by those due.",
+    "caution": "Exclude not-yet-due renewals and define grace periods."
+  },
+  {
+    "id": "M31",
+    "category": "Retention",
+    "name": "Customer Lifetime",
+    "definition": "Duration of a customer relationship under a defined end condition.",
+    "caution": "Active relationships are censored; observed duration is not completed lifetime."
+  },
+  {
+    "id": "M32",
+    "category": "Retention",
+    "name": "Customer Health Score",
+    "definition": "Documented composite of usage, service and relationship signals.",
+    "caution": "Expose weights, missingness and validation; not an objective universal score."
+  },
+  {
+    "id": "M33",
+    "category": "Retention",
+    "name": "Product Adoption Rate",
+    "definition": "Eligible users or accounts adopting a product/feature within a window.",
+    "caution": "Define adoption as meaningful behavior rather than exposure alone."
+  },
+  {
+    "id": "M34",
+    "category": "Revenue",
+    "name": "Average Revenue Per Account (ARPA)",
+    "definition": "Period revenue divided by the consistently defined account base.",
+    "caution": "State revenue scope, currency, period and average versus ending account count."
+  },
+  {
+    "id": "M35",
+    "category": "Revenue",
+    "name": "Customer Lifetime Value (CLV/LTV)",
+    "definition": "Observed or modeled lifetime revenue or contribution per customer.",
+    "caution": "Declare revenue versus margin basis, horizon and assumptions; do not infer from thin churn data."
+  },
+  {
+    "id": "M36",
+    "category": "Revenue",
+    "name": "Customer Profitability",
+    "definition": "Customer-attributed revenue less relevant costs under a declared method.",
+    "caution": "LTV minus CAC and LTV/CAC are different economics measures, not interchangeable profit formulas."
+  },
+  {
+    "id": "M37",
+    "category": "Revenue",
+    "name": "Monthly Recurring Revenue (MRR)",
+    "definition": "Monthly-normalized recurring subscription revenue.",
+    "caution": "Define discounts, usage components, currency and exclusions; not cash collected."
+  },
+  {
+    "id": "M38",
+    "category": "Revenue",
+    "name": "Annual Recurring Revenue (ARR)",
+    "definition": "Annualized recurring run rate under the chosen policy.",
+    "caution": "Often 12 times comparable MRR; not guaranteed future revenue or bookings."
+  },
+  {
+    "id": "M39",
+    "category": "Revenue",
+    "name": "Expansion Revenue",
+    "definition": "Added recurring or other defined revenue from existing customers.",
+    "caution": "Separate upgrades, cross-sells, price changes and new customers."
+  },
+  {
+    "id": "M40",
+    "category": "Revenue",
+    "name": "Average Contract Value (ACV)",
+    "definition": "Average contract value under an explicit annualized or total-value convention.",
+    "caution": "Do not confuse total contract value with annual value; document one-time charges."
+  },
+  {
+    "id": "M41",
+    "category": "Revenue",
+    "name": "Gross Margin",
+    "definition": "Revenue less cost of revenue; percentage divides that amount by revenue.",
+    "caution": "Distinguish dollars from percent and follow the applicable cost classification; sales expense is not automatically cost of revenue."
+  },
+  {
+    "id": "M42",
+    "category": "Revenue",
+    "name": "Net Revenue Churn",
+    "definition": "Starting-cohort revenue lost to churn/contraction less expansion, often divided by starting revenue.",
+    "caution": "Specify reactivation policy; exclude new-customer revenue; can be negative."
+  },
+  {
+    "id": "M43",
+    "category": "Revenue",
+    "name": "Net Revenue Retention (NRR)",
+    "definition": "Starting-cohort recurring revenue retained including expansion/contraction/churn divided by starting recurring revenue.",
+    "caution": "Exclude new customers; same scope and policies are needed to compare with net revenue churn."
+  },
+  {
+    "id": "M44",
+    "category": "Referral",
+    "name": "Virality Coefficient",
+    "definition": "Attributed new users generated per originating user in a defined referral cycle.",
+    "caution": "State invitations and conversion assumptions; cycle time and saturation matter."
+  },
+  {
+    "id": "M45",
+    "category": "Referral",
+    "name": "Customer Referral Rate",
+    "definition": "Eligible customers making a qualifying referral divided by eligible customers.",
+    "caution": "Define completed referral versus merely sharing a link."
+  },
+  {
+    "id": "M46",
+    "category": "Referral",
+    "name": "Referral Conversion Rate",
+    "definition": "Eligible referred prospects becoming qualified active users/customers divided by referred prospects.",
+    "caution": "Specify conversion event, window and attribution."
+  },
+  {
+    "id": "M47",
+    "category": "Referral",
+    "name": "Net Promoter Score (NPS)",
+    "definition": "For the standard 0–10 question, percent 9–10 responses minus percent 0–6 responses.",
+    "caution": "Denominator includes valid 7–8 responses; score is attitude, not observed referral behavior."
+  },
+  {
+    "id": "M48",
+    "category": "Flow",
+    "name": "Lead Time",
+    "definition": "Elapsed time from an agreed request/commitment point to the agreed completion point.",
+    "caution": "Choose explicit boundaries; backlog entry is not universal."
+  },
+  {
+    "id": "M49",
+    "category": "Flow",
+    "name": "Time to Market (TTM)",
+    "definition": "Elapsed time from the chosen idea/opportunity start to customer availability.",
+    "caution": "Document boundaries and scope; compare equivalent work."
+  },
+  {
+    "id": "M50",
+    "category": "Flow",
+    "name": "Cycle Time",
+    "definition": "Elapsed time from work start to the defined finished state.",
+    "caution": "State inclusion of waiting and blocked time; use distributions."
+  },
+  {
+    "id": "M51",
+    "category": "Flow",
+    "name": "Work In Progress (WIP)",
+    "definition": "Count of items started and not finished at a point in time.",
+    "caution": "Use consistent workflow boundaries and item granularity."
+  },
+  {
+    "id": "M52",
+    "category": "Flow",
+    "name": "Throughput",
+    "definition": "Count of finished comparable work items per time unit.",
+    "caution": "Throughput measures flow, not customer value; do not mix incompatible item sizes blindly."
+  },
+  {
+    "id": "M53",
+    "category": "Flow",
+    "name": "Time to Learn (TTL)",
+    "definition": "Elapsed time from a question/test starting point to decision-relevant evidence.",
+    "caution": "Define the learning decision; shipping or collecting events alone is not learning."
+  },
+  {
+    "id": "M54",
+    "category": "Flow",
+    "name": "Work Item Age",
+    "definition": "Elapsed time since start for an unfinished item.",
+    "caution": "Use the same start boundary as cycle time; do not count it as completed cycle time."
+  },
+  {
+    "id": "M55",
+    "category": "Flow",
+    "name": "Velocity",
+    "definition": "Team-estimated work units completed per iteration.",
+    "caution": "Team-local planning aid; do not compare people/teams or interpret points as value."
+  }
+]
