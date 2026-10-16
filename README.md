@@ -10,7 +10,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents — **10 plugins, 62 skills**. Installs natively into **Claude
+A plugin marketplace for AI coding agents — **10 plugins, 67 skills**. Installs natively into **Claude
 Code** and **OpenAI Codex**, and reaches roughly seventy more agents (Cursor, Copilot, Gemini CLI,
 Windsurf, Zed, opencode, Cline, Continue, Hermes and others) through the Skills CLI.
 
@@ -40,7 +40,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 | [**ship-pipeline**](./plugins/ship-pipeline) | 9 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote — one issue or a batch. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `ship-issues` `db-migration-safety` `backup-verify` |
 | [**reporting-comms**](./plugins/reporting-comms) | 7 | The last mile — turning agent output into something a person wants to read, and getting their judgment back. | `html` `visual-plan` `visual-recap` `recap-table` `writing-clearly-and-concisely` `human-writing` `redline` |
 | [**second-opinion**](./plugins/second-opinion) | 5 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` |
-| [**hardening**](./plugins/hardening) | 6 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — and one read-only launch-readiness verdict. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` `readiness-review` |
+| [**hardening**](./plugins/hardening) | 11 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, and design-time and agent-era audits. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` `readiness-review` `threat-model` `security-headers` `secrets-leak-audit` `agent-tooling-review` `llm-app-security` |
 | [**release-ops**](./plugins/release-ops) | 5 | Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` |
 | [**product-strategy**](./plugins/product-strategy) | 14 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps and discovery, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` |
 | [**go-to-market**](./plugins/go-to-market) | 12 | Getting a product noticed on a small team's hours — positioning, copy, launches, community, outreach, email and measurement. | `marketing-lead` `mk-positioning` `mk-audience` `mk-copy` `mk-brand-kit` `mk-search` `mk-launch` `mk-community` `mk-founder-content` `mk-outreach` `mk-lifecycle` `mk-measurement` |
@@ -101,15 +101,20 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 </details>
 
 <details>
-<summary><b>hardening</b> · 6 skills</summary>
+<summary><b>hardening</b> · 11 skills</summary>
 
 | Skill | What it covers |
 |---|---|
+| `agent-tooling-review` | An MCP server, plugin, or token is being connected to an agent, or an agent will run unattended. Applies least privilege and a human gate on irreversible actions. |
 | `auth-hardening` | Auth is in place and needs auditing — session and cookie configuration, CSRF, OAuth scopes, per-route protection. |
 | `exposure-scan` | Periodically, and after any dependency change. Checks installed packages across npm, Go, PyPI, RubyGems, and MCP servers against threat-intelligence catalogs for known-compromised releases. |
+| `llm-app-security` | A feature sends untrusted content to a model or lets a model act. Maps input-to-sink paths, requires gates on output and actions, and proves them with a public adversarial corpus. |
 | `privacy-audit` | User data is collected and someone needs to say exactly what and where. Produces the inventory and checks it against the code and infra — not against what the privacy policy claims. |
 | `rate-limit-audit` | Before launch, or after adding an endpoint that calls a paid API (LLM, email, SMS) or handles auth. Inventories every such endpoint and checks each actually has a limit. |
 | `readiness-review` | Before launch, or on a recurring schedule, to answer "is the code healthy and can a user actually do the core jobs?" in one report. Read-only: scans, a reviewer pass over a secret-free copy, a look-only walk of the live product, and a findings list you file yourself. |
+| `secrets-leak-audit` | Before launch, or after a key shows up somewhere it should not. Checks git history, the production bundle, logs and error reports, and API responses. |
+| `security-headers` | Before launch, or after a proxy or domain change. Captures the deployed response, assigns one owning layer per header, and rolls out CSP report-only first. |
+| `threat-model` | A feature is being designed and nobody has written down who could abuse it. Produces the boundary-and-threat table before code, and names which other skill verifies each control. |
 | `webhook-reliability` | Designing or reviewing webhooks in either direction: signature verification, idempotency, retry and backoff, dead letters, monitoring. |
 
 [Pack README →](./plugins/hardening)
@@ -200,6 +205,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 
 | Skill | Pack |
 |---|---|
+| `agent-tooling-review` | [hardening](./plugins/hardening) |
 | `agent-watchdog` | [second-opinion](./plugins/second-opinion) |
 | `auth-hardening` | [hardening](./plugins/hardening) |
 | `backup-verify` | [ship-pipeline](./plugins/ship-pipeline) |
@@ -214,6 +220,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `grill-with-docs` | [codebase-intel](./plugins/codebase-intel) |
 | `html` | [reporting-comms](./plugins/reporting-comms) |
 | `human-writing` | [reporting-comms](./plugins/reporting-comms) |
+| `llm-app-security` | [hardening](./plugins/hardening) |
 | `llm-council` | [second-opinion](./plugins/second-opinion) |
 | `marketing-lead` | [go-to-market](./plugins/go-to-market) |
 | `mk-audience` | [go-to-market](./plugins/go-to-market) |
@@ -253,10 +260,13 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `redline` | [reporting-comms](./plugins/reporting-comms) |
 | `review-merge-pipeline` | [ship-pipeline](./plugins/ship-pipeline) |
 | `review-slop` | [ship-pipeline](./plugins/ship-pipeline) |
+| `secrets-leak-audit` | [hardening](./plugins/hardening) |
+| `security-headers` | [hardening](./plugins/hardening) |
 | `ship-issues` | [ship-pipeline](./plugins/ship-pipeline) |
 | `spec-review` | [second-opinion](./plugins/second-opinion) |
 | `start-issue` | [ship-pipeline](./plugins/ship-pipeline) |
 | `the-waiting` | [release-ops](./plugins/release-ops) |
+| `threat-model` | [hardening](./plugins/hardening) |
 | `version-check` | [release-ops](./plugins/release-ops) |
 | `visual-plan` | [reporting-comms](./plugins/reporting-comms) |
 | `visual-recap` | [reporting-comms](./plugins/reporting-comms) |
@@ -286,7 +296,7 @@ rather than burying it.
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
-"install everything" is a valid choice — it's 62 skills, all inert until their trigger matches.
+"install everything" is a valid choice — it's 67 skills, all inert until their trigger matches.
 
 ### Claude Code  (terminal · VS Code extension · JetBrains extension)
 
@@ -321,7 +331,7 @@ writes to each one's skills directory. No marketplace step — one command does 
 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
-npx skills add stylusnexus/agent-plugins --skill '*'        # all 62 skills
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 67 skills
 npx skills add stylusnexus/agent-plugins --skill prove-it   # exactly one
 npx skills add stylusnexus/agent-plugins --skill html redline   # several
 npx skills add stylusnexus/agent-plugins --list             # see what's there first

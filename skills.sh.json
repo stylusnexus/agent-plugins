@@ -43,13 +43,18 @@
     },
     {
       "title": "hardening",
-      "description": "The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — and one read-only launch-readiness verdict.",
+      "description": "The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, and design-time and agent-era audits.",
       "skills": [
+        "agent-tooling-review",
         "auth-hardening",
         "exposure-scan",
+        "llm-app-security",
         "privacy-audit",
         "rate-limit-audit",
         "readiness-review",
+        "secrets-leak-audit",
+        "security-headers",
+        "threat-model",
         "webhook-reliability"
       ]
     },

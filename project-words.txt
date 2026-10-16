@@ -296,3 +296,16 @@ Vohra's
 waitlist
 WCAG
 Yoram
+agentarmor
+akia
+baprs
+clickjacking
+exfiltration
+geolocation
+hostnames
+hsts
+nosniff
+rollbar
+sameorigin
+securityheaders
+whsec
