@@ -26,11 +26,11 @@ if (args[0] === "--help" || args[0] === "-h") {
   process.stdout.write(`
   @stylusnexus/agent-plugins${version ? ` v${version}` : ""}
 
-  Six skill packs — 31 repo-agnostic skills — for coding agents.
+  Seven skill packs — 52 repo-agnostic skills — for coding agents.
   Every skill detects your repository's conventions instead of assuming its own.
 
   Packs   ship-pipeline · reporting-comms · second-opinion
-          hardening · release-ops · codebase-intel
+          hardening · release-ops · codebase-intel · product-management
 
   Usage
     npx @stylusnexus/agent-plugins              pick skills interactively
@@ -44,7 +44,7 @@ if (args[0] === "--help" || args[0] === "-h") {
     codex plugin marketplace add ${REPO}
 
   Source  https://github.com/${REPO}
-  License MIT
+  License MIT; selected PM materials CC BY-SA 4.0 (see pack notices)
 
 `);
   process.exit(0);

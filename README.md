@@ -1,10 +1,10 @@
 # Stylus Nexus — Agent Plugins Marketplace
 
-![License: MIT](https://img.shields.io/badge/license-MIT-blue)
+![Licenses: MIT and CC BY-SA 4.0](https://img.shields.io/badge/licenses-MIT%20%2B%20CC%20BY--SA%204.0-blue)
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents — **8 plugins, 32 skills**. Installs natively into **Claude
+A plugin marketplace for AI coding agents — **9 plugins, 52 skills**. Installs natively into **Claude
 Code** and **OpenAI Codex**, and reaches roughly seventy more agents (Cursor, Copilot, Gemini CLI,
 Windsurf, Zed, opencode, Cline, Continue, Hermes and others) through the Skills CLI.
 
@@ -26,17 +26,23 @@ and defers to a repo-local version of itself when your project defines one.
 
 ### Skill packs
 
-Six packs, grouped by the job rather than the technology. Each pack's README carries a
+Seven packs, grouped by the job rather than the technology. Each pack's README carries a
 **rule-ownership table** so the skills inside it don't compete for the same trigger.
 
 | Pack | # | What it's for | Skills |
 |---|---|---|---|
-| [**ship-pipeline**](./plugins/ship-pipeline) | 7 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote. | `start-issue` `db-truth` `prove-it` `review-merge-pipeline` `deploy` `db-migration-safety` `backup-verify` |
+| [**ship-pipeline**](./plugins/ship-pipeline) | 8 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `db-migration-safety` `backup-verify` |
 | [**reporting-comms**](./plugins/reporting-comms) | 7 | The last mile — turning agent output into something a person wants to read, and getting their judgment back. | `html` `visual-plan` `visual-recap` `recap-table` `writing-clearly-and-concisely` `human-writing` `redline` |
 | [**second-opinion**](./plugins/second-opinion) | 5 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` |
-| [**hardening**](./plugins/hardening) | 5 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` |
+| [**hardening**](./plugins/hardening) | 10 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — plus design-time and agent-era audits. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` `threat-model` `security-headers` `secrets-leak-audit` `agent-tooling-review` `llm-app-security` |
 | [**release-ops**](./plugins/release-ops) | 4 | Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases. | `version-check` `pr-wait` `npm-publish` `dependency-upgrade` |
+| [**product-management**](./plugins/product-management) | 14 | Decide what to build and why, with guided strategy, discovery, outcomes, and roadmaps. | `product-manager` `pm-teams` `pm-visuals` `pm-market-analysis` `pm-canvas` `pm-capabilities` `pm-strategy-fit` `pm-vision` `pm-strategy` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` |
 | [**codebase-intel**](./plugins/codebase-intel) | 4 | Building an accurate picture of a codebase, and the libraries it leans on, before changing it. | `codebase-health` `codebase-architecture-scanner` `grill-with-docs` `read-the-damn-docs` |
+
+The [product-management workshop library](plugins/product-management/skills/pm-visuals/references/workshop-assets.md)
+includes editable slides, SVGs and printable PDFs for eight frameworks, including
+Pareto analysis and Porter's Five Forces. Source credits and licenses travel with
+the assets; the downloaded research PDFs are not redistributed.
 
 ### Tool plugins
 
@@ -58,7 +64,7 @@ rather than burying it.
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
-"install everything" is a valid choice — it's 32 skills, all inert until their trigger matches.
+"install everything" is a valid choice — it's 52 skills, all inert until their trigger matches.
 
 ### Claude Code  (terminal · VS Code extension · JetBrains extension)
 
@@ -73,7 +79,7 @@ Then pick — one, several, or the lot:
 /plugin install hardening@stylus-nexus           # add another whenever
 ```
 
-Or browse them visually with `/plugin` → **Discover**, which lists all eight with descriptions.
+Or browse them visually with `/plugin` → **Discover**, which lists all nine with descriptions.
 
 ### OpenAI Codex  (CLI · app · IDE extension)
 
@@ -92,7 +98,7 @@ writes to each one's skills directory. No marketplace step — one command does 
 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
-npx skills add stylusnexus/agent-plugins --skill '*'        # all 32 skills
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 52 skills
 npx skills add stylusnexus/agent-plugins --skill prove-it   # exactly one
 npx skills add stylusnexus/agent-plugins --list             # see what's there first
 ```
@@ -127,9 +133,10 @@ wrapping up work, `read-the-damn-docs` when you touch an unfamiliar API. Typing 
 |---|---|
 | `ship-pipeline` | You want one thing. It's the daily loop. |
 | `reporting-comms` | Your agent's output is hard to read, or you'd rather mark a draft up than describe it |
-| `hardening` | You're heading for a launch, or touched auth/payments/data-export |
+| `hardening` | You're heading for a launch, touched auth/payments/data-export, or connected an agent to real systems |
 | `second-opinion` | A decision is expensive to get wrong |
 | `release-ops` | You publish packages |
+| `product-management` | You want help shaping direction, testing assumptions, and choosing outcomes before delivery planning |
 | `codebase-intel` | You're new to a codebase, or about to refactor something load-bearing |
 
 `work-plan` and `defect-scan` are tools rather than skill packs — take them if you want GitHub-issue
@@ -182,7 +189,8 @@ Its commands are namespaced under the plugin when installed that way:
 
 ## Compatibility at a glance
 
-The **six skill packs** are plain markdown, so they reach every agent the Skills CLI supports.
+The **seven skill packs** contain Markdown workflows; product-management also includes optional
+Python helpers. Install its 14 skills together so their cross-skill references resolve.
 **work-plan** and **defect-scan** ship executable code and install from their own repositories.
 
 | Agent | Skill packs | Tool plugins | Invoke as |
@@ -215,6 +223,7 @@ agent-plugins/
 │   │   └── README.md
 │   ├── reporting-comms/
 │   ├── codebase-intel/
+│   ├── product-management/
 │   ├── second-opinion/
 │   ├── hardening/
 │   └── release-ops/
@@ -269,4 +278,6 @@ reproducible; updates land when the tag (and this index's `ref`) advance.
 
 ## License
 
-MIT © Stylus Nexus Holdings LLC — see [LICENSE](LICENSE).
+MIT © Stylus Nexus Holdings LLC — see [LICENSE](LICENSE), except the attributed CC BY-SA 4.0
+materials listed in [product-management notices](plugins/product-management/THIRD-PARTY-NOTICES.md).
+The PM pack contains Stylus Nexus adaptations, not the original research PDFs.

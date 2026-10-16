@@ -1,7 +1,7 @@
 {
   "name": "@stylusnexus/agent-plugins",
   "version": "1.0.0",
-  "description": "Agent skill packs for Claude Code, Codex, and ~70 other coding agents — 6 packs, 31 repo-agnostic skills covering the ship loop, reporting, second opinions, hardening, releases, and codebase intelligence.",
+  "description": "Agent skill packs for Claude Code, Codex, and ~70 other coding agents — 7 packs, 52 repo-agnostic skills covering the ship loop, reporting, second opinions, hardening, releases, codebase intelligence, and product management.",
   "keywords": [
     "claude-code",
     "codex",
@@ -21,7 +21,7 @@
     "type": "git",
     "url": "git+https://github.com/stylusnexus/agent-plugins.git"
   },
-  "license": "MIT",
+  "license": "(MIT AND CC-BY-SA-4.0)",
   "author": {
     "name": "Stylus Nexus",
     "url": "https://github.com/stylusnexus"
@@ -45,6 +45,6 @@
     "access": "public"
   },
   "scripts": {
-    "check": "sh scripts/check-manifest-sync.sh && python3 scripts/check-skills.py"
+    "check": "sh scripts/check-manifest-sync.sh && python3 scripts/check-skills.py && python3 -B -m unittest discover -s plugins/product-management/tests -v"
   }
 }

@@ -42,7 +42,7 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Developer Tools",
-      "description": "Five pre-launch security gates covering the unglamorous failures that reach production. rate-limit-audit inventories every endpoint calling a paid API and every auth endpoint, then checks each actually has a limit; exposure-scan checks installed packages across npm, Go, PyPI, RubyGems and MCP servers against threat-intelligence catalogs for known-compromised releases; auth-hardening is a session, cookie, CSRF and OAuth-scope audit; webhook-reliability covers signature verification, idempotency, retry and dead letters in both directions; and privacy-audit inventories exactly what user data is collected and where it lands, checked against the code rather than the policy."
+      "description": "Ten security skills: five pre-launch gates plus five design-time and agent-era audits. rate-limit-audit inventories every endpoint calling a paid API and every auth endpoint, then checks each actually has a limit; exposure-scan checks installed packages across npm, Go, PyPI, RubyGems and MCP servers against threat-intelligence catalogs for known-compromised releases; auth-hardening is a session, cookie, CSRF and OAuth-scope audit; webhook-reliability covers signature verification, idempotency, retry and dead letters in both directions; privacy-audit inventories exactly what user data is collected and where it lands, checked against the code rather than the policy; threat-model writes the who-attacks-what table before code exists; security-headers checks the deployed response for CSP, HSTS, framing and caching headers; secrets-leak-audit checks git history, the client bundle, logs and API responses for leaked keys and personal data; agent-tooling-review applies least privilege to MCP servers, plugins and unattended agents; and llm-app-security maps untrusted content to model-reachable actions and proves the gates with an adversarial corpus."
     },
     {
       "name": "reporting-comms",
@@ -81,7 +81,20 @@
         "authentication": "ON_INSTALL"
       },
       "category": "Developer Tools",
-      "description": "Seven repo-agnostic skills for the ship half of the development loop. start-issue (full-issue intake including comments, prior-art check, baseline capture, branch naming), db-truth (ground schema claims in the live database before designing against them; confirm migrations actually landed after applying), prove-it (end-of-work evidence protocol — discovers what CI actually gates, runs both static gates, checks threaded values at their terminus, performs one real persistence round-trip, and emits a claim→command→result table where anything unprovable is labeled UNVERIFIED rather than assumed), review-merge-pipeline (verify → review → fix → commit → push → PR → merge in one shot, detecting the repo's integration branch instead of assuming one), deploy (production promotion with merge strategy inferred from repository history), db-migration-safety (expand-contract sequencing, idempotent SQL, batched backfills), and backup-verify (confirms backups exist AND actually restore, via a scratch branch with smoke queries and timestamped evidence). Every skill defers to a repo-local version of itself when the project defines one."
+      "description": "Eight repo-agnostic skills for the ship half of the development loop. start-issue (full-issue intake including comments, prior-art check, baseline capture, branch naming), db-truth (ground schema claims in the live database before designing against them; confirm migrations actually landed after applying), prove-it (end-of-work evidence protocol — discovers what CI actually gates, runs both static gates, checks threaded values at their terminus, performs one real persistence round-trip, and emits a claim→command→result table where anything unprovable is labeled UNVERIFIED rather than assumed), review-slop (report-only diff review with evidence, calibrated severity, validation and mock-coverage checks, and acceptance criteria), review-merge-pipeline (verify → review → fix → commit → push → PR → merge in one shot, detecting the repo's integration branch instead of assuming one), deploy (production promotion with merge strategy inferred from repository history), db-migration-safety (expand-contract sequencing, idempotent SQL, batched backfills), and backup-verify (confirms backups exist AND actually restore, via a scratch branch with smoke queries and timestamped evidence). Every skill defers to a repo-local version of itself when the project defines one."
+    },
+    {
+      "name": "product-management",
+      "source": {
+        "source": "local",
+        "path": "./plugins/product-management"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity",
+      "description": "Fourteen product-management skills by Stylus Nexus: a chief PM with guided co-working, plus strategy, vision, value proposition, objectives, roadmap, discovery, growth, teams, capabilities, strategy fit, market analysis, canvas, and visuals. Includes attributed adaptations, offline artifact helpers, and local evidence-digest and metric-lookup tools. Source research PDFs are not distributed."
     },
     {
       "name": "work-plan",
