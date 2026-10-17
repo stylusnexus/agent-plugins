@@ -1,7 +1,6 @@
 ---
 name: pr-wait
 description: Wait for GitHub PR CI checks to complete, then optionally merge
-color: blue
 ---
 
 # Wait for PR Checks

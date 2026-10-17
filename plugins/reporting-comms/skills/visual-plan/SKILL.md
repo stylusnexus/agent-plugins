@@ -23,8 +23,17 @@ and report the local bridge URL from stdout or `plans/<slug>/.plan-url`. Treat
 UI but reads from the localhost bridge on this machine, so it is not shareable
 across machines. On macOS, use Chrome/Chromium if Safari blocks the localhost
 bridge; run `plan local verify --dir plans/<slug> --kind plan|recap` for
-headless diagnostics. No sharing, all local. Use a hosted or self-hosted Plan MCP
-connector only if the user explicitly asks to publish or share.
+headless diagnostics.
+
+What stays local: the plan content lives in those files and is served by a
+bridge on localhost, so nothing is shared and no plan content reaches the
+hosted Plan database. What does not: each `npx` command downloads
+`@agent-native/core` from npm, `plan blocks` fetches the public block catalog
+(it sends no plan content), and the page that opens is the hosted Plan web
+app, which reads the content from your localhost bridge. This installation
+therefore runs in local-files privacy mode by default. The hosted Plan MCP
+instructions below (create the plan on the connector and return its URL)
+apply only when the user explicitly asks to publish or share.
 
 
 # Agent-Native Plans
@@ -137,7 +146,9 @@ skill's review discipline. Do not advise the user to skip `/visual-plan` because
 the default surface is hosted; choose the right Plan mode for the user's
 ownership, privacy, sharing, and branding needs.
 
-By default, create the plan via the Plan MCP connector. NEVER hand the plan over
+Once the user has opted into hosted publishing, create the plan via the Plan
+MCP connector; until then, this installation follows local-files privacy mode.
+NEVER hand the plan over
 as inline chat content — no Markdown prose, ASCII sketch, table, or fenced
 wireframe. If the connector's tools are missing, do NOT fall back to inline
 output: the usual cause is a connector that did not finish connecting this
@@ -363,7 +374,8 @@ skill — never hand-edit one stored plan. Turn feedback into better guidance.
 Use local-files privacy mode when the user explicitly asks for no DB writes,
 no hosted Plan database writes, no Plan MCP publish, fully local files, offline/private
 planning, repo-owned/source-controlled planning artifacts, or when
-`AGENT_NATIVE_PLANS_MODE=local-files` is set. Also use it when a user or repo
+`AGENT_NATIVE_PLANS_MODE=local-files` is set, or when the installation default
+at the top of this file is local files (it is for this installation). Also use it when a user or repo
 policy says a plan must stay under their own brand, domain, source control, or
 infrastructure. In this mode the plan data must never be sent to the Plan MCP
 server or Plan app action surface. Schema-only block catalog lookup is allowed

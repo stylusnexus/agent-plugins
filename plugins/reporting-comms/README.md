@@ -55,7 +55,7 @@ One rule crosses the pack and is worth stating once: **wording a human typed int
 
 | Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |
 |---|---|---|---|---|---|
-| html | ✔ | ✖ | ✔ | ◐ | ✔ |
+| html | ✔ | ◐ | ✔ | ◐ | ✔ |
 | human-writing | ✔ | ✔ | ✔ | ✔ | ✔ |
 | recap-table | ✔ | ✔ | ✔ | ✔ | ✔ |
 | redline | ✔ | ✖ | ✔ | ✖ | ✔ |
@@ -88,9 +88,9 @@ Each example below is a short sample of a skill's output or a typical exchange. 
 <details>
 <summary><code>html</code>: a summary page, laid out in order</summary>
 
-[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
-> **Limits.** Claude app: The upload is rejected because of the `args` frontmatter key. ChatGPT: Can build the HTML file in the sandbox for download, without grounding in your repo.
+> **Limits.** Claude app and ChatGPT: Can build the HTML file in the sandbox for download, without grounding in your repo.
 
 Example output, invented data (fictional project). The outline of a summary page: under 200 body words, and a drawing in every section after the title.
 
@@ -217,7 +217,7 @@ Agent:  Travel mode pauses your watering reminders while you're away.
 
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
-> **Limits.** Claude app: The upload is rejected because of the `args` frontmatter key, and the skill needs a local browser and your Downloads folder. ChatGPT: Needs a local browser page and your Downloads folder, with no stated fallback.
+> **Limits.** Claude app: Needs a local browser and your Downloads folder. ChatGPT: Needs a local browser page and your Downloads folder, with no stated fallback.
 
 Example output, invented data (fictional project). Edits are the person's exact words and are applied verbatim. Comments are tied to a quote from the page.
 

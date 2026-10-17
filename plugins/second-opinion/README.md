@@ -91,7 +91,7 @@ Each skill below has one collapsed example. All data in them is invented.
 
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
 
-> **Limits.** Claude app: No subagents, so the advisors are role-played in one context and lose the independence the method relies on. ChatGPT: No subagents documented, so the advisors are role-played in one context and lose their independence. Other agents: Needs subagents with no single-agent fallback; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline.
+> **Limits.** Claude app: No subagents, so the advisors are role-played in one context and lose the independence the method relies on. ChatGPT: No subagents documented, so the advisors are role-played in one context and lose their independence. Other agents: Uses subagents where the host documents them (Cursor, Gemini CLI/Antigravity CLI, opencode); on Copilot, Windsurf or Cline it falls back to a same-context council that loses the advisors' independence.
 
 *Example output, invented data.*
 
@@ -150,7 +150,7 @@ Executor      a cheaper coding model: the plan is concrete and bounded
 
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex partial, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%97%90%20%C2%B7%20ChatGPT%20%E2%9C%96-yellow)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
-> **Limits.** Claude app: Needs bash, git and the codex CLI on a local repo. Codex: Runs, but the reviewer is Codex reviewing Codex, so the different-model premise is lost, and the nested codex call needs network. ChatGPT: Needs bash and the codex CLI on a local repo.
+> **Limits.** Claude app: Needs bash, git and the codex CLI on a local repo. Codex: Runs, but the reviewer is Codex reviewing Codex, so the different-model premise is lost, and the default sandbox blocks the network the nested codex call needs. ChatGPT: Needs bash and the codex CLI on a local repo.
 
 *Example output, invented data.*
 
@@ -201,7 +201,7 @@ Remaining risk  CI red until the failing test is fixed; rename needs a decision.
 
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
-> **Limits.** Claude app: The upload is rejected because of the `disable-model-invocation` frontmatter key, and the loop needs a shell. ChatGPT: No access to your local repo or git and gh credentials by default.
+> **Limits.** Claude app: The loop needs a shell. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 *Example exchange, invented data. This skill runs only when you invoke it.*
 
