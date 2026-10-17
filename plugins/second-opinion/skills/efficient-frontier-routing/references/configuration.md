@@ -1,11 +1,9 @@
 # Efficient Frontier Routing: configuration help
 
-Run `/efficient-frontier-routing help` in Claude Code, or ask your agent to show
-this skill's help. In Codex, invoke `$efficient-frontier-routing` and ask for help.
-Installed as a plugin, the skill is namespaced by its pack:
-`/second-opinion:efficient-frontier-routing` in Claude Code and
-`$second-opinion:efficient-frontier-routing` in Codex. Use that form in the
-examples below if the short name does not resolve.
+Run `/efficient-frontier-routing help` in Claude Code (or
+`/second-opinion:efficient-frontier-routing help` when installed as a plugin),
+or ask your agent to show this skill's help. In Codex, invoke
+`$efficient-frontier-routing` and ask for help.
 This displays guidance; it does not change settings or launch agents.
 
 The skill tells an assistant how to choose workers. The host launches those
@@ -57,8 +55,11 @@ Choose the scope:
 Local project settings override shared project settings, which override user
 settings. Startup flags can override these for a session; organization policy
 and relevant environment variables can also affect the result. Saved per-model
-effort can override the general effort default. Use `/status` and `/model` to
-inspect the effective setup. [Settings scope](https://code.claude.com/docs/en/settings#settings-precedence),
+effort can override the general effort default. In the user settings file, a
+top-level `effortLevel` does not apply to Opus 5.5 or newer models; choose
+their effort with `/effort` or the `/model` picker, which saves it per model.
+Use `/status` and `/model` to inspect the effective setup.
+[Settings scope](https://code.claude.com/docs/en/settings#settings-precedence),
 [effort controls](https://code.claude.com/docs/en/model-config#adjust-effort-level).
 
 ## Save routing preferences
@@ -81,7 +82,8 @@ Keep the chosen main model unchanged and handle small tasks directly.
   failed approaches to the same problem.
 - Maximum concurrent subagents: 2, including background workers.
 - Escalation within these tiers is permitted without asking.
-- Use xhigh or a model above Opus only when I explicitly request it.
+- Use xhigh or a model above Opus (such as Fable) only when I explicitly
+  request it.
 ```
 
 This skill applies task-specific preferences before project preferences,
@@ -164,10 +166,10 @@ routing. [Agent configuration](https://code.claude.com/docs/en/sub-agents).
   model restrictions. The force option can override per-agent choices.
 - Use `/usage` for plan consumption and `/context` for context size. Agent work
   consumes usage too; a concurrency preference is not a hard spending limit.
-- If the skill is missing, check that the plugin is installed and enabled, or
-  that the skill folder sits in a directory your host scans for skills.
-  Restart the host if discovery has not refreshed. Install it in one place
-  so separate copies do not drift apart.
+- If the skill is missing, check that it is installed as
+  `~/.claude/skills/efficient-frontier-routing/` (or the project's
+  `.claude/skills/`), or that its plugin is enabled. Restart the host if
+  discovery has not refreshed. Keep one installed copy so copies do not drift.
 
 Other hosts may expose different model names or no per-agent selector. Use
 available equivalents and report restrictions; Claude settings do not configure
