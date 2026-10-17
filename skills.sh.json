@@ -6,7 +6,10 @@
       "title": "ship-pipeline",
       "description": "The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote — one issue or a batch.",
       "skills": [
+        "analytics-instrumentation",
+        "api-design",
         "backup-verify",
+        "cdf",
         "db-migration-safety",
         "db-truth",
         "deploy",
@@ -14,7 +17,8 @@
         "review-merge-pipeline",
         "review-slop",
         "ship-issues",
-        "start-issue"
+        "start-issue",
+        "stripe-billing"
       ]
     },
     {
@@ -60,10 +64,12 @@
     },
     {
       "title": "release-ops",
-      "description": "Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases.",
+      "description": "Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, and handling incidents.",
       "skills": [
         "dependency-upgrade",
+        "incident-response",
         "npm-publish",
+        "observability-setup",
         "pr-wait",
         "the-waiting",
         "version-check"
