@@ -14,8 +14,8 @@ Every skill detects the repository's own conventions rather than assuming a hous
 | **Ground** | `db-truth` | Verifies schema claims against the live database before you design against them, and confirms migrations actually landed after you apply them. |
 | **Verify** | `prove-it` | End-of-work evidence protocol. Discovers what CI *actually* gates, runs both static gates, checks threaded values at their terminus, does one real round-trip, and emits a claim→command→result table. |
 | **Inspect** | `review-slop` | Reports needless complexity, validation gaps, misleading test coverage, and prose problems with evidence and acceptance criteria. Makes no edits. |
-| **Ship** | `review-merge-pipeline` | One shot: verify → review → fix → commit → push → PR → merge. Detects the merge target instead of assuming one. |
-| **Promote** | `deploy` | Integration branch → production, with the repo's own merge strategy inferred from its history. |
+| **Ship** | `review-merge-pipeline` | One shot: verify → review → fix → commit → push → PR → merge. Detects the merge target instead of assuming one, ties test and review evidence to the exact head commit, and merges only on real required checks with your authorization. |
+| **Promote** | `deploy` | Integration branch → production as one authorized batch, with the repo's own merge strategy inferred from its history. Freezes the source commit, proves the live artifact matches it, records smoke and rollback evidence, and closes only issues proved shipped. |
 | **Batch** | `ship-issues` | Carries a set of issues through the loop above in one run: grounds and groups them, reports status before any edit, then calls `start-issue`, `prove-it` and `review-merge-pipeline` per group. For a ship/deploy/release request it also runs `deploy` once for the whole batch and validates against production; for an "implement and merge" request it stops after the merges. |
 | **Schema** | `db-migration-safety` | Expand-contract migrations, idempotent SQL, batched backfills. |
 | **Schema** | `backup-verify` | Confirms backups exist **and actually restore** — into a scratch branch, with smoke queries and timestamped evidence. |
@@ -46,8 +46,8 @@ Each concern lives in exactly one skill. When a task crosses domains, the owner 
 | `backup-verify` | Backup existence and restore-testing; the go/no-go before a risky mutation |
 | `prove-it` | Evidence standards, gate discovery, the evidence table, `UNVERIFIED` labeling |
 | `review-slop` | Report-only slop findings, severity calibration, and suggested repair criteria |
-| `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection, head-SHA and required-check confirmation before merge |
-| `deploy` | Production promotion, merge strategy, release-tooling compatibility |
+| `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection, evidence tied to the head commit, head-SHA, approval and required-check confirmation before merge |
+| `deploy` | Production promotion, merge strategy, release-tooling compatibility, the frozen source commit, live-artifact match, smoke and rollback evidence, closing only issues proved shipped |
 | `api-design` | Route handler conventions — resource naming, versioning, pagination, the error envelope, Zod request/response validation, status codes, generated OpenAPI, and response scrubbing |
 | `stripe-billing` | Subscription billing code — Checkout Sessions, customer portal, plan changes and proration, trials, dunning, and the signed, idempotent Stripe webhook handler |
 | `feature-flags` | Flag lifecycle — naming, rollout versus kill switch, rollout stages, kill-switch alerts, testing both paths, and stale-flag cleanup |
@@ -280,6 +280,9 @@ Pipeline complete:
 - PR: example-org/notes-app#233
 - Status: Merged to dev
 - Review: 3 issues found, 2 fixed (1 minor, noted in the PR)
+- Base / head: dev@4e1a9c2 / 9b07d3f · merge commit 1c58e60
+- Required checks: build, test passed for 9b07d3f · approval APPROVED
+- N/A / UNVERIFIED: none
 ```
 
 </details>
@@ -291,7 +294,7 @@ Pipeline complete:
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
-**Use it when:** The integration branch is ready and you want to promote it to production.
+**Use it when:** The integration branch is ready and you have decided to promote it to production.
 
 **Try:** `/deploy`
 
@@ -314,8 +317,17 @@ Deploy complete:
 - Files changed: 14 (+412/-96)
 - Version: 2.8.0
 - Publishes: none
-- Migrations: applied 20261014_add_export_jobs
+- Migrations: applied 20261014_add_export_jobs (additive; backup verified 2026-10-14 09:12Z)
 - Host: auto-deploys from main
+- Batch: #231 export jobs, #236 export retry
+- Source: 7d2f1e0 · previous source 3a9c4b8
+- Artifact: release commit 5e60b21 · live 5e60b21 (matches)
+- Checks: build, test passed for 7d2f1e0 · approval APPROVED
+- Smoke: health ok · auth read ok · export page ok · write + read-back ok · errors for 5 min: none new
+- Rollback: not needed
+- Issues: closed #231, #236 · candidates not closed: #229 (bare mention, not a closing keyword)
+- Back-merge: clean
+- N/A / UNVERIFIED: none
 ```
 
 </details>
