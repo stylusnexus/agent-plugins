@@ -1,0 +1,1971 @@
+{
+  "updated": "2026-10-17",
+  "levels": {
+    "full": "The skill does its whole job on this host.",
+    "partial": "The skill runs, but a named step or property is lost; the note says which.",
+    "no": "The skill cannot do its core job on this host."
+  },
+  "hosts": {
+    "claude_code": "Claude Code (CLI, desktop, IDE extensions) with the pack installed as a plugin.",
+    "claude_app": "The Claude app (claude.ai, desktop, mobile) with the skill uploaded; runs in a remote sandbox with no access to your local files, repo or local shell.",
+    "codex": "OpenAI Codex (CLI, app, IDE extension) with the pack installed as a plugin.",
+    "chatgpt": "ChatGPT (Chat and Work); Work runs code and shell commands in a managed, isolated environment with no access to your local files, repo or local shell.",
+    "other": "Another coding agent that reads SKILL.md folders and runs shell commands, installed through the Skills CLI; checked against Gemini CLI/Antigravity CLI, Cursor, GitHub Copilot, Windsurf, opencode and Cline."
+  },
+  "skills": {
+    "agent-tooling-review": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Reviews pasted config by hand; no repo or CI inventory, hashing or AgentArmor scan."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Reviews pasted config by hand; no repo or CI inventory, hashing or AgentArmor scan."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "agent-watchdog": {
+      "pack": "second-opinion",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Audits a pasted transcript or summary only; no repo diff, CI or session-file access."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Audits a pasted transcript or summary only; no repo diff, CI or session-file access."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "analytics-instrumentation": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Event taxonomy and code from pasted snippets only; no audit over the repo and no live PostHog check."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Event taxonomy and code from pasted snippets only; no audit over the repo and no live PostHog check."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "api-design": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Designs and reviews pasted route handlers; cannot detect the repo's own conventions."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Designs and reviews pasted route handlers; cannot detect the repo's own conventions."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "auth-hardening": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Design guidance works; the audit half searches your routes and needs the repo."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Design guidance works; the audit half searches your routes and needs the repo."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "backup-verify": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "cdf": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Formatting works; open or closed state must be checked live with gh, so only lists you supply can be filtered by state."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Formatting works; open or closed state must be checked live with gh, so only lists you supply can be filtered by state."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "codebase-architecture-scanner": {
+      "pack": "codebase-intel",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Works on a repo archive you upload; writing the docs back into the repo is manual."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Works on a repo archive you upload; writing the docs back into the repo is manual."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "codebase-health": {
+      "pack": "codebase-intel",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "customer-support-triage": {
+      "pack": "release-ops",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Classifies and drafts from a pasted ticket; no reproduction, error-tracker search or issue filing."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Classifies and drafts from a pasted ticket; no reproduction, error-tracker search or issue filing."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "db-migration-safety": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Writes and reviews migration SQL from pasted text; the backup gate and branch test cannot run."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Writes and reviews migration SQL from pasted text; the backup gate and branch test cannot run."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "db-truth": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "debug-feedback-loop": {
+      "pack": "second-opinion",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "The upload is rejected because of the `disable-model-invocation` frontmatter key, and the loop needs a shell."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Codex may trigger it on its own: `disable-model-invocation` is a Claude Code field."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Cursor honours `disable-model-invocation`; other hosts may trigger it on their own."
+      }
+    },
+    "dependency-upgrade": {
+      "pack": "release-ops",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "deploy": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "efficient-frontier-routing": {
+      "pack": "second-opinion",
+      "claude": {
+        "code": {
+          "level": "full",
+          "note": "Picks a model per subagent."
+        },
+        "app": {
+          "level": "no",
+          "note": "No subagents or model choice in the app, so nothing is routed."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Picks a model per subagent through Codex agent files."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No subagents or model choice documented for ChatGPT, so nothing is routed."
+        }
+      },
+      "other": {
+        "level": "partial",
+        "note": "Routing needs per-agent model choice, documented for Cursor, Gemini CLI/Antigravity CLI and opencode but not for Copilot, Windsurf or Cline."
+      }
+    },
+    "exposure-scan": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval; installing the scanner needs network."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "feature-flags": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Naming, rollout and kill-switch design work; stale-flag cleanup needs PostHog data and repo edits."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Naming, rollout and kill-switch design work; stale-flag cleanup needs PostHog data and repo edits."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "grill-with-docs": {
+      "pack": "codebase-intel",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "The interview works; checking answers against code and updating the docs needs repo access."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "The interview works; checking answers against code and updating the docs needs repo access."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "html": {
+      "pack": "reporting-comms",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "The upload is rejected because of the `args` frontmatter key."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Can build the HTML file in the sandbox for download, without grounding in your repo."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "human-writing": {
+      "pack": "reporting-comms",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full"
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "incident-response": {
+      "pack": "release-ops",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Severity, triage, comms and postmortem from pasted information; no log or monitor access and no rollback."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Severity, triage, comms and postmortem from pasted information; no log or monitor access and no rollback."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "legal-docs": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Drafts from pasted facts; cannot check each claim against your code and config."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Drafts from pasted facts; cannot check each claim against your code and config."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "llm-app-security": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Builds the input-to-sink table from a description; the AgentArmor scan, corpus run and staging test cannot run."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Builds the input-to-sink table from a description; the AgentArmor scan, corpus run and staging test cannot run."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "llm-cost-audit": {
+      "pack": "release-ops",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Works on uploaded bills, usage exports and pasted call sites; no search across the repo."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Works on uploaded bills, usage exports and pasted call sites; no search across the repo."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "llm-council": {
+      "pack": "second-opinion",
+      "claude": {
+        "code": {
+          "level": "full",
+          "note": "Runs 11 subagents of the same model, so the advisors are independent passes, not different models."
+        },
+        "app": {
+          "level": "partial",
+          "note": "No subagents, so the advisors are role-played in one context and lose the independence the method relies on."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Uses Codex subagents of the same model, so the advisors are independent passes, not different models."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "No subagents documented, so the advisors are role-played in one context and lose their independence."
+        }
+      },
+      "other": {
+        "level": "partial",
+        "note": "Needs subagents with no single-agent fallback; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline."
+      }
+    },
+    "marketing-lead": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full"
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "mk-audience": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full",
+          "note": "Uses the audience-scout agent that ships with the Claude Code plugin."
+        },
+        "app": {
+          "level": "partial",
+          "note": "No audience-scout agent, so the verified-places step must be done inline with web search."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "partial",
+          "note": "Codex plugins do not carry agents, so audience-scout is missing and the verified-places step has no stated fallback."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "No audience-scout agent, so the verified-places step must be done inline with web search."
+        }
+      },
+      "other": {
+        "level": "partial",
+        "note": "The Skills CLI installs skills only, so audience-scout is missing and the verified-places step has no stated fallback."
+      }
+    },
+    "mk-brand-kit": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full"
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "mk-community": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full"
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "mk-copy": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "mk-founder-content": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "mk-launch": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "mk-lifecycle": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "mk-measurement": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full"
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "mk-outreach": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "mk-positioning": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full"
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "mk-search": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "npm-publish": {
+      "pack": "release-ops",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "The upload is rejected because of the `version` frontmatter key, and publishing needs a local repo, npm and Chrome."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval; token rotation drives local Chrome and uses macOS pbcopy."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Token rotation needs agent-browser, Chrome and macOS pbcopy."
+      }
+    },
+    "observability-setup": {
+      "pack": "release-ops",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Writes the health route and alert table; the done criteria need the live host, monitor and error tracker."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Writes the health route and alert table; the done criteria need the live host, monitor and error tracker."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "plan-arbiter": {
+      "pack": "second-opinion",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Compares pasted plans; their claims stay unverified without repo access."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Compares pasted plans; their claims stay unverified without repo access."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "pm-canvas": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "pm-capabilities": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "pm-discovery": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill. The optional digest script sits outside the skill folder, so a Skills CLI install does not get it."
+      }
+    },
+    "pm-growth": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "pm-market-analysis": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "pm-objectives": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill. The optional metrics script sits outside the skill folder, so a Skills CLI install does not get it."
+      }
+    },
+    "pm-roadmap": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "pm-strategy": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "pm-strategy-fit": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "pm-teams": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "pm-value-proposition": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "pm-vision": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "pm-visuals": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "pr-wait": {
+      "pack": "release-ops",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "The upload is rejected because of the `color` frontmatter key, and the skill needs gh."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "pricing-review": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full"
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "partial",
+        "note": "Web search is the core step; Gemini CLI/Antigravity CLI, Cursor and opencode (with a search provider) have it, Copilot, Windsurf and Cline are not verified."
+      }
+    },
+    "privacy-audit": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Works on a repo archive you upload; live logs, API responses and third-party deletion cannot be checked."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Works on a repo archive you upload; live logs, API responses and third-party deletion cannot be checked."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "product-manager": {
+      "pack": "product-strategy",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+      }
+    },
+    "prove-it": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "rate-limit-audit": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "read-the-damn-docs": {
+      "pack": "codebase-intel",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Web search works; the repo-docs step is skipped and `npm view` version checks cannot run."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Web search works; the repo-docs step is skipped and `npm view` version checks cannot run."
+        }
+      },
+      "other": {
+        "level": "partial",
+        "note": "Web search is the core step; Gemini CLI/Antigravity CLI, Cursor and opencode (with a search provider) have it, Copilot, Windsurf and Cline are not verified."
+      }
+    },
+    "readiness-review": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "recap-table": {
+      "pack": "reporting-comms",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full"
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "redline": {
+      "pack": "reporting-comms",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "The upload is rejected because of the `args` frontmatter key, and the skill needs a local browser and your Downloads folder."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Opens a local browser page and reads the returned file from your Downloads folder, which may prompt."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "Needs a local browser page and your Downloads folder, with no stated fallback."
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Needs local file writes, a browser opener and read access to your Downloads folder."
+      }
+    },
+    "review-merge-pipeline": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval; `--cross-model` from inside Codex adds no different-model view."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "`--cross-model` needs the codex CLI."
+      }
+    },
+    "review-slop": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "secrets-leak-audit": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "security-headers": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Grades pasted header output or uploaded config; cannot capture the deployed response itself."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Grades pasted header output or uploaded config; cannot capture the deployed response itself."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "ship-issues": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval; subagent steps use Codex subagents."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "partial",
+        "note": "Needs subagents for specialist review and parallel work; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline."
+      }
+    },
+    "spec-review": {
+      "pack": "second-opinion",
+      "claude": {
+        "code": {
+          "level": "full",
+          "note": "Needs an authenticated codex CLI, which supplies the second model."
+        },
+        "app": {
+          "level": "no",
+          "note": "Needs bash, git and the codex CLI on a local repo."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "partial",
+          "note": "Runs, but the reviewer is Codex reviewing Codex, so the different-model premise is lost, and the nested codex call needs network."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "Needs bash and the codex CLI on a local repo."
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Needs bash, git and an authenticated codex CLI."
+      }
+    },
+    "start-issue": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "stripe-billing": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Writes billing code from pasted code; the Stripe CLI webhook test and database proof cannot run."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Writes billing code from pasted code; the Stripe CLI webhook test and database proof cannot run."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "the-waiting": {
+      "pack": "release-ops",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval or a network-enabled Codex profile."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "threat-model": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Builds the threat table from spec text; no search of the code for boundaries and no write-back to the repo."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Builds the threat table from spec text; no search of the code for boundaries and no write-back to the repo."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "ux-review": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "You upload screenshots by hand; no snapshot discovery, diff mode or Playwright refresh."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Needs the host to read screenshots as images, not verified for Codex."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "You upload screenshots by hand; no snapshot discovery, diff mode or Playwright refresh."
+        }
+      },
+      "other": {
+        "level": "partial",
+        "note": "Reading screenshots as images is the whole job, and image reading is not verified for each host."
+      }
+    },
+    "version-check": {
+      "pack": "release-ops",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Can judge a pasted diff or commit list; cannot read git history itself."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Can judge a pasted diff or commit list; cannot read git history itself."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "visual-plan": {
+      "pack": "reporting-comms",
+      "claude": {
+        "code": {
+          "level": "full",
+          "note": "Needs npx and network (local mode) or the hosted Plan MCP."
+        },
+        "app": {
+          "level": "partial",
+          "note": "Hosted mode may work if the Plan MCP is added as a custom connector (unverified); no repo access, so the source must be pasted."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Needs npx and network (local mode) or the hosted Plan MCP."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Hosted mode only if the Plan MCP can be added as a ChatGPT connector (unverified); no repo access."
+        }
+      },
+      "other": {
+        "level": "partial",
+        "note": "Local mode needs a shell, npx, network and a browser; hosted mode needs the Plan MCP set up by hand, and the skill has no inline fallback."
+      }
+    },
+    "visual-recap": {
+      "pack": "reporting-comms",
+      "claude": {
+        "code": {
+          "level": "full",
+          "note": "Needs npx and network (local mode) or the hosted Plan MCP."
+        },
+        "app": {
+          "level": "partial",
+          "note": "Hosted mode may work if the Plan MCP is added as a custom connector (unverified); no repo access, so the source must be pasted."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Needs npx and network (local mode) or the hosted Plan MCP."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Hosted mode only if the Plan MCP can be added as a ChatGPT connector (unverified); no repo access."
+        }
+      },
+      "other": {
+        "level": "partial",
+        "note": "Local mode needs a shell, npx, network and a browser; hosted mode needs the Plan MCP set up by hand, and the skill has no inline fallback."
+      }
+    },
+    "webhook-reliability": {
+      "pack": "hardening",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Design is text; auditing an existing handler needs the code pasted in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Design is text; auditing an existing handler needs the code pasted in."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
+    "writing-clearly-and-concisely": {
+      "pack": "reporting-comms",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full"
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    }
+  }
+}

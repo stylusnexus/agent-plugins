@@ -40,6 +40,8 @@ The pairing worth keeping straight: **`writing-clearly-and-concisely` decides wh
 
 `visual-plan` and `visual-recap` split on direction of time. If you want a page about work not yet done, that's `visual-plan`; work already done, `visual-recap`. `recap-table` is the lightweight alternative to either when a table answers the question.
 
+Neither is offline. Local mode downloads `@agent-native/core` from npm and opens the hosted Plan page, which reads your plan from a bridge on your machine; nothing is published unless you ask.
+
 `redline` splits from all six on **direction**, not subject. The others end when a person starts reading; `redline` starts there. It chains after any of them: render with `html`, mark up with `redline`, apply, repeat.
 
 One rule crosses the pack and is worth stating once: **wording a human typed into a redline is final.** Neither prose skill may rewrite it, and no later editing pass may reflow it away. A skill that "improves" a human's own sentence has overruled the person the review existed to serve.
@@ -47,6 +49,23 @@ One rule crosses the pack and is worth stating once: **wording a human typed int
 ---
 
 ## What it looks like
+
+<details>
+<summary>Compatibility at a glance</summary>
+
+| Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |
+|---|---|---|---|---|---|
+| html | ✔ | ✖ | ✔ | ◐ | ✔ |
+| human-writing | ✔ | ✔ | ✔ | ✔ | ✔ |
+| recap-table | ✔ | ✔ | ✔ | ✔ | ✔ |
+| redline | ✔ | ✖ | ✔ | ✖ | ✔ |
+| visual-plan | ✔ | ◐ | ✔ | ◐ | ◐ |
+| visual-recap | ✔ | ◐ | ✔ | ◐ | ◐ |
+| writing-clearly-and-concisely | ✔ | ✔ | ✔ | ✔ | ✔ |
+
+✔ full · ◐ partial · ✖ no. What each host means, and the limits behind each mark: [Compatibility](../../README.md#compatibility).
+
+</details>
 
 Which skill to reach for depends on what you are handing a person. Prose gets the concision pass first and the voice pass second. `redline` brings the person's judgment back, and `recap-table` reports what their feedback changed.
 
@@ -69,6 +88,10 @@ Each example below is a short sample of a skill's output or a typical exchange. 
 <details>
 <summary><code>html</code>: a summary page, laid out in order</summary>
 
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: The upload is rejected because of the `args` frontmatter key. ChatGPT: Can build the HTML file in the sandbox for download, without grounding in your repo.
+
 Example output, invented data (fictional project). The outline of a summary page: under 200 body words, and a drawing in every section after the title.
 
 ```text
@@ -89,6 +112,10 @@ OPEN AND NEXT    ○ Travel mode: blocked on the time-zone fix
 
 <details>
 <summary><code>visual-plan</code>: from a request to a plan you approve</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Hosted mode may work if the Plan MCP is added as a custom connector (unverified); no repo access, so the source must be pasted. ChatGPT: Hosted mode only if the Plan MCP can be added as a ChatGPT connector (unverified); no repo access. Other agents: Local mode needs a shell, npx, network and a browser; hosted mode needs the Plan MCP set up by hand, and the skill has no inline fallback.
 
 Example exchange, invented data (fictional project).
 
@@ -111,6 +138,10 @@ Agent:  Read the settings screen, the reminder action, and the schedule schema.
 <details>
 <summary><code>visual-recap</code>: the shape of a recap for a merged branch</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Hosted mode may work if the Plan MCP is added as a custom connector (unverified); no repo access, so the source must be pasted. ChatGPT: Hosted mode only if the Plan MCP can be added as a ChatGPT connector (unverified); no repo access. Other agents: Local mode needs a shell, npx, network and a browser; hosted mode needs the Plan MCP set up by hand, and the skill has no inline fallback.
+
 Example output, invented data (fictional project). Follows the skill's fixed order, top to bottom, and its budgets.
 
 ```text
@@ -130,6 +161,8 @@ Not included    secrets in config: redacted as <redacted>
 <details>
 <summary><code>recap-table</code>: what changed, as a table</summary>
 
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
 Example output, invented data (fictional project). One row for each change that actually moved.
 
 | Area | Before | After |
@@ -143,6 +176,8 @@ Example output, invented data (fictional project). One row for each change that 
 <details>
 <summary><code>writing-clearly-and-concisely</code>: a sentence before and after Strunk's rules</summary>
 
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
 Example edit, invented text (fictional project).
 
 > **Before:** It should be noted that reminders were not able to be delivered by the system in a number of cases when the user was traveling.
@@ -155,6 +190,8 @@ Example edit, invented text (fictional project).
 
 <details>
 <summary><code>human-writing</code>: a "humanize this" rewrite with its change list</summary>
+
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 Example exchange, invented text (fictional project).
 
@@ -177,6 +214,10 @@ Agent:  Travel mode pauses your watering reminders while you're away.
 
 <details>
 <summary><code>redline</code>: the review file that Send returns</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: The upload is rejected because of the `args` frontmatter key, and the skill needs a local browser and your Downloads folder. ChatGPT: Needs a local browser page and your Downloads folder, with no stated fallback.
 
 Example output, invented data (fictional project). Edits are the person's exact words and are applied verbatim. Comments are tied to a quote from the page.
 
@@ -227,7 +268,7 @@ In Codex, type `$` and a skill name to use it (`$reporting-comms:html`; Codex pr
 npx skills add stylusnexus/agent-plugins --skill html human-writing recap-table redline visual-plan visual-recap writing-clearly-and-concisely
 ```
 
-Skills arrive un-namespaced on this path, so they invoke as `/html`, `/redline`.
+Skills arrive un-namespaced on this path, so most agents invoke them as `/html`, `/redline`; Windsurf uses `@html`, opencode shows `/html` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.
 
 ## License
 

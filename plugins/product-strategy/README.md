@@ -36,6 +36,31 @@ Two Claude Code agents ship alongside: `product-manager` (the same chief PM, in 
 
 ## What it looks like
 
+<details>
+<summary>Compatibility at a glance</summary>
+
+| Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |
+|---|---|---|---|---|---|
+| pm-canvas | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-capabilities | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-discovery | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-growth | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-market-analysis | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-objectives | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-roadmap | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-strategy | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-strategy-fit | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-teams | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-value-proposition | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-vision | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pm-visuals | ✔ | ◐ | ✔ | ✔ | ✔ |
+| pricing-review | ✔ | ✔ | ✔ | ✔ | ◐ |
+| product-manager | ✔ | ◐ | ✔ | ✔ | ✔ |
+
+✔ full · ◐ partial · ✖ no. What each host means, and the limits behind each mark: [Compatibility](../../README.md#compatibility).
+
+</details>
+
 The usual order of work. Solid arrows are the main path; dotted arrows are branches you take when the work calls for them. `product-manager` can route you to any step, and `pm-visuals` can draw any step. Discovery feeds back into strategy: evidence can change earlier choices.
 
 ```mermaid
@@ -59,6 +84,10 @@ Each example below is a short sample of a skill's output. They all use one inven
 <details>
 <summary><code>product-manager</code>: a guided route through the work</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
 Example exchange, invented data (fictional product).
 
 ```text
@@ -79,6 +108,10 @@ Agent:  Route: why it exists > where to compete > customer value > measures > ro
 <details>
 <summary><code>pm-vision</code>: mission, vision, and winning aspiration</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
 Example output, invented data (fictional product).
 
 ```text
@@ -98,6 +131,10 @@ Next         Decide where to compete. A 20-person survey could change this choic
 
 <details>
 <summary><code>pm-strategy</code>: where to play, how to win, and the trade-offs</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
 Example output, invented data (fictional product).
 
@@ -120,6 +157,10 @@ Change trigger       fewer than 1 in 10 trial users set up a second room
 <details>
 <summary><code>pm-strategy-fit</code>: do the choices reinforce each other?</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
 Example output, invented data (fictional product). This activity-system diagram uses the `pm-visuals` convention: each arrow is labelled as a hypothesis or a tension.
 
 ```mermaid
@@ -141,6 +182,10 @@ Verdict: revise A2 before committing. Competitors *can* copy A1; a general plant
 <details>
 <summary><code>pm-canvas</code>: a one-page strategy canvas</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
 Example output, invented data (fictional product). Every entry carries a status: evidence-backed, hypothesis, or accepted.
 
 ```text
@@ -161,6 +206,10 @@ Main strategic fork   Collectors over everyone: gives up the mass market
 
 <details>
 <summary><code>pm-value-proposition</code>: customer value and a value curve</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
 Example output, invented data (fictional product). The statement follows the frame in the working sheet. An unknown rating stays unknown; it is never plotted as zero.
 
@@ -185,6 +234,10 @@ Eliminate: social feed   Raise: travel mode   Create: room schedules
 <details>
 <summary><code>pm-objectives</code>: OKRs with baselines and guardrails</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
 Example output, invented data (fictional product). A baseline nobody has measured is marked unknown, not guessed.
 
 | Objective: collectors keep every plant on schedule (Q3) | Type | Baseline | Target | Status |
@@ -201,6 +254,10 @@ Review rule: if KR1 is flat after 6 weeks, stop the onboarding bet and investiga
 <details>
 <summary><code>pm-roadmap</code>: an outcome roadmap, Now / Next / Later</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
 Example output, invented data (fictional product). Uses the `pm-visuals` outcome-roadmap layout. Later items stay tentative.
 
 | Now | Next | Later |
@@ -214,6 +271,10 @@ Dates: none are commitments. Week 6 review is an estimate.
 
 <details>
 <summary><code>pm-discovery</code>: an experiment card with decisions</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
 Example output, invented data (fictional product).
 
@@ -237,6 +298,10 @@ Limit        says nothing about payment or long-term retention
 <details>
 <summary><code>pm-growth</code>: a growth loop and the current constraint</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
 Example output, invented data (fictional product). A loop only counts once its repeat behaviour has evidence; this one is a hypothesis.
 
 ```text
@@ -257,6 +322,10 @@ Economics          acquisition cost unknown; no lifetime value until 3 months of
 
 <details>
 <summary><code>pricing-review</code>: a one-page pricing recommendation</summary>
+
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
+
+> **Limits.** Other agents: Web search is the core step; Gemini CLI/Antigravity CLI, Cursor and opencode (with a search provider) have it, Copilot, Windsurf and Cline are not verified.
 
 Example output, invented data (fictional product). There is no willingness-to-pay evidence yet, so these prices are untested proposals.
 
@@ -279,6 +348,10 @@ Risks             collectors with 1 big room never hit the limit; room count may
 <details>
 <summary><code>pm-market-analysis</code>: a SWOT, with evidence for each item</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
 Example output, invented data (fictional product). Uses the `pm-visuals` SWOT layout: internal versus external, helpful versus harmful.
 
 | | Helpful | Harmful |
@@ -292,6 +365,10 @@ Combinations: S1 + O1 suggests a forum test of shared schedules. W1 + T1 is a ri
 
 <details>
 <summary><code>pm-capabilities</code>: a capability map with current and target states</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
 Example output, invented data (fictional product). Uses the `pm-visuals` capability-hierarchy template. An arrow means "contains", not "reports to".
 
@@ -310,6 +387,10 @@ Gap: C1.2 is unknown, because nobody has checked it yet. Options: build it, lice
 
 <details>
 <summary><code>pm-teams</code>: a team objective in its strategic context</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
 Example output, invented data (fictional product). Two people and one agent, so "team" means the person who owns the problem.
 
@@ -330,6 +411,10 @@ Review trigger     after 4 weeks, or sooner if setup drop-off gets worse
 
 <details>
 <summary><code>pm-visuals</code>: the shared table behind every diagram</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
 Example output, invented data (fictional product). Each diagram starts from a small table with stable IDs and a status on each row. The diagram, the table, and the analysis all use the same IDs.
 
@@ -371,11 +456,11 @@ In Codex, type `$` and a skill name to use it (`$product-strategy:product-manage
 npx skills add stylusnexus/agent-plugins --skill pm-canvas pm-capabilities pm-discovery pm-growth pm-market-analysis pm-objectives pm-roadmap pm-strategy pm-strategy-fit pm-teams pm-value-proposition pm-vision pm-visuals pricing-review product-manager
 ```
 
-Skills arrive un-namespaced on this path, so they invoke as `/product-manager`.
+Skills arrive un-namespaced on this path, so most agents invoke them as `/product-manager`; Windsurf uses `@product-manager`, opencode shows `/product-manager` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.
 
 ## Prerequisites
 
-None for the skills. The two bundled scripts need Python 3 and the standard library only: `scripts/metrics_lookup.py` searches the metric catalog, and `scripts/discovery_digest.py` summarizes a local file of research evidence. Neither makes network calls.
+None for the skills. The two optional scripts live in this pack's `scripts/` folder, outside every skill folder, so a Skills CLI install or a Claude app upload does not include them. They need Python 3 and the standard library only: `scripts/metrics_lookup.py` searches the metric catalog, and `scripts/discovery_digest.py` summarizes a local file of research evidence. Neither makes network calls.
 
 ## Sources
 
