@@ -1,14 +1,14 @@
 ---
 name: efficient-frontier-routing
-description: "Apply model-routing preferences to every task in Claude Code or Codex. Keep small tasks local, delegate routine work to cheaper models, and use stronger agents for difficult decisions or risky reviews."
+description: Routes each task to a suitable model tier in Claude Code, Codex, or another agent host, following the user's routing preferences. Keeps small tasks local, delegates discovery, routine coding, and testing to cheaper subagents, and sends difficult decisions and risky reviews to a stronger one. Use when deciding whether to delegate, writing subagent handoffs, or setting routing preferences, or when asked to "save tokens", "use cheaper models", "fan out subagents", "stay inside my quota", or "efficient-frontier-routing help".
 ---
 
 # Efficient Frontier Routing
 
-Match the model to the work in either Claude Code or Codex, regardless of the
-main session's model. A cheaper main session can coordinate routine work and
-consult a stronger agent; a stronger main session can delegate routine work
-to cheaper agents.
+Match the model to the work in Claude Code, Codex, or another agent host,
+regardless of the main session's model. A cheaper main session can coordinate
+routine work and consult a stronger agent; a stronger main session can
+delegate routine work to cheaper agents.
 Keep small tasks local when a handoff would cost more than doing the work.
 
 ## Help And Configuration
@@ -107,11 +107,11 @@ and at most two concurrent subagents.
 Use the host's available models and the user's mappings to choose the cheapest
 suitable tier, above or below the main session's model:
 
-| Work | Required capability | Claude examples | Codex selection |
+| Work | Required capability | Claude examples | Codex and other hosts |
 | --- | --- | --- | --- |
 | Discovery, summaries, factual checks | Fast, accurate extraction | Haiku | A fast available model suited to factual work |
 | Scoped implementation and tests | Reliable coding within established patterns | Sonnet | An available coding model suited to the scope |
-| Architecture, deep debugging, risky review | Strong reasoning across systems | Opus or a stronger available tier | A stronger available reasoning model |
+| Architecture, deep debugging, risky review | Strong reasoning across systems | Opus, or Fable where available | A stronger available reasoning model |
 
 Claude names are examples for Claude sessions, not aliases to pass to Codex.
 Do not invent Codex model IDs or assume a permanent one-to-one mapping between
@@ -138,18 +138,20 @@ do not pay for another broad exploration of the same files.
 Treat auth, billing, permissions, security, migrations, data loss, shared
 state, caching, concurrency, cross-module behavior, public APIs, and
 user-visible workflows as high-risk. Use the strongest suitable tier for
-the decision or technical review. Preserve the different-vendor review
-(for example, Codex) for high-risk work to add a different model's perspective.
+the decision or technical review. When the user requires a review by a
+different vendor's model for high-risk work, keep that review; it adds a
+different model's perspective.
 
 In Claude Code, explicitly request the subagent's `model` in the Agent call or
 use a custom agent with `model: opus` (and `effort: high` when appropriate).
 An unspecified model can inherit the cheaper main model. Use an ordinary
 subagent with a focused handoff; a conversation fork uses the main model.
-Check the reported model, using `/tasks` when available. In Codex, explicitly
-set the model and reasoning effort through the host's supported per-agent
-selector. Use a focused task handoff if inheriting the full conversation would
-prevent a model override. Check the reported selection; if the host cannot
-select models per agent, report that limitation instead of simulating routing.
+Check the reported model, using `/tasks` when available. In Codex or another
+host, explicitly set the model and reasoning effort through the host's
+supported per-agent selector. Use a focused task handoff if inheriting the
+full conversation would prevent a model override. Check the reported
+selection; if the host cannot select models per agent, report that limitation
+instead of simulating routing.
 
 Keep the main session on its chosen model. This is a routing instruction, not
 an automatic runtime router or a guarantee that the cheaper model will detect
