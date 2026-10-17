@@ -95,20 +95,22 @@ Validate that pr_number is provided and is numeric.
 
 ### Step 2-8: Monitor and merge
 
-1. Use `gh pr view <pr_number> --json statusCheckRollup` to get check statuses
-2. Parse the JSON to find checks with `status != "COMPLETED"`
-3. Poll at the specified interval using `sleep <check_interval>`
-4. Calculate timeout based on `max_wait_minutes * 60 / check_interval` iterations
-5. Show progress with timestamps and check names
-6. If all checks complete:
-   - Show final status (SUCCESS/FAILURE/etc)
+1. Record the commit being checked: `gh pr view <pr_number> --json state,headRefOid` (exit with a clear error if the PR doesn't exist or isn't `OPEN`).
+2. Read check state with `gh pr checks <pr_number> --json name,state,bucket`. `bucket` is one of `pass`, `fail`, `pending`, `skipping`, `cancel` (per `gh pr checks --help`). Do **not** read `gh pr view --json statusCheckRollup` and test `status`: legacy commit-status entries (`StatusContext`) carry only `state` and return `status: null`, so they look pending forever.
+3. `gh pr checks` exits with code `8` while checks are pending (documented in `gh pr checks --help`). That is "still running", not a failure — don't abort the poll on it.
+4. Poll at the specified interval using `sleep <check_interval>`
+5. Calculate timeout based on `max_wait_minutes * 60 / check_interval` iterations
+6. Show progress with timestamps and the names of checks whose `bucket` is `pending`
+7. When no check is `pending`:
+   - Show final status per check
+   - **Passed** = every check is `pass` or `skipping`. Any `fail` or `cancel` = failed.
    - If `auto_merge=true` and all checks passed:
-     - Run `gh pr merge <pr_number> --squash --delete-branch`
-     - Confirm merge success
-7. Handle edge cases:
-   - PR doesn't exist
-   - No CI checks configured
-   - Checks fail
+     - Run `gh pr merge <pr_number> --squash --delete-branch --match-head-commit <headRefOid>` — `--match-head-commit` makes `gh` refuse the merge if someone pushed after the checks you watched ran.
+     - Confirm with `gh pr view <pr_number> --json state --jq .state` → `MERGED`
+8. Handle edge cases:
+   - PR doesn't exist or isn't open
+   - No CI checks configured: report it and **never auto-merge** a PR with zero checks — ask the user
+   - Checks fail or are cancelled
    - Timeout reached
 
 ## Output Format
@@ -118,9 +120,9 @@ Monitoring PR #172 CI checks...
 Check interval: 60s | Max wait: 20 minutes | Auto-merge: enabled
 
 === Initial Status ===
-✅ Build and Test: COMPLETED SUCCESS
-⏳ E2E Tests: IN_PROGRESS
-⏳ Lighthouse CI: IN_PROGRESS
+✅ Build and Test: pass
+⏳ E2E Tests: pending
+⏳ Lighthouse CI: pending
 
 [1] 09:50:00 - 2 checks still running:
   ⏳ E2E Tests
@@ -132,9 +134,9 @@ Check interval: 60s | Max wait: 20 minutes | Auto-merge: enabled
 [3] 09:52:00 - All checks complete!
 
 === Final Status ===
-✅ Build and Test: SUCCESS
-✅ E2E Tests: SUCCESS
-✅ Lighthouse CI: SUCCESS
+✅ Build and Test: pass
+✅ E2E Tests: pass
+✅ Lighthouse CI: pass
 
 🎉 All checks passed! Merging PR #172...
 ✅ PR #172 merged and branch deleted successfully!
@@ -146,3 +148,12 @@ Check interval: 60s | Max wait: 20 minutes | Auto-merge: enabled
 - **Checks failed**: Show which checks failed, do NOT merge
 - **Timeout**: Show current status, exit without merging
 - **Merge conflict**: Show error, suggest resolution steps
+- **Head moved / merge refused by `--match-head-commit`**: report the `gh` error and re-run `/pr-wait` on the new head instead of merging
+- **Branch protection blocks the merge**: report it. Never retry with `--admin` to get past failing or pending checks
+
+## Common mistakes
+
+- Reading `statusCheckRollup` and checking only `status` — commit-status entries have `state`, not `status`, so they look permanently pending. Use `bucket` from `gh pr checks --json`.
+- Treating exit code `8` from `gh pr checks` as a failure.
+- Merging without `--match-head-commit`, which can merge a commit whose checks never ran.
+- Auto-merging a PR that has zero checks.

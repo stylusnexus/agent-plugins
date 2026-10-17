@@ -2,22 +2,27 @@
 # exposure-scan: match installed packages against bumblebee threat-intel exposure catalogs.
 #
 # Usage:
-#   scan.sh                 # quick scan (baseline roots, ~13s) — DEFAULT
+#   scan.sh                 # quick scan (baseline roots) — DEFAULT
 #   scan.sh quick           # same as above
 #   scan.sh deep            # thorough $HOME walk (slower, broader)
 #   scan.sh project <path>  # scan one project/dir tree
 #   scan.sh refresh         # pull latest catalogs from GitHub main into local cache
 #   scan.sh catalogs        # show which catalogs would be used and their entry counts
 #
-# Exit codes: 0 = clean, 2 = findings present, 1 = setup/usage error.
+# Exit codes: 0 = clean, 2 = findings present, 1 = setup/usage/scan error, 3 = mixed catalog schema (catalogs).
 
 set -euo pipefail
 
 REPO="perplexityai/bumblebee"
 LOCAL_CAT="${BUMBLEBEE_CATALOG_DIR:-$HOME/.config/bumblebee/threat_intel}"
 
-# --- ensure bumblebee is reachable (go install drops it in GOPATH/bin) ---
-export PATH="$(go env GOPATH 2>/dev/null || echo "$HOME/go")/bin:$PATH"
+# --- ensure bumblebee is reachable (go install drops it in GOBIN, else the first GOPATH entry's bin) ---
+GO_BIN_DIR="$(go env GOBIN 2>/dev/null || true)"
+if [ -z "$GO_BIN_DIR" ]; then
+  GO_PATH_DIR="$(go env GOPATH 2>/dev/null || echo "$HOME/go")"
+  GO_BIN_DIR="${GO_PATH_DIR%%:*}/bin"
+fi
+export PATH="$GO_BIN_DIR:$PATH"
 if ! command -v bumblebee >/dev/null 2>&1; then
   echo "ERROR: 'bumblebee' not on PATH. Install with:" >&2
   echo "  go install github.com/${REPO}/cmd/bumblebee@latest" >&2
@@ -99,8 +104,13 @@ for line in open(sys.argv[1]):
     hits.append(r)
 if summary:
     c = summary.get("counts", {})
-    print(f"  scanned: {summary.get('files_considered'):,} files | "
+    print(f"  scanned: {summary.get('files_considered') or 0:,} files | "
           f"matched packages: {c.get('package', 0)} | duration: {summary.get('duration_ms')}ms")
+if not hits and not summary:
+    # bumblebee ends every run with a scan_summary record; none means the scan failed, not that it was clean.
+    print("\n  ERROR: scan produced no output (no scan_summary). bumblebee likely failed;"
+          "\n  rerun the 'Running:' command above directly to see its error.\n", file=sys.stderr)
+    sys.exit(1)
 if not hits:
     print("\n  ✅ CLEAN — no installed package matches a known-compromised release.\n")
     sys.exit(0)
@@ -128,9 +138,11 @@ do_scan() {
     exit 1
   fi
   echo "Catalogs: $cat"
-  local tmp; tmp="$(mktemp -t exposure-findings.XXXXXX.ndjson)"
-  # EXIT traps fire in global scope where `tmp` (local) is gone — guard with ${tmp:-} under set -u.
-  trap 'rm -f "${tmp:-}"' EXIT
+  # Global (not local): the EXIT trap runs after do_scan returns, when a local would be gone
+  # and the temp file would leak on a clean run.
+  FINDINGS_TMP="$(mktemp -t exposure-findings.XXXXXX.ndjson)"
+  local tmp="$FINDINGS_TMP"
+  trap 'rm -f "${FINDINGS_TMP:-}"' EXIT
 
   local -a args=(scan --exposure-catalog "$cat" --findings-only)
   case "$mode" in
@@ -157,6 +169,6 @@ case "$cmd" in
     if c="$(resolve_catalogs)"; then echo "Using: $c"; validate_catalogs "$c"; else
       echo "No catalogs found. Run: scan.sh refresh"; exit 1; fi ;;
   -h|--help|help)
-    sed -n '2,16p' "$0" ;;
+    sed -n '2,12p' "$0" ;;
   *) echo "Unknown command: $cmd (try: quick | deep | project <path> | refresh | catalogs)" >&2; exit 1 ;;
 esac

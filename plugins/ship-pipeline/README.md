@@ -1,6 +1,6 @@
 # Ship Pipeline
 
-Nine repo-agnostic skills for the ship half of the development loop — from reading the issue to promoting to production, with evidence at every gate.
+Thirteen repo-agnostic skills for the ship half of the development loop — from reading the issue to promoting to production, with evidence at every gate.
 
 Every skill detects the repository's own conventions rather than assuming a house style, and each **defers to a repo-local version of itself** when the project defines one (`.claude/skills/<name>/`). Install it globally; override it per-repo where a project has stronger rules.
 
@@ -18,6 +18,10 @@ Every skill detects the repository's own conventions rather than assuming a hous
 | **Promote** | `deploy` | Integration branch → production, with the repo's own merge strategy inferred from its history. |
 | **Batch** | `ship-issues` | Carries a set of issues through the loop above in one run: grounds and groups them, reports status before any edit, then calls `start-issue`, `prove-it` and `review-merge-pipeline` per group. For a ship/deploy/release request it also runs `deploy` once for the whole batch and validates against production; for an "implement and merge" request it stops after the merges. |
 | **Schema** | `db-migration-safety` | Expand-contract migrations, idempotent SQL, batched backfills. |
+| **Build** | `api-design` | REST conventions for Next.js route handlers — resource naming, versioning, cursor pagination, one error envelope, Zod validation, and OpenAPI generated from Zod. |
+| **Build** | `stripe-billing` | Stripe subscriptions in a Next.js app — Checkout, customer portal, signed and idempotent webhooks, proration, trials, and dunning. |
+| **Build** | `analytics-instrumentation` | PostHog event taxonomy and instrumentation review — naming, flat properties, identify/reset/group, PII exclusion, and a starter dashboard set. |
+| **Output** | `cdf` | Prints a list of GitHub issues as one plain comma-separated line of numbers, nothing else. |
 | **Schema** | `backup-verify` | Confirms backups exist **and actually restore** — into a scratch branch, with smoke queries and timestamped evidence. |
 
 ### Why `prove-it` is not "trust but verify"
@@ -30,7 +34,7 @@ Trust-but-verify presumes a claim is sound and spot-checks it. `prove-it` invert
 
 ## Rule ownership
 
-Each concern lives in exactly one skill. When a task crosses domains, the owner below keeps the rule and the others name only the handoff — this is what stops nine skills from firing on the same prompt.
+Each concern lives in exactly one skill. When a task crosses domains, the owner below keeps the rule and the others name only the handoff — this is what stops thirteen skills from firing on the same prompt.
 
 | Skill | Owns |
 |---|---|
@@ -42,7 +46,13 @@ Each concern lives in exactly one skill. When a task crosses domains, the owner 
 | `review-slop` | Report-only slop findings, severity calibration, and suggested repair criteria |
 | `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection, head-SHA and required-check confirmation before merge |
 | `deploy` | Production promotion, merge strategy, release-tooling compatibility |
+| `api-design` | Route handler conventions — resource naming, versioning, pagination, the error envelope, Zod request/response validation, status codes, generated OpenAPI, and response scrubbing |
+| `stripe-billing` | Subscription billing code — Checkout Sessions, customer portal, plan changes and proration, trials, dunning, and the signed, idempotent Stripe webhook handler |
+| `analytics-instrumentation` | PostHog event taxonomy — `object_verb` naming, property schemas, identify/reset/group calls, PII exclusion, LLM usage events, and the starter dashboards |
+| `cdf` | Output format for issue lists — one comma-separated line of numbers, nothing added |
 | `ship-issues` | Batch orchestration — per-issue status, grouping into branches, consult-before-asking, post-deploy validation, the batch report. Owns no step the skills above own. |
+
+`stripe-billing` owns the Stripe webhook handler, including its signature check and idempotency. For webhook delivery in general, use `webhook-reliability` from the `hardening` pack. `api-design` owns route shape and error envelopes; `auth-hardening` (also in `hardening`) owns who may call a route.
 
 The three database skills are the pairing most worth keeping straight: **`db-truth` reads, `db-migration-safety` writes, `backup-verify` is the safety net before either touches production.**
 
@@ -72,7 +82,7 @@ In Codex, type `$` and a skill name to use it (`$ship-pipeline:prove-it`; Codex 
 
 ```bash
 npx skills add stylusnexus/agent-plugins            # pick interactively
-npx skills add stylusnexus/agent-plugins --skill backup-verify db-migration-safety db-truth deploy prove-it review-merge-pipeline review-slop ship-issues start-issue  # this pack
+npx skills add stylusnexus/agent-plugins --skill analytics-instrumentation api-design backup-verify cdf db-migration-safety db-truth deploy prove-it review-merge-pipeline review-slop ship-issues start-issue stripe-billing  # this pack
 ```
 
 The [Skills CLI](https://github.com/vercel-labs/skills) detects which agents you have installed and writes to each one's skills directory. Skills arrive un-namespaced here, so they invoke as `/prove-it` rather than `/ship-pipeline:prove-it`.
