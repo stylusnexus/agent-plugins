@@ -18,7 +18,8 @@
         "review-slop",
         "ship-issues",
         "start-issue",
-        "stripe-billing"
+        "stripe-billing",
+        "ux-review"
       ]
     },
     {
