@@ -13,8 +13,18 @@ set -euo pipefail
 BUMP_TYPE="${1:-patch}"
 # Read name and version with a real JSON parser, not grep: a nested "name" or
 # "version" key earlier in the file would otherwise be picked up instead.
-PKG_NAME=$(node -p 'require("./package.json").name')
-LOCAL_VERSION=$(node -p 'require("./package.json").version')
+pkg_field() {
+  if command -v node >/dev/null 2>&1; then
+    node -p "require('./package.json').$1"
+  elif command -v bun >/dev/null 2>&1; then
+    bun -e "console.log(require('./package.json').$1)"
+  else
+    echo "NODE_REQUIRED" >&2
+    exit 1
+  fi
+}
+PKG_NAME=$(pkg_field name)
+LOCAL_VERSION=$(pkg_field version)
 
 # Run npm view and build in parallel
 NPM_TMP=$(mktemp)

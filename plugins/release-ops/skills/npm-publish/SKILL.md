@@ -1,7 +1,7 @@
 ---
 name: npm-publish
 description: "Release an npm package end to end — preflight checks, semver bump, changelog entry, git push, then publish. Rotates an expired npm token automatically through the browser rather than prompting for a one-time code. Use for npm or bun publishing and version bumps; not for GitHub releases or unrelated senses of 'release'."
-allowed-tools: Bash(bash *npm-publish/scripts/preflight.sh*), Bash(bash *npm-publish/scripts/release.sh*), Bash(bash *npm-publish/scripts/publish.sh*), Bash(bash *npm-publish/scripts/setup-token.sh*), Bash(bash *npm-publish/scripts/verify.sh*)
+allowed-tools: Bash(bash *npm-publish/scripts/preflight.sh*), Bash(bash *npm-publish/scripts/setup-token.sh*), Bash(bash *npm-publish/scripts/verify.sh*)
 ---
 
 # npm-publish
@@ -13,6 +13,10 @@ allowed-tools: Bash(bash *npm-publish/scripts/preflight.sh*), Bash(bash *npm-pub
 **NEVER run manual npm/bun commands** like `npm whoami`, `npm view`, `bun publish`, or `npm publish`.
 
 **You MUST run these scripts. Do NOT skip steps.**
+
+The scripts need `git`, plus `node` (or `bun`) to read `package.json`; without either they print `NODE_REQUIRED`. Publishing uses `bun`.
+
+`release.sh` and `publish.sh` are deliberately not pre-approved, so the host asks before each run; the `--confirm` runs push and publish.
 
 The scripts ship in `scripts/` next to this SKILL.md. Claude Code fills in `${CLAUDE_SKILL_DIR}` below with this skill's directory. On other hosts, replace `${CLAUDE_SKILL_DIR}` with that directory's absolute path in every command: shell calls don't keep variables between runs.
 
@@ -42,9 +46,15 @@ bash ${CLAUDE_SKILL_DIR}/scripts/release.sh [--access public]
 
 It changes nothing and prints `RELEASE_PLAN:<package>:<version>:<branch>`, the
 files it will commit (only `package.json`, `CHANGELOG.md`,
-`.claude-plugin/plugin.json` and `site/index.html`), any other changed files it
-will leave alone, and `CONFIRM_PUSH`. Tell the user what will be committed and
-pushed, and where, and ask to go ahead. Stop if they say no.
+`.claude-plugin/plugin.json`, `site/index.html` and lockfiles), and
+`CONFIRM_PUSH`. Tell the user what will be committed and pushed, and where, and
+ask to go ahead. Stop if they say no.
+
+If it prints `DIRTY_TREE` instead, other tracked files have uncommitted changes
+(source edits, or build output the preflight build rewrote). They would be
+published without being committed, so both `release.sh` and `publish.sh` refuse
+until the tree is clean. Show the user the listed files and ask whether to
+commit, stash or revert them; do not decide for them. Then rerun 3a.
 
 **3b. Commit and push, once the user says yes:**
 
@@ -101,7 +111,7 @@ This polls until the token appears on the page, clicks the Copy button, reads fr
 
 Status codes:
 - `TOKEN_SAVED` — success, retry publish
-- `CAPTURE_TIMEOUT` — tell user: "Could not capture token. Copy it from Chrome and I'll write it to ~/.npmrc"
+- `CAPTURE_TIMEOUT` — the token never reached the clipboard. Never ask the user to paste the token into the chat. Tell them: "Click **Copy** next to the new token in Chrome, then run this in your own terminal: `bash <this skill's directory>/scripts/setup-token.sh from-clipboard`" (give the absolute path). It reads the clipboard, saves the token the same way, clears the clipboard, and prints `TOKEN_SAVED`, or `NO_TOKEN_IN_CLIPBOARD` if the clipboard does not hold an `npm_` token. Wait for them to say it saved, then retry publish.
 
 **After TOKEN_SAVED, retry publish** (the user already said yes to this publish in 3c):
 

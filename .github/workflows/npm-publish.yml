@@ -67,6 +67,12 @@ jobs:
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "- $SKILLS skills across $(ls plugins | wc -l | tr -d ' ') packs" >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Refuse to publish outside main
+        if: ${{ !inputs.dry_run && github.ref != 'refs/heads/main' }}
+        run: |
+          echo "::error::Publishing runs only from main. This run is on $GITHUB_REF, so nothing was published. Re-run from main, or leave dry_run checked."
+          exit 1
+
       - name: Publish
         if: ${{ !inputs.dry_run && github.ref == 'refs/heads/main' }}
         run: npm publish --provenance --access public

@@ -28,9 +28,10 @@ headless diagnostics.
 What stays local: the plan content lives in those files and is served by a
 bridge on localhost, so nothing is shared and no plan content reaches the
 hosted Plan database. What does not: each `npx` command downloads
-`@agent-native/core` from npm (pinned to 0.200.0; npx asks before it installs,
-so let the user confirm, and bump the pin only to a release at least two weeks
-old), `plan blocks` fetches the public block catalog
+`@agent-native/core` from npm (pinned to 0.200.0, so a new upstream publish
+cannot change what runs; npx does not prompt when an agent runs it, so the
+agent's own permission prompt is where the user approves each command; bump
+the pin only to a release at least two weeks old), `plan blocks` fetches the public block catalog
 (it sends no plan content), and the page that opens is the hosted Plan web
 app, which reads the content from your localhost bridge. This installation
 therefore runs in local-files privacy mode by default. The hosted Plan MCP

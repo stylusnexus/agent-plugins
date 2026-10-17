@@ -6,9 +6,11 @@
 #   release.sh [--access public]            print the plan (files, commit, branch); change nothing
 #   release.sh --confirm [--access public]  commit those files and push
 #
-# Only the release files are committed (package.json, CHANGELOG.md,
-# .claude-plugin/plugin.json, site/index.html). Other changed files are listed
-# and left alone; it never runs git add -u or git add -A.
+# Only the release files are committed: package.json, CHANGELOG.md,
+# .claude-plugin/plugin.json, site/index.html and the lockfiles. It never runs
+# git add -u or git add -A. Any other tracked change (source edits, build
+# output from preflight) would be published without being committed, so both
+# runs stop with DIRTY_TREE and list those files instead.
 # Usage: release.sh [--confirm] [--access public] [--dry-run]
 set -euo pipefail
 
@@ -24,37 +26,65 @@ while [ $# -gt 0 ]; do
   esac
 done
 
-VERSION=$(node -p 'require("./package.json").version')
-PKG_NAME=$(node -p 'require("./package.json").name')
+# Read one package.json field with node, or bun when node is missing.
+pkg_field() {
+  if command -v node >/dev/null 2>&1; then
+    node -p "require('./package.json').$1"
+  elif command -v bun >/dev/null 2>&1; then
+    bun -e "console.log(require('./package.json').$1)"
+  else
+    echo "NODE_REQUIRED" >&2
+    exit 1
+  fi
+}
+
+VERSION=$(pkg_field version)
+PKG_NAME=$(pkg_field name)
 BRANCH=$(git branch --show-current)
 
-RELEASE_FILES=""
-for f in package.json CHANGELOG.md .claude-plugin/plugin.json site/index.html; do
+ALLOWED=(package.json CHANGELOG.md .claude-plugin/plugin.json site/index.html
+  package-lock.json npm-shrinkwrap.json bun.lock bun.lockb yarn.lock pnpm-lock.yaml)
+
+is_release_file() {
+  local f
+  for f in "${ALLOWED[@]}"; do
+    [ "$1" = "$f" ] && return 0
+  done
+  return 1
+}
+
+RELEASE_FILES=()
+for f in "${ALLOWED[@]}"; do
   [ -f "$f" ] || continue
   if [ -n "$(git status --porcelain -- "$f")" ]; then
-    RELEASE_FILES="$RELEASE_FILES $f"
+    RELEASE_FILES+=("$f")
   fi
 done
+
+# Tracked files changed outside the release files (untracked files are not listed).
+DIRTY=()
+while IFS= read -r f; do
+  [ -n "$f" ] || continue
+  is_release_file "$f" || DIRTY+=("$f")
+done <<EOF
+$(git status --porcelain --untracked-files=no | awk '{print $NF}')
+EOF
+
+if [ "${#DIRTY[@]}" -gt 0 ]; then
+  echo "DIRTY_TREE"
+  echo "Tracked files changed outside the release files (they would be published but not committed):"
+  printf '  %s\n' "${DIRTY[@]}"
+  echo "Commit, stash or revert them, then run release.sh again."
+  exit 1
+fi
 
 if [ "$CONFIRMED" != true ]; then
   echo "RELEASE_PLAN:$PKG_NAME:$VERSION:$BRANCH"
   echo "Commit message: Release v$VERSION"
-  echo "Files to commit:${RELEASE_FILES:- (none)}"
-  OTHER=""
-  while read -r f; do
-    [ -n "$f" ] || continue
-    if ! printf ' %s ' "$RELEASE_FILES" | grep -q -F " $f "; then
-      OTHER="$OTHER  $f
-"
-    fi
-  done <<EOF
-$(git status --porcelain | awk '{print $NF}')
-EOF
-  OTHER="${OTHER%
-}"
-  if [ -n "$OTHER" ]; then
-    echo "Not committed (left as they are):"
-    echo "$OTHER"
+  if [ "${#RELEASE_FILES[@]}" -gt 0 ]; then
+    echo "Files to commit: ${RELEASE_FILES[*]}"
+  else
+    echo "Files to commit: (none)"
   fi
   echo "Push to: origin/$BRANCH"
   echo "CONFIRM_PUSH"
@@ -62,13 +92,12 @@ EOF
 fi
 
 echo "Committing v$VERSION..."
-if [ -z "$RELEASE_FILES" ]; then
+if [ "${#RELEASE_FILES[@]}" -eq 0 ]; then
   echo "Nothing to commit."
 else
-  # shellcheck disable=SC2086 # RELEASE_FILES is a space-separated list of fixed names
-  git add -- $RELEASE_FILES
-  echo "Staged:$RELEASE_FILES"
-  git commit -m "Release v$VERSION" -- $RELEASE_FILES
+  git add -- "${RELEASE_FILES[@]}"
+  echo "Staged: ${RELEASE_FILES[*]}"
+  git commit -m "Release v$VERSION" -- "${RELEASE_FILES[@]}"
 fi
 
 # Push
