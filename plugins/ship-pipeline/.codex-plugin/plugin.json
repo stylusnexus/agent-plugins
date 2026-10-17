@@ -1,6 +1,6 @@
 {
   "name": "ship-pipeline",
-  "description": "Fourteen repo-agnostic skills for the ship half of the development loop: issue intake, live-schema grounding, evidence-backed verification, report-only slop review, review/PR/merge, production promotion, a batch orchestrator that carries several issues through all of it, build conventions for API routes, Stripe billing, and PostHog analytics, and a visual UX review of screenshots. Every skill detects the repo's own conventions; the shipping-loop skills (start-issue through ship-issues) defer to a repo-local override when one exists.",
+  "description": "Fifteen repo-agnostic skills for the ship half of the development loop: issue intake, live-schema grounding, evidence-backed verification, report-only slop review, review/PR/merge, production promotion, a batch orchestrator that carries several issues through all of it, build conventions for API routes, Stripe billing, and PostHog analytics, a feature-flag lifecycle with stale-flag cleanup, and a visual UX review of screenshots. Every skill detects the repo's own conventions; the shipping-loop skills (start-issue through ship-issues) defer to a repo-local override when one exists.",
   "author": {
     "name": "Stylus Nexus",
     "url": "https://github.com/stylusnexus"
@@ -17,12 +17,13 @@
     "migrations",
     "git",
     "pull-request",
-    "ci"
+    "ci",
+    "feature-flags"
   ],
   "interface": {
     "displayName": "Ship Pipeline",
     "shortDescription": "Issue intake to production, with evidence at every gate",
-    "longDescription": "Fourteen repo-agnostic skills covering the ship half of the development loop. start-issue reads the whole issue and branches correctly. db-truth grounds every schema claim in the live database. prove-it inverts the burden of proof at the end of work, emitting a claim-command-result evidence table where anything unprovable is labeled UNVERIFIED rather than assumed. review-slop reports evidence-backed maintainability and validation findings without editing files. review-merge-pipeline runs verify-review-fix-commit-push-PR-merge in one shot, detecting the repo's integration branch instead of assuming one. deploy promotes to production. db-migration-safety and backup-verify cover the expand-contract pattern and restore-tested backups. ship-issues takes a batch of issues through the whole loop, grouping them into branches and validating against production after deploy. api-design, stripe-billing, and analytics-instrumentation set conventions for Next.js route handlers, Stripe subscriptions, and PostHog events. ux-review rates screenshots against a UX checklist and files issues only when asked. cdf prints an issue list as one comma-separated line. The shipping-loop skills (start-issue through ship-issues) defer to a repo-local version of themselves when the project defines one.",
+    "longDescription": "Fifteen repo-agnostic skills covering the ship half of the development loop. start-issue reads the whole issue and branches correctly. db-truth grounds every schema claim in the live database. prove-it inverts the burden of proof at the end of work, emitting a claim-command-result evidence table where anything unprovable is labeled UNVERIFIED rather than assumed. review-slop reports evidence-backed maintainability and validation findings without editing files. review-merge-pipeline runs verify-review-fix-commit-push-PR-merge in one shot, detecting the repo's integration branch instead of assuming one. deploy promotes to production. db-migration-safety and backup-verify cover the expand-contract pattern and restore-tested backups. ship-issues takes a batch of issues through the whole loop, grouping them into branches and validating against production after deploy. api-design, stripe-billing, and analytics-instrumentation set conventions for Next.js route handlers, Stripe subscriptions, and PostHog events. feature-flags covers flag naming, staged rollout, kill switches, and stale-flag cleanup. ux-review rates screenshots against a UX checklist and files issues only when asked. cdf prints an issue list as one comma-separated line. The shipping-loop skills (start-issue through ship-issues) defer to a repo-local version of themselves when the project defines one.",
     "developerName": "Stylus Nexus",
     "category": "Developer Tools",
     "capabilities": [
@@ -33,7 +34,8 @@
       "Promotes an integration branch to production",
       "Reports slop findings with evidence and acceptance criteria, without editing",
       "Ships a batch of issues from intake to production in one run",
-      "Reviews UI screenshots against a UX and accessibility checklist"
+      "Reviews UI screenshots against a UX and accessibility checklist",
+      "Manages feature-flag rollout, kill switches and stale-flag cleanup"
     ],
     "websiteURL": "https://github.com/stylusnexus/agent-plugins"
   }
