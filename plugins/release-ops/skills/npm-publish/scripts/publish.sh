@@ -17,8 +17,33 @@ while [ $# -gt 0 ]; do
   esac
 done
 
+# Read one package.json field with node, or bun when node is missing.
+pkg_field() {
+  if command -v node >/dev/null 2>&1; then
+    node -p "require('./package.json').$1"
+  elif command -v bun >/dev/null 2>&1; then
+    bun -e "console.log(require('./package.json').$1)"
+  else
+    echo "NODE_REQUIRED" >&2
+    exit 1
+  fi
+}
+
+# A tracked change that is not committed would be published without being in
+# git. Stop and list it instead.
+if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  DIRTY=$(git status --porcelain --untracked-files=no | awk '{print $NF}')
+  if [ -n "$DIRTY" ]; then
+    echo "DIRTY_TREE"
+    echo "Tracked files with uncommitted changes (they would be published but are not committed):"
+    printf '%s\n' "$DIRTY" | sed 's/^/  /'
+    echo "Commit, stash or revert them, then run publish.sh again."
+    exit 1
+  fi
+fi
+
 if [ "$CONFIRMED" != true ]; then
-  echo "CONFIRM_PUBLISH:$(node -p 'require("./package.json").name'):$(node -p 'require("./package.json").version'):${EXTRA_FLAGS# }"
+  echo "CONFIRM_PUBLISH:$(pkg_field name):$(pkg_field version):${EXTRA_FLAGS# }"
   exit 0
 fi
 

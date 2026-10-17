@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 # npm-publish: Create a granular access token via agent-browser.
 #
-# Two modes:
-#   setup-token.sh fill    — detect user, navigate, fill form, exit
-#   setup-token.sh capture — poll for generated token, write to ~/.npmrc
+# Three modes:
+#   setup-token.sh fill           — detect user, navigate, fill form, exit
+#   setup-token.sh capture        — poll for generated token, write to ~/.npmrc
+#   setup-token.sh from-clipboard — the user copied the token themselves; save it
+#                                   from the clipboard (no browser needed)
 #
 # Prerequisites: agent-browser installed, Chrome open, logged into npmjs.com
-# Usage: setup-token.sh <fill|capture>
+# Usage: setup-token.sh <fill|capture|from-clipboard>
 set -euo pipefail
 
 NPMRC="$HOME/.npmrc"
@@ -62,20 +64,48 @@ ab_dropdown() {
 # only the registry.npmjs.org auth line (or append it), keep every other
 # registry and setting, and leave the file readable by the owner only. The
 # token is read from stdin and is never printed.
+# If ~/.npmrc is a symlink (a dotfile manager), the real file is updated and
+# the link is kept.
 save_token() {
   local LINE_PREFIX="//registry.npmjs.org/:_authToken="
-  local TOKEN TMP
+  local TOKEN TMP TARGET LINK
   IFS= read -r TOKEN
+  TARGET="$NPMRC"
+  while [ -L "$TARGET" ]; do
+    LINK=$(readlink "$TARGET")
+    case "$LINK" in
+      /*) TARGET="$LINK" ;;
+      *) TARGET="$(dirname "$TARGET")/$LINK" ;;
+    esac
+  done
   umask 077
-  TMP=$(mktemp "$NPMRC.XXXXXX")
-  if [ -f "$NPMRC" ]; then
-    grep -v -F "$LINE_PREFIX" "$NPMRC" > "$TMP" || true
+  TMP=$(mktemp "$TARGET.XXXXXX")
+  if [ -f "$TARGET" ]; then
+    grep -v -F "$LINE_PREFIX" "$TARGET" > "$TMP" || true
   fi
   printf '%s%s\n' "$LINE_PREFIX" "$TOKEN" >> "$TMP"
   chmod 600 "$TMP"
-  mv "$TMP" "$NPMRC"
-  chmod 600 "$NPMRC"
+  mv "$TMP" "$TARGET"
+  chmod 600 "$TARGET"
 }
+
+MODE="${1:-fill}"
+
+# from-clipboard: the user copied the token from npm's page and runs this
+# themselves, so the token never passes through the agent's conversation.
+if [ "$MODE" = "from-clipboard" ]; then
+  TOKEN=$(pbpaste 2>/dev/null || true)
+  if [ -n "$TOKEN" ] && printf '%s' "$TOKEN" | grep -q "^npm_"; then
+    printf '%s\n' "$TOKEN" | save_token
+    unset TOKEN
+    printf '' | pbcopy
+    echo "TOKEN_SAVED"
+    exit 0
+  fi
+  unset TOKEN
+  echo "NO_TOKEN_IN_CLIPBOARD"
+  exit 1
+fi
 
 # Check agent-browser. Never install it unasked: report it missing and let the
 # agent ask the user before installing the pinned version.
@@ -83,8 +113,6 @@ if ! command -v agent-browser >/dev/null 2>&1; then
   echo "AGENT_BROWSER_MISSING:$AGENT_BROWSER_VERSION"
   exit 1
 fi
-
-MODE="${1:-fill}"
 
 if [ "$MODE" = "fill" ]; then
   # --- PHASE 1: Detect user, navigate, fill form ---

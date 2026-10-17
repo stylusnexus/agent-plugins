@@ -24,6 +24,7 @@ The scripts print a status code; the agent reads it and tells you what happens n
 | Script prints | What the agent does |
 |---|---|
 | `CONFIRM_PUSH` | Shows what it will commit and push, and waits for your yes |
+| `DIRTY_TREE` | Lists tracked files with uncommitted changes and asks what to do; nothing is pushed or published until the tree is clean |
 | `CONFIRM_PUBLISH:<package>:<version>` | Asks you to approve the publish before anything goes to npm |
 | `PUBLISH_SUCCESS` | Runs the registry check in the background |
 | `AUTH_FAILED` | Starts the token setup, in two phases |
@@ -32,7 +33,7 @@ The scripts print a status code; the agent reads it and tells you what happens n
 | `NOT_LOGGED_IN` | Asks you to sign in to npmjs.com in Chrome, then retries |
 | `FORM_NOT_FOUND` | Says it could not find the token form |
 | `TOKEN_SAVED` | Retries the publish |
-| `CAPTURE_TIMEOUT` | Asks you to copy the token so it can write it to `~/.npmrc` |
+| `CAPTURE_TIMEOUT` | Asks you to click Copy in Chrome and run `setup-token.sh from-clipboard` yourself, so the token never enters the chat |
 
 It never asks you for a one-time code.
 
@@ -167,7 +168,7 @@ Version logic:
 
 ### release.sh
 
-Runs twice. The first run changes nothing: it prints `RELEASE_PLAN`, the files it will commit, any other changed files it will leave alone, and `CONFIRM_PUSH`. The agent shows you that and asks. With `--confirm` it commits only the release files (`package.json`, `CHANGELOG.md`, `.claude-plugin/plugin.json`, `site/index.html`) and pushes. It never runs `git add -u` or `git add -A`. It does NOT publish — it returns `RELEASE_DONE` so the agent can call publish.sh separately and handle auth recovery.
+Runs twice. The first run changes nothing: it prints `RELEASE_PLAN`, the files it will commit, and `CONFIRM_PUSH`. The agent shows you that and asks. With `--confirm` it commits only the release files (`package.json`, `CHANGELOG.md`, `.claude-plugin/plugin.json`, `site/index.html` and lockfiles) and pushes. If any other tracked file has uncommitted changes (source edits, or build output the preflight build rewrote), both runs print `DIRTY_TREE` with the list and stop, because those changes would be published without being committed. `publish.sh` makes the same check. It never runs `git add -u` or `git add -A`. It does NOT publish — it returns `RELEASE_DONE` so the agent can call publish.sh separately and handle auth recovery.
 
 ```bash
 bash scripts/release.sh --access public            # show the plan
@@ -179,6 +180,7 @@ bash scripts/release.sh --confirm --access public  # commit and push, after your
 Without `--confirm` it only prints `CONFIRM_PUBLISH:<package>:<version>:<flags>`. With `--confirm` (after your yes) it attempts `echo "" | bun publish`. Returns status codes:
 - `PUBLISH_SUCCESS` — done
 - `AUTH_FAILED` — token expired/missing, agent should run setup-token.sh
+- `DIRTY_TREE` — tracked files have uncommitted changes; nothing published
 
 The piped ENTER auto-opens the OTP checkbox page when the token is valid but OTP is required.
 
@@ -202,6 +204,8 @@ If agent-browser is missing it returns `AGENT_BROWSER_MISSING:<version>` and ins
 3. Replaces only the `//registry.npmjs.org/:_authToken=` line in `~/.npmrc` (or adds it), keeps every other line, and sets the file to `chmod 600`
 4. Clears clipboard immediately
 5. Returns `TOKEN_SAVED`
+
+**`setup-token.sh from-clipboard`:** if capture times out, you click Copy in Chrome and run this yourself. It saves the clipboard's `npm_` token the same way and clears the clipboard, so the token never passes through the chat. If the real `~/.npmrc` is a symlink (a dotfile manager), the file it points to is updated and the link is kept.
 
 **Security:** The token never appears in terminal output, shell history, or agent context. It flows: npm page → Copy button → system clipboard → `pbpaste` into file → clipboard cleared.
 
@@ -243,7 +247,8 @@ Key status codes:
 | setup-token.sh fill | `FORM_READY:<user>` | Tell user to pick the package, then click Generate token in Chrome |
 | setup-token.sh fill | `NOT_LOGGED_IN` | Tell user "Sign in to npmjs.com in Chrome" |
 | setup-token.sh capture | `TOKEN_SAVED` | Retry publish.sh |
-| setup-token.sh capture | `CAPTURE_TIMEOUT` | Tell user to copy token manually |
+| setup-token.sh capture | `CAPTURE_TIMEOUT` | Tell user to click Copy in Chrome and run `setup-token.sh from-clipboard` in their own terminal; never ask for the token in chat |
+| release.sh / publish.sh | `DIRTY_TREE` | Show the listed files; ask whether to commit, stash or revert |
 | release.sh | `RELEASE_DONE:pkg:ver:flags` | Ask before publishing, then run publish.sh --confirm with flags |
 
 ## Form Interaction Details
@@ -271,6 +276,7 @@ npm-publish/
 
 ## Prerequisites
 
+- **git**, and **node** or **bun** (the scripts read `package.json` with one of them; `NODE_REQUIRED` otherwise)
 - **agent-browser** 0.38.2 (`bun install -g agent-browser@0.38.2`; the version `setup-token.sh` pins)
 - **Chrome** with remote debugging enabled
 - Logged into npmjs.com in Chrome (setup-token.sh will open the login page if not)

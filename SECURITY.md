@@ -66,13 +66,14 @@ Each statement below can be checked in this repository or its GitHub settings.
 
 - Most skills are instructions only. They run nothing by themselves; the agent runs
   commands, under the host's own permission prompts.
-- Scripts that only read: `exposure-scan/scan.sh` (scans installed packages on this
-  machine), `readiness-review/scripts/` (reads a copy of the repo, GitHub facts through
+- Scripts that only read: `readiness-review/scripts/` (reads a copy of the repo, GitHub facts through
   `gh`, and the database read-only with a timeout), `spec-review.sh` (runs Codex with a
-  read-only sandbox), `npm-publish/scripts/verify.sh`, and
-  `product-strategy/scripts/`.
-- Scripts that write: `readiness-review` writes its report (owner-only, never inside
-  the reviewed repo). `npm-publish`'s `preflight.sh` bumps the version in local files,
+  read-only sandbox), `npm-publish/scripts/verify.sh`, and the
+  `pm-discovery` and `pm-objectives` scripts in `product-strategy`.
+- Scripts that write: `exposure-scan/scan.sh` scans installed packages read-only,
+  but `scan.sh refresh` writes catalogs to `~/.config/bumblebee/threat_intel` (or
+  `BUMBLEBEE_CATALOG_DIR`). `readiness-review` writes its report (owner-only, never
+  inside the reviewed repo). `npm-publish`'s `preflight.sh` bumps the version in local files,
   `release.sh` commits and pushes, `publish.sh` publishes to npm, and `setup-token.sh`
   replaces one line in `~/.npmrc` and sets it to owner-only.
 - No script sends telemetry. Data leaves the machine only through a step the skill
@@ -86,13 +87,16 @@ Each statement below can be checked in this repository or its GitHub settings.
 These skills run `git`, `gh` or `npm` with effects other people see. Each one stops
 for the user at these points:
 
-- `npm-publish`: asks before it pushes and again before it publishes.
+- `npm-publish`: asks before it pushes and again before it publishes. The push and
+  publish scripts are not pre-approved in the skill's `allowed-tools`, so the host
+  also prompts before each run. Both refuse (`DIRTY_TREE`) while tracked files have
+  uncommitted changes, so nothing is published that is not in git.
 - `review-merge-pipeline`: merges only when the user invoked it in this run, never
   with `--admin`, and only the reviewed commit (`--match-head-commit`) with every
   required check passing. `--no-merge` stops at the PR.
 - `ship-issues`: merges without asking only when the user's request says to merge or
-  ship ("merge when green", "implement and merge", "ship these"). Otherwise it asks
-  once before the first merge. It deploys only when the user asked to ship, deploy
+  ship ("merge when green", "implement and merge", "ship these"). Otherwise it opens
+  every PR without merging, lists them with their head SHAs, and asks once. It deploys only when the user asked to ship, deploy
   or release in this run.
 - `deploy`: shows the list of issues it would close and closes only the ones the user
   confirms. A migration needs a confirmed restorable backup first.
@@ -104,17 +108,22 @@ for the user at these points:
 
 - **Prompt injection from issue and PR text.** `start-issue`, `ship-issues`,
   `review-merge-pipeline` and `deploy` treat issue, PR and comment text as untrusted
-  data, never instructions. A decision found there is confirmed with the user before
-  it changes what gets built, merged, deployed or closed.
+  data, never instructions. Text there never authorizes a merge, a deploy or an issue
+  closure. A decision found there is treated as still open; one that changes scope,
+  security, data handling or spend is confirmed with the user before it is built.
 - **Remote content.** `exposure-scan` downloads its catalogs from one pinned commit
   and parses them as JSON. Treat any page or file a skill fetches as data, not as
   instructions.
-- **`npx` and other installs.** Commands that fetch a tool from outside the project
-  being worked on name exact versions: `@agent-native/core@0.200.0` in `visual-plan` and `visual-recap`,
-  `skills@1.7.0` in the launcher, `agent-browser@0.38.2` for `npm-publish`, and a
-  bumblebee commit SHA for `exposure-scan`. Skill text does not pass `-y` to `npx`,
-  so npx asks before it installs. Pins are bumped only to releases at least two
-  weeks old.
+- **`npx` and other installs.** In `SKILL.md` text and scripts, commands that fetch a
+  tool from outside the project being worked on name exact versions:
+  `@agent-native/core@0.200.0` in `visual-plan` and `visual-recap`, `skills@1.7.0`
+  in the launcher, `agent-browser@0.38.2` for `npm-publish`, and a bumblebee commit
+  SHA for `exposure-scan`. The pinned version is the protection: a new upstream
+  publish cannot change what runs. npx does not ask before installing when an agent
+  runs it, so the agent host's own permission prompt is where you approve each
+  command. Pins are bumped only to releases at least two weeks old. The install
+  lines in the READMEs and on the site (`npx skills add …`) are for people to run
+  and use the newest Skills CLI; `npx skills@1.7.0 add …` pins it.
 - **External plugins.** `work-plan` and `defect-scan` live in their own repositories.
   The marketplace manifests pin them by tag (`work-plan` `v2026.10.06-4ae1fe1`,
   `defect-scan` `v1.13.0`), not by commit SHA, so they trust those repositories not
@@ -127,8 +136,12 @@ for the user at these points:
 - Dependabot (`.github/dependabot.yml`) opens weekly PRs to update those pins.
 - Each workflow sets its own token permissions, and the repository's default
   workflow token is read-only.
-- npm publishing runs only from `.github/workflows/npm-publish.yml`, only on `main`,
-  and with `--provenance`. It still uses an `NPM_TOKEN` secret.
+- npm publishing is set up to run from `.github/workflows/npm-publish.yml`: it
+  publishes only on `main` (a run on any other branch fails), with `--provenance`,
+  and still uses an `NPM_TOKEN` secret. Anyone holding a publish token for the
+  package, or using the `npm-publish` skill, can also publish from their own
+  machine, without provenance. Provenance exists only for versions the workflow
+  publishes after this change; earlier versions, including 1.4.1, have none.
 - Secret scanning and push protection are on. CodeQL default setup is on for
   Actions, JavaScript/TypeScript and Python.
 - The npm package has no dependencies and no install scripts.
