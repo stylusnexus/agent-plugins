@@ -295,6 +295,35 @@
   }
   .surface h3 { font-family: var(--sans); font-size: 1rem; font-weight: 650; margin: 0; }
   .surface .who { font-size: .85rem; color: var(--ink-faint); line-height: 1.45; }
+  .install { align-items: start; }
+  details.surface { display: block; padding: 0; }
+  details.surface > summary {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .4rem .7rem;
+    padding: 1.1rem 2.6rem 1.1rem 1.15rem; position: relative; cursor: pointer;
+    list-style: none; border-radius: 6px;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details.surface > summary::after, .more > summary::before {
+    content: ""; width: .45rem; height: .45rem; flex: none;
+    border-right: 2px solid var(--ink-faint); border-bottom: 2px solid var(--ink-faint);
+    transform: rotate(-45deg); transition: transform .15s ease;
+  }
+  details.surface > summary::after { position: absolute; right: 1.2rem; top: 50%; margin-top: -.3rem; }
+  details.surface[open] > summary::after, .more[open] > summary::before { transform: rotate(45deg); }
+  details summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  details summary:hover h3, .more > summary:hover { color: var(--accent); }
+  .surface-body { display: flex; flex-direction: column; gap: .6rem; padding: 0 1.15rem 1.1rem; }
+  .more { border-top: 1px solid var(--rule); padding-top: .55rem; }
+  .more > summary {
+    display: inline-flex; align-items: center; gap: .55rem; cursor: pointer; list-style: none;
+    font-size: .85rem; font-weight: 600; color: var(--ink-soft); border-radius: 3px;
+  }
+  .more > div { display: flex; flex-direction: column; gap: .6rem; margin-top: .6rem; }
+  .pick { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .35rem; }
+  .pick li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: .2rem 1rem; align-items: baseline; }
+  .pick b { font-size: .9rem; font-weight: 650; }
+  .pick code { justify-self: start; background: var(--sunk); border-radius: 3px; padding: .12rem .4rem; overflow-wrap: anywhere; }
+  @media (max-width: 34rem) { .pick li { grid-template-columns: 1fr; } }
   pre {
     margin: 0; background: var(--sunk); border-radius: 4px; padding: .7rem .8rem;
     overflow-x: auto; font-family: var(--mono); font-size: .8rem; line-height: 1.65; color: var(--ink);
@@ -481,33 +510,62 @@
       <h2>Installing</h2>
       <p class="sub">Add the marketplace once, then take whichever packs you want. Plugins run code on your machine, so review a plugin's source before installing it.</p>
     </div>
+    <ul class="pick" aria-label="Pick your tool">
+      <li><b>Claude Code</b><code>/plugin marketplace add stylusnexus/agent-plugins</code></li>
+      <li><b>Codex</b><code>codex plugin marketplace add stylusnexus/agent-plugins</code></li>
+      <li><b>~70 other agents</b><code>npx skills add stylusnexus/agent-plugins</code></li>
+    </ul>
     <div class="install">
-      <div class="surface">
-        <span class="badge b-claude">Claude Code</span>
-        <h3>Install in Claude Code</h3>
-        <p class="who">Terminal, VS Code, and JetBrains extensions share one config, so one install covers all three.</p>
+      <details class="surface">
+        <summary><span class="badge b-claude">Claude Code</span><h3>Install in Claude Code</h3></summary>
+        <div class="surface-body">
+          <p class="who">Terminal, VS Code, and JetBrains extensions share one config, so one install covers all three.</p>
 <pre>/plugin marketplace add stylusnexus/agent-plugins
 /plugin install ship-pipeline@stylus-nexus</pre>
-        <p class="who">Skills carry the pack name: <code>/ship-pipeline:prove-it</code>. To get updates automatically, open <code>/plugin</code> → Marketplaces → stylus-nexus → Enable auto-update.</p>
-      </div>
+          <p class="who">Skills carry the pack name: <code>/ship-pipeline:prove-it</code>.</p>
+          <details class="more">
+            <summary>More</summary>
+            <div>
+              <p class="who">Run the install line once for each pack you want, with that pack's name in place of ship-pipeline.</p>
+              <p class="who">To get updates automatically, open <code>/plugin</code> → Marketplaces → stylus-nexus → Enable auto-update.</p>
+            </div>
+          </details>
+        </div>
+      </details>
 
-      <div class="surface">
-        <span class="badge b-codex">Codex</span>
-        <h3>Install in Codex</h3>
-        <p class="who">CLI, app, and IDE extension. Codex reads its own index, so the same marketplace works unchanged.</p>
+      <details class="surface">
+        <summary><span class="badge b-codex">Codex</span><h3>Install in Codex</h3></summary>
+        <div class="surface-body">
+          <p class="who">CLI, app, and IDE extension. Codex reads its own index, so the same marketplace works unchanged.</p>
 <pre>codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add ship-pipeline@stylus-nexus</pre>
-        <p class="who">Type <code>$ship-pipeline:prove-it</code> or run <code>/skills</code>. In the ChatGPT app, type <code>@</code>. To update, run <code>codex plugin marketplace upgrade stylus-nexus</code>, then the add command again.</p>
-      </div>
+          <p class="who">Type <code>$ship-pipeline:prove-it</code> or run <code>/skills</code>. In the ChatGPT app, type <code>@</code>.</p>
+          <details class="more">
+            <summary>More</summary>
+            <div>
+              <p class="who">Run the add line once for each pack you want, with that pack's name in place of ship-pipeline.</p>
+              <p class="who">To update, run <code>codex plugin marketplace upgrade stylus-nexus</code>, then the add command again.</p>
+            </div>
+          </details>
+        </div>
+      </details>
 
-      <div class="surface">
-        <span class="badge b-any">~70 more</span>
-        <h3>Install in Cursor, Copilot, Gemini CLI and more</h3>
-        <p class="who">Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, Goose, Warp, Aider and more. Detects which agents you already have.</p>
-<pre>npx skills add stylusnexus/agent-plugins
-npx skills add stylusnexus/agent-plugins --skill prove-it deploy</pre>
-        <p class="who">Skills arrive without the pack name: <code>/prove-it</code>. Update with <code>npx skills update</code>. Covers all eight skill packs.</p>
-      </div>
+      <details class="surface">
+        <summary><span class="badge b-any">~70 more</span><h3>Install in Cursor, Copilot, Gemini CLI and more</h3></summary>
+        <div class="surface-body">
+          <p class="who">Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, Goose, Warp, Aider and more. Detects which agents you already have.</p>
+<pre>npx skills add stylusnexus/agent-plugins</pre>
+          <p class="who">Skills arrive without the pack name: <code>/prove-it</code>. Covers all eight skill packs.</p>
+          <details class="more">
+            <summary>More</summary>
+            <div>
+              <p class="who">To take only some skills, add <code>--skill</code> and skill names:</p>
+<pre>npx skills add stylusnexus/agent-plugins --skill prove-it deploy</pre>
+              <p class="who">Update with <code>npx skills update</code>.</p>
+            </div>
+          </details>
+        </div>
+      </details>
     </div>
   </section>
 
