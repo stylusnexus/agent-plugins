@@ -1,4 +1,127 @@
+<!-- skill-readme:begin -->
 # npm-publish
+
+Release an npm package end to end — preflight checks, semver bump, changelog entry, git push, then publish. Rotates an expired npm token automatically through the browser rather than prompting for a one-time code. Use for npm or bun publishing and version bumps; not for GitHub releases or unrelated senses of 'release'.
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../../../README.md#compatibility)
+
+> **Limits.** Claude app: Publishing needs a local repo, npm and Chrome. ChatGPT: No access to your local repo or git and gh credentials by default.
+
+Part of the [release-ops](../../README.md) pack.
+
+## When and how to use it
+
+**Use it when:** You are ready to release an npm package: bump, changelog, push and publish.
+
+**Try:** `Publish acme-sdk as a patch release.`
+
+**Skip it when:** You only want a bump recommendation, or you need a GitHub release. Use `version-check` for the first.
+
+## What it looks like
+
+The scripts print a status code; the agent reads it and tells you what happens next.
+
+| Script prints | What the agent does |
+|---|---|
+| `PUBLISH_SUCCESS` | Runs the registry check in the background |
+| `AUTH_FAILED` | Starts the token setup, in two phases |
+| `FORM_READY:<username>` | Tells you to click **Generate token** in Chrome |
+| `NOT_LOGGED_IN` | Asks you to sign in to npmjs.com in Chrome, then retries |
+| `FORM_NOT_FOUND` | Says it could not find the token form |
+| `TOKEN_SAVED` | Retries the publish |
+| `CAPTURE_TIMEOUT` | Asks you to copy the token so it can write it to `~/.npmrc` |
+
+It never asks you for a one-time code.
+
+## Install
+
+<details>
+<summary>Claude Code (CLI)</summary>
+
+Add the marketplace once, then install the pack:
+
+```bash
+claude plugin marketplace add stylusnexus/agent-plugins
+claude plugin install release-ops@stylus-nexus
+```
+
+Inside a session, `/plugin marketplace add stylusnexus/agent-plugins` and `/plugin install release-ops@stylus-nexus` do the same. This installs the whole release-ops pack, so customer-support-triage, dependency-upgrade, incident-response, llm-cost-audit, observability-setup, pr-wait, the-waiting and version-check come with it.
+
+Call it as `/release-ops:npm-publish`, or let it start on its own when your request matches.
+
+</details>
+
+<details>
+<summary>Claude Code desktop app</summary>
+
+The desktop app's local sessions read the same plugin settings as the CLI, so a pack you installed from the terminal at user scope is already there.
+
+To install from the app, add the marketplace once from a terminal with `claude plugin marketplace add stylusnexus/agent-plugins`. Then, in a local or SSH session on the **Code** tab, click **+** next to the prompt box, choose **Plugins**, then **Add plugin**, and pick **release-ops**. Plugins do not load in the app's cloud sessions.
+
+</details>
+
+<details>
+<summary>Codex</summary>
+
+```bash
+codex plugin marketplace add stylusnexus/agent-plugins
+codex plugin add release-ops@stylus-nexus
+```
+
+This installs the whole release-ops pack, so customer-support-triage, dependency-upgrade, incident-response, llm-cost-audit, observability-setup, pr-wait, the-waiting and version-check come with it. In Codex, type `$` and the skill name (`$release-ops:npm-publish`), or run `/skills` to pick it.
+
+**Note:** Network steps need an approval; token rotation drives local Chrome and uses macOS pbcopy.
+
+</details>
+
+<details>
+<summary>Other agents, Skills CLI</summary>
+
+The [Skills CLI](https://github.com/vercel-labs/skills) finds the agents you have and writes the skill into each one's skills folder.
+
+```bash
+npx skills add stylusnexus/agent-plugins --skill npm-publish
+```
+
+Skills arrive without a pack prefix: `/npm-publish` in most agents and `@npm-publish` in Windsurf. opencode shows `/npm-publish` only when the skill sets an opencode-specific metadata field, and Gemini CLI starts a skill itself after you approve it.
+
+**Note:** Token rotation needs agent-browser, Chrome and macOS pbcopy.
+
+</details>
+
+<details>
+<summary>Other agents, by folder</summary>
+
+`.agents/skills` is read by Codex, Gemini CLI, Antigravity CLI, Cursor, GitHub Copilot, opencode and Windsurf. Claude Code reads `.claude/skills`. Cline does not read `.agents/skills`; use `.cline/skills` or `.claude/skills` there.
+
+Copy the skill folder:
+
+```bash
+git clone --depth 1 https://github.com/stylusnexus/agent-plugins
+mkdir -p .agents/skills
+cp -R agent-plugins/plugins/release-ops/skills/npm-publish .agents/skills/
+```
+
+**Note:** Token rotation needs agent-browser, Chrome and macOS pbcopy.
+
+</details>
+
+<details>
+<summary>Claude app: not supported</summary>
+
+**Why:** Publishing needs a local repo, npm and Chrome.
+
+</details>
+
+<details>
+<summary>ChatGPT: not supported</summary>
+
+**Why:** No access to your local repo or git and gh credentials by default.
+
+</details>
+<!-- skill-readme:end -->
+
+## npm-publish
 
 Publish npm packages from your coding agent with automatic token rotation. When your npm token expires, the skill uses agent-browser to create a new granular access token through Chrome — you click one button, the token is captured via clipboard, and publishing resumes automatically.
 

@@ -36,7 +36,16 @@ repositories and are only referenced here. This guide covers the markdown skill 
    or `no`), then add its badge line, any limits line, and its row in the pack README's
    **Compatibility at a glance** table. `python3 scripts/check-compat.py` prints the exact
    lines it expects.
-6. Run the checks locally (below) before opening a PR.
+6. Add the skill's entry to the pack README's `## What it looks like` section: a collapsed
+   `<details>` block whose body starts with the badge line, then the limits line if any,
+   then the **Use it when:**, **Try:** and **Skip it when:** lines, then the example.
+7. Run `python3 scripts/gen-skill-readme.py` to write the skill's own `README.md`. It copies
+   the description from `SKILL.md`, the badges, usage lines and example from the pack README,
+   and builds the install steps from `compatibility.json`. Edit those sources, not the text
+   between the `<!-- skill-readme:begin -->` and `<!-- skill-readme:end -->` markers; text you
+   add outside the markers is kept. `SKILL.md` must not link to the README: it is a supporting
+   file for people, not for the agent.
+8. Run the checks locally (below) before opening a PR.
 
 ## Adding a new pack
 
@@ -78,14 +87,15 @@ python3 scripts/check-links.py         # every relative link/anchor resolves
 python3 scripts/check-readme.py        # README tables match plugins/ on disk
 python3 scripts/check-compat.py        # compatibility.json covers every skill; badges match it
 python3 scripts/gen-catalog.py --check # README catalogue and skills.sh.json are current
+python3 scripts/gen-skill-readme.py --check # every skill's README.md is current
 sh scripts/check-private-terms.sh      # no owner-private terms in skill/agent text
 sh scripts/test-plugin-scripts.sh      # any plugin script's own tests pass
 npx --yes cspell@10 --no-progress "plugins/**/*.md" "README.md"
 ```
 
 `npm run lint` runs everything the `hygiene` job in `ci.yml` gates on every PR
-(`check-links.py`, `check-readme.py`, `check-compat.py`, `check-private-terms.sh`,
-`test-plugin-scripts.sh`, and `cspell`); `npm run check` runs the
+(`check-links.py`, `check-readme.py`, `check-compat.py`, `gen-skill-readme.py --check`,
+`check-private-terms.sh`, `test-plugin-scripts.sh`, and `cspell`); `npm run check` runs the
 `manifest-sync` job's pair (`check-manifest-sync.sh`, `check-skills.py`).
 
 ## Commits and PR titles
@@ -111,5 +121,8 @@ merge unless a maintainer adds it as one.
   tell you exactly which README table is now out of sync.
 - After changing a pack's skill table, run `python3 scripts/gen-catalog.py` to
   regenerate the root README catalogue and `skills.sh.json`.
+- After changing a skill's description, its pack README entry or its
+  `compatibility.json` entry, run `python3 scripts/gen-skill-readme.py` to
+  regenerate the skill READMEs.
 - New skills need at least one worked example in the SKILL.md body, not just the
   frontmatter description.

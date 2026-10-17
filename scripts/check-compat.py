@@ -10,7 +10,9 @@ the Skills CLI. This check fails when:
   2. a level is not one of full / partial / no, or a partial / no level has
      no note;
   3. a pack README's badge line, limits line or "Compatibility at a glance"
-     table row no longer matches the JSON (or a skill is missing from them).
+     table row no longer matches the JSON (or a skill is missing from them);
+  4. a skill folder has no README.md, or its README's badge line or limits
+     line no longer matches the JSON (scripts/gen-skill-readme.py writes them).
 
 The badges and table rows are rendered here from the JSON and compared as
 exact text, so editing the JSON means updating the README lines to match.
@@ -30,6 +32,7 @@ HOSTS = ("claude_code", "claude_app", "codex", "chatgpt", "other")
 SYMBOL = {"full": "✔", "partial": "◐", "no": "✖"}
 COLOR = {"full": "brightgreen", "partial": "yellow", "no": "lightgrey"}
 ROOT_LINK = "../../README.md#compatibility"
+SKILL_ROOT_LINK = "../../../../README.md#compatibility"  # from plugins/<pack>/skills/<skill>/
 SECTION = "## What it looks like"
 GLANCE_HEADER = "| Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |"
 
@@ -51,20 +54,20 @@ def _part(text):
     return urllib.parse.quote(text.replace("-", "--").replace("_", "__"), safe="")
 
 
-def badge(label, message, local_level, alt):
+def badge(label, message, local_level, alt, link=ROOT_LINK):
     url = f"https://img.shields.io/badge/{_part(label)}-{_part(message)}-{COLOR[local_level]}"
-    return f"[![{alt}]({url})]({ROOT_LINK})"
+    return f"[![{alt}]({url})]({link})"
 
 
-def badge_line(entry):
+def badge_line(entry, link=ROOT_LINK):
     c, a = entry["claude"]["code"]["level"], entry["claude"]["app"]["level"]
     x, g = entry["codex_chatgpt"]["codex"]["level"], entry["codex_chatgpt"]["chatgpt"]["level"]
     o = entry["other"]["level"]
     return " ".join([
-        badge("Claude", f"Code {SYMBOL[c]} · app {SYMBOL[a]}", c, f"Claude: Code {c}, app {a}"),
+        badge("Claude", f"Code {SYMBOL[c]} · app {SYMBOL[a]}", c, f"Claude: Code {c}, app {a}", link),
         badge("Codex / ChatGPT", f"Codex {SYMBOL[x]} · ChatGPT {SYMBOL[g]}", x,
-              f"Codex / ChatGPT: Codex {x}, ChatGPT {g}"),
-        badge("Other agents", SYMBOL[o], o, f"Other agents: {o}"),
+              f"Codex / ChatGPT: Codex {x}, ChatGPT {g}", link),
+        badge("Other agents", SYMBOL[o], o, f"Other agents: {o}", link),
     ])
 
 
@@ -230,6 +233,27 @@ def check_readme(pack, names, skills):
             errors.append(f"{readme}:{i + 1}: badge line does not match {COMPAT} for any skill in this pack")
 
 
+def check_skill_readme(pack, name, entry):
+    """The skill's own README carries exactly one badge line, and the limits line, from the JSON."""
+    readme = os.path.join(PLUGINS_DIR, pack, "skills", name, "README.md")
+    if not os.path.isfile(readme):
+        errors.append(f"{readme}: file not found -- run python3 scripts/gen-skill-readme.py")
+        return
+    with open(readme, encoding="utf-8") as fh:
+        lines = fh.read().splitlines()
+    want = badge_line(entry, SKILL_ROOT_LINK)
+    hits = [i for i, line in enumerate(lines) if "img.shields.io/badge/Claude-" in line]
+    if len(hits) != 1 or lines[hits[0]] != want:
+        errors.append(f"{readme}: needs exactly one badge line, reading:\n      {want}")
+        return
+    nxt = next((line for line in lines[hits[0] + 1:] if line.strip()), "")
+    lim = limits_line(entry)
+    if lim and nxt != lim:
+        errors.append(f"{readme}:{hits[0] + 1}: limits line should follow the badges and read:\n      {lim}")
+    if not lim and nxt.startswith("> **Limits.**"):
+        errors.append(f"{readme}:{hits[0] + 1}: '{name}' is full everywhere, so it takes no limits line")
+
+
 def main():
     if not os.path.isfile(COMPAT):
         print(f"{COMPAT}: file not found", file=sys.stderr)
@@ -244,12 +268,16 @@ def main():
     skills = check_entries(data, disk)
     for pack in sorted(set(disk.values())):
         check_readme(pack, sorted(s for s, p in disk.items() if p == pack), skills)
+    for name, pack in sorted(disk.items()):
+        if name in skills:
+            check_skill_readme(pack, name, skills[name])
     if errors:
         print(f"{len(errors)} compatibility problem(s) found:\n", file=sys.stderr)
         for e in errors:
             print(f"  {e}", file=sys.stderr)
         return 1
-    print(f"{COMPAT} covers all {len(disk)} skills and matches every pack README's badges and table")
+    print(f"{COMPAT} covers all {len(disk)} skills and matches every pack README's badges and table "
+          f"and every skill README's badges")
     return 0
 
 
