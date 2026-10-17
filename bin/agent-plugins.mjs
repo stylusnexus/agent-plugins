@@ -26,11 +26,12 @@ if (args[0] === "--help" || args[0] === "-h") {
   process.stdout.write(`
   @stylusnexus/agent-plugins${version ? ` v${version}` : ""}
 
-  Six skill packs — 31 repo-agnostic skills — for coding agents.
+  Eight skill packs — 67 repo-agnostic skills — for coding agents.
   Every skill detects your repository's conventions instead of assuming its own.
 
   Packs   ship-pipeline · reporting-comms · second-opinion
           hardening · release-ops · codebase-intel
+          product-strategy · go-to-market
 
   Usage
     npx @stylusnexus/agent-plugins              pick skills interactively

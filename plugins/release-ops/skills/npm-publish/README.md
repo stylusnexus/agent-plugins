@@ -1,6 +1,6 @@
 # npm-publish
 
-Publish npm packages from Claude Code with automatic token rotation. When your npm token expires, the skill uses agent-browser to create a new granular access token through Chrome — you click one button, the token is captured via clipboard, and publishing resumes automatically.
+Publish npm packages from your coding agent with automatic token rotation. When your npm token expires, the skill uses agent-browser to create a new granular access token through Chrome — you click one button, the token is captured via clipboard, and publishing resumes automatically.
 
 ## Flow
 

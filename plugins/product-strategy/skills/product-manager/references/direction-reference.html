@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vision, strategy, objectives, roadmap — PM reference</title>
+<style>
+  :root{--bg:#faf8f4;--ink:#22261f;--accent:#5b6b3f;--line:#d6d2c4;--panel:#f0ede2}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 -apple-system,"Segoe UI",system-ui,sans-serif}
+  main{max-width:1100px;margin:0 auto;padding:clamp(20px,4vw,56px)}
+  h1{font-size:clamp(26px,4vw,40px);line-height:1.15;margin:0 0 6px}
+  .kicker{color:var(--accent);font-weight:700;letter-spacing:.04em;text-transform:uppercase;font-size:13px;margin:0 0 10px}
+  .lede{max-width:75ch;font-size:18px;color:#42473a}
+  .note{padding:14px 18px;background:var(--panel);border-left:4px solid var(--accent);border-radius:4px;margin:18px 0;font-size:15px}
+  section{margin-top:34px}
+  h2{font-size:21px;border-bottom:2px solid var(--line);padding-bottom:6px}
+  table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px;table-layout:fixed}
+  th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+  thead th{background:var(--panel)}
+  tbody th{color:var(--accent);white-space:normal}
+  a{color:var(--accent)}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-size:14px;color:#5a5f50}
+  @media(max-width:760px){table,thead,tbody,tr,th,td{display:block}thead{display:none}tr{margin:16px 0;border:1px solid var(--line);border-radius:6px}td{padding:8px 12px}td:before{display:block;font-weight:700;color:var(--accent);font-size:12px;text-transform:uppercase}td:nth-child(2):before{content:'Question'}td:nth-child(3):before{content:'What done looks like'}td:nth-child(4):before{content:'Example'}td:nth-child(5):before{content:'Common mistake'}}
+  @media print{body{background:#fff}.note{background:#fff;border:1px solid #999}table{font-size:11px}}
+</style>
+</head>
+<body>
+<main>
+  <p class="kicker">PM reference · real worked examples, publicly sourced</p>
+  <h1>Vision, strategy, objectives, and roadmap</h1>
+  <p class="lede">This plugin is organized around four connected skills — <code>pm-vision</code>, <code>pm-strategy</code>, <code>pm-objectives</code>, <code>pm-roadmap</code> — because these are four different-altitude questions. Confusing them is the most common direction-setting mistake: a feature list gets called a strategy, a roadmap date gets treated as a promise, a metric target gets mistaken for the reason the product exists.</p>
+  <div class="note">Treat these as connected questions to revisit, not a stack of documents to produce once and file away. The worked examples below are real, each drawn from what a company or writer has published about itself for free and quoted briefly with a source link — they show how the layers link, not a recommendation to copy any one company's specific choices, and a real example proves a pattern exists, not that it will work for your product.</div>
+
+  <section>
+    <h2>Start with the question you're actually asking</h2>
+    <ul>
+      <li>"What future are we working toward, and for whom?" → <strong>Vision</strong></li>
+      <li>"Where do we play, how do we win, what do we decline?" → <strong>Strategy</strong></li>
+      <li>"What outcome should change, and how will we know?" → <strong>Objectives</strong></li>
+      <li>"What comes first, and why?" → <strong>Roadmap</strong></li>
+    </ul>
+    <p>Find the matching row below, walk its real example, then draft your own version at that layer — and check the link to the layer above and below it before treating the draft as done.</p>
+  </section>
+
+  <section>
+    <h2>How the layers connect</h2>
+    <table>
+      <thead><tr><th scope="col">Layer</th><th scope="col">Question</th><th scope="col">What "done" looks like</th><th scope="col">Example</th><th scope="col">Common mistake</th></tr></thead>
+      <tbody>
+        <tr>
+          <th scope="row">Vision</th>
+          <td>What future state are we working toward, and for whom?</td>
+          <td>A future state specific enough to guide a decision, and one a company is willing to revise as the world changes.</td>
+          <td>GitLab's current mission: "Unlock every team to ship trusted software at the speed of imagination," stated as the successor to its earlier mission, "everyone can contribute" — the handbook frames the shift explicitly: "Everyone could contribute. Now everyone can ship." (<a href="https://handbook.gitlab.com/handbook/company/mission/">GitLab Mission handbook page</a>, page states "Last modified May 13, 2026")</td>
+          <td>Stating a revenue target as if it were the customer-facing purpose. A number can be a consequence of the vision; it isn't the vision.</td>
+        </tr>
+        <tr>
+          <th scope="row">Strategy</th>
+          <td>Where do we play, how do we win, what do we decline?</td>
+          <td>A connected set of choices that reinforce each other — Roger Martin's choice cascade (aspiration, where to play, how to win, capabilities, management systems) — with a stated trade-off.</td>
+          <td>GitLab's mission page names five "architectural bets," two quoted here: "Context as the moat... What doesn't commoditize is the context the model gets to work with," and "Governance in the core... we're building identity, audit, policy, and deployment flexibility as core platform services... rather than a separate product layered on top" (same source as above).</td>
+          <td>A feature list, a claim of being better at everything, or a claim no competitor could copy it. Real strategies name what they give up.</td>
+        </tr>
+        <tr>
+          <th scope="row">Objectives</th>
+          <td>What outcome should change, and how will we know?</td>
+          <td>An owner, a stated baseline (or an honest "we don't know it yet"), a target with its rationale, a horizon, and a guardrail — the shape John Doerr's OKR writing describes.</td>
+          <td>YouTube's 2012 OKR, as reported: "Objective: Reach 1 billion hours of watch time per day [by 2016], with growth driven by: Key Results: Search team + Main App (+XX%), Living Room (+XX%); Grow engagement and gaming watch time (X watch hours per day); Launch YouTube VR experience and grow VR catalog from X to Y." YouTube hit the target in October 2016 — but with no guardrail metric on what kind of watch time counted, which is the lesson in pm-strategy's <a href="../../pm-strategy/references/teaching-examples.md#case-a--a-metric-that-could-move-in-the-wrong-direction">teaching examples, Case A</a>. (<a href="https://www.jacquescorbytuech.com/writing/okr-youtube-unintended-consequences">Jacques Corby-Tuech, "OKR's, YouTube and the Danger of Unintended Consequences,"</a> published 2020-01-22, relaying John Doerr's <em>Measure What Matters</em>)</td>
+          <td>Counting output — features shipped, templates published — as if it were the outcome. Picking a metric with no paired guardrail for what the metric could sacrifice.</td>
+        </tr>
+        <tr>
+          <th scope="row">Roadmap</th>
+          <td>What comes first, and why?</td>
+          <td>Sequenced bets tied to the objective, with commitment status stated (see <a href="../../pm-roadmap/references/outcome-roadmaps.md">outcome roadmaps</a>).</td>
+          <td>ProdPad co-founder Janna Bastow, on inventing the Now-Next-Later format: "So I dropped the dates and drew three columns: Now, Next, and Later... Just priorities and direction, laid out so the whole company could read them." She ties it back to objectives: "The roadmap shows the plan. The OKRs carry the commitment." (<a href="https://www.prodpad.com/blog/invented-now-next-later-roadmap/">ProdPad, "Why I Invented the Now-Next-Later Roadmap,"</a> first published 2022-10-18, updated 2026-06-29)</td>
+          <td>A dated feature list with no visible link back to the objective it serves.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Teaching this to someone new to it</h2>
+    <p>Anchor on the real decision in front of them. Identify which layer it belongs to, walk one real example at that layer from the table above, draft their version from what's actually known about their project, and show the link to the layer above and below. If a layer's rationale is missing — nobody can say why this objective matters to the vision — chase that gap down before filling in more boxes with confident-sounding text.</p>
+  </section>
+
+  <section>
+    <h2>Metrics, briefly</h2>
+    <p>Metrics differ by layer, not just by name. <strong>Key results</strong> are the specific measurable changes chosen for the current objective period; <strong>guardrail metrics</strong> protect quality or outcomes a team could otherwise sacrifice to hit its main number — YouTube's watch-time OKR above is the worked example of what happens without one. Zooming out, a <strong>North Star metric</strong> is a single proposed indicator of the value customers are getting, not a replacement for the strategy behind it; Itamar Gilad's <strong>value delivered</strong> versus <strong>value captured</strong> split keeps that one metric from also being asked to carry the business's own number. Full treatment, including input metrics and how to choose, define, and retire a North Star: <a href="../../pm-objectives/references/okr-cadence.md">OKR cadence</a> and <a href="../../pm-objectives/references/north-star.md">the North Star reference</a>.</p>
+  </section>
+
+  <footer>
+    <p>Roger Martin's <em>Playing to Win</em> choice cascade (aspiration, where to play, how to win, capabilities, management systems) grounds the strategy layer; John Doerr's OKR writing and the broader OKR literature ground the objectives layer; Amplitude's North Star Metric materials and Itamar Gilad's value-delivered/value-captured writing ground the metrics discussion. See <a href="sources.md">sources</a>. The GitLab, YouTube, and ProdPad examples above are each grounded in the page cited next to them — treat anything about those companies not stated on the cited page as unverified.</p>
+    <p><a href="direction-reference.md">Markdown source</a> · <a href="../SKILL.md">Chief PM workflow</a></p>
+  </footer>
+</main>
+</body>
+</html>

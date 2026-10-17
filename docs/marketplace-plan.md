@@ -73,7 +73,7 @@ npx skills add . --list                    # confirm discovery + descriptions
 
 **Proprietary material.** Anything that would leak internal or security detail.
 
-**Personal conventions.** Workflow glue specific to one person's setup stays in the private `evemcgivern/agent-skills` repository.
+**Personal conventions.** Workflow glue specific to one person's setup stays in a private repository.
 
 ---
 

@@ -1,6 +1,6 @@
 # Release Ops
 
-Four skills for getting a release out the door — deciding the version, waiting on CI, publishing, and keeping dependencies current between releases.
+Nine skills for getting a release out the door and keeping it running — deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and keeping model API spend in check.
 
 ---
 
@@ -10,8 +10,13 @@ Four skills for getting a release out the door — deciding the version, waiting
 |---|---|
 | `version-check` | You need to decide the next version. Reads the commits since the last tag and recommends major, minor, or patch, with the reasoning. |
 | `pr-wait` | A PR is open and you want to block on CI rather than watch it, optionally merging when checks pass. |
+| `the-waiting` | CI is running and you want to know how long is really left, or why a run is still pending. Estimates each job from its own history, spots runs stuck behind a cancelled one, and suggests something small to do meanwhile. Named for Tom Petty's "The Waiting", because it is the hardest part. |
 | `npm-publish` | Publishing to npm or bun — preflight checks, semver bump, changelog entry, git push, publish, verify. Rotates an expired npm token through the browser instead of stopping to ask for a one-time code. |
+| `observability-setup` | You are launching a service or auditing its monitoring. Wires a health-check endpoint, uptime checks, log forwarding, error tracking, LLM cost tracking, and page-versus-ticket alert thresholds. |
+| `incident-response` | A service is down, erroring, or degraded in production. Sets severity, runs a fixed triage order, decides on rollback first, drafts user comms, and writes a one-page blameless postmortem. |
 | `dependency-upgrade` | Bulk dependency bumps. Treats them as a gated pipeline — inventory, batch, then type check, test, and E2E between batches — rather than one update command and hope. |
+| `customer-support-triage` | A support email or ticket needs handling. Classifies it, tries to reproduce bugs, sets severity, files a GitHub issue with no customer PII, checks refunds against the written policy, and drafts the reply for a person to send. |
+| `llm-cost-audit` | The model API bill is high or due a review. Reconciles tracked cost with the provider's bill, checks each call site's model tier, finds caching and batch savings using the provider's current prices, and ends in a savings table. |
 
 ---
 
@@ -21,8 +26,17 @@ Four skills for getting a release out the door — deciding the version, waiting
 |---|---|
 | `version-check` | Deciding *what* the next version should be |
 | `pr-wait` | Waiting on CI for an open PR, and merging on green |
+| `the-waiting` | Explaining a wait: time left, stuck runs, and what to do meanwhile. Never cancels, reruns, or merges |
 | `npm-publish` | Everything from bump to published artifact, including auth |
 | `dependency-upgrade` | Incoming dependency changes and the gates between batches |
+| `observability-setup` | Setting up monitoring before anything breaks — health checks, uptime, logs, error tracking, alert thresholds |
+| `incident-response` | What to do once something is already broken — severity, triage order, rollback, comms, postmortem |
+| `customer-support-triage` | Turning one customer message into a classified, reproduced, PII-free issue and a drafted reply; refund decisions outside policy stay with a person |
+| `llm-cost-audit` | What the product pays for model calls, and the savings table |
+
+**`observability-setup` runs before an incident; `incident-response` runs during and after one.** The alerts you wire up first are what tell you to start the second. `observability-setup` sets up product analytics events only to the extent a health signal needs them; the event taxonomy belongs to `analytics-instrumentation` in the `ship-pipeline` pack.
+
+**`customer-support-triage` handles one customer's report; `incident-response` handles a live outage.** A P0 ticket that turns out to be an outage is handed to `incident-response`. `observability-setup` wires LLM cost tracking; `llm-cost-audit` reads it and decides what to change.
 
 **`version-check` recommends; `npm-publish` executes.** Run the first when you want the decision explained, the second when you've made it. `npm-publish` will bump on its own, so pairing them is optional rather than required.
 
@@ -50,10 +64,12 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add release-ops@stylus-nexus
 ```
 
+In Codex, type `$` and a skill name to use it (`$release-ops:npm-publish`; Codex prefixes plugin skills with the pack name), or run `/skills` to pick one.
+
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill '*'
+npx skills add stylusnexus/agent-plugins --skill customer-support-triage dependency-upgrade incident-response llm-cost-audit npm-publish observability-setup pr-wait the-waiting version-check
 ```
 
 Skills arrive un-namespaced on this path, so they invoke as `/npm-publish`.

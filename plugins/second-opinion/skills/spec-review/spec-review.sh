@@ -8,9 +8,9 @@
 #
 #   TARGET (optional):
 #     - a spec FILE         e.g. docs/superpowers/specs/2026-05-30-foo-design.md
-#     - a spec FOLDER       e.g. .spec-workflow/specs/MVP-plot-lifecycle
+#     - a spec FOLDER       e.g. .spec-workflow/specs/checkout-redesign
 #                           (bundles requirements.md + design.md + tasks.md)
-#     - a bare NAME         e.g. plot-lifecycle  (searched across known spec dirs)
+#     - a bare NAME         e.g. checkout-redesign  (searched across known spec dirs)
 #     - omitted             → auto-detect the most-recently-modified spec
 #
 #   Anything after `--` is appended to the review prompt as extra focus.
@@ -145,8 +145,8 @@ For every claim the spec makes about existing tables, columns, relationships,
 functions, routes, types, or component behavior, OPEN the real source and check
 it. Grep migrations, schema, and type files. The single most expensive class of
 spec defect is a data-model claim that is wrong — especially treating a
-many-to-many relationship as if it were a singular scalar (e.g. "the content's
-campaign" when content↔campaign is M2M via a junction table). Flag every
+many-to-many relationship as if it were a singular scalar (e.g. "the order's
+product" when order↔product is M2M via a junction table). Flag every
 relationship the spec assumes is scalar that is actually a set, and vice versa.
 
 Review for these defect classes:
@@ -165,7 +165,7 @@ Review for these defect classes:
    and ordering; feature-flag / rollback story.
 8. SECURITY & COMPLIANCE — auth, row-level security, input/output trust
    boundaries, and any project-specific compliance rules visible in repo docs
-   (e.g. CLAUDE.md). Note violations.
+   (e.g. CLAUDE.md or AGENTS.md). Note violations.
 9. TESTABILITY & ROLLOUT — how is this verified, gated, and reverted?
 
 OUTPUT FORMAT (markdown):

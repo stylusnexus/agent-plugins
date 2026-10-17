@@ -23,7 +23,7 @@ Body AND every comment. Extract: scope, explicit out-of-scope notes, acceptance 
 
 ## Step 2: Verify the work isn't already done
 
-In repos with a dev→main promotion flow, issues typically close at MAIN — an OPEN issue may already be merged to the integration branch. Prior phases also satisfy later phases incidentally.
+GitHub closes an issue with a closing keyword when its PR merges into the repository's **default branch** — regardless of merge method — and the default branch is not always the production branch. In a dev→main promotion flow where `dev` is the GitHub default, an issue closes at the `dev` merge, before production ever sees it; check `gh repo view --json defaultBranchRef` rather than assuming `main`. Either way, an OPEN issue may already be merged to the integration branch. Prior phases also satisfy later phases incidentally.
 
 ```bash
 gh pr list --state all --search "<N>" --json number,title,state,baseRefName,mergedAt --limit 10
@@ -70,6 +70,8 @@ DB touched: <yes → `db-truth` done | no>
 Test cases (plain English): <3-6 bullets a non-engineer can read>
 Plan next: <plan mode | inline plan | trivial-fix, proceeding>
 ```
+
+**Progress bar.** Only when you were invoked directly: if `task_progress` is available (the `task-progress` mod; it is deferred, so load it with ToolSearch first) and "Plan next" has three or more steps, create a plan with id `start-issue-<N>` and those steps right after the packet, and update it as you work. If you are running inside `ship-issues` (or any batch skill), that skill owns the bar: create nothing here, and mark this issue's step done in its plan instead. The bar shows only what you report, so it is never evidence that a step is done. Skip it if the tool is absent.
 
 ## Stop conditions
 
