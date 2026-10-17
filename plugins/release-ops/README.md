@@ -96,6 +96,12 @@ Open a skill below to see a short sample of what it produces. Every sample is in
 
 > **Limits.** Claude app and ChatGPT: Can judge a pasted diff or commit list; cannot read git history itself.
 
+**Use it when:** You have commits since the last tag and must pick major, minor or patch.
+
+**Try:** `Should the next release of acme-sdk be a major, minor or patch bump?`
+
+**Skip it when:** The release is already decided and you only want to publish. Use `npm-publish`.
+
 Example output, invented data.
 
 ```text
@@ -130,6 +136,12 @@ Bump to 2.5.0? Nothing changes until you confirm.
 
 > **Limits.** Claude app: Needs gh and your local repo. ChatGPT: No access to your local repo or git and gh credentials by default.
 
+**Use it when:** A pull request is open and you want to wait for its CI checks, and maybe merge on green.
+
+**Try:** `/pr-wait 318 true 30`
+
+**Skip it when:** No pull request exists yet, or you want help with the review itself.
+
 Example output, invented data.
 
 ```text
@@ -161,6 +173,12 @@ Checks failed: E2E Tests. Not merging PR #318.
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
+**Use it when:** CI has been pending for a while and you want to know how long is left.
+
+**Try:** `/the-waiting 318`
+
+**Skip it when:** You want to cancel, rerun or merge. This skill only reports.
+
 Example output, invented data.
 
 ```text
@@ -185,6 +203,12 @@ Meantime, each under five minutes:
 
 > **Limits.** Claude app: Publishing needs a local repo, npm and Chrome. ChatGPT: No access to your local repo or git and gh credentials by default.
 
+**Use it when:** You are ready to release an npm package: bump, changelog, push and publish.
+
+**Try:** `Publish acme-sdk as a patch release.`
+
+**Skip it when:** You only want a bump recommendation, or you need a GitHub release. Use `version-check` for the first.
+
 The scripts print a status code; the agent reads it and tells you what happens next.
 
 | Script prints | What the agent does |
@@ -208,6 +232,12 @@ It never asks you for a one-time code.
 
 > **Limits.** Claude app and ChatGPT: Writes the health route and alert table; the done criteria need the live host, monitor and error tracker.
 
+**Use it when:** You launch a new web service, or you get paged too often and want better alerts.
+
+**Try:** `Audit the monitoring on our orders-api service and tell me what is missing.`
+
+**Skip it when:** The service is already down. Use `incident-response`.
+
 Example output, invented data.
 
 ```text
@@ -230,6 +260,12 @@ Gaps: 3. Set the health check path first.
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app and ChatGPT: Severity, triage, comms and postmortem from pasted information; no log or monitor access and no rollback.
+
+**Use it when:** A production service is down or erroring and you need a fixed order of steps.
+
+**Try:** `The site is returning 500 errors since the last deploy. Run incident response.`
+
+**Skip it when:** The problem is a slow build or a failing test on your laptop.
 
 | Level | Definition | Response time |
 |---|---|---|
@@ -268,6 +304,12 @@ Postmortem due by 14:02 UTC tomorrow; follow-ups filed as #455 and #456.
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
+**Use it when:** `npm outdated` lists many packages and you want safe upgrades in small waves.
+
+**Try:** `Upgrade our outdated dependencies in waves and open one PR per wave.`
+
+**Skip it when:** You need one package bumped by hand, or you want to publish a release.
+
 Example output, invented data.
 
 ```text
@@ -293,6 +335,12 @@ Wave 3  FAIL  tsc red; green on the base commit, so the bump caused it. Not ship
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app and ChatGPT: Classifies and drafts from a pasted ticket; no reproduction, error-tracker search or issue filing.
+
+**Use it when:** A customer email arrived and you need it classified, filed and answered.
+
+**Try:** `Triage this support email: the customer says the export button does nothing.`
+
+**Skip it when:** The message is a sales lead, or you want the reply sent for you. The skill only drafts.
 
 Example output, invented data.
 
@@ -322,6 +370,12 @@ DRAFT reply, for the support owner to send:
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app and ChatGPT: Works on uploaded bills, usage exports and pasted call sites; no search across the repo.
+
+**Use it when:** Your model API bill is high and you want to know where the money goes.
+
+**Try:** `Audit our AI spend and show the savings with the arithmetic.`
+
+**Skip it when:** You only want to pick a model for one new task.
 
 Example output, invented data. Prices are illustrative, not current; the skill reads them from each provider's pricing page on the day of the audit.
 

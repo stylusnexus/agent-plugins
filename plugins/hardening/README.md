@@ -122,6 +122,12 @@ Each skill below has one collapsed example. All data in them is invented.
 
 > **Limits.** Claude app and ChatGPT: Builds the threat table from spec text; no search of the code for boundaries and no write-back to the repo.
 
+**Use it when:** A spec adds public share links and has no security section.
+
+**Try:** `Threat model the public invoice share links before we build them.`
+
+**Skip it when:** The code is already written and you want a line-by-line review, or you need one control checked in depth.
+
 *Example output, invented data.*
 
 ```text
@@ -150,6 +156,12 @@ Record: 2026-01-12, example-agent (model name), B1-B3, accepted risks: none
 
 > **Limits.** Claude app and ChatGPT: Design guidance works; the audit half searches your routes and needs the repo.
 
+**Use it when:** You are adding sign-in to a NextAuth v5 app, or a PR changes role or session code.
+
+**Try:** `Audit auth on every route in this app and tell me which ones skip the ownership check.`
+
+**Skip it when:** The app does not use NextAuth v5 and the change does not touch sessions, roles or permissions.
+
 *Example output, invented data.*
 
 ```text
@@ -173,6 +185,12 @@ Reset password: limit by IP and by target email, same response either way.
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
+**Use it when:** You add an LLM, email or SMS route, or a login route, before launch.
+
+**Try:** `Find every route that calls a paid API or handles login, and burst-test each limiter.`
+
+**Skip it when:** The route cannot be reached by users and calls no paid API.
 
 *Example output, invented data.*
 
@@ -200,6 +218,12 @@ Burst test, POST /api/chat (limit 20 / 10 min)
 
 > **Limits.** Claude app and ChatGPT: Design is text; auditing an existing handler needs the code pasted in.
 
+**Use it when:** You write a payment webhook handler, or a provider event was lost without any error.
+
+**Try:** `Review the payments webhook handler for signature, duplicate events and retries.`
+
+**Skip it when:** The app sends and receives no webhooks.
+
 *Example output, invented data.*
 
 ```text
@@ -224,6 +248,12 @@ Inbound: POST /api/webhooks/repo-events (provider does not auto-retry)
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app and ChatGPT: Grades pasted header output or uploaded config; cannot capture the deployed response itself.
+
+**Use it when:** A scanner gives your site a bad grade, or you move to a new domain or proxy.
+
+**Try:** `Check the security headers on staging and tell me who sets each one.`
+
+**Skip it when:** You cannot reach a deployed URL and only have local code.
 
 *Example output, invented data.*
 
@@ -252,6 +282,12 @@ Verdict: not ready. /api/me is cacheable by a shared cache (session-leak path).
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
+**Use it when:** An API key shows up in a commit, or you add a new public-prefixed env variable.
+
+**Try:** `Check git history, the client bundle, logs and API responses for leaked secrets.`
+
+**Skip it when:** You only want to know whether a dependency is compromised. Use exposure-scan.
+
 *Example output, invented data.*
 
 ```text
@@ -275,6 +311,12 @@ Noticed: credentialed URL in an agent config file -> agent-tooling-review
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
+**Use it when:** News reports a compromised npm package and you need to know if your machine has it.
+
+**Try:** `Refresh the threat catalogs, then run a quick exposure scan.`
+
+**Skip it when:** You want a CVE scan of your project dependencies. This only matches named campaigns.
 
 *Sketch built from the fields the SKILL.md lists, invented data. Exact script formatting may differ.*
 
@@ -302,6 +344,12 @@ Exit 0 CLEAN (named campaigns only, not a CVE scan) · 1 scan did not finish, ne
 
 > **Limits.** Claude app and ChatGPT: Reviews pasted config by hand; no repo or CI inventory, hashing or AgentArmor scan.
 
+**Use it when:** You are about to add an MCP server, or a nightly agent job needs write access.
+
+**Try:** `Review the MCP connections in this repo and the nightly-triage job. Keep, narrow or disconnect each one.`
+
+**Skip it when:** The tools belong to a model inside your own product. Use llm-app-security.
+
 *Example output, invented data.*
 
 ```text
@@ -327,6 +375,12 @@ Unattended job: nightly-triage (CI)
 
 > **Limits.** Claude app and ChatGPT: Builds the input-to-sink table from a description; the AgentArmor scan, corpus run and staging test cannot run.
 
+**Use it when:** You ship a chat or document feature where a model reads untrusted text or calls tools.
+
+**Try:** `Trace every path from user input to a model tool or output in the support chat feature.`
+
+**Skip it when:** No model reads untrusted content or calls tools in the feature.
+
 *Example output, invented data.*
 
 ```text
@@ -350,6 +404,12 @@ False positives on 200 benign documents: 1 (0.5%)
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
+**Use it when:** You plan a launch and want one report on code health and the user experience.
+
+**Try:** `Run a look-only readiness review of this repo and the staging site.`
+
+**Skip it when:** You need a fix applied. It reports only and never files issues or writes data.
 
 *Example output, invented data.*
 
@@ -383,6 +443,12 @@ Dependabot: NOT VERIFIED (HTTP 403)
 
 > **Limits.** Claude app and ChatGPT: Works on a repo archive you upload; live logs, API responses and third-party deletion cannot be checked.
 
+**Use it when:** You add a signup field or an analytics event and need to know where the data goes.
+
+**Try:** `Audit what user data we collect, where it is stored, and whether export and delete work.`
+
+**Skip it when:** You only need a policy draft with no check of the product. Use legal-docs.
+
 *Example output, invented data.*
 
 ```text
@@ -406,6 +472,12 @@ Fix order: 1 log leak  2 policy gap  3 delete cascade  4 export route
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app and ChatGPT: Drafts from pasted facts; cannot check each claim against your code and config.
+
+**Use it when:** You launch a small SaaS and need a first draft of the terms or privacy policy.
+
+**Try:** `Draft a privacy policy for this app from what the code actually collects.`
+
+**Skip it when:** You need legal advice or a final document. A lawyer must review every draft.
 
 *Example output, invented data.*
 

@@ -88,6 +88,12 @@ Each example below is a short sample of a skill's output. They all use one inven
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
+**Use it when:** You have a product idea and do not know what to work on first.
+
+**Try:** `I built a recipe-sharing app for home cooks. Where do I start?`
+
+**Skip it when:** You already know which single artifact you need, such as OKRs or a roadmap.
+
 Example exchange, invented data (fictional product).
 
 ```text
@@ -112,6 +118,12 @@ Agent:  Route: why it exists > where to compete > customer value > measures > ro
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
+**Use it when:** You must say what your product is for and what success means.
+
+**Try:** `Help me write a mission and vision for my plant watering tracker.`
+
+**Skip it when:** Your mission is agreed and you need to pick a market segment.
+
 Example output, invented data (fictional product).
 
 ```text
@@ -135,6 +147,12 @@ Next         Decide where to compete. A 20-person survey could change this choic
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
+**Use it when:** You must choose which users to serve and how to win with them.
+
+**Try:** `Should my tracker target hobby collectors or small plant shops?`
+
+**Skip it when:** You only need a mission statement or a pricing table.
 
 Example output, invented data (fictional product).
 
@@ -161,6 +179,12 @@ Change trigger       fewer than 1 in 10 trial users set up a second room
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
+**Use it when:** You have strategic choices and want to know if they fit together and resist copying.
+
+**Try:** `Stress test my strategy: could a bigger app copy it?`
+
+**Skip it when:** You have not made any strategic choices yet.
+
 Example output, invented data (fictional product). This activity-system diagram uses the `pm-visuals` convention: each arrow is labelled as a hypothesis or a tension.
 
 ```mermaid
@@ -186,6 +210,12 @@ Verdict: revise A2 before committing. Competitors *can* copy A1; a general plant
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
+**Use it when:** You want the whole strategy on one page for a team review.
+
+**Try:** `Fill in a strategy canvas for my plant watering tracker.`
+
+**Skip it when:** You need depth on one choice, such as a full value curve.
+
 Example output, invented data (fictional product). Every entry carries a status: evidence-backed, hypothesis, or accepted.
 
 ```text
@@ -210,6 +240,12 @@ Main strategic fork   Collectors over everyone: gives up the mass market
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
+**Use it when:** You must explain why customers would pick you over what they use today.
+
+**Try:** `Write a value proposition and value curve for my plant tracker versus spreadsheets.`
+
+**Skip it when:** You need a price or a tier list.
 
 Example output, invented data (fictional product). The statement follows the frame in the working sheet. An unknown rating stays unknown; it is never plotted as zero.
 
@@ -238,6 +274,12 @@ Eliminate: social feed   Raise: travel mode   Create: room schedules
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
+**Use it when:** You must set goals for a quarter and say how you will measure them.
+
+**Try:** `Draft OKRs for next quarter for my plant tracker, with baselines.`
+
+**Skip it when:** You want a ranked list of features to build.
+
 Example output, invented data (fictional product). A baseline nobody has measured is marked unknown, not guessed.
 
 | Objective: collectors keep every plant on schedule (Q3) | Type | Baseline | Target | Status |
@@ -258,6 +300,12 @@ Review rule: if KR1 is flat after 6 weeks, stop the onboarding bet and investiga
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
+**Use it when:** You have many requests and need to order them by outcome.
+
+**Try:** `Build a Now, Next, Later roadmap from my backlog of 12 feature requests.`
+
+**Skip it when:** You have no objectives yet and cannot say what outcome you want.
+
 Example output, invented data (fictional product). Uses the `pm-visuals` outcome-roadmap layout. Later items stay tentative.
 
 | Now | Next | Later |
@@ -275,6 +323,12 @@ Dates: none are commitments. Week 6 review is an estimate.
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
+**Use it when:** You have a risky assumption and want the smallest test for it.
+
+**Try:** `Plan five interviews to test whether collectors forget to water plants.`
+
+**Skip it when:** You already have strong evidence and only need to schedule the work.
 
 Example output, invented data (fictional product).
 
@@ -302,6 +356,12 @@ Limit        says nothing about payment or long-term retention
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
+**Use it when:** Users sign up but few come back, and you want to find the weakest step.
+
+**Try:** `Where is my growth stuck? 200 sign-ups, 30 still active after a month.`
+
+**Skip it when:** You want a price change. Use pricing-review for that.
+
 Example output, invented data (fictional product). A loop only counts once its repeat behaviour has evidence; this one is a hypothesis.
 
 ```text
@@ -326,6 +386,12 @@ Economics          acquisition cost unknown; no lifetime value until 3 months of
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
 
 > **Limits.** Other agents: Web search is the core step; Gemini CLI/Antigravity CLI, Cursor and opencode (with a search provider) have it, Copilot, Windsurf and Cline are not verified.
+
+**Use it when:** You plan to change prices or tiers on a product with paying customers.
+
+**Try:** `Review my pricing before I raise the Collector plan from $4 to $6.`
+
+**Skip it when:** Your product has no paying customers and no price idea yet.
 
 Example output, invented data (fictional product). There is no willingness-to-pay evidence yet, so these prices are untested proposals.
 
@@ -352,6 +418,12 @@ Risks             collectors with 1 big room never hit the limit; room count may
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
+**Use it when:** You want to understand the market and rivals around your product.
+
+**Try:** `Run a SWOT for my plant tracker, with a source for each point.`
+
+**Skip it when:** You want to choose a strategy. Use pm-strategy for that.
+
 Example output, invented data (fictional product). Uses the `pm-visuals` SWOT layout: internal versus external, helpful versus harmful.
 
 | | Helpful | Harmful |
@@ -369,6 +441,12 @@ Combinations: S1 + O1 suggests a forum test of shared schedules. W1 + T1 is a ri
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
+**Use it when:** You want to know which abilities your business needs to deliver the strategy.
+
+**Try:** `Map the capabilities my plant tracker needs and show the gaps.`
+
+**Skip it when:** You have no strategy yet, so there is nothing to map against.
 
 Example output, invented data (fictional product). Uses the `pm-visuals` capability-hierarchy template. An arrow means "contains", not "reports to".
 
@@ -391,6 +469,12 @@ Gap: C1.2 is unknown, because nobody has checked it yet. Options: build it, lice
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
+**Use it when:** You must set up teams and give each team a clear objective.
+
+**Try:** `Set up objectives for two product teams at my 12-person plant app company.`
+
+**Skip it when:** You work alone and only need a personal task list.
 
 Example output, invented data (fictional product). Two people and one agent, so "team" means the person who owns the problem.
 
@@ -415,6 +499,12 @@ Review trigger     after 4 weeks, or sooner if setup drop-off gets worse
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
+**Use it when:** You have analysis in a table and want a diagram or HTML page of it.
+
+**Try:** `Draw a Mermaid diagram of my value curve table.`
+
+**Skip it when:** You have no analysis yet. Do the analysis first.
 
 Example output, invented data (fictional product). Each diagram starts from a small table with stable IDs and a status on each row. The diagram, the table, and the analysis all use the same IDs.
 

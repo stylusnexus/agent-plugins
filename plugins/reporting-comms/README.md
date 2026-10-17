@@ -92,6 +92,12 @@ Each example below is a short sample of a skill's output or a typical exchange. 
 
 > **Limits.** Claude app and ChatGPT: Can build the HTML file in the sandbox for download, without grounding in your repo.
 
+**Use it when:** A plan, review or report is too long to read in the terminal.
+
+**Try:** `/html turn this code review into a readable page`
+
+**Skip it when:** The idea is still rough. Keep it in Markdown.
+
 Example output, invented data (fictional project). The outline of a summary page: under 200 body words, and a drawing in every section after the title.
 
 ```text
@@ -116,6 +122,12 @@ OPEN AND NEXT    ○ Travel mode: blocked on the time-zone fix
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Hosted mode may work if the Plan MCP is added as a custom connector (unverified); no repo access, so the source must be pasted. ChatGPT: Hosted mode only if the Plan MCP can be added as a ChatGPT connector (unverified); no repo access. Other agents: Local mode needs a shell, npx, network and a browser; hosted mode needs the Plan MCP set up by hand, and the skill has no inline fallback.
+
+**Use it when:** You have a plan to approve and want diagrams and open questions beside it.
+
+**Try:** `/visual-plan the plan to move reminders to per-plant timers`
+
+**Skip it when:** You want to explain work that is already done. Use `visual-recap`.
 
 Example exchange, invented data (fictional project).
 
@@ -142,6 +154,12 @@ Agent:  Read the settings screen, the reminder action, and the schedule schema.
 
 > **Limits.** Claude app: Hosted mode may work if the Plan MCP is added as a custom connector (unverified); no repo access, so the source must be pasted. ChatGPT: Hosted mode only if the Plan MCP can be added as a ChatGPT connector (unverified); no repo access. Other agents: Local mode needs a shell, npx, network and a browser; hosted mode needs the Plan MCP set up by hand, and the skill has no inline fallback.
 
+**Use it when:** A branch or PR is finished and a reviewer needs the shape of the change first.
+
+**Try:** `/visual-recap the reminder-timer branch`
+
+**Skip it when:** The change is not written yet. Use `visual-plan`.
+
 Example output, invented data (fictional project). Follows the skill's fixed order, top to bottom, and its budgets.
 
 ```text
@@ -163,6 +181,12 @@ Not included    secrets in config: redacted as <redacted>
 
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
+**Use it when:** You want a quick before and after of what changed.
+
+**Try:** `/recap-table what did you change?`
+
+**Skip it when:** The answer is one fact. Just say it in a sentence.
+
 Example output, invented data (fictional project). One row for each change that actually moved.
 
 | Area | Before | After |
@@ -178,6 +202,12 @@ Example output, invented data (fictional project). One row for each change that 
 
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
+**Use it when:** You write docs, commit messages or error text that people must read fast.
+
+**Try:** `Tighten this error message using the clear writing rules.`
+
+**Skip it when:** The text must sound personal and casual. Use `human-writing`.
+
 Example edit, invented text (fictional project).
 
 > **Before:** It should be noted that reminders were not able to be delivered by the system in a number of cases when the user was traveling.
@@ -192,6 +222,12 @@ Example edit, invented text (fictional project).
 <summary><code>human-writing</code>: a "humanize this" rewrite with its change list</summary>
 
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+**Use it when:** A draft sounds like an AI wrote it.
+
+**Try:** `humanize this: [paste the draft]`
+
+**Skip it when:** You only need shorter text with the same tone. Use `writing-clearly-and-concisely`.
 
 Example exchange, invented text (fictional project).
 
@@ -218,6 +254,12 @@ Agent:  Travel mode pauses your watering reminders while you're away.
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Needs a local browser and your Downloads folder. ChatGPT: Needs a local browser page and your Downloads folder, with no stated fallback.
+
+**Use it when:** A person must judge a draft by editing it and commenting on exact quotes.
+
+**Try:** `/redline draft-announcement.md`
+
+**Skip it when:** A test or a tool can answer the question. Run that instead.
 
 Example output, invented data (fictional project). Edits are the person's exact words and are applied verbatim. Comments are tied to a quote from the page.
 
