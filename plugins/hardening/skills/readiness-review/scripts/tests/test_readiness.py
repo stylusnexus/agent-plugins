@@ -272,7 +272,7 @@ class ReviewCopyExclusionTests(unittest.TestCase):
             skipped = make_review_copy.copy(Path(src).resolve(), Path(dest), max_bytes=1000)
             got = {str(p.relative_to(dest)) for p in Path(dest).rglob("*") if p.is_file()}
             self.assertEqual(got, {"app/page.tsx", "docs/readme.md"})
-            self.assertEqual(skipped["secret_or_excluded"], 15)
+            self.assertEqual(skipped["excluded"], 15)
             self.assertEqual(skipped["binary"], 3)
             self.assertEqual(skipped["too_large"], 1)
             self.assertEqual(skipped["too_large_bytes"], 2000)

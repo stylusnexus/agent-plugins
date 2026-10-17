@@ -68,12 +68,12 @@ def is_binary(p: Path) -> bool:
 
 def copy(src: Path, dest: Path, max_bytes: int = DEFAULT_MAX_FILE_BYTES) -> dict:
     """Copy the reviewable files; return counts of what was skipped and why."""
-    skipped = {"secret_or_excluded": 0, "symlink": 0, "binary": 0, "too_large": 0,
+    skipped = {"excluded": 0, "symlink": 0, "binary": 0, "too_large": 0,
                "binary_bytes": 0, "too_large_bytes": 0}
     for rel in repo_files(src):
         parts = rel.split("/")
         if any(excluded(x) for x in parts) or secret_path(rel):
-            skipped["secret_or_excluded"] += 1
+            skipped["excluded"] += 1
             continue
         p = src / rel
         # a symlinked file, or a file reached through a symlinked directory, is skipped
