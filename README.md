@@ -11,11 +11,13 @@
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
 A plugin marketplace for AI coding agents — **10 plugins, 80 skills**. Installs natively into **Claude
-Code** and **OpenAI Codex**, and reaches roughly seventy more agents (Cursor, Copilot, Gemini CLI,
-Windsurf, Zed, opencode, Cline, Continue, Hermes and others) through the Skills CLI.
+Code** and **OpenAI Codex**, and installs into roughly 77 more agents' skill folders through the
+Skills CLI. Documented skill support has been checked for only a few of those: Gemini CLI/Antigravity
+CLI, Cursor, GitHub Copilot, Windsurf, opencode and Cline. See [Compatibility](#compatibility).
 
-Every skill is repo-agnostic: it detects your repository's conventions rather than assuming its own,
-and many defer to a repo-local version of themselves when your project defines one.
+Most skills are repo-agnostic: they detect your repository's conventions rather than assuming their
+own, and many defer to a repo-local version of themselves when your project defines one. api-design,
+stripe-billing, auth-hardening and privacy-audit assume a Next.js/TypeScript stack.
 
 **[Browse the catalogue →](https://stylusnexus.github.io/agent-plugins/)** — every pack, what it's for, and how to install it on your agent.
 
@@ -39,7 +41,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 |---|---|---|---|
 | [**ship-pipeline**](./plugins/ship-pipeline) | 15 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote — one issue or a batch. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `ship-issues` `db-migration-safety` `backup-verify` `api-design` `stripe-billing` `analytics-instrumentation` `feature-flags` `ux-review` `cdf` |
 | [**reporting-comms**](./plugins/reporting-comms) | 7 | The last mile — turning agent output into something a person wants to read, and getting their judgment back. | `html` `visual-plan` `visual-recap` `recap-table` `writing-clearly-and-concisely` `human-writing` `redline` |
-| [**second-opinion**](./plugins/second-opinion) | 6 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` `efficient-frontier-routing` |
+| [**second-opinion**](./plugins/second-opinion) | 6 | One premise: one confident answer is not evidence. Independent passes, arbitration and checks against the code; llm-council's advisors are the same model, and spec-review calls a different one. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` `efficient-frontier-routing` |
 | [**hardening**](./plugins/hardening) | 12 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, design-time and agent-era audits, and draft legal documents for a lawyer to review. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` `readiness-review` `threat-model` `security-headers` `secrets-leak-audit` `agent-tooling-review` `llm-app-security` `legal-docs` |
 | [**release-ops**](./plugins/release-ops) | 9 | Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and auditing model API spend. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` `observability-setup` `incident-response` `customer-support-triage` `llm-cost-audit` |
 | [**product-strategy**](./plugins/product-strategy) | 15 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps, discovery and pricing, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` `pricing-review` |
@@ -321,6 +323,57 @@ rather than burying it.
 
 ---
 
+## Compatibility
+
+Each skill's example in its pack README starts with three badges, and each pack README opens its
+examples with a **Compatibility at a glance** table. The data behind both is
+[`compatibility.json`](./compatibility.json), and `scripts/check-compat.py` keeps them in step.
+
+| Host | Badge | What it covers |
+|---|---|---|
+| **Claude Code** | Claude: Code | CLI, desktop and IDE extensions, with the pack installed as a plugin |
+| **Claude app** | Claude: app | claude.ai on the web, desktop and mobile, with the skill uploaded |
+| **Codex** | Codex / ChatGPT: Codex | Codex CLI, app and IDE extension, with the pack installed as a plugin |
+| **ChatGPT** | Codex / ChatGPT: ChatGPT | ChatGPT Chat and Work |
+| **Other agents** | Other agents | Agents that read SKILL.md folders and run shell commands, installed through the Skills CLI |
+
+✔ **full**: the skill does its whole job there. ◐ **partial**: it runs, but a named step is lost;
+the **Limits** line under the badges says which. ✖ **no**: it cannot do its core job there. Badge
+colour follows the agent on your machine (Claude Code, Codex, other agents): green for full, yellow
+for partial, grey for no.
+
+**"app" means a remote sandbox.** The Claude app and ChatGPT run skills in the cloud, with no access
+to your local files, repo or local shell (ChatGPT Work can run code and shell commands in its own
+managed, isolated environment). Pure-conversation skills work there. Skills that read code work on a
+repo archive you upload, with the live steps lost. Skills that need your live repo, git, `gh`, a live
+database or a local browser do not work, and neither does efficient-frontier-routing, because
+neither app offers subagents with a choice of model. These 21 can't run in ChatGPT, and the same 21
+plus html (whose upload is rejected) can't run in the Claude app: backup-verify, codebase-health,
+db-truth, debug-feedback-loop, dependency-upgrade, deploy, efficient-frontier-routing,
+exposure-scan, npm-publish, pr-wait, prove-it, rate-limit-audit, readiness-review, redline,
+review-merge-pipeline, review-slop, secrets-leak-audit, ship-issues, spec-review, start-issue,
+the-waiting.
+
+**Where agents look for skills.** `.agents/skills` is read by Codex, Gemini CLI, Antigravity CLI,
+Cursor, GitHub Copilot, opencode and Windsurf. Claude Code reads `.claude/skills`. Windsurf's own
+folder is `.devin/skills`, and it also reads `.claude/skills` when its Claude Code config reading is
+on. Cline needs its own folder, `.cline/skills`, or reads `.claude/skills`; it does not read
+`.agents/skills`. The Skills CLI writes into each detected
+agent's own folder, so you don't have to choose. Gemini CLI's docs say Antigravity CLI replaced it
+for unpaid and Google One users on 18 June 2026.
+
+**Install the whole pack.** 20 skills in product-strategy and go-to-market read shared files inside
+sibling skills: every product-strategy skill except pricing-review, plus mk-copy, mk-founder-content,
+mk-launch, mk-lifecycle, mk-outreach and mk-search. Installed alone (`--skill pm-canvas`) or uploaded
+to the Claude app as one folder, those reads have nothing to open. ChatGPT gets them through the
+Codex plugin install, which brings the whole pack.
+
+**Plugin agents stay behind.** The Skills CLI installs skills only. The four plugin agents
+(audience-scout and marketing-lead in go-to-market, product-manager and business-capability-modeler
+in product-strategy) arrive only with the Claude Code plugin.
+
+---
+
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
@@ -376,7 +429,9 @@ codex plugin add ship-pipeline@stylus-nexus
 ```
 
 In the Codex CLI and IDE extension, type `$` and a skill name (`$ship-pipeline:prove-it`) or run
-`/skills` to pick one. In the ChatGPT app, type `@`.
+`/skills` to pick one. In ChatGPT, type `@` and the skill name; the 21 skills listed under
+[Compatibility](#compatibility) can't run there, because they need your local repo, git or a browser,
+or (efficient-frontier-routing) subagents with a choice of model.
 
 <details>
 <summary>More</summary>
@@ -402,7 +457,10 @@ npx skills add stylusnexus/agent-plugins                    # choose interactive
 npx skills add stylusnexus/agent-plugins --skill '*'        # all 80 skills
 ```
 
-Skills install without a pack prefix, so you type `/prove-it`.
+Skills install without a pack prefix. How you call one depends on the agent: `/prove-it` in Cursor,
+Copilot and Cline, `@prove-it` in Windsurf, `/prove-it` in opencode only when the skill sets an
+opencode-specific metadata field, and in Gemini CLI the model activates a skill itself once you
+approve it.
 
 <details>
 <summary>More</summary>
@@ -500,8 +558,8 @@ Where a skill came from decides its name:
 | Installed via | Invoke as | Why |
 |---|---|---|
 | Claude Code plugin | `/ship-pipeline:prove-it` | Plugins namespace their skills, so two packs can share a skill name without colliding |
-| Codex plugin | `$ship-pipeline:prove-it`, or `/skills` to pick | Codex also prefixes plugin skills with the pack name, and mentions them with `$` (the ChatGPT app uses `@`) |
-| Skills CLI / npm | `/prove-it` | Installed as plain skills, no namespace |
+| Codex plugin | `$ship-pipeline:prove-it`, or `/skills` to pick | Codex also prefixes plugin skills with the pack name, and mentions them with `$` (ChatGPT uses `@`, and the 21 skills listed under [Compatibility](#compatibility) can't run there) |
+| Skills CLI / npm | `/prove-it` in most agents, `@prove-it` in Windsurf | Installed as plain skills, no namespace; opencode shows `/prove-it` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it |
 
 Most skills are **model-invoked** — you don't type them at all. `prove-it` fires when you're
 wrapping up work, `read-the-damn-docs` when you touch an unfamiliar API. Typing the name forces it.
@@ -557,7 +615,8 @@ npx skills remove prove-it                           # Skills CLI
 
 ## Compatibility at a glance
 
-The **eight skill packs** are plain markdown, so they reach every agent the Skills CLI supports.
+The **eight skill packs** are plain markdown, so the Skills CLI can install them into every agent it
+supports; how well each skill runs there is under [Compatibility](#compatibility).
 **work-plan** and **defect-scan** ship executable code and install from their own repositories.
 
 <details>
@@ -569,7 +628,7 @@ The **eight skill packs** are plain markdown, so they reach every agent the Skil
 | **Codex** (CLI · app · IDE) | `codex plugin add <pack>@stylus-nexus` | `codex plugin add work-plan@stylus-nexus` | `$ship-pipeline:prove-it` · `/skills` |
 | **Cursor** | `npx skills add stylusnexus/agent-plugins` | clone + `install.sh` + `.cursorrules` shim | `/prove-it` · `python3 …/work_plan.py` |
 | **GitHub Copilot** | `npx skills add stylusnexus/agent-plugins` | clone + `install.sh` + copilot-instructions shim | `/prove-it` · direct CLI |
-| **Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · Goose · Warp · Amp · Junie · Roo · Qwen Code · Trae · Aider · +more** | `npx skills add stylusnexus/agent-plugins` | — | `/prove-it` |
+| **Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · Goose · Warp · Amp · Junie · Roo · Qwen Code · Trae · Aider · +more** | `npx skills add stylusnexus/agent-plugins` | — | `/prove-it` in most · `@prove-it` in Windsurf · opencode only with an opencode metadata field · Gemini CLI activates skills itself after you approve |
 | **Any other / terminal** | `npx skills add stylusnexus/agent-plugins -a universal` | clone + `install.sh` | `/prove-it` · direct CLI |
 
 </details>

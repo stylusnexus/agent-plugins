@@ -34,6 +34,20 @@ The split that matters most: **`codebase-health` measures, `codebase-architectur
 
 ## What it looks like
 
+<details>
+<summary>Compatibility at a glance</summary>
+
+| Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |
+|---|---|---|---|---|---|
+| codebase-architecture-scanner | ✔ | ◐ | ✔ | ◐ | ✔ |
+| codebase-health | ✔ | ✖ | ✔ | ✖ | ✔ |
+| grill-with-docs | ✔ | ◐ | ✔ | ◐ | ✔ |
+| read-the-damn-docs | ✔ | ◐ | ✔ | ◐ | ◐ |
+
+✔ full · ◐ partial · ✖ no. What each host means, and the limits behind each mark: [Compatibility](../../README.md#compatibility).
+
+</details>
+
 The onboarding path through the pack:
 
 ```mermaid
@@ -51,6 +65,10 @@ Each skill below has one collapsed example. All data in them is invented.
 
 <details>
 <summary><b>codebase-health</b> · hotspot report from git history</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 *Example output, invented data.*
 
@@ -87,6 +105,10 @@ How the report grades each signal:
 <details>
 <summary><b>codebase-architecture-scanner</b> · generated docs with Mermaid diagrams</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Works on a repo archive you upload; writing the docs back into the repo is manual.
+
 *Example output, invented data: one diagram from a generated `docs/architecture/overview.md`.*
 
 ```mermaid
@@ -121,6 +143,10 @@ docs/architecture/
 <details>
 <summary><b>grill-with-docs</b> · one question at a time, glossary updated as you go</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: The interview works; checking answers against code and updating the docs needs repo access.
+
 *Example exchange, invented data.*
 
 > **Agent:** Your glossary defines **Cancellation** as ending a whole Order. This plan cancels one line item. Is that a Cancellation, or a new term? My recommendation: call it a **Line Removal**, and keep Cancellation for whole Orders.
@@ -141,6 +167,10 @@ _Avoid_: Partial cancellation, item cancel
 
 <details>
 <summary><b>read-the-damn-docs</b> · official docs before code</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Web search works; the repo-docs step is skipped and `npm view` version checks cannot run. Other agents: Web search is the core step; Gemini CLI/Antigravity CLI, Cursor and opencode (with a search provider) have it, Copilot, Windsurf and Cline are not verified.
 
 *Example exchange, invented data.*
 
@@ -187,7 +217,7 @@ In Codex, type `$` and a skill name to use it (`$codebase-intel:codebase-health`
 npx skills add stylusnexus/agent-plugins --skill codebase-architecture-scanner codebase-health grill-with-docs read-the-damn-docs
 ```
 
-Skills arrive un-namespaced on this path, so they invoke as `/codebase-health`.
+Skills arrive un-namespaced on this path, so most agents invoke them as `/codebase-health`; Windsurf uses `@codebase-health`, opencode shows `/codebase-health` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.
 
 ## Prerequisites
 

@@ -1,6 +1,8 @@
 # Second Opinion
 
-Six skills built on one premise: **a single model's confident answer is not evidence.**
+Six skills built on one premise: **one confident answer is not evidence.**
+
+Not every second opinion here comes from a different model. `llm-council`'s advisors are subagents of the model you are already running, so they are independent passes, not a cross-model view. `spec-review` calls a different model through the codex CLI (run from inside Codex, it is Codex reviewing Codex), and `efficient-frontier-routing` can hand the risky call to a stronger model.
 
 Confidence and correctness are only loosely related, and an agent that is wrong is usually wrong fluently. These skills exist to introduce a second perspective before a decision hardens — whether that's a competing plan, an independent panel, a spec checked against reality, a bug reproduced before anyone theorises about it, or a stronger model brought in for the risky call.
 
@@ -40,6 +42,22 @@ The distinction that matters: **`llm-council` opens a question, `plan-arbiter` c
 
 ## What it looks like
 
+<details>
+<summary>Compatibility at a glance</summary>
+
+| Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |
+|---|---|---|---|---|---|
+| agent-watchdog | ✔ | ◐ | ✔ | ◐ | ✔ |
+| debug-feedback-loop | ✔ | ✖ | ✔ | ✖ | ✔ |
+| efficient-frontier-routing | ✔ | ✖ | ✔ | ✖ | ◐ |
+| llm-council | ✔ | ◐ | ✔ | ◐ | ◐ |
+| plan-arbiter | ✔ | ◐ | ✔ | ◐ | ✔ |
+| spec-review | ✔ | ✖ | ◐ | ✖ | ✔ |
+
+✔ full · ◐ partial · ✖ no. What each host means, and the limits behind each mark: [Compatibility](../../README.md#compatibility).
+
+</details>
+
 Which second opinion to ask for:
 
 ```mermaid
@@ -71,6 +89,10 @@ Each skill below has one collapsed example. All data in them is invented.
 <details>
 <summary><b>llm-council</b> · five advisors, one verdict</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
+
+> **Limits.** Claude app: No subagents, so the advisors are role-played in one context and lose the independence the method relies on. ChatGPT: No subagents documented, so the advisors are role-played in one context and lose their independence. Other agents: Needs subagents with no single-agent fallback; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline.
+
 *Example output, invented data.*
 
 ```text
@@ -98,6 +120,10 @@ Files: council-report-<timestamp>.html, council-transcript-<timestamp>.md
 <details>
 <summary><b>plan-arbiter</b> · comparison and decision memo</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Compares pasted plans; their claims stay unverified without repo access.
+
 *Example output, invented data.*
 
 ```text
@@ -121,6 +147,10 @@ Executor      a cheaper coding model: the plan is concrete and bounded
 
 <details>
 <summary><b>spec-review</b> · second-model verdict checked against the code</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex partial, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%97%90%20%C2%B7%20ChatGPT%20%E2%9C%96-yellow)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Needs bash, git and the codex CLI on a local repo. Codex: Runs, but the reviewer is Codex reviewing Codex, so the different-model premise is lost, and the nested codex call needs network. ChatGPT: Needs bash and the codex CLI on a local repo.
 
 *Example output, invented data.*
 
@@ -146,6 +176,10 @@ DO NOT SHIP still exits `0`: the exit code says whether the review ran, not what
 <details>
 <summary><b>agent-watchdog</b> · audit of another agent's run</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Audits a pasted transcript or summary only; no repo diff, CI or session-file access.
+
 *Example output, invented data.*
 
 ```text
@@ -164,6 +198,10 @@ Remaining risk  CI red until the failing test is fixed; rename needs a decision.
 
 <details>
 <summary><b>debug-feedback-loop</b> · build the loop, then rank hypotheses</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: The upload is rejected because of the `disable-model-invocation` frontmatter key, and the loop needs a shell. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 *Example exchange, invented data. This skill runs only when you invoke it.*
 
@@ -186,6 +224,10 @@ Agent: Loop: property loop (ladder step 7), 1000 random carts against the
 
 <details>
 <summary><b>efficient-frontier-routing</b> · which model ran each step</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
+
+> **Limits.** Claude app: No subagents or model choice in the app, so nothing is routed. ChatGPT: No subagents or model choice documented for ChatGPT, so nothing is routed. Other agents: Routing needs per-agent model choice, documented for Cursor, Gemini CLI/Antigravity CLI and opencode but not for Copilot, Windsurf or Cline.
 
 *Example output, invented data.*
 
@@ -233,7 +275,7 @@ In Codex, type `$` and a skill name to use it (`$second-opinion:plan-arbiter`; C
 npx skills add stylusnexus/agent-plugins --skill agent-watchdog debug-feedback-loop efficient-frontier-routing llm-council plan-arbiter spec-review
 ```
 
-Skills arrive un-namespaced on this path, so they invoke as `/plan-arbiter`.
+Skills arrive un-namespaced on this path, so most agents invoke them as `/plan-arbiter`; Windsurf uses `@plan-arbiter`, opencode shows `/plan-arbiter` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.
 
 ## Prerequisites
 

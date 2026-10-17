@@ -35,6 +35,28 @@ No skill posts, sends, or publishes anything on your behalf. Plans and drafts co
 
 ## What it looks like
 
+<details>
+<summary>Compatibility at a glance</summary>
+
+| Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |
+|---|---|---|---|---|---|
+| marketing-lead | ✔ | ✔ | ✔ | ✔ | ✔ |
+| mk-audience | ✔ | ◐ | ◐ | ◐ | ◐ |
+| mk-brand-kit | ✔ | ✔ | ✔ | ✔ | ✔ |
+| mk-community | ✔ | ✔ | ✔ | ✔ | ✔ |
+| mk-copy | ✔ | ◐ | ✔ | ✔ | ✔ |
+| mk-founder-content | ✔ | ◐ | ✔ | ✔ | ✔ |
+| mk-launch | ✔ | ◐ | ✔ | ✔ | ✔ |
+| mk-lifecycle | ✔ | ◐ | ✔ | ✔ | ✔ |
+| mk-measurement | ✔ | ✔ | ✔ | ✔ | ✔ |
+| mk-outreach | ✔ | ◐ | ✔ | ✔ | ✔ |
+| mk-positioning | ✔ | ✔ | ✔ | ✔ | ✔ |
+| mk-search | ✔ | ◐ | ✔ | ✔ | ✔ |
+
+✔ full · ◐ partial · ✖ no. What each host means, and the limits behind each mark: [Compatibility](../../README.md#compatibility).
+
+</details>
+
 The usual order of work, starting from `marketing-lead`. Who the product is for comes first. Positioning comes before the brand and the words. The launch comes before the ongoing channels, and measurement decides whether a channel keeps its hours.
 
 ```mermaid
@@ -62,6 +84,8 @@ Each example below is a short sample of a skill's output. They all use one inven
 <details>
 <summary><code>marketing-lead</code>: a goal-first plan sized to your hours</summary>
 
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
 Example output, invented data (fictional product).
 
 ```text
@@ -83,6 +107,10 @@ Next action  today: write the forum intro post as a draft for your review
 <details>
 <summary><code>mk-audience</code>: an ideal customer profile from evidence</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex partial, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%97%90%20%C2%B7%20ChatGPT%20%E2%97%90-yellow)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: No audience-scout agent, so the verified-places step must be done inline with web search. Codex: Codex plugins do not carry agents, so audience-scout is missing and the verified-places step has no stated fallback. Other agents: The Skills CLI installs skills only, so audience-scout is missing and the verified-places step has no stated fallback.
+
 Example output, invented data (fictional product). Any field without a real source is marked, not filled with a guess.
 
 ```text
@@ -102,6 +130,8 @@ Buying roles   initiator and user are the same person; partner may share the app
 
 <details>
 <summary><code>mk-positioning</code>: the positioning canvas and a one-liner</summary>
+
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 Example output, invented data (fictional product).
 
@@ -124,6 +154,8 @@ Stakeholder check
 <details>
 <summary><code>mk-brand-kit</code>: a brand kit canvas with measured contrast</summary>
 
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
 Example output, invented data (fictional product). Colors are exact values, and each pairing has a measured WCAG contrast ratio.
 
 | Role | Hex | Paired against | Contrast | Passes? |
@@ -139,6 +171,10 @@ Type roles: heading and body only, from one font family. The product voice sheet
 
 <details>
 <summary><code>mk-copy</code>: a landing-page draft with a claim-to-source table</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
 Example output, invented data (fictional product). Anything without a source stays a visible gap.
 
@@ -161,6 +197,10 @@ Persuasion levers used   none. Social proof is left out until a real result exis
 <details>
 <summary><code>mk-search</code>: an AI test-question panel log</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
 Example output, invented data (fictional product). Questions come from real conversations; one "not cited" result means check again, not give up.
 
 | Date | Assistant | Question | Mentioned? | Cited or described? | Position | Others named |
@@ -175,6 +215,10 @@ Quotable answer on the page: "Plant Ledger builds a separate watering schedule f
 
 <details>
 <summary><code>mk-launch</code>: a launch-day checklist</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
 Example output, invented data (fictional product).
 
@@ -198,6 +242,8 @@ End of day
 <details>
 <summary><code>mk-community</code>: a participation log with the rules checked first</summary>
 
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
 Example output, invented data (fictional community). The rules page is fetched and dated before any post is drafted.
 
 | Date | Community | Give | Ask | Response | Give:ask |
@@ -210,6 +256,10 @@ Example output, invented data (fictional community). The rules page is fetched a
 
 <details>
 <summary><code>mk-founder-content</code>: a week of posts cut from one source piece</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
 Example output, invented data (fictional product). One substantial piece, then short posts cut from it. Nothing is scheduled until the owner approves.
 
@@ -226,6 +276,10 @@ Hours this week: 2. Stop rule: if waitlist sign-ups from posts don't move after 
 
 <details>
 <summary><code>mk-outreach</code>: a tracked, one-to-one design-partner ask</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
 Example output, invented data (fictional people and shop).
 
@@ -249,6 +303,10 @@ Reply-rate assumption: 1 in 10 (ASSUMPTION until the first batch of 20)
 <details>
 <summary><code>mk-lifecycle</code>: a lifecycle map and a behaviour-triggered sequence</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
 Example output, invented data (fictional product). Emails fire on what someone did, not on a fixed day count.
 
 | Stage | What moves someone in | Recorded in | Next-stage trigger |
@@ -269,6 +327,8 @@ Results are read from clicks, replies, and unsubscribes. Open rate is context on
 
 <details>
 <summary><code>mk-measurement</code>: a scorecard and an experiment card</summary>
+
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 Example output, invented data (fictional product). Every metric sits on one funnel stage and has a formula you can recompute by hand.
 
@@ -315,7 +375,7 @@ In Codex, type `$` and a skill name to use it (`$go-to-market:marketing-lead`; C
 npx skills add stylusnexus/agent-plugins --skill marketing-lead mk-audience mk-brand-kit mk-community mk-copy mk-founder-content mk-launch mk-lifecycle mk-measurement mk-outreach mk-positioning mk-search
 ```
 
-Skills arrive un-namespaced on this path, so they invoke as `/marketing-lead`.
+Skills arrive un-namespaced on this path, so most agents invoke them as `/marketing-lead`; Windsurf uses `@marketing-lead`, opencode shows `/marketing-lead` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.
 
 ## Prerequisites
 
