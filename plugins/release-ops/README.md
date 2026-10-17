@@ -48,6 +48,25 @@ For repository activity summaries — what shipped, what's open, CI health — u
 
 ## What it looks like
 
+<details>
+<summary>Compatibility at a glance</summary>
+
+| Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |
+|---|---|---|---|---|---|
+| customer-support-triage | ✔ | ◐ | ✔ | ◐ | ✔ |
+| dependency-upgrade | ✔ | ✖ | ✔ | ✖ | ✔ |
+| incident-response | ✔ | ◐ | ✔ | ◐ | ✔ |
+| llm-cost-audit | ✔ | ◐ | ✔ | ◐ | ✔ |
+| npm-publish | ✔ | ✖ | ✔ | ✖ | ✔ |
+| observability-setup | ✔ | ◐ | ✔ | ◐ | ✔ |
+| pr-wait | ✔ | ✖ | ✔ | ✖ | ✔ |
+| the-waiting | ✔ | ✖ | ✔ | ✖ | ✔ |
+| version-check | ✔ | ◐ | ✔ | ◐ | ✔ |
+
+✔ full · ◐ partial · ✖ no. What each host means, and the limits behind each mark: [Compatibility](../../README.md#compatibility).
+
+</details>
+
 The release path on top, the production path below it.
 
 ```mermaid
@@ -72,6 +91,10 @@ Open a skill below to see a short sample of what it produces. Every sample is in
 
 <details>
 <summary><code>version-check</code>: the bump recommendation</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Can judge a pasted diff or commit list; cannot read git history itself.
 
 Example output, invented data.
 
@@ -103,6 +126,10 @@ Bump to 2.5.0? Nothing changes until you confirm.
 <details>
 <summary><code>pr-wait</code>: status lines, and why it did not merge</summary>
 
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: The upload is rejected because of the `color` frontmatter key, and the skill needs gh. ChatGPT: No access to your local repo or git and gh credentials by default.
+
 Example output, invented data.
 
 ```text
@@ -130,6 +157,10 @@ Checks failed: E2E Tests. Not merging PR #318.
 <details>
 <summary><code>the-waiting</code>: time left, and something to do meanwhile</summary>
 
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
 Example output, invented data.
 
 ```text
@@ -150,6 +181,10 @@ Meantime, each under five minutes:
 <details>
 <summary><code>npm-publish</code>: what each script result leads to</summary>
 
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: The upload is rejected because of the `version` frontmatter key, and publishing needs a local repo, npm and Chrome. ChatGPT: No access to your local repo or git and gh credentials by default.
+
 The scripts print a status code; the agent reads it and tells you what happens next.
 
 | Script prints | What the agent does |
@@ -169,6 +204,10 @@ It never asks you for a one-time code.
 <details>
 <summary><code>observability-setup</code>: an audit of an existing service</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Writes the health route and alert table; the done criteria need the live host, monitor and error tracker.
+
 Example output, invented data.
 
 ```text
@@ -187,6 +226,10 @@ Gaps: 3. Set the health check path first.
 
 <details>
 <summary><code>incident-response</code>: severity ladder, triage notes and the user message</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Severity, triage, comms and postmortem from pasted information; no log or monitor access and no rollback.
 
 | Level | Definition | Response time |
 |---|---|---|
@@ -221,6 +264,10 @@ Postmortem due by 14:02 UTC tomorrow; follow-ups filed as #455 and #456.
 <details>
 <summary><code>dependency-upgrade</code>: the wave plan and gate results</summary>
 
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
 Example output, invented data.
 
 ```text
@@ -242,6 +289,10 @@ Wave 3  FAIL  tsc red; green on the base commit, so the bump caused it. Not ship
 
 <details>
 <summary><code>customer-support-triage</code>: a triage summary and a drafted reply</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Classifies and drafts from a pasted ticket; no reproduction, error-tracker search or issue filing.
 
 Example output, invented data.
 
@@ -267,6 +318,10 @@ DRAFT reply, for the support owner to send:
 
 <details>
 <summary><code>llm-cost-audit</code>: the savings table with the arithmetic shown</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Works on uploaded bills, usage exports and pasted call sites; no search across the repo.
 
 Example output, invented data. Prices are illustrative, not current; the skill reads them from each provider's pricing page on the day of the audit.
 
@@ -317,7 +372,7 @@ In Codex, type `$` and a skill name to use it (`$release-ops:npm-publish`; Codex
 npx skills add stylusnexus/agent-plugins --skill customer-support-triage dependency-upgrade incident-response llm-cost-audit npm-publish observability-setup pr-wait the-waiting version-check
 ```
 
-Skills arrive un-namespaced on this path, so they invoke as `/npm-publish`.
+Skills arrive un-namespaced on this path, so most agents invoke them as `/npm-publish`; Windsurf uses `@npm-publish`, opencode shows `/npm-publish` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.
 
 ---
 

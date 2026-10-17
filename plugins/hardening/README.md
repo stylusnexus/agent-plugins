@@ -52,6 +52,28 @@ The one worth running first is `privacy-audit`, because it's the only one whose 
 
 ## What it looks like
 
+<details>
+<summary>Compatibility at a glance</summary>
+
+| Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |
+|---|---|---|---|---|---|
+| agent-tooling-review | ✔ | ◐ | ✔ | ◐ | ✔ |
+| auth-hardening | ✔ | ◐ | ✔ | ◐ | ✔ |
+| exposure-scan | ✔ | ✖ | ✔ | ✖ | ✔ |
+| legal-docs | ✔ | ◐ | ✔ | ◐ | ✔ |
+| llm-app-security | ✔ | ◐ | ✔ | ◐ | ✔ |
+| privacy-audit | ✔ | ◐ | ✔ | ◐ | ✔ |
+| rate-limit-audit | ✔ | ✖ | ✔ | ✖ | ✔ |
+| readiness-review | ✔ | ✖ | ✔ | ✖ | ✔ |
+| secrets-leak-audit | ✔ | ✖ | ✔ | ✖ | ✔ |
+| security-headers | ✔ | ◐ | ✔ | ◐ | ✔ |
+| threat-model | ✔ | ◐ | ✔ | ◐ | ✔ |
+| webhook-reliability | ✔ | ◐ | ✔ | ◐ | ✔ |
+
+✔ full · ◐ partial · ✖ no. What each host means, and the limits behind each mark: [Compatibility](../../README.md#compatibility).
+
+</details>
+
 When to reach for which skill, from design to launch:
 
 ```mermaid
@@ -96,6 +118,10 @@ Each skill below has one collapsed example. All data in them is invented.
 <details>
 <summary><b>threat-model</b> · boundary-and-threat table with a gate list</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Builds the threat table from spec text; no search of the code for boundaries and no write-back to the repo.
+
 *Example output, invented data.*
 
 ```text
@@ -120,6 +146,10 @@ Record: 2026-01-12, example-agent (model name), B1-B3, accepted risks: none
 <details>
 <summary><b>auth-hardening</b> · per-route audit table</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Design guidance works; the audit half searches your routes and needs the repo.
+
 *Example output, invented data.*
 
 ```text
@@ -139,6 +169,10 @@ Reset password: limit by IP and by target email, same response either way.
 
 <details>
 <summary><b>rate-limit-audit</b> · inventory plus burst-test evidence</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 *Example output, invented data.*
 
@@ -162,6 +196,10 @@ Burst test, POST /api/chat (limit 20 / 10 min)
 <details>
 <summary><b>webhook-reliability</b> · present-or-missing report per handler</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Design is text; auditing an existing handler needs the code pasted in.
+
 *Example output, invented data.*
 
 ```text
@@ -182,6 +220,10 @@ Inbound: POST /api/webhooks/repo-events (provider does not auto-retry)
 
 <details>
 <summary><b>security-headers</b> · deployed-header check with one owner per header</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Grades pasted header output or uploaded config; cannot capture the deployed response itself.
 
 *Example output, invented data.*
 
@@ -206,6 +248,10 @@ Verdict: not ready. /api/me is cacheable by a shared cache (session-leak path).
 <details>
 <summary><b>secrets-leak-audit</b> · the four doors</summary>
 
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
 *Example output, invented data.*
 
 ```text
@@ -225,6 +271,10 @@ Noticed: credentialed URL in an agent config file -> agent-tooling-review
 
 <details>
 <summary><b>exposure-scan</b> · refresh, quick scan, and what each exit code means</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 *Sketch built from the fields the SKILL.md lists, invented data. Exact script formatting may differ.*
 
@@ -248,6 +298,10 @@ Exit 0 CLEAN (named campaigns only, not a CVE scan) · 1 scan did not finish, ne
 <details>
 <summary><b>agent-tooling-review</b> · connection inventory and unattended-job controls</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Reviews pasted config by hand; no repo or CI inventory, hashing or AgentArmor scan.
+
 *Example output, invented data.*
 
 ```text
@@ -269,6 +323,10 @@ Unattended job: nightly-triage (CI)
 <details>
 <summary><b>llm-app-security</b> · input-to-sink paths and corpus results</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Builds the input-to-sink table from a description; the AgentArmor scan, corpus run and staging test cannot run.
+
 *Example output, invented data.*
 
 ```text
@@ -288,6 +346,10 @@ False positives on 200 benign documents: 1 (0.5%)
 
 <details>
 <summary><b>readiness-review</b> · report skeleton with verdict</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 *Example output, invented data.*
 
@@ -317,6 +379,10 @@ Dependabot: NOT VERIFIED (HTTP 403)
 <details>
 <summary><b>privacy-audit</b> · data map and findings</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Works on a repo archive you upload; live logs, API responses and third-party deletion cannot be checked.
+
 *Example output, invented data.*
 
 ```text
@@ -336,6 +402,10 @@ Fix order: 1 log leak  2 policy gap  3 delete cascade  4 export route
 
 <details>
 <summary><b>legal-docs</b> · plain-English draft with placeholders</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Drafts from pasted facts; cannot check each claim against your code and config.
 
 *Example output, invented data.*
 
@@ -388,7 +458,7 @@ In Codex, type `$` and a skill name to use it (`$hardening:rate-limit-audit`; Co
 npx skills add stylusnexus/agent-plugins --skill agent-tooling-review auth-hardening exposure-scan legal-docs llm-app-security privacy-audit rate-limit-audit readiness-review secrets-leak-audit security-headers threat-model webhook-reliability
 ```
 
-Skills arrive un-namespaced on this path, so they invoke as `/rate-limit-audit`.
+Skills arrive un-namespaced on this path, so most agents invoke them as `/rate-limit-audit`; Windsurf uses `@rate-limit-audit`, opencode shows `/rate-limit-audit` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.
 
 ## Prerequisites
 

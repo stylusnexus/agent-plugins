@@ -68,6 +68,31 @@ The three database skills are the pairing most worth keeping straight: **`db-tru
 
 ## What it looks like
 
+<details>
+<summary>Compatibility at a glance</summary>
+
+| Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |
+|---|---|---|---|---|---|
+| analytics-instrumentation | ✔ | ◐ | ✔ | ◐ | ✔ |
+| api-design | ✔ | ◐ | ✔ | ◐ | ✔ |
+| backup-verify | ✔ | ✖ | ✔ | ✖ | ✔ |
+| cdf | ✔ | ◐ | ✔ | ◐ | ✔ |
+| db-migration-safety | ✔ | ◐ | ✔ | ◐ | ✔ |
+| db-truth | ✔ | ✖ | ✔ | ✖ | ✔ |
+| deploy | ✔ | ✖ | ✔ | ✖ | ✔ |
+| feature-flags | ✔ | ◐ | ✔ | ◐ | ✔ |
+| prove-it | ✔ | ✖ | ✔ | ✖ | ✔ |
+| review-merge-pipeline | ✔ | ✖ | ✔ | ✖ | ✔ |
+| review-slop | ✔ | ✖ | ✔ | ✖ | ✔ |
+| ship-issues | ✔ | ✖ | ✔ | ✖ | ◐ |
+| start-issue | ✔ | ✖ | ✔ | ✖ | ✔ |
+| stripe-billing | ✔ | ◐ | ✔ | ◐ | ✔ |
+| ux-review | ✔ | ◐ | ✔ | ◐ | ◐ |
+
+✔ full · ◐ partial · ✖ no. What each host means, and the limits behind each mark: [Compatibility](../../README.md#compatibility).
+
+</details>
+
 How the shipping skills chain for one issue. `ship-issues` runs the same loop for a batch.
 
 ```mermaid
@@ -90,6 +115,10 @@ Open a skill below to see a short sample of what it produces. Every sample is in
 
 <details>
 <summary><code>start-issue</code>: the intake packet</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 Example output, invented data.
 
@@ -116,6 +145,10 @@ Plan next: inline plan
 <details>
 <summary><code>db-truth</code>: a pre-work check that stops a wrong spec</summary>
 
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
 Example exchange, invented data.
 
 ```text
@@ -137,6 +170,10 @@ Revise the data model to read role = 'owner' from project_members.
 
 <details>
 <summary><code>prove-it</code>: the evidence table</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 Example output, invented data.
 
@@ -160,6 +197,10 @@ Running /prove-it verification.
 
 <details>
 <summary><code>review-slop</code>: report-only findings</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 Example output, invented data.
 
@@ -188,6 +229,10 @@ Open question: is the 500-page limit intended?
 <details>
 <summary><code>review-merge-pipeline</code>: how review findings are handled, and the final report</summary>
 
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
 What happens to each review finding, by the reviewer's confidence:
 
 | Confidence | Action |
@@ -211,6 +256,10 @@ Pipeline complete:
 
 <details>
 <summary><code>deploy</code>: sizing a deploy, and the final report</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 After a squash deploy, the file diff can show work that already shipped. The skill reads both signals together:
 
@@ -238,6 +287,10 @@ Deploy complete:
 <details>
 <summary><code>ship-issues</code>: the grounding report before any edit</summary>
 
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default. Other agents: Needs subagents for specialist review and parallel work; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline.
+
 Example output, invented data.
 
 ```text
@@ -259,6 +312,10 @@ Decisions needing consultation: should the page limit be per plan?
 <details>
 <summary><code>db-migration-safety</code>: the expand-contract sequence</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Writes and reviews migration SQL from pasted text; the backup gate and branch test cannot run.
+
 Each phase is its own migration and its own deploy:
 
 | Phase | What ships | Old code still works? |
@@ -274,6 +331,10 @@ Collapsing phases 1 and 4 into one migration is the most common cause of an avoi
 
 <details>
 <summary><code>backup-verify</code>: the restore-drill evidence</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 Example output, invented data.
 
@@ -299,6 +360,10 @@ Result: PASS. Scratch branch deleted.
 <details>
 <summary><code>api-design</code>: a route review against the checklist</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Designs and reviews pasted route handlers; cannot detect the repo's own conventions.
+
 Example exchange, invented data.
 
 ```text
@@ -321,6 +386,10 @@ Verdict: FAIL (a sensitive field is returned).
 
 <details>
 <summary><code>stripe-billing</code>: webhook evidence</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Writes billing code from pasted code; the Stripe CLI webhook test and database proof cannot run.
 
 Example output, invented data.
 
@@ -346,6 +415,10 @@ Client-supplied Stripe IDs trusted anywhere: none found
 <details>
 <summary><code>feature-flags</code>: the stale-flag cleanup table</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Naming, rollout and kill-switch design work; stale-flag cleanup needs PostHog data and repo edits.
+
 Example output, invented data.
 
 ```text
@@ -364,6 +437,10 @@ that removes its code has deployed.
 
 <details>
 <summary><code>analytics-instrumentation</code>: an audit of existing events</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Event taxonomy and code from pasted snippets only; no audit over the repo and no live PostHog check.
 
 Example output, invented data.
 
@@ -388,6 +465,10 @@ project owner (fix plus possible deletion of past events).
 <details>
 <summary><code>ux-review</code>: one screenshot's rating and the summary</summary>
 
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: You upload screenshots by hand; no snapshot discovery, diff mode or Playwright refresh. Other agents: Reading screenshots as images is the whole job, and image reading is not verified for each host.
+
 Example output, invented data.
 
 ```text
@@ -411,6 +492,10 @@ UX Review Complete:
 
 <details>
 <summary><code>cdf</code>: issue numbers as one line</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Formatting works; open or closed state must be checked live with gh, so only lists you supply can be filtered by state.
 
 Example exchange, invented data.
 
@@ -456,7 +541,7 @@ npx skills add stylusnexus/agent-plugins            # pick interactively
 npx skills add stylusnexus/agent-plugins --skill analytics-instrumentation api-design backup-verify cdf db-migration-safety db-truth deploy feature-flags prove-it review-merge-pipeline review-slop ship-issues start-issue stripe-billing ux-review  # this pack
 ```
 
-The [Skills CLI](https://github.com/vercel-labs/skills) detects which agents you have installed and writes to each one's skills directory. Skills arrive un-namespaced here, so they invoke as `/prove-it` rather than `/ship-pipeline:prove-it`.
+The [Skills CLI](https://github.com/vercel-labs/skills) detects which agents you have installed and writes to each one's skills directory. Skills arrive un-namespaced here, so most agents invoke them as `/prove-it` rather than `/ship-pipeline:prove-it`; Windsurf uses `@prove-it`, opencode shows `/prove-it` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.
 
 ---
 
