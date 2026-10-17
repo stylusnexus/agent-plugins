@@ -66,6 +66,369 @@ The three database skills are the pairing most worth keeping straight: **`db-tru
 
 ---
 
+## What it looks like
+
+How the shipping skills chain for one issue. `ship-issues` runs the same loop for a batch.
+
+```mermaid
+flowchart LR
+  S([ship-issues]) -. runs the loop per batch .-> A
+  A[start-issue] --> Q1{DB touched?}
+  Q1 -- yes --> B[db-truth]
+  Q1 -- no --> C[implement]
+  B --> C
+  C --> D[prove-it]
+  D --> E[review-slop, optional]
+  E --> F[review-merge-pipeline]
+  F --> Q2{migrations?}
+  Q2 -- yes --> G[backup-verify]
+  Q2 -- no --> H[deploy]
+  G --> H
+```
+
+Open a skill below to see a short sample of what it produces. Every sample is invented: the repos, issue numbers, files and figures are made up.
+
+<details>
+<summary><code>start-issue</code>: the intake packet</summary>
+
+Example output, invented data.
+
+```text
+Running /start-issue intake for #412.
+
+INTAKE #412 — PDF export fails for long documents
+Goal: export succeeds for documents of any length
+In scope: export payload limit   Out of scope: export styling (#398)
+Done when: a 120-page document exports; a real failure shows an error
+Already-shipped check: searched PRs and issues for "412" and "export"; nothing merged. Not shipped.
+Premise check: issue is fresh (4 days old); the 30-page limit is still in the code
+Branch: fix/412-long-pdf-export   Baseline: 3 typecheck errors
+DB touched: no
+Test cases (plain English):
+  - a 5-page document still exports
+  - a 120-page document exports
+  - a failed export shows an error instead of doing nothing
+Plan next: inline plan
+```
+
+</details>
+
+<details>
+<summary><code>db-truth</code>: a pre-work check that stops a wrong spec</summary>
+
+Example exchange, invented data.
+
+```text
+> /db-truth pre-work   (before planning a "project owner" badge)
+
+Running /db-truth pre-work verification.
+Live schema:
+  projects:        id uuid, name text, created_at timestamp     (no owner column)
+  project_members: project_id uuid, user_id uuid, role text
+Relationships:
+  project ↔ user: M2M through project_members, not a scalar owner_id
+Permissions: project_members has no INSERT policy for the new role
+Call site named in the plan: src/projects/badge.ts:41 (confirmed by grep)
+Verdict: the spec's "project.owner_id" does not exist. Stopping.
+Revise the data model to read role = 'owner' from project_members.
+```
+
+</details>
+
+<details>
+<summary><code>prove-it</code>: the evidence table</summary>
+
+Example output, invented data.
+
+```text
+Running /prove-it verification.
+
+| # | Claim                         | Command / location                     | Result      |
+|---|-------------------------------|----------------------------------------|-------------|
+| 1 | Types clean (baseline 3→3)    | npm run typecheck                      | PASS        |
+| 2 | Build passes                  | npm run build                          | PASS        |
+| 3 | New behavior tested           | export.test.ts (fails without the fix) | PASS        |
+| 4 | Page count reaches the worker | worker.test.ts asserts pages = 120     | PASS        |
+| 5 | Real write and read-back      | POST /api/export, then GET the file    | PASS        |
+| 6 | Renders at /documents/[id]    | export.spec.ts, console clean          | PASS        |
+| 7 | Works in mobile Safari        | —                                      | UNVERIFIED  |
+
+7: no device available here; needs one run on a real phone.
+```
+
+</details>
+
+<details>
+<summary><code>review-slop</code>: report-only findings</summary>
+
+Example output, invented data.
+
+```text
+Scanned: 9 files, origin/dev (a1b2c3d)...HEAD (e4f5a6b). Not scanned: 1 unstaged file.
+
+HIGH
+- Location: src/export/worker.ts:88
+  What: cast to any on the job payload; ExportJob is one import away
+  Why it matters: a renamed field still compiles and fails at runtime
+  Suggested fix: type the payload as ExportJob (not applied)
+  Evidence: ExportJob in src/export/types.ts:12; only caller queue.ts:40
+  Acceptance: renaming ExportJob.pages breaks the typecheck
+
+WARNING
+- Location: docs/export.md:5
+  What: "seamlessly handles any document", but exports stop at 500 pages
+  Suggested fix: state the limit
+
+Counts: CRITICAL 0 · HIGH 1 · WARNING 1
+Open question: is the 500-page limit intended?
+```
+
+</details>
+
+<details>
+<summary><code>review-merge-pipeline</code>: how review findings are handled, and the final report</summary>
+
+What happens to each review finding, by the reviewer's confidence:
+
+| Confidence | Action |
+|---|---|
+| 90-100 (Critical) | Must fix before going further |
+| 80-89 (Important) | Fix, unless it is a pre-existing pattern or out of scope |
+| Below 80 (Minor) | Skip; note it in the PR description if relevant |
+
+Example output, invented data.
+
+```text
+Running the review-merge pipeline.
+...
+Pipeline complete:
+- PR: example-org/notes-app#233
+- Status: Merged to dev
+- Review: 3 issues found, 2 fixed (1 minor, noted in the PR)
+```
+
+</details>
+
+<details>
+<summary><code>deploy</code>: sizing a deploy, and the final report</summary>
+
+After a squash deploy, the file diff can show work that already shipped. The skill reads both signals together:
+
+| File diff | New commit list | Read it as |
+|---|---|---|
+| Tiny | Huge | Phantom diff; trust the file diff |
+| Huge | Tiny | Trust the commit list; the PR title describes only those commits |
+| Large | Large | Genuinely large |
+| Small or empty | Small or empty | Minimal; abort if there is nothing |
+
+Example output, invented data.
+
+```text
+Deploy complete:
+- Repo / PR: example-org/notes-app #240
+- Files changed: 14 (+412/-96)
+- Version: 2.8.0
+- Publishes: none
+- Migrations: applied 20261014_add_export_jobs
+- Host: auto-deploys from main
+```
+
+</details>
+
+<details>
+<summary><code>ship-issues</code>: the grounding report before any edit</summary>
+
+Example output, invented data.
+
+```text
+Running /ship-issues for #412, #415, #420.
+
+Base: dev = 7c1e9a0, main = 3b4d2f8 (verified via gh). Unreleased on dev: yes, 2 PRs.
+Goes live on merge? no — the host deploys from main only (render.yaml)
+| Issue | Status         | What's left                           |
+| #412  | Open work      | everything                            |
+| #415  | Partly shipped | PR #402 added the API; the UI is left |
+| #420  | Shipped        | PR #398 on main, checked live         |
+Groups: export → #412, #415 → fix/412-export-limits
+Dependencies / blocked: none
+Decisions needing consultation: should the page limit be per plan?
+```
+
+</details>
+
+<details>
+<summary><code>db-migration-safety</code>: the expand-contract sequence</summary>
+
+Each phase is its own migration and its own deploy:
+
+| Phase | What ships | Old code still works? |
+|---|---|---|
+| 1. Expand | New column or table, nullable or with a default, additive only | Yes |
+| 2. Backfill | Existing rows filled in small batches, alongside live traffic | Yes |
+| 3. Migrate reads and writes | App code writes to, then reads from, the new shape | Both shapes coexist briefly |
+| 4. Contract | Drop the old column, add `NOT NULL`, once the backfill is confirmed | Only after every instance runs the new code |
+
+Collapsing phases 1 and 4 into one migration is the most common cause of an avoidable outage. Phase 4 waits for a confirmed backup from `backup-verify`.
+
+</details>
+
+<details>
+<summary><code>backup-verify</code>: the restore-drill evidence</summary>
+
+Example output, invented data.
+
+```text
+Backup mechanism: Neon point-in-time restore plus snapshots
+Backup used: snapshot snap-0412, taken 2026-10-14 03:00 UTC
+Restore drill: 2026-10-14 09:20 UTC into branch backup-drill-20261014
+  neon snapshots restore snap-0412 --name backup-drill-20261014
+
+Row counts      restored   live now
+  User            18,204     18,231
+  Subscription     4,112      4,115
+  Customer         4,090      4,093
+Newest Subscription row: 02:58 UTC (just before the backup)
+Orphaned subscriptions: 0
+Differences match writes made after 03:00 UTC.
+
+Result: PASS. Scratch branch deleted.
+```
+
+</details>
+
+<details>
+<summary><code>api-design</code>: a route review against the checklist</summary>
+
+Example exchange, invented data.
+
+```text
+> /api-design review app/api/projects
+
+- app/api/projects/route.ts:22   findMany() with no select returns the owner's
+  passwordHash. Blocking: choose fields with select at the query.
+- app/api/projects/route.ts:9    limit comes from the query string with no cap.
+  Cap it at 100 on the server.
+- app/api/projects/[projectId]/route.ts:31   returns 403 for another user's
+  private project, which confirms it exists. Return 404.
+- app/api/projects/[projectId]/route.ts:47   returns 200 with { "error": ... }.
+  Use the error envelope with code NOT_FOUND and status 404.
+Holds: plural nested paths, no version prefix, Zod input validation,
+  OpenAPI regenerated in this PR.
+Verdict: FAIL (a sensitive field is returned).
+```
+
+</details>
+
+<details>
+<summary><code>stripe-billing</code>: webhook evidence</summary>
+
+Example output, invented data.
+
+```text
+Handled: checkout.session.completed, customer.subscription.created,
+  customer.subscription.updated, customer.subscription.deleted,
+  invoice.paid, invoice.payment_failed, customer.subscription.trial_will_end
+Not handled, on purpose: invoice.upcoming
+Idempotency: event.id inserted into WebhookEvent (unique) in the same
+  transaction as the state change
+
+$ stripe trigger customer.subscription.updated
+  before: status=trialing  priceId=price_basic
+  after:  status=active    priceId=price_pro
+$ stripe events resend evt_test_0412
+  WebhookEvent rows before: 1   after: 1   (nothing written twice)
+Handler forced to throw → 500; resend → 200, row written once
+Client-supplied Stripe IDs trusted anywhere: none found
+```
+
+</details>
+
+<details>
+<summary><code>feature-flags</code>: the stale-flag cleanup table</summary>
+
+Example output, invented data.
+
+```text
+Stale-flag cleanup
+name                         rollout   last evaluated   action
+editor-ai-summary            100%      today            remove code, deploy, then disable
+billing-annual-plan-prompt   100%      41 days ago      remove code, deploy, then disable
+kill-ai-summary-generation   on        today            keep (kill switch)
+search-beta                  disabled  —                no owner or history: ask first
+
+One cleanup PR per flag. The flag is disabled only after the PR
+that removes its code has deployed.
+```
+
+</details>
+
+<details>
+<summary><code>analytics-instrumentation</code>: an audit of existing events</summary>
+
+Example output, invented data.
+
+```text
+Capture calls found: 31 (rg -n "posthog\.capture\(")
+
+PII in capture() properties: 2 hits
+  src/share/dialog.tsx:58   project_shared { email: invitee.email }
+  src/search/bar.tsx:21     search_submitted { query: input.value } (raw user input)
+Names that break object_verb: 3, with a rename plan
+  created_project     → project_created
+  button_clicked      → project_export_clicked
+  project_created_v2  → project_created plus a version property
+identify(): on signup ✓, on login ✗ (src/auth/login.ts)
+reset() on logout: ✓
+Result: FAIL. The PII is already in production, so this goes to the
+project owner (fix plus possible deletion of past events).
+```
+
+</details>
+
+<details>
+<summary><code>ux-review</code>: one screenshot's rating and the summary</summary>
+
+Example output, invented data.
+
+```text
+### settings-mobile.png
+**Rating:** 🟡 Needs Attention
+
+**Issues:**
+- [Major] Save button sits below the fold on a 390px screen — move it into a sticky footer
+- [Minor] Section headers and body text are the same weight — make headers bolder
+
+**Positives:**
+- Form fields stack cleanly with visible labels
+
+UX Review Complete:
+- Screenshots reviewed: 6
+- 🟢 Good: 4   🟡 Needs Attention: 1   🔴 Needs Fix: 1
+- Issues filed: 0 — not filed; reply 'file issues' to file them
+```
+
+</details>
+
+<details>
+<summary><code>cdf</code>: issue numbers as one line</summary>
+
+Example exchange, invented data.
+
+```text
+> which of 101, 205, 318 and 422 are still open? /cdf
+
+101, 318
+
+> open vs closed /cdf
+
+Open: 101, 318
+Closed: 205, 422
+```
+
+</details>
+
+---
+
 ## Install
 
 ### Claude Code
