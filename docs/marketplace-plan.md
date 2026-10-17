@@ -8,7 +8,7 @@ How skills get curated, packaged, and published through this repository. Superse
 
 We have a large pile of accumulated agent skills. Most are noise; a minority are genuinely good. The job is to take the ones actually used across the development lifecycle, strip anything specific to our own projects, group them into small coherent packs, and publish them so any coding agent can install them.
 
-This repository is the distribution layer. A pack is a directory under `plugins/`, containing plain markdown skills plus two small manifest files. Those two manifests are what let a single copy of a skill install into Claude Code, into Codex, and — because the Skills CLI reads one of the same manifests — into roughly seventy other agents including Cursor, Copilot, and Gemini CLI. Nothing is duplicated per host.
+This repository is the distribution layer. A pack is a directory under `plugins/`, containing plain markdown skills plus two small manifest files. Those two manifests are what let a single copy of a skill install into Claude Code, into Codex, and — because the Skills CLI reads one of the same manifests — into the skill folders of roughly 77 other agents, including Cursor, Copilot, and Gemini CLI. Installing is not the same as support: see the README's Compatibility section. Nothing is duplicated per host.
 
 The rule that governs everything: **a published skill must not assume our conventions.** Not our branch names, not our stack, not our repo layout. Where a project genuinely needs different behavior, the skill defers to a repo-local version of itself.
 
@@ -98,4 +98,4 @@ Recorded so the disproven premises don't get re-adopted from the older notes:
 
 - **This repository was described as index-only.** It now hosts packs directly under `plugins/`. Both the relative-path form (Claude) and the `local` source form (Codex) are officially supported, so in-repo hosting costs no reach.
 - **`shipping-with-agents` and `testing-with-agents` were described as bundling homes.** They are static marketing websites — `index.html`, `style.css`, `logo.png`. The "20+ skills" figure is website copy, not directories. `full-starter` is a Next.js and Playwright starter with no `skills/` directory.
-- **Reach was assumed to require per-host installers.** The Skills CLI already covers ~70 agents from the Claude manifest, so Gemini CLI, Cursor, and Copilot need no bespoke shims.
+- **Reach was assumed to require per-host installers.** The Skills CLI already installs into ~77 agents from the Claude manifest, so Gemini CLI, Cursor, and Copilot need no bespoke shims.

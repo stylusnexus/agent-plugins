@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Agent Plugins: Skill Packs for Claude Code and Codex</title>
-  <meta name="description" content="Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.">
+  <meta name="description" content="Skill packs for Claude Code and Codex, also installable into about 77 other coding agents through the Skills CLI: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.">
   <link rel="canonical" href="https://stylusnexus.github.io/agent-plugins/">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Stylus Nexus">
   <meta property="og:url" content="https://stylusnexus.github.io/agent-plugins/">
   <meta property="og:title" content="Agent Plugins: Skill Packs for Claude Code and Codex">
-  <meta property="og:description" content="Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.">
+  <meta property="og:description" content="Skill packs for Claude Code and Codex, also installable into about 77 other coding agents through the Skills CLI: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.">
   <meta property="og:image" content="https://stylusnexus.github.io/agent-plugins/img/social.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Agent Plugins: Skill Packs for Claude Code and Codex">
-  <meta name="twitter:description" content="Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.">
+  <meta name="twitter:description" content="Skill packs for Claude Code and Codex, also installable into about 77 other coding agents through the Skills CLI: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.">
   <meta name="twitter:image" content="https://stylusnexus.github.io/agent-plugins/img/social.png">
   <meta name="twitter:image:alt" content="The agent-plugins catalogue: skill-pack cards for Claude Code, Codex, and other coding agents.">
   <meta name="theme-color" content="#f3f1f7" media="(prefers-color-scheme: light)">
@@ -35,7 +35,7 @@
       "name": "agent-plugins",
       "url": "https://stylusnexus.github.io/agent-plugins/",
       "codeRepository": "https://github.com/stylusnexus/agent-plugins",
-      "description": "Skill packs for Claude Code, Codex, and about 70 other coding agents: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.",
+      "description": "Skill packs for Claude Code and Codex, also installable into about 77 other coding agents through the Skills CLI: shipping, reviews, hardening, releases, product strategy, and go-to-market. MIT.",
       "license": "https://opensource.org/licenses/MIT",
       "isAccessibleForFree": true,
       "keywords": "Claude Code plugins, Codex plugins, agent skills, skill packs, Skills CLI",
@@ -75,7 +75,7 @@
             "position": 3,
             "name": "second-opinion",
             "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/second-opinion",
-            "description": "Built on one premise: a single model's confident answer is not evidence. Councils, arbitration, and specs checked against the actual codebase."
+            "description": "Built on one premise: one confident answer is not evidence. Councils of same-model advisors, arbitration, and specs checked against the actual codebase by a second model."
           },
           {
             "@type": "ListItem",
@@ -374,14 +374,16 @@
     <h1>Skills for agents that have to ship something.</h1>
     <p class="lede">
       agent-plugins is an open-source (MIT) plugin marketplace from Stylus Nexus: ten plugins and 80
-      skills that install natively into Claude Code and OpenAI Codex, and into about seventy other
-      coding agents through the Skills CLI. Eight are skill packs for building, shipping, deciding what
+      skills that install natively into Claude Code and OpenAI Codex. The Skills CLI also installs them
+      into about 77 other coding agents' skill folders; documented skill support has been checked for
+      only a few: Gemini CLI/Antigravity CLI, Cursor, GitHub Copilot, Windsurf, opencode and Cline
+      (<a href="https://github.com/stylusnexus/agent-plugins#compatibility">compatibility</a>). Eight are skill packs for building, shipping, deciding what
       to build, and getting it noticed; two are tools.
     </p>
     <div class="counts">
       <div class="count"><b>10</b><span>plugins</span></div>
       <div class="count"><b>80</b><span>skills</span></div>
-      <div class="count"><b>~70</b><span>agents supported</span></div>
+      <div class="count"><b>~77</b><span>agents installable</span></div>
       <div class="count"><b>MIT</b><span>license</span></div>
     </div>
   </header>
@@ -420,7 +422,7 @@
 
       <article class="plugin">
         <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/second-opinion">second-opinion</a></h3><span class="plugin-n">6 skills</span></div>
-        <p>Built on one premise: a single model's confident answer is not evidence. Councils, arbitration, and specs checked against the actual codebase.</p>
+        <p>Built on one premise: one confident answer is not evidence. Councils of same-model advisors, arbitration, and specs checked against the actual codebase by a second model.</p>
         <div class="chips">
           <span class="chip">llm-council</span><span class="chip">plan-arbiter</span><span class="chip">spec-review</span>
           <span class="chip">agent-watchdog</span><span class="chip">debug-feedback-loop</span>
@@ -514,7 +516,7 @@
     <ul class="pick" aria-label="Pick your tool">
       <li><b>Claude Code</b><code>/plugin marketplace add stylusnexus/agent-plugins</code></li>
       <li><b>Codex</b><code>codex plugin marketplace add stylusnexus/agent-plugins</code></li>
-      <li><b>~70 other agents</b><code>npx skills add stylusnexus/agent-plugins</code></li>
+      <li><b>~77 other agents</b><code>npx skills add stylusnexus/agent-plugins</code></li>
     </ul>
     <div class="install">
       <details class="surface">
@@ -540,7 +542,7 @@
           <p class="who">CLI, app, and IDE extension. Codex reads its own index, so the same marketplace works unchanged.</p>
 <pre>codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add ship-pipeline@stylus-nexus</pre>
-          <p class="who">Type <code>$ship-pipeline:prove-it</code> or run <code>/skills</code>. In the ChatGPT app, type <code>@</code>.</p>
+          <p class="who">Type <code>$ship-pipeline:prove-it</code> or run <code>/skills</code>. In ChatGPT, type <code>@</code> and the skill name; 21 skills need your local repo, git or a browser, or subagents with a choice of model, and can't run there (<a href="https://github.com/stylusnexus/agent-plugins#compatibility">which ones</a>).</p>
           <details class="more">
             <summary>More</summary>
             <div>
@@ -552,11 +554,11 @@ codex plugin add ship-pipeline@stylus-nexus</pre>
       </details>
 
       <details class="surface">
-        <summary><span class="badge b-any">~70 more</span><h3>Install in Cursor, Copilot, Gemini CLI and more</h3></summary>
+        <summary><span class="badge b-any">~77 more</span><h3>Install in Cursor, Copilot, Gemini CLI and more</h3></summary>
         <div class="surface-body">
           <p class="who">Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, Goose, Warp, Aider and more. Detects which agents you already have.</p>
 <pre>npx skills add stylusnexus/agent-plugins</pre>
-          <p class="who">Skills arrive without the pack name: <code>/prove-it</code>. Covers all eight skill packs.</p>
+          <p class="who">Skills arrive without the pack name: <code>/prove-it</code> in most agents, <code>@prove-it</code> in Windsurf; opencode shows <code>/prove-it</code> only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it. Covers all eight skill packs.</p>
           <details class="more">
             <summary>More</summary>
             <div>
@@ -587,8 +589,9 @@ codex plugin add ship-pipeline@stylus-nexus</pre>
     <div class="note">
       <strong>These packs have opinions.</strong>
       <p>
-        They're repo-agnostic: every skill detects your conventions rather than assuming them, and defers
-        to a repo-local version of itself when your project defines one. They still hold a point of
+        Most skills are repo-agnostic: they detect your conventions rather than assuming them, and many
+        defer to a repo-local version of themselves when your project defines one. api-design,
+        stripe-billing, auth-hardening and privacy-audit assume a Next.js/TypeScript stack. They still hold a point of
         view: evidence before "done", detect rather than assume, one rule per owner. Each README states
         the opinion plainly, so you can tell quickly whether it fits how you work.
       </p>

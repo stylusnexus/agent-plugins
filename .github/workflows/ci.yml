@@ -3,6 +3,7 @@ name: ci
 #   1. check-links.py           -- every relative link/anchor in the docs resolves
 #   2. check-readme.py          -- README tables match the skills that actually exist
 #      gen-catalog.py --check   -- README catalogue and skills.sh.json are regenerated
+#      check-compat.py          -- compatibility.json covers every skill; pack badges match it
 #   3. check-private-terms.sh   -- no owner-private names/paths ship in skill/agent text
 #   4. test-plugin-scripts.sh   -- any plugin script's own unit tests actually run
 #   5. cspell                   -- spelling, so a typo doesn't ship in installed skill text
@@ -39,6 +40,9 @@ jobs:
 
       - name: README catalogue and skills.sh.json are current
         run: python3 scripts/gen-catalog.py --check
+
+      - name: compatibility.json covers every skill and matches the badges
+        run: python3 scripts/check-compat.py
 
       - name: No owner-private terms in shipped skill/agent text
         env:

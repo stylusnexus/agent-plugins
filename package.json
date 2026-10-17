@@ -1,7 +1,7 @@
 {
   "name": "@stylusnexus/agent-plugins",
   "version": "1.4.1",
-  "description": "Agent skill packs for Claude Code, Codex, and ~70 other coding agents — 8 packs, 67 repo-agnostic skills covering the ship loop, reporting, second opinions, hardening, releases, codebase intelligence, product strategy, and go-to-market.",
+  "description": "Agent skill packs for Claude Code and Codex, also installable into ~77 other coding agents through the Skills CLI — 8 packs, 80 skills covering the ship loop, reporting, second opinions, hardening, releases, codebase intelligence, product strategy, and go-to-market.",
   "keywords": [
     "claude-code",
     "codex",
@@ -46,6 +46,6 @@
   },
   "scripts": {
     "check": "sh scripts/check-manifest-sync.sh && python3 scripts/check-skills.py",
-    "lint": "python3 scripts/check-links.py && python3 scripts/check-readme.py && sh scripts/check-private-terms.sh && sh scripts/test-plugin-scripts.sh && npx --yes cspell@10.3.4 --no-progress \"plugins/**/*.md\" \"README.md\""
+    "lint": "python3 scripts/check-links.py && python3 scripts/check-readme.py && python3 scripts/check-compat.py && sh scripts/check-private-terms.sh && sh scripts/test-plugin-scripts.sh && npx --yes cspell@10.3.4 --no-progress \"plugins/**/*.md\" \"README.md\""
   }
 }

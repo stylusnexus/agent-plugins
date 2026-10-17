@@ -38,7 +38,7 @@
     },
     {
       "title": "second-opinion",
-      "description": "One premise: a single model's confident answer is not evidence.",
+      "description": "One premise: one confident answer is not evidence. Independent passes, arbitration and checks against the code; llm-council's advisors are the same model, and spec-review calls a different one.",
       "skills": [
         "agent-watchdog",
         "debug-feedback-loop",
