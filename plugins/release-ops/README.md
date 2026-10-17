@@ -213,13 +213,17 @@ The scripts print a status code; the agent reads it and tells you what happens n
 
 | Script prints | What the agent does |
 |---|---|
+| `CONFIRM_PUSH` | Shows what it will commit and push, and waits for your yes |
+| `DIRTY_TREE` | Lists tracked files with uncommitted changes and asks what to do; nothing is pushed or published until the tree is clean |
+| `CONFIRM_PUBLISH:<package>:<version>` | Asks you to approve the publish before anything goes to npm |
 | `PUBLISH_SUCCESS` | Runs the registry check in the background |
 | `AUTH_FAILED` | Starts the token setup, in two phases |
-| `FORM_READY:<username>` | Tells you to click **Generate token** in Chrome |
+| `AGENT_BROWSER_MISSING:<version>` | Asks before installing that exact agent-browser version |
+| `FORM_READY:<username>` | Tells you to pick the package and click **Generate token** in Chrome |
 | `NOT_LOGGED_IN` | Asks you to sign in to npmjs.com in Chrome, then retries |
 | `FORM_NOT_FOUND` | Says it could not find the token form |
 | `TOKEN_SAVED` | Retries the publish |
-| `CAPTURE_TIMEOUT` | Asks you to copy the token so it can write it to `~/.npmrc` |
+| `CAPTURE_TIMEOUT` | Asks you to click Copy in Chrome and run `setup-token.sh from-clipboard` yourself, so the token never enters the chat |
 
 It never asks you for a one-time code.
 
@@ -439,7 +443,7 @@ Skills arrive un-namespaced on this path, so most agents invoke them as `/npm-pu
 
 ## Security note
 
-`npm-publish` handles registry credentials. Its `setup-token.sh` writes an npm auth token to `~/.npmrc`, and the token-rotation flow drives a browser to mint a new granular access token. No credentials are stored in this repository, and none are transmitted anywhere except to the npm registry — but read the scripts before first use, as you should with anything that touches publish rights.
+`npm-publish` handles registry credentials. Its `setup-token.sh` replaces only the npm auth line in `~/.npmrc` (other lines stay) and makes the file owner-only, and the token-rotation flow drives a browser to mint a new granular access token limited to the package you pick, with no organization access. It asks before it pushes and again before it publishes. No credentials are stored in this repository, and none are transmitted anywhere except to the npm registry — but read the scripts before first use, as you should with anything that touches publish rights.
 
 The publish path deliberately pushes to git **before** publishing to npm, so a published version always corresponds to a commit that exists upstream.
 

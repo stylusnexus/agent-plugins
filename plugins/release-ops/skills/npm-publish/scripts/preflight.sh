@@ -11,8 +11,20 @@
 set -euo pipefail
 
 BUMP_TYPE="${1:-patch}"
-PKG_NAME=$(grep '"name"' package.json | head -1 | sed 's/.*: *"\(.*\)".*/\1/')
-LOCAL_VERSION=$(grep '"version"' package.json | head -1 | sed 's/.*: *"\(.*\)".*/\1/')
+# Read name and version with a real JSON parser, not grep: a nested "name" or
+# "version" key earlier in the file would otherwise be picked up instead.
+pkg_field() {
+  if command -v node >/dev/null 2>&1; then
+    node -p "require('./package.json').$1"
+  elif command -v bun >/dev/null 2>&1; then
+    bun -e "console.log(require('./package.json').$1)"
+  else
+    echo "NODE_REQUIRED" >&2
+    exit 1
+  fi
+}
+PKG_NAME=$(pkg_field name)
+LOCAL_VERSION=$(pkg_field version)
 
 # Run npm view and build in parallel
 NPM_TMP=$(mktemp)
@@ -44,7 +56,9 @@ next_version() {
 
 # Helper: update version in package.json, plugin.json, and site structured data
 set_version() {
-  local OLD="$1"
+  # Escape the old version for sed, so its dots match only literal dots.
+  local OLD
+  OLD=$(printf '%s' "$1" | sed 's/[][\\.*^$/]/\\&/g')
   local NEW="$2"
   sed "s/\"version\": \"$OLD\"/\"version\": \"$NEW\"/" package.json > package.json.tmp && mv package.json.tmp package.json
 

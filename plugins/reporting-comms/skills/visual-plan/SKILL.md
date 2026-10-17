@@ -14,10 +14,10 @@ Default storage for this installation: local files. Create and update plans and
 recaps as MDX folders under `plans/<slug>/` when they should be checked in, or
 under a repo-ignored/temp folder when they should stay private scratch. Before
 authoring structured MDX, run
-`npx @agent-native/core@latest plan blocks --out plan-blocks.md` and read the
+`npx @agent-native/core@0.200.0 plan blocks --out plan-blocks.md` and read the
 no-auth block catalog; it sends no plan content. Then run
-`npx @agent-native/core@latest plan local check --dir plans/<slug>`, then
-`npx @agent-native/core@latest plan local serve --dir plans/<slug> --kind plan|recap --open`,
+`npx @agent-native/core@0.200.0 plan local check --dir plans/<slug>`, then
+`npx @agent-native/core@0.200.0 plan local serve --dir plans/<slug> --kind plan|recap --open`,
 and report the local bridge URL from stdout or `plans/<slug>/.plan-url`. Treat
 `.plan-url` as a local token file and do not commit it. It opens the hosted Plan
 UI but reads from the localhost bridge on this machine, so it is not shareable
@@ -28,7 +28,10 @@ headless diagnostics.
 What stays local: the plan content lives in those files and is served by a
 bridge on localhost, so nothing is shared and no plan content reaches the
 hosted Plan database. What does not: each `npx` command downloads
-`@agent-native/core` from npm, `plan blocks` fetches the public block catalog
+`@agent-native/core` from npm (pinned to 0.200.0, so a new upstream publish
+cannot change what runs; npx does not prompt when an agent runs it, so the
+agent's own permission prompt is where the user approves each command; bump
+the pin only to a release at least two weeks old), `plan blocks` fetches the public block catalog
 (it sends no plan content), and the page that opens is the hosted Plan web
 app, which reads the content from your localhost bridge. This installation
 therefore runs in local-files privacy mode by default. The hosted Plan MCP
@@ -154,7 +157,7 @@ wireframe. If the connector's tools are missing, do NOT fall back to inline
 output: the usual cause is a connector that did not finish connecting this
 session (it registers zero tools), not auth. Stop and give the user the exact
 restore step for their current client: in Codex/Codex Desktop run
-`npx -y @agent-native/core@latest reconnect https://plan.agent-native.com --client codex`
+`npx @agent-native/core@0.200.0 reconnect https://plan.agent-native.com --client codex`
 and start a new Codex session; in Claude Code run `/mcp` and choose
 Authenticate/Reconnect (or run the same reconnect command with
 `--client claude-code` and restart Claude). Auth is stored per client
@@ -381,7 +384,7 @@ infrastructure. In this mode the plan data must never be sent to the Plan MCP
 server or Plan app action surface. Schema-only block catalog lookup is allowed
 because it sends no plan content: use the MCP `get-plan-blocks` tool if it is
 already available, or run
-`npx @agent-native/core@latest plan blocks --out plan-blocks.md` and read that
+`npx @agent-native/core@0.200.0 plan blocks --out plan-blocks.md` and read that
 file before authoring MDX.
 
 The local-files contract is:
@@ -401,9 +404,9 @@ The local-files contract is:
   folder such as `.agent-native/plans/<slug>/` or `/tmp/agent-native-plans/<slug>/`
   when it should not be checked in. The folder contains `plan.mdx`, optional
   `canvas.mdx`, optional `prototype.mdx`, and optional `.plan-state.json`.
-- Run `npx @agent-native/core@latest plan local check --dir plans/<slug>`
+- Run `npx @agent-native/core@0.200.0 plan local check --dir plans/<slug>`
   before serving, then run
-  `npx @agent-native/core@latest plan local serve --dir plans/<slug> --kind plan --open`.
+  `npx @agent-native/core@0.200.0 plan local serve --dir plans/<slug> --kind plan --open`.
   Report the returned local bridge URL from stdout or `plans/<slug>/.plan-url`.
   Treat `.plan-url` as a local token file and do not commit it. The URL opens
   the hosted Plan UI but reads from the localhost bridge on this machine, so it
@@ -413,7 +416,7 @@ The local-files contract is:
   running locally with the same `PLAN_LOCAL_DIR`, the `/local-plans/<slug>` route
   is also valid.
 - For headless verification, run
-  `npx @agent-native/core@latest plan local verify --dir plans/<slug> --kind plan`.
+  `npx @agent-native/core@0.200.0 plan local verify --dir plans/<slug> --kind plan`.
   It starts the bridge, checks the private-network preflight and JSON payload,
   prints diagnostics, and exits. If the browser hangs on "Loading plan", fetch
   the `bridgeUrl` from the verify/serve JSON to read the concrete validation
@@ -481,7 +484,7 @@ sign-in at setup — this is intended), so the first tool call in that client do
 not hit an OAuth wall:
 
 ```bash
-npx @agent-native/core@latest skills add visual-plan
+npx @agent-native/core@0.200.0 skills add visual-plan
 ```
 
 After that, `/visual-plan` and `/visual-recap` are the two installed slash
@@ -489,7 +492,7 @@ commands. The other planning modes (`create-ui-plan`, `create-prototype-plan`,
 `create-plan-design`, `create-visual-questions`) are MCP tools reachable from
 `/visual-plan`, not separate slash commands. Pass `--no-connect` to register
 the connector without authenticating, then run
-`npx @agent-native/core@latest connect https://plan.agent-native.com --client all`
+`npx @agent-native/core@0.200.0 connect https://plan.agent-native.com --client all`
 whenever you are ready, or choose a narrower `--client`. Auth and MCP tool
 loading are per client config/session.
 
@@ -507,7 +510,7 @@ hosted flow.
 If a Plans tool returns `needs auth`, `Unauthorized`, or `Session terminated`,
 do not keep retrying the tool. Stop and give the user the reconnect step for the
 client they are using: Codex/Codex Desktop should run
-`npx -y @agent-native/core@latest reconnect https://plan.agent-native.com --client codex`
+`npx @agent-native/core@0.200.0 reconnect https://plan.agent-native.com --client codex`
 and start a new Codex session; Claude Code should run `/mcp` and choose
 Authenticate/Reconnect for the plan connector, or run the reconnect command with
 `--client claude-code` and restart Claude. To refresh every local client config
