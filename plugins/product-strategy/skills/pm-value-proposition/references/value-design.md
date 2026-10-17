@@ -23,7 +23,7 @@ April Dunford draws a boundary worth keeping: "positioning defines what market y
 
 ## Evidence status
 
-Every underserved outcome, mechanism, and the statement built from them carries an evidence status — **evidence-backed**, **hypothesis**, or **accepted** — per [shared principles](../../product-manager/references/principles.md). A value proposition built entirely from hypotheses is still worth writing down; it just isn't ready to be treated as a decision.
+Every underserved outcome, mechanism, and the statement built from them carries an evidence status — **evidence-backed**, **hypothesis**, or **accepted** — per [shared principles](principles.md). A value proposition built entirely from hypotheses is still worth writing down; it just isn't ready to be treated as a decision.
 
 ## A different public framework, for comparison
 

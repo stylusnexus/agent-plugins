@@ -68,6 +68,15 @@ Same as above, plus:
 - Repo-agnostic: a skill should detect a project's own conventions rather than assume
   its own, and defer to a repo-local override of itself when one exists (see any
   `ship-pipeline` skill for the pattern).
+- Self-contained: a skill reads nothing outside its own folder, because a single-skill install
+  or a Claude app upload has only that folder. Scripts live in the skill's own `scripts/`. If
+  several skills need one file, keep a canonical copy in the owning skill, bundle a copy in each
+  reader's `references/`, and add the pair to `scripts/check-shared-sync.sh`, which fails CI when
+  they drift. A skill that depends on a plugin agent bundles the agent's brief the same way
+  (`mk-audience/references/audience-scout-brief.md`) and says what to do when the agent is absent.
+- Only Agent Skills frontmatter keys at the top level (`name`, `description`, `license`,
+  `compatibility`, `metadata`, `allowed-tools`); the Claude app rejects any other key, so host-specific
+  keys go under `metadata:`. `scripts/check-skills.py` enforces this.
 - No private or copied third-party material. If you're drawing on a public source
   (a spec, a vendor's docs, a published algorithm), cite it in the skill text or a
   `references/` file rather than presenting it as original.
@@ -88,6 +97,7 @@ python3 scripts/check-readme.py        # README tables match plugins/ on disk
 python3 scripts/check-compat.py        # compatibility.json covers every skill; badges match it
 python3 scripts/gen-catalog.py --check # README catalogue and skills.sh.json are current
 python3 scripts/gen-skill-readme.py --check # every skill's README.md is current
+sh scripts/check-shared-sync.sh        # bundled copies of shared files match their canonical source
 sh scripts/check-private-terms.sh      # no owner-private terms in skill/agent text
 sh scripts/test-plugin-scripts.sh      # any plugin script's own tests pass
 npx --yes cspell@10 --no-progress "plugins/**/*.md" "README.md"
@@ -95,7 +105,7 @@ npx --yes cspell@10 --no-progress "plugins/**/*.md" "README.md"
 
 `npm run lint` runs everything the `hygiene` job in `ci.yml` gates on every PR
 (`check-links.py`, `check-readme.py`, `check-compat.py`, `gen-skill-readme.py --check`,
-`check-private-terms.sh`, `test-plugin-scripts.sh`, and `cspell`); `npm run check` runs the
+`check-shared-sync.sh`, `check-private-terms.sh`, `test-plugin-scripts.sh`, and `cspell`); `npm run check` runs the
 `manifest-sync` job's pair (`check-manifest-sync.sh`, `check-skills.py`).
 
 ## Commits and PR titles

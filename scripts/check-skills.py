@@ -14,6 +14,9 @@ never triggers -- so they are gated here instead of being discovered in the wild
   3. duplicate-download artifacts ("skill (1).md")
      A stale older copy sitting beside the current one.
   4. name/description missing, or name disagreeing with its directory.
+  5. a top-level frontmatter key outside the Agent Skills spec (name, description,
+     license, compatibility, metadata, allowed-tools). The Claude app rejects such an
+     upload with a hard error, so host-specific keys go under `metadata:`.
 
 Pure standard library so CI needs no install step.
 """
@@ -22,6 +25,8 @@ import re
 import sys
 
 PLUGINS = "plugins"
+# Top-level keys the Agent Skills spec allows; anything else fails a Claude app upload.
+ALLOWED_KEYS = ("name", "description", "license", "compatibility", "metadata", "allowed-tools")
 errors = []
 checked = 0
 
@@ -60,6 +65,12 @@ def frontmatter_problems(text):
     for required in ("name", "description"):
         if required not in keys:
             problems.append(f"missing required `{required}` field")
+    for key in keys:
+        if key not in ALLOWED_KEYS:
+            problems.append(
+                f"`{key}` is not an Agent Skills frontmatter field (allowed: {', '.join(ALLOWED_KEYS)}); "
+                "the Claude app rejects the upload -- move it under `metadata:`"
+            )
     return problems
 
 

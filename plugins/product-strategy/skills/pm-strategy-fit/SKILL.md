@@ -5,7 +5,7 @@ description: "This skill should be used when the user asks for product strategy 
 
 # Product Strategy Fit
 
-Read [shared principles](../product-manager/references/principles.md) before applying this workflow.
+Read [shared principles](references/principles.md) before applying this workflow.
 
 ## Purpose
 Evaluate whether strategic choices work together and can plausibly succeed. Distinguish **strategy fit** (coherence and reinforcement among choices and activities) from **product-market fit** (evidence of market demand and sustained value). Neither proves the other.

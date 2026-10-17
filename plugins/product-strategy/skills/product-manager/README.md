@@ -5,7 +5,7 @@ This skill should be used when the user asks for a chief PM, product management 
 
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../../../README.md#compatibility)
 
-> **Limits.** Claude app: Each upload is one skill folder, so the sibling skills it routes to and their reference files are missing unless you bundle them in.
+> **Limits.** Claude app: Each upload is one skill folder, so the sibling skills this one routes to are missing unless you upload them too.
 
 Part of the [product-strategy](../../README.md) pack.
 
@@ -88,7 +88,7 @@ npx skills add stylusnexus/agent-plugins --skill pm-canvas pm-capabilities pm-di
 
 Skills arrive without a pack prefix: `/product-manager` in most agents and `@product-manager` in Windsurf. opencode shows `/product-manager` only when the skill sets an opencode-specific metadata field, and Gemini CLI starts a skill itself after you approve it.
 
-**Note:** Install the whole pack: this skill reads shared files in a sibling skill.
+**Note:** Install the whole pack: this skill routes to its sibling skills.
 
 </details>
 
@@ -105,7 +105,7 @@ mkdir -p .agents/skills
 cp -R agent-plugins/plugins/product-strategy/skills/. .agents/skills/
 ```
 
-**Note:** Install the whole pack: this skill reads shared files in a sibling skill.
+**Note:** Install the whole pack: this skill routes to its sibling skills.
 
 </details>
 
@@ -123,7 +123,7 @@ cp -R agent-plugins/plugins/product-strategy/skills/. .agents/skills/
 
 3. In Claude, open **Customize > Skills**, click **+**, then **+ Create skill**, choose **Upload a skill** and pick `product-manager.zip`.
 
-**Limit:** Each upload is one skill folder, so the sibling skills it routes to and their reference files are missing unless you bundle them in.
+**Limit:** Each upload is one skill folder, so the sibling skills this one routes to are missing unless you upload them too.
 
 </details>
 

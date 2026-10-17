@@ -3,9 +3,7 @@
 
 This skill should be used when the user asks who the first customer is, who to target, an ideal customer profile, buyer personas, who influences the buyer, where an audience gathers online, or how to segment customers.
 
-[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex partial, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%97%90%20%C2%B7%20ChatGPT%20%E2%97%90-yellow)](../../../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../../../README.md#compatibility)
-
-> **Limits.** Claude app and ChatGPT: No audience-scout agent, so the verified-places step must be done inline with web search. Codex: Codex plugins do not carry agents, so audience-scout is missing and the verified-places step has no stated fallback. Other agents: The Skills CLI installs skills only, so audience-scout is missing and the verified-places step has no stated fallback.
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../../../README.md#compatibility)
 
 Part of the [go-to-market](../../README.md) pack.
 
@@ -66,7 +64,7 @@ To install from the app, add the marketplace once from a terminal with `claude p
 </details>
 
 <details>
-<summary>Codex (partial)</summary>
+<summary>Codex</summary>
 
 ```bash
 codex plugin marketplace add stylusnexus/agent-plugins
@@ -75,12 +73,12 @@ codex plugin add go-to-market@stylus-nexus
 
 This installs the whole go-to-market pack, so marketing-lead, mk-brand-kit, mk-community, mk-copy, mk-founder-content, mk-launch, mk-lifecycle, mk-measurement, mk-outreach, mk-positioning and mk-search come with it. In Codex, type `$` and the skill name (`$go-to-market:mk-audience`), or run `/skills` to pick it.
 
-**Limit:** Codex plugins do not carry agents, so audience-scout is missing and the verified-places step has no stated fallback.
+**Note:** Without the audience-scout agent, the verified-places step runs inline with web search.
 
 </details>
 
 <details>
-<summary>Other agents, Skills CLI (partial)</summary>
+<summary>Other agents, Skills CLI</summary>
 
 The [Skills CLI](https://github.com/vercel-labs/skills) finds the agents you have and writes the skill into each one's skills folder.
 
@@ -90,12 +88,12 @@ npx skills add stylusnexus/agent-plugins --skill mk-audience
 
 Skills arrive without a pack prefix: `/mk-audience` in most agents and `@mk-audience` in Windsurf. opencode shows `/mk-audience` only when the skill sets an opencode-specific metadata field, and Gemini CLI starts a skill itself after you approve it.
 
-**Limit:** The Skills CLI installs skills only, so audience-scout is missing and the verified-places step has no stated fallback.
+**Note:** Without the audience-scout agent, the verified-places step runs inline with web search.
 
 </details>
 
 <details>
-<summary>Other agents, by folder (partial)</summary>
+<summary>Other agents, by folder</summary>
 
 `.agents/skills` is read by Codex, Gemini CLI, Antigravity CLI, Cursor, GitHub Copilot, opencode and Windsurf. Claude Code reads `.claude/skills`. Cline does not read `.agents/skills`; use `.cline/skills` or `.claude/skills` there.
 
@@ -107,12 +105,12 @@ mkdir -p .agents/skills
 cp -R agent-plugins/plugins/go-to-market/skills/mk-audience .agents/skills/
 ```
 
-**Limit:** The Skills CLI installs skills only, so audience-scout is missing and the verified-places step has no stated fallback.
+**Note:** Without the audience-scout agent, the verified-places step runs inline with web search.
 
 </details>
 
 <details>
-<summary>Claude app (partial)</summary>
+<summary>Claude app</summary>
 
 1. Turn on **Code execution and file creation** in **Settings > Capabilities**. On Team and Enterprise plans, an owner controls this.
 2. Zip the skill folder, so the ZIP holds the `mk-audience` folder:
@@ -125,16 +123,16 @@ cp -R agent-plugins/plugins/go-to-market/skills/mk-audience .agents/skills/
 
 3. In Claude, open **Customize > Skills**, click **+**, then **+ Create skill**, choose **Upload a skill** and pick `mk-audience.zip`.
 
-**Limit:** No audience-scout agent, so the verified-places step must be done inline with web search.
+**Note:** Without the audience-scout agent, the verified-places step runs inline with web search.
 
 </details>
 
 <details>
-<summary>ChatGPT (partial)</summary>
+<summary>ChatGPT</summary>
 
 ChatGPT gets this skill through the Codex plugin, which brings the whole go-to-market pack. Run the two Codex commands above, then in ChatGPT type `@` and the skill name.
 
-**Limit:** No audience-scout agent, so the verified-places step must be done inline with web search.
+**Note:** Without the audience-scout agent, the verified-places step runs inline with web search.
 
 </details>
 <!-- skill-readme:end -->

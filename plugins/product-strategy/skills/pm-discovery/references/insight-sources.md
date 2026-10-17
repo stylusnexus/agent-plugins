@@ -23,13 +23,13 @@ This suite groups sources by where the signal originates, not by method family �
 - `competitor_product` — what alternatives actually do today, not their marketing claims about it.
 
 **What we generate ourselves:**
-- `synthetic_research` — AI-generated or simulated material (personas, synthetic interview transcripts, LLM-drafted survey responses). Useful for stress-testing a hypothesis or a discussion guide before real fieldwork; never a substitute for it, and never presented as if it were customer evidence. See [shared principles](../../product-manager/references/principles.md): do not simulate users and present the simulation as research.
+- `synthetic_research` — AI-generated or simulated material (personas, synthetic interview transcripts, LLM-drafted survey responses). Useful for stress-testing a hypothesis or a discussion guide before real fieldwork; never a substitute for it, and never presented as if it were customer evidence. See [shared principles](principles.md): do not simulate users and present the simulation as research.
 
 Unused source types are options for this project's context, not a mandatory checklist — a pre-revenue product has no support-ticket history yet, and that's a gap to name, not a step to fake.
 
 ## The evidence digest
 
-`../../scripts/discovery_digest.py` reads a local JSONL file — one evidence record per line, each with `id`, `source_type` (one of the groups above), `status` (`observation`, `reported`, `inference`, `hypothesis`, or `synthetic`), and `summary`, plus optional `source_ref`, `date`, `segment`, and `theme` — and renders a traceable Markdown table with per-source counts and review flags for missing provenance. It runs entirely locally: no network calls, no writes back to the input file, and no judgment about evidence quality. `synthetic_research` records must carry `status: synthetic`; the script rejects a synthetic record trying to pass as an `observation`, but it cannot detect mislabeled AI text on its own — that check is still human work.
+`scripts/discovery_digest.py` (in this skill's folder) reads a local JSONL file — one evidence record per line, each with `id`, `source_type` (one of the groups above), `status` (`observation`, `reported`, `inference`, `hypothesis`, or `synthetic`), and `summary`, plus optional `source_ref`, `date`, `segment`, and `theme` — and renders a traceable Markdown table with per-source counts and review flags for missing provenance. It runs entirely locally: no network calls, no writes back to the input file, and no judgment about evidence quality. `synthetic_research` records must carry `status: synthetic`; the script rejects a synthetic record trying to pass as an `observation`, but it cannot detect mislabeled AI text on its own — that check is still human work.
 
 Run it against a discovery evidence file with:
 ```

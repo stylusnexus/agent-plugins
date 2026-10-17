@@ -22,4 +22,4 @@ Use `pm-visuals`: Mermaid by default, one lane per variant; Lucid when the map n
 
 ## What the map is for once it's done
 
-Read each row's *proposed response / test* against [product risk](product-risks.md): a proposed response is a hypothesis about what would improve the step, and it carries the same evidence-status obligation as anything else in this suite — **evidence-backed**, **hypothesis**, or **accepted** ([shared principles](../../product-manager/references/principles.md)). A finished map with no proposed responses attached is a description, not yet a decision aid.
+Read each row's *proposed response / test* against [product risk](product-risks.md): a proposed response is a hypothesis about what would improve the step, and it carries the same evidence-status obligation as anything else in this suite — **evidence-backed**, **hypothesis**, or **accepted** ([shared principles](principles.md)). A finished map with no proposed responses attached is a description, not yet a decision aid.

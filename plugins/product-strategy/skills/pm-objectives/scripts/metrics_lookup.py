@@ -10,7 +10,7 @@ def main():
     p.add_argument('--category', default='')
     p.add_argument('--json', action='store_true')
     a=p.parse_args()
-    records=json.loads((Path(__file__).resolve().parents[1]/'skills/pm-objectives/references/metrics-catalog.json').read_text())
+    records=json.loads((Path(__file__).resolve().parents[1]/'references/metrics-catalog.json').read_text())
     matches=[r for r in records if a.query.casefold() in ' '.join(r.values()).casefold() and (not a.category or r['category'].casefold()==a.category.casefold())]
     if a.json:print(json.dumps(matches,indent=2,ensure_ascii=False))
     else:

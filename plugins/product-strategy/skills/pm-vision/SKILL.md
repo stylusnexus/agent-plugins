@@ -5,7 +5,7 @@ description: "This skill should be used when the user asks to define a product m
 
 # Mission, Vision, and Winning Aspiration
 
-Read [shared principles](../product-manager/references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
+Read [shared principles](references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
 
 ## Purpose
 Help choose a meaningful direction before generating slogans or a feature plan. Use these working definitions, while respecting an organization's existing vocabulary:
