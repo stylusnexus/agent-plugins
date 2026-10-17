@@ -42,6 +42,7 @@
       "skills": [
         "agent-watchdog",
         "debug-feedback-loop",
+        "efficient-frontier-routing",
         "llm-council",
         "plan-arbiter",
         "spec-review"
