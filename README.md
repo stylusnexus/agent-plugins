@@ -322,7 +322,19 @@ rather than burying it.
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
 "install everything" is a valid choice — it's 79 skills, all inert until their trigger matches.
 
-### Claude Code  (terminal · VS Code extension · JetBrains extension)
+Pick your tool, copy the command, then open its section below for the rest.
+
+| Tool | Best way | Command to copy |
+|---|---|---|
+| **Claude Code** (terminal · VS Code · JetBrains) | Plugin marketplace | `/plugin marketplace add stylusnexus/agent-plugins` |
+| **OpenAI Codex** (CLI · app · IDE) | Plugin marketplace | `codex plugin marketplace add stylusnexus/agent-plugins` |
+| **Cursor · Copilot · Gemini CLI · ~60 more** | Skills CLI | `npx skills add stylusnexus/agent-plugins` |
+| **No plugin system** (work-plan only) | Clone + install script | `git clone https://github.com/stylusnexus/work-plan-toolkit` |
+
+<details>
+<summary><b>Claude Code</b> (terminal · VS Code extension · JetBrains extension)</summary>
+
+Add the marketplace once:
 
 ```
 /plugin marketplace add stylusnexus/agent-plugins
@@ -337,18 +349,46 @@ Then pick — one, several, or the lot:
 
 Or browse them visually with `/plugin` → **Discover**, which lists all ten with descriptions.
 
-### OpenAI Codex  (CLI · app · IDE extension)
+<details>
+<summary>More</summary>
+
+Plugin config is shared between the Claude Code CLI and its IDE extensions, so installing once
+covers all three surfaces.
+
+For several packs in one line, see **Recipes by goal** below.
+
+Skills carry the pack name: `/ship-pipeline:prove-it`. Updating and removing are in their own
+sections below.
+
+</details>
+</details>
+
+<details>
+<summary><b>OpenAI Codex</b> (CLI · app · IDE extension)</summary>
 
 ```
 codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add ship-pipeline@stylus-nexus
 ```
 
-Codex reads its own index at `.agents/plugins/marketplace.json` — same marketplace, different
-schema. In the Codex CLI and IDE extension, type `$` and a skill name (`$ship-pipeline:prove-it`; plugin skills carry the pack name, as in Claude Code) or run `/skills`
-to pick one; in the ChatGPT app, type `@`.
+In the Codex CLI and IDE extension, type `$` and a skill name (`$ship-pipeline:prove-it`) or run
+`/skills` to pick one. In the ChatGPT app, type `@`.
 
-### Everything else — Cursor · Copilot · Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · ~60 more
+<details>
+<summary>More</summary>
+
+Codex reads its own index at `.agents/plugins/marketplace.json` — same marketplace, different
+schema. Plugin skills carry the pack name, as in Claude Code.
+
+For several packs in one line, see **Recipes by goal** below.
+
+Updating and removing are in their own sections below.
+
+</details>
+</details>
+
+<details>
+<summary><b>Cursor · Copilot · Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · ~60 more</b></summary>
 
 The [Skills CLI](https://github.com/vercel-labs/skills) detects which agents you already have and
 writes to each one's skills directory. No marketplace step — one command does both:
@@ -356,6 +396,16 @@ writes to each one's skills directory. No marketplace step — one command does 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
 npx skills add stylusnexus/agent-plugins --skill '*'        # all 79 skills
+```
+
+Skills install without a pack prefix, so you type `/prove-it`.
+
+<details>
+<summary>More</summary>
+
+Take only some skills, or look first:
+
+```bash
 npx skills add stylusnexus/agent-plugins --skill prove-it   # exactly one
 npx skills add stylusnexus/agent-plugins --skill html redline   # several
 npx skills add stylusnexus/agent-plugins --list             # see what's there first
@@ -373,20 +423,52 @@ Or via npm, which forwards to the same CLI:
 npx @stylusnexus/agent-plugins --skill '*'
 ```
 
-### What you type afterwards
+</details>
+</details>
 
-Where a skill came from decides its name:
+<details>
+<summary><a id="work-plan-without-a-plugin-system"></a><b>work-plan without a plugin system</b> (clone + install script)</summary>
 
-| Installed via | Invoke as | Why |
-|---|---|---|
-| Claude Code plugin | `/ship-pipeline:prove-it` | Plugins namespace their skills, so two packs can share a skill name without colliding |
-| Codex plugin | `$ship-pipeline:prove-it`, or `/skills` to pick | Codex also prefixes plugin skills with the pack name, and mentions them with `$` (the ChatGPT app uses `@`) |
-| Skills CLI / npm | `/prove-it` | Installed as plain skills, no namespace |
+`work-plan` ships a Python CLI and a VS Code viewer, so on agents with no plugin support it installs
+directly:
 
-Most skills are **model-invoked** — you don't type them at all. `prove-it` fires when you're
-wrapping up work, `read-the-damn-docs` when you touch an unfamiliar API. Typing the name forces it.
+```bash
+git clone https://github.com/stylusnexus/work-plan-toolkit
+cd work-plan-toolkit && ./install.sh        # macOS / Linux / WSL
+```
 
-### Recipes by goal
+<details>
+<summary>More</summary>
+
+Other targets:
+
+```bash
+.\install.ps1                              # Windows
+./install.sh --target=$HOME/.agents        # Codex skills dir
+```
+
+Install `gh`, `git`, `python3` and `yq` first — see
+[work-plan: prerequisites, security, versioning](#work-plan-prerequisites-security-versioning).
+
+`work-plan` and `defect-scan` are tools rather than skill packs — take them if you want GitHub-issue
+planning or a defect scanner specifically.
+
+Its commands are namespaced under the plugin when installed that way:
+
+| Command | Does |
+|---|---|
+| `/work-plan:brief` | Multi-track daily snapshot |
+| `/work-plan:handoff <track>` | Wrap up a work block (session log, next-up) |
+| `/work-plan:orient [track]` | Re-orient on a track / cwd |
+| `/work-plan:hygiene` | Weekly cleanup (refresh + reconcile + duplicates) |
+| `/work-plan:status` | Doc & plan liveness (`plan-status`) |
+| `/work-plan:run <subcommand>` | Anything else (`slot`, `close`, `reconcile`, `group`, `coverage`, …) |
+
+</details>
+</details>
+
+<details>
+<summary><a id="recipes-by-goal"></a><b>Recipes by goal</b></summary>
 
 | Goal | Take |
 |---|---|
@@ -404,10 +486,26 @@ for p in ship-pipeline second-opinion; do claude plugin install $p@stylus-nexus;
 for p in ship-pipeline second-opinion; do codex plugin add $p@stylus-nexus; done        # Codex
 ```
 
-`work-plan` and `defect-scan` are tools rather than skill packs — take them if you want GitHub-issue
-planning or a defect scanner specifically.
+</details>
 
-### Staying up to date
+<details>
+<summary><a id="what-you-type-afterwards"></a><b>What you type afterwards</b></summary>
+
+Where a skill came from decides its name:
+
+| Installed via | Invoke as | Why |
+|---|---|---|
+| Claude Code plugin | `/ship-pipeline:prove-it` | Plugins namespace their skills, so two packs can share a skill name without colliding |
+| Codex plugin | `$ship-pipeline:prove-it`, or `/skills` to pick | Codex also prefixes plugin skills with the pack name, and mentions them with `$` (the ChatGPT app uses `@`) |
+| Skills CLI / npm | `/prove-it` | Installed as plain skills, no namespace |
+
+Most skills are **model-invoked** — you don't type them at all. `prove-it` fires when you're
+wrapping up work, `read-the-damn-docs` when you touch an unfamiliar API. Typing the name forces it.
+
+</details>
+
+<details>
+<summary><a id="staying-up-to-date"></a><b>Updating</b></summary>
 
 **Claude Code.** Third-party marketplaces don't auto-update by default. Turn it on once: run
 `/plugin`, open **Marketplaces**, choose `stylus-nexus`, and select **Enable auto-update**. Updates
@@ -430,7 +528,10 @@ codex plugin add ship-pipeline@stylus-nexus          # once per pack you use
 
 In-repo packs carry no version number, so every change merged here counts as an update.
 
-### Removing
+</details>
+
+<details>
+<summary><a id="removing"></a><b>Uninstalling</b></summary>
 
 ```
 /plugin uninstall ship-pipeline@stylus-nexus         # Claude Code
@@ -446,31 +547,7 @@ codex plugin marketplace remove stylus-nexus
 npx skills remove prove-it                           # Skills CLI
 ```
 
-Plugin config is shared between the Claude Code CLI and its IDE extensions, so installing once
-covers all three surfaces.
-
-### work-plan without a plugin system
-
-`work-plan` ships a Python CLI and a VS Code viewer, so on agents with no plugin support it installs
-directly:
-
-```bash
-git clone https://github.com/stylusnexus/work-plan-toolkit
-cd work-plan-toolkit && ./install.sh        # macOS / Linux / WSL
-#   Windows:               .\install.ps1
-#   Codex skills dir:      ./install.sh --target=$HOME/.agents
-```
-
-Its commands are namespaced under the plugin when installed that way:
-
-| Command | Does |
-|---|---|
-| `/work-plan:brief` | Multi-track daily snapshot |
-| `/work-plan:handoff <track>` | Wrap up a work block (session log, next-up) |
-| `/work-plan:orient [track]` | Re-orient on a track / cwd |
-| `/work-plan:hygiene` | Weekly cleanup (refresh + reconcile + duplicates) |
-| `/work-plan:status` | Doc & plan liveness (`plan-status`) |
-| `/work-plan:run <subcommand>` | Anything else (`slot`, `close`, `reconcile`, `group`, `coverage`, …) |
+</details>
 
 ---
 
@@ -478,6 +555,9 @@ Its commands are namespaced under the plugin when installed that way:
 
 The **eight skill packs** are plain markdown, so they reach every agent the Skills CLI supports.
 **work-plan** and **defect-scan** ship executable code and install from their own repositories.
+
+<details>
+<summary><b>All supported agents</b></summary>
 
 | Agent | Skill packs | Tool plugins | Invoke as |
 |---|---|---|---|
@@ -488,7 +568,9 @@ The **eight skill packs** are plain markdown, so they reach every agent the Skil
 | **Gemini CLI · Windsurf · Zed · opencode · Cline · Continue · Hermes · Goose · Warp · Amp · Junie · Roo · Qwen Code · Trae · Aider · +more** | `npx skills add stylusnexus/agent-plugins` | — | `/prove-it` |
 | **Any other / terminal** | `npx skills add stylusnexus/agent-plugins -a universal` | clone + `install.sh` | `/prove-it` · direct CLI |
 
-See [Staying up to date](#staying-up-to-date) for each host's update commands.
+</details>
+
+See **Updating** under [Install](#install) for each host's update commands.
 
 ---
 
