@@ -93,6 +93,12 @@ Each skill below has one collapsed example. All data in them is invented.
 
 > **Limits.** Claude app: No subagents, so the advisors are role-played in one context and lose the independence the method relies on. ChatGPT: No subagents documented, so the advisors are role-played in one context and lose their independence. Other agents: Uses subagents where the host documents them (Cursor, Gemini CLI/Antigravity CLI, opencode); on Copilot, Windsurf or Cline it falls back to a same-context council that loses the advisors' independence.
 
+**Use it when:** You must choose between options and a wrong call is costly.
+
+**Try:** `Council this: free tier or 14-day trial for our analytics tool?`
+
+**Skip it when:** The question has one right answer, or you only want a draft written.
+
 *Example output, invented data.*
 
 ```text
@@ -124,6 +130,12 @@ Files: council-report-<timestamp>.html, council-transcript-<timestamp>.md
 
 > **Limits.** Claude app and ChatGPT: Compares pasted plans; their claims stay unverified without repo access.
 
+**Use it when:** Two or more agents wrote competing plans and you need one plan.
+
+**Try:** `Compare these two plans for the checkout fix and give me one plan to run.`
+
+**Skip it when:** You have one plan and only want it checked against the code. Use `spec-review`.
+
 *Example output, invented data.*
 
 ```text
@@ -151,6 +163,12 @@ Executor      a cheaper coding model: the plan is concrete and bounded
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex partial, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%97%90%20%C2%B7%20ChatGPT%20%E2%9C%96-yellow)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Needs bash, git and the codex CLI on a local repo. Codex: Runs, but the reviewer is Codex reviewing Codex, so the different-model premise is lost, and the default sandbox blocks the network the nested codex call needs. ChatGPT: Needs bash and the codex CLI on a local repo.
+
+**Use it when:** A spec is drafted and you want a second model to check its claims against the code.
+
+**Try:** `spec-review .spec-workflow/specs/checkout-redesign -- scrutinize the refund math`
+
+**Skip it when:** You want a review of code changes. Use `/codex:review`.
 
 *Example output, invented data.*
 
@@ -180,6 +198,12 @@ DO NOT SHIP still exits `0`: the exit code says whether the review ran, not what
 
 > **Limits.** Claude app and ChatGPT: Audits a pasted transcript or summary only; no repo diff, CI or session-file access.
 
+**Use it when:** Another agent says it finished and you want proof against your original request.
+
+**Try:** `Audit the Claude Code session for the login fix and list any gaps.`
+
+**Skip it when:** You want your own current work reviewed, not another agent's run.
+
 *Example output, invented data.*
 
 ```text
@@ -202,6 +226,12 @@ Remaining risk  CI red until the failing test is fixed; rename needs a decision.
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: The loop needs a shell. ChatGPT: No access to your local repo or git and gh credentials by default.
+
+**Use it when:** A bug is flaky or hard to repeat and you need a reliable pass or fail check first.
+
+**Try:** `/debug-feedback-loop the cart total is wrong about one time in ten`
+
+**Skip it when:** The bug already has a failing test. Go straight to the fix.
 
 *Example exchange, invented data. This skill runs only when you invoke it.*
 
@@ -228,6 +258,12 @@ Agent: Loop: property loop (ladder step 7), 1000 random carts against the
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
 
 > **Limits.** Claude app: No subagents or model choice in the app, so nothing is routed. ChatGPT: No subagents or model choice documented for ChatGPT, so nothing is routed. Other agents: Routing needs per-agent model choice, documented for Cursor, Gemini CLI/Antigravity CLI and opencode but not for Copilot, Windsurf or Cline.
+
+**Use it when:** You want cheaper models on routine steps and a stronger model on hard ones.
+
+**Try:** `Use efficient-frontier-routing: scan the repo with a cheap agent, then review the fix with a strong one.`
+
+**Skip it when:** The task is small. Doing it in the current session costs less than a handoff.
 
 *Example output, invented data.*
 
