@@ -46,6 +46,251 @@ For repository activity summaries — what shipped, what's open, CI health — u
 
 ---
 
+## What it looks like
+
+The release path on top, the production path below it.
+
+```mermaid
+flowchart TD
+  subgraph Release
+    V[version-check] --> W[pr-wait]
+    U[dependency-upgrade] -. one PR per wave .-> W
+    W --> N[npm-publish]
+    W -. how long is left? .-> T[the-waiting]
+  end
+  subgraph Production
+    O[observability-setup] --> AL{alert fires}
+    CS[customer-support-triage] -- P0 outage --> I
+    AL --> I[incident-response]
+    I --> R[roll back or fix forward]
+    R --> PM[blameless postmortem]
+    O -. cost tracking .-> L[llm-cost-audit]
+  end
+```
+
+Open a skill below to see a short sample of what it produces. Every sample is invented: the packages, issue numbers, services and figures are made up.
+
+<details>
+<summary><code>version-check</code>: the bump recommendation</summary>
+
+Example output, invented data.
+
+```text
+Version Check Report
+====================
+Current version: 2.4.1
+Last tag: v2.4.1
+Commits since tag: 7
+
+Recommendation: MINOR bump -> 2.5.0
+Reason: new backward-compatible features, no breaking changes
+
+Evidence:
+  - src/index.ts: added export createBatchClient (an addition, not a removal)
+  - src/types/index.ts: new optional field timeoutMs? on ClientOptions
+  - no commit message contains BREAKING CHANGE or feat!:
+
+Changed files:
+  src/index.ts (modified)
+  src/batch.ts (added)
+  src/types/index.ts (modified)
+
+Bump to 2.5.0? Nothing changes until you confirm.
+```
+
+</details>
+
+<details>
+<summary><code>pr-wait</code>: status lines, and why it did not merge</summary>
+
+Example output, invented data.
+
+```text
+Monitoring PR #318 CI checks...
+Check interval: 60s | Max wait: 20 minutes | Auto-merge: enabled
+
+=== Initial Status ===
+✅ Build and Test: pass
+⏳ E2E Tests: pending
+
+[1] 10:14:00 - 1 check still running:
+  ⏳ E2E Tests
+
+[2] 10:15:00 - All checks complete!
+
+=== Final Status ===
+✅ Build and Test: pass
+❌ E2E Tests: fail
+
+Checks failed: E2E Tests. Not merging PR #318.
+```
+
+</details>
+
+<details>
+<summary><code>the-waiting</code>: time left, and something to do meanwhile</summary>
+
+Example output, invented data.
+
+```text
+Unit Tests (full suite): 18m elapsed, usually 26m (p90 31m, 14 runs) → ~8m left.
+Lint: 2m elapsed, usually 3m (p90 4m, only 4 runs, so rough) → ~1m left.
+Type Check: done ✓.  Nothing stuck.
+
+Sound check is running long; the drummer is still looking for his sticks.
+
+Meantime, each under five minutes:
+  - PR #233 is waiting on your review
+  - your PR #229 has a stale lint check
+  - issue #241 (typo on the settings page) is assigned to you
+```
+
+</details>
+
+<details>
+<summary><code>npm-publish</code>: what each script result leads to</summary>
+
+The scripts print a status code; the agent reads it and tells you what happens next.
+
+| Script prints | What the agent does |
+|---|---|
+| `PUBLISH_SUCCESS` | Runs the registry check in the background |
+| `AUTH_FAILED` | Starts the token setup, in two phases |
+| `FORM_READY:<username>` | Tells you to click **Generate token** in Chrome |
+| `NOT_LOGGED_IN` | Asks you to sign in to npmjs.com in Chrome, then retries |
+| `FORM_NOT_FOUND` | Says it could not find the token form |
+| `TOKEN_SAVED` | Retries the publish |
+| `CAPTURE_TIMEOUT` | Asks you to copy the token so it can write it to `~/.npmrc` |
+
+It never asks you for a one-time code.
+
+</details>
+
+<details>
+<summary><code>observability-setup</code>: an audit of an existing service</summary>
+
+Example output, invented data.
+
+```text
+Monitoring audit: notes-api (existing service)
+[x] GET /api/health returns 200 with the DB up, 503 with it down (both tested)
+[ ] Host health check path not set: a deploy that can't reach the DB still gets traffic
+[x] Uptime monitor on /api/health every 1 min, confirmation period 2 min, pages on-call
+[ ] No test log line in the log tool: the log stream is not configured
+[x] Test exception visible in the error tracker with area=billing
+[ ] Alert table still has the template numbers; not agreed with whoever gets paged
+
+Gaps: 3. Set the health check path first.
+```
+
+</details>
+
+<details>
+<summary><code>incident-response</code>: severity ladder, triage notes and the user message</summary>
+
+| Level | Definition | Response time |
+|---|---|---|
+| S1 | Full outage, data loss risk, or payment/auth broken | Immediate, drop everything |
+| S2 | Major feature broken, some users affected, no data risk | Within the hour |
+| S3 | Minor bug, cosmetic, workaround exists | Next business day |
+
+Unsure between S1 and S2? Treat it as S1.
+
+Example output, invented data.
+
+```text
+Alert 14:02 UTC (uptime: notes-api down). Acknowledged, not resolved. Severity: S1.
+Triage
+  1. Uptime monitor: every region failing; not a monitor false positive
+  2. Host logs, last 30 min: 5xx spike from 13:58, crash-loop restarts
+  3. Error tracker: new TypeError in the session middleware
+  4. Recent deploys: one at 13:55, 7 minutes before the alert
+Decision: the deploy lines up and the cause isn't clear in 5 min → roll back first
+  Host rollback to the 13:10 deploy. Auto-deploy is now off; re-enable after the fix.
+  git revert 9f3c2e1, pushed, so the branch matches what is running
+Recovery: green, error rate at baseline 14:19–14:31 (12 min) → resolved
+
+Status page draft:
+  We're aware of an issue affecting sign-in and are actively working on it.
+  Your data is safe. We'll update this within 30 minutes.
+Postmortem due by 14:02 UTC tomorrow; follow-ups filed as #455 and #456.
+```
+
+</details>
+
+<details>
+<summary><code>dependency-upgrade</code>: the wave plan and gate results</summary>
+
+Example output, invented data.
+
+```text
+Wave plan (from npm outdated --json)
+package              current   target    risk    wave
+@types/node          22.7.4    22.7.9    patch   1
+zod                  3.23.6    3.23.8    patch   1
+eslint-plugin-react  7.35.0    7.37.2    minor   2
+next                 14.2.15   15.0.3    major   3 (with eslint-config-next)
+eslint-config-next   14.2.15   15.0.3    major   3
+
+Gates per wave: tsc --noEmit → tests → npx playwright test, then exposure-scan
+Wave 1  PASS  all gates green, exposure-scan clean → chore(deps): bump patch dependencies
+Wave 2  PASS  all gates green, exposure-scan clean → chore(deps): bump eslint plugins
+Wave 3  FAIL  tsc red; green on the base commit, so the bump caused it. Not shipped.
+```
+
+</details>
+
+<details>
+<summary><code>customer-support-triage</code>: a triage summary and a drafted reply</summary>
+
+Example output, invented data.
+
+```text
+P0: possible double charge on ticket #5120.
+
+Category: Billing (also tagged bug)
+Severity: P0 - two charges for the same billing period
+Checked: the billing provider shows two successful charges 4 minutes apart
+  on one subscription; the error tracker shows a webhook retry at that time
+Issue: #461 filed from the template, "Reported by: ticket #5120", existing
+  bug and priority labels. No name or email in the body.
+Refund: inside the written policy (duplicate charge). Prepared, not issued:
+  $12.00, the second charge, reason "duplicate". Waiting for a person to confirm.
+
+DRAFT reply, for the support owner to send:
+  Thanks for flagging this. You were charged twice for October, and that's
+  on us. We've prepared a refund of $12.00 for the duplicate charge and will
+  confirm once it's issued. We're also fixing the cause.
+```
+
+</details>
+
+<details>
+<summary><code>llm-cost-audit</code>: the savings table with the arithmetic shown</summary>
+
+Example output, invented data. Prices are illustrative, not current; the skill reads them from each provider's pricing page on the day of the audit.
+
+```text
+Spend: tracked $2,430/mo, billed $2,610/mo. Gap of $180: the retry path in
+  jobs/retry.ts:22 skips the tracking wrapper (fix: wrap it).
+
+classify-ticket, top tier → small tier (50 sampled outputs, no regression)
+  now:   (1,200 × $5 + 20 × $25) / 1M = $0.0065 × 300,000 calls = $1,950/mo
+  after: (1,200 × $1 + 20 × $5)  / 1M = $0.0013 × 300,000 calls =   $390/mo
+nightly-tagging, mid tier, synchronous → batch API at 50%
+  now:   (3,000 × $2 + 200 × $10) / 1M = $0.008 × 60,000 calls = $480/mo → $240/mo
+
+Finding                  Current   Action                Savings   Price source
+classify on top tier     $1,950    route to small tier   $1,560    pricing URL, date read
+nightly tagging is sync    $480    move to batch API       $240    pricing URL, date read
+Total                    $2,430                          $1,800
+Safe to ship now: routing. Needs a test pass first: batch.
+```
+
+</details>
+
+---
+
 ## Install
 
 ### Claude Code
