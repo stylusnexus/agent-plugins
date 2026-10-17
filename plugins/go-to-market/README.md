@@ -86,6 +86,12 @@ Each example below is a short sample of a skill's output. They all use one inven
 
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
+**Use it when:** You have a product, a few hours a week, and no marketing plan.
+
+**Try:** `Help me plan marketing for Plant Ledger. I have 4 hours a week and 35 waitlist sign-ups.`
+
+**Skip it when:** You only need one focused answer, such as a positioning line. Use the matching mk skill.
+
 Example output, invented data (fictional product).
 
 ```text
@@ -111,6 +117,12 @@ Next action  today: write the forum intro post as a draft for your review
 
 > **Limits.** Claude app and ChatGPT: No audience-scout agent, so the verified-places step must be done inline with web search. Codex: Codex plugins do not carry agents, so audience-scout is missing and the verified-places step has no stated fallback. Other agents: The Skills CLI installs skills only, so audience-scout is missing and the verified-places step has no stated fallback.
 
+**Use it when:** You do not know who your first customer is.
+
+**Try:** `Who is the ideal customer for Plant Ledger? I have 6 interview notes and 14 sign-up forms.`
+
+**Skip it when:** You already have a tested profile and need the words for it. Use mk-positioning or mk-copy.
+
 Example output, invented data (fictional product). Any field without a real source is marked, not filled with a guess.
 
 ```text
@@ -132,6 +144,12 @@ Buying roles   initiator and user are the same person; partner may share the app
 <summary><code>mk-positioning</code>: the positioning canvas and a one-liner</summary>
 
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+**Use it when:** You cannot say in one line why your product beats the alternative.
+
+**Try:** `Write the positioning for Plant Ledger. Buyers now use a phone calendar.`
+
+**Skip it when:** You want a tagline but have no settled positioning. Do the positioning first.
 
 Example output, invented data (fictional product).
 
@@ -156,6 +174,12 @@ Stakeholder check
 
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
+**Use it when:** Your colors and fonts differ from page to page.
+
+**Try:** `Make a brand kit for Plant Ledger and check the text contrast.`
+
+**Skip it when:** You need the words on a page. Use mk-copy.
+
 Example output, invented data (fictional product). Colors are exact values, and each pairing has a measured WCAG contrast ratio.
 
 | Role | Hex | Paired against | Contrast | Passes? |
@@ -175,6 +199,12 @@ Type roles: heading and body only, from one font family. The product voice sheet
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
+**Use it when:** You must write a landing page, README intro, or store listing.
+
+**Try:** `Draft the Plant Ledger landing page. Use only the facts in my notes.`
+
+**Skip it when:** The text is internal only, or you have no value proposition yet.
 
 Example output, invented data (fictional product). Anything without a source stays a visible gap.
 
@@ -201,6 +231,12 @@ Persuasion levers used   none. Social proof is left out until a real result exis
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
+**Use it when:** You want a page to be found in search or cited by AI assistants.
+
+**Try:** `Check if the Plant Ledger pricing page is easy for AI assistants to cite.`
+
+**Skip it when:** You want a promise of rank or traffic. This skill cannot give one.
+
 Example output, invented data (fictional product). Questions come from real conversations; one "not cited" result means check again, not give up.
 
 | Date | Assistant | Question | Mentioned? | Cited or described? | Position | Others named |
@@ -219,6 +255,12 @@ Quotable answer on the page: "Plant Ledger builds a separate watering schedule f
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
+**Use it when:** You launch on a set day and need a plan for it.
+
+**Try:** `Plan a Show HN launch for Plant Ledger on Thursday.`
+
+**Skip it when:** Your product is still a waitlist page. A launch needs something people can use today.
 
 Example output, invented data (fictional product).
 
@@ -244,6 +286,12 @@ End of day
 
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
+**Use it when:** You want to take part in a forum, Discord, or subreddit.
+
+**Try:** `Check the rules of a houseplant forum, then draft a first post for Plant Ledger.`
+
+**Skip it when:** You want to post in bulk. This skill drafts one post at a time for your review.
+
 Example output, invented data (fictional community). The rules page is fetched and dated before any post is drafted.
 
 | Date | Community | Give | Ask | Response | Give:ask |
@@ -260,6 +308,12 @@ Example output, invented data (fictional community). The rules page is fetched a
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
+**Use it when:** You must post each week but have no idea what to write.
+
+**Try:** `Turn my note on why I built Plant Ledger into a week of posts.`
+
+**Skip it when:** You have no real story or source piece yet. Find one first.
 
 Example output, invented data (fictional product). One substantial piece, then short posts cut from it. Nothing is scheduled until the owner approves.
 
@@ -280,6 +334,12 @@ Hours this week: 2. Stop rule: if waitlist sign-ups from posts don't move after 
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+
+**Use it when:** You want to write to one named person, such as a design partner.
+
+**Try:** `Draft a first message to a houseplant shop owner about a Plant Ledger pilot.`
+
+**Skip it when:** You want a mass email. This skill is for one-to-one messages.
 
 Example output, invented data (fictional people and shop).
 
@@ -307,6 +367,12 @@ Reply-rate assumption: 1 in 10 (ASSUMPTION until the first batch of 20)
 
 > **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
 
+**Use it when:** You have sign-ups and need emails that move them to active use.
+
+**Try:** `Map the waitlist stages for Plant Ledger and draft a three-email onboarding sequence.`
+
+**Skip it when:** You have no contacts yet. Find your audience first.
+
 Example output, invented data (fictional product). Emails fire on what someone did, not on a fixed day count.
 
 | Stage | What moves someone in | Recorded in | Next-stage trigger |
@@ -329,6 +395,12 @@ Results are read from clicks, replies, and unsubscribes. Open rate is context on
 <summary><code>mk-measurement</code>: a scorecard and an experiment card</summary>
 
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+**Use it when:** You cannot tell if your marketing works.
+
+**Try:** `Build a scorecard for Plant Ledger and set up a test for the forum channel.`
+
+**Skip it when:** You want ad-spend tuning inside an ad tool. This skill does not run campaigns.
 
 Example output, invented data (fictional product). Every metric sits on one funnel stage and has a formula you can recompute by hand.
 

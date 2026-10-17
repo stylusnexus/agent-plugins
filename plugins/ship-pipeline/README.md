@@ -120,6 +120,12 @@ Open a skill below to see a short sample of what it produces. Every sample is in
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
+**Use it when:** You are about to work on a GitHub issue and want to check its scope, status and branch first.
+
+**Try:** `/start-issue 412`
+
+**Skip it when:** The issue is a trivial typo fix and you already know the scope.
+
 Example output, invented data.
 
 ```text
@@ -149,6 +155,12 @@ Plan next: inline plan
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
+**Use it when:** A spec or plan touches database tables and you have not looked at the live schema.
+
+**Try:** `/db-truth pre-work for the invoices and payments tables`
+
+**Skip it when:** The change touches no database.
+
 Example exchange, invented data.
 
 ```text
@@ -174,6 +186,12 @@ Revise the data model to read role = 'owner' from project_members.
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
+**Use it when:** You finished a feature and must show that it works before you call it done.
+
+**Try:** `/prove-it`
+
+**Skip it when:** The work is only docs or comments and has nothing to run.
 
 Example output, invented data.
 
@@ -201,6 +219,12 @@ Running /prove-it verification.
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
+**Use it when:** You finished a branch and want a list of weak spots before you open the pull request.
+
+**Try:** `/review-slop`
+
+**Skip it when:** You want the skill to fix the problems. It only reports them.
 
 Example output, invented data.
 
@@ -233,6 +257,12 @@ Open question: is the 500-page limit intended?
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
+**Use it when:** Your work is done and you want review, fixes, a pull request and a merge in one run.
+
+**Try:** `/review-merge-pipeline --no-merge`
+
+**Skip it when:** You want to read the diff yourself first, or the change is not ready to merge.
+
 What happens to each review finding, by the reviewer's confidence:
 
 | Confidence | Action |
@@ -260,6 +290,12 @@ Pipeline complete:
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
+**Use it when:** The integration branch is ready and you want to promote it to production.
+
+**Try:** `/deploy`
+
+**Skip it when:** The work is not yet merged to the integration branch, or the repo has its own deploy runbook.
 
 After a squash deploy, the file diff can show work that already shipped. The skill reads both signals together:
 
@@ -291,6 +327,12 @@ Deploy complete:
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default. Other agents: Needs subagents for specialist review and parallel work; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline.
 
+**Use it when:** You have a batch of related issues and want them taken from intake to merge, or to production.
+
+**Try:** `/ship-issues 101 204 317`
+
+**Skip it when:** You have one small issue. Use start-issue instead.
+
 Example output, invented data.
 
 ```text
@@ -316,6 +358,12 @@ Decisions needing consultation: should the page limit be per plan?
 
 > **Limits.** Claude app and ChatGPT: Writes and reviews migration SQL from pasted text; the backup gate and branch test cannot run.
 
+**Use it when:** You are adding a column or table to a live database and want the change split into safe steps.
+
+**Try:** `Review this migration that adds a NOT NULL column to the orders table`
+
+**Skip it when:** The change is only a seed script or a brand new empty table in a dev database.
+
 Each phase is its own migration and its own deploy:
 
 | Phase | What ships | Old code still works? |
@@ -335,6 +383,12 @@ Collapsing phases 1 and 4 into one migration is the most common cause of an avoi
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
+**Use it when:** You are about to run a risky migration and need proof that a backup restores.
+
+**Try:** `Run a backup restore drill before the orders migration`
+
+**Skip it when:** You only want to know whether backups are switched on. This skill restores them.
 
 Example output, invented data.
 
@@ -364,6 +418,12 @@ Result: PASS. Scratch branch deleted.
 
 > **Limits.** Claude app and ChatGPT: Designs and reviews pasted route handlers; cannot detect the repo's own conventions.
 
+**Use it when:** You are adding or reviewing a Next.js route handler and want one consistent error and validation style.
+
+**Try:** `Review the new /api/projects route handler against our API conventions`
+
+**Skip it when:** The API uses GraphQL or tRPC.
+
 Example exchange, invented data.
 
 ```text
@@ -390,6 +450,12 @@ Verdict: FAIL (a sensitive field is returned).
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app and ChatGPT: Writes billing code from pasted code; the Stripe CLI webhook test and database proof cannot run.
+
+**Use it when:** A user paid but is still on the free plan, or you are adding subscriptions.
+
+**Try:** `A customer paid but is still on free. Review our Stripe webhook handler`
+
+**Skip it when:** You only take one-off payments with no subscriptions.
 
 Example output, invented data.
 
@@ -419,6 +485,12 @@ Client-supplied Stripe IDs trusted anywhere: none found
 
 > **Limits.** Claude app and ChatGPT: Naming, rollout and kill-switch design work; stale-flag cleanup needs PostHog data and repo edits.
 
+**Use it when:** You want to roll out a feature in steps, or add a kill switch for a risky path.
+
+**Try:** `Add a kill switch flag for the AI summary feature`
+
+**Skip it when:** The change is small and safe, and needs no staged rollout.
+
 Example output, invented data.
 
 ```text
@@ -441,6 +513,12 @@ that removes its code has deployed.
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app and ChatGPT: Event taxonomy and code from pasted snippets only; no audit over the repo and no live PostHog check.
+
+**Use it when:** You are adding tracking to a new feature, or want to check the PostHog events you already send.
+
+**Try:** `Review our PostHog events for naming and personal data`
+
+**Skip it when:** You need a one-off query on existing data. This skill sets up events and does not analyze them.
 
 Example output, invented data.
 
@@ -469,6 +547,12 @@ project owner (fix plus possible deletion of past events).
 
 > **Limits.** Claude app and ChatGPT: You upload screenshots by hand; no snapshot discovery, diff mode or Playwright refresh. Other agents: Reading screenshots as images is the whole job, and image reading is not verified for each host.
 
+**Use it when:** You have screenshots of a screen and want layout, spacing and mobile problems listed.
+
+**Try:** `/ux-review ./screenshots/settings-mobile.png`
+
+**Skip it when:** You have no screenshots, or you want a code review.
+
 Example output, invented data.
 
 ```text
@@ -496,6 +580,12 @@ UX Review Complete:
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
 > **Limits.** Claude app and ChatGPT: Formatting works; open or closed state must be checked live with gh, so only lists you supply can be filtered by state.
+
+**Use it when:** You want a list of issue numbers on one line to paste into a command or note.
+
+**Try:** `Which issues are still open? /cdf`
+
+**Skip it when:** You want a table or a short summary for each issue.
 
 Example exchange, invented data.
 

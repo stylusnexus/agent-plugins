@@ -70,6 +70,12 @@ Each skill below has one collapsed example. All data in them is invented.
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
+**Use it when:** You join a new repo and want to know where it hurts before you read code.
+
+**Try:** `/codebase-health --since "6 months ago" --top 10`
+
+**Skip it when:** The folder has no git history, or you need a code-level bug search.
+
 *Example output, invented data.*
 
 ```text
@@ -109,6 +115,12 @@ How the report grades each signal:
 
 > **Limits.** Claude app and ChatGPT: Works on a repo archive you upload; writing the docs back into the repo is manual.
 
+**Use it when:** A project has no architecture docs and a new developer starts Monday.
+
+**Try:** `Scan this repo and write high-level and component-level architecture docs with diagrams.`
+
+**Skip it when:** You need one function explained. Read that file instead.
+
 *Example output, invented data: one diagram from a generated `docs/architecture/overview.md`.*
 
 ```mermaid
@@ -147,6 +159,12 @@ docs/architecture/
 
 > **Limits.** Claude app and ChatGPT: The interview works; checking answers against code and updating the docs needs repo access.
 
+**Use it when:** You have a plan and want it tested against your project's terms and past decisions.
+
+**Try:** `Grill me on this plan to split Orders into Orders and Shipments. Update CONTEXT.md as we go.`
+
+**Skip it when:** You only want a quick answer. This skill asks one question at a time.
+
 *Example exchange, invented data.*
 
 > **Agent:** Your glossary defines **Cancellation** as ending a whole Order. This plan cancels one line item. Is that a Cancellation, or a new term? My recommendation: call it a **Line Removal**, and keep Cancellation for whole Orders.
@@ -171,6 +189,12 @@ _Avoid_: Partial cancellation, item cancel
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
 
 > **Limits.** Claude app and ChatGPT: Web search works; the repo-docs step is skipped and `npm view` version checks cannot run. Other agents: Web search is the core step; Gemini CLI/Antigravity CLI, Cursor and opencode (with a search provider) have it, Copilot, Windsurf and Cline are not verified.
+
+**Use it when:** You add or upgrade a library and must not guess its current API.
+
+**Try:** `Add payment-provider webhooks to this app. Read the current official docs first.`
+
+**Skip it when:** The task uses only your own code and has no outside API.
 
 *Example exchange, invented data.*
 
