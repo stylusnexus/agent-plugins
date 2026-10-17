@@ -46,6 +46,161 @@ One rule crosses the pack and is worth stating once: **wording a human typed int
 
 ---
 
+## What it looks like
+
+Which skill to reach for depends on what you are handing a person. Prose gets the concision pass first and the voice pass second. `redline` brings the person's judgment back, and `recap-table` reports what their feedback changed.
+
+```mermaid
+flowchart TD
+  Q{What are you handing a person?}
+  Q -->|long or dense output| H[html]
+  Q -->|work not done yet| VP[visual-plan]
+  Q -->|work already done| VR[visual-recap]
+  Q -->|what changed, inline| RT[recap-table]
+  Q -->|prose| W[writing-clearly-and-concisely]
+  W -->|then the voice pass| HW[human-writing]
+  H -->|person judges it| RL[redline]
+  HW -->|draft to judge| RL
+  RL -->|apply edits verbatim, then report| RT
+```
+
+Each example below is a short sample of a skill's output or a typical exchange. They use an invented project, a watering-tracker app called **Plant Ledger**. Every file, number, and sentence in them is made up.
+
+<details>
+<summary><code>html</code>: a summary page, laid out in order</summary>
+
+Example output, invented data (fictional project). The outline of a summary page: under 200 body words, and a drawing in every section after the title.
+
+```text
+artifacts/html/sprint-summary.html            (one file, inline CSS, no network)
+
+Plant Ledger: sprint 14 summary
+  What this is: the state of the reminders rework at the end of the sprint
+
+AT A GLANCE      [ 12 files ]   [ 3 of 4 tasks done ]   [ 1 blocked ]
+BODY             flow drawing: schedule > reminder queue > push > phone
+                 bar chart: reminders sent late, 9% before > 1% after
+DECISIONS        ● Queue moved to a background job
+                 ● Retries capped at 3
+OPEN AND NEXT    ○ Travel mode: blocked on the time-zone fix
+```
+
+</details>
+
+<details>
+<summary><code>visual-plan</code>: from a request to a plan you approve</summary>
+
+Example exchange, invented data (fictional project).
+
+```text
+You:    /visual-plan add travel mode to the reminder settings
+
+Agent:  Read the settings screen, the reminder action, and the schedule schema.
+        Mode: UI-first. The top canvas shows 3 states: settings, travel-mode
+        sheet, and the paused banner on the home screen.
+        Hard-to-reverse decision called out: where the pause dates are stored.
+        Wrote plans/travel-mode/ (local files), ran plan local check, then serve.
+        Plan: <local bridge URL printed by serve>
+        Open questions (bottom form): catch up missed waterings, or skip them?
+        Touches: settings screen, reminder action, schedule table.
+        Review it and approve before I write any code.
+```
+
+</details>
+
+<details>
+<summary><code>visual-recap</code>: the shape of a recap for a merged branch</summary>
+
+Example output, invented data (fictional project). Follows the skill's fixed order, top to bottom, and its budgets.
+
+```text
+Recap: travel mode for reminders                   (title, under 70 characters)
+1 UI headline   before/after wireframes: settings screen, then the new sheet
+                after-only: paused banner on the home screen
+2 Narrative     2 paragraphs: why reminders pause, and the time-zone risk
+3 data-model    schedules table: pause_start added, pause_end added
+  api-endpoint  POST /schedules/{id}/pause (added)
+4 file-tree     9 files: 6 modified, 3 added
+5 Key changes   5 tabs, each a split diff with a one-line summary and notes
+Not included    secrets in config: redacted as <redacted>
+```
+
+</details>
+
+<details>
+<summary><code>recap-table</code>: what changed, as a table</summary>
+
+Example output, invented data (fictional project). One row for each change that actually moved.
+
+| Area | Before | After |
+|------|--------|-------|
+| Reminder timing | Fired on a fixed daily timer | Fires at each plant's due time |
+| Travel | Reminders kept firing while away | Paused, then caught up on return |
+| Missed reminder | Silently dropped | Retried up to 3 times |
+
+</details>
+
+<details>
+<summary><code>writing-clearly-and-concisely</code>: a sentence before and after Strunk's rules</summary>
+
+Example edit, invented text (fictional project).
+
+> **Before:** It should be noted that reminders were not able to be delivered by the system in a number of cases when the user was traveling.
+>
+> **After:** Reminders failed for some traveling users.
+>
+> Rules applied: 10 (use active voice), 11 (put statements in positive form), 13 (omit needless words).
+
+</details>
+
+<details>
+<summary><code>human-writing</code>: a "humanize this" rewrite with its change list</summary>
+
+Example exchange, invented text (fictional project).
+
+```text
+You:    humanize this: "We're thrilled to announce Travel Mode, a pivotal
+        feature that seamlessly pauses your watering reminders while you're
+        away, highlighting our commitment to plant lovers."
+
+Agent:  Travel mode pauses your watering reminders while you're away.
+
+        What changed:
+        - cut "We're thrilled to announce" (enthusiastic opening)
+        - cut "pivotal" and "seamlessly" (AI vocabulary, promotional)
+        - cut "highlighting our commitment..." (trailing pseudo-analysis)
+        - "Travel Mode" to "Travel mode" (title case)
+        Kept: the one claim, unchanged. Nothing added.
+```
+
+</details>
+
+<details>
+<summary><code>redline</code>: the review file that Send returns</summary>
+
+Example output, invented data (fictional project). Edits are the person's exact words and are applied verbatim. Comments are tied to a quote from the page.
+
+```text
+release-notes.redline.md
+
+## Overall
+Shorter. Lead with what users notice.
+
+## Edits the human already made
+### Lede
+- before: Travel mode introduces a new paradigm for reminder scheduling.
+- after:  Going away? Reminders now pause until you're back.
+
+## Comments
+### 1. Known issues
+> may skip one watering across time zones
+Say which time zones, or cut it.
+```
+
+</details>
+
+---
+
 ## Install
 
 ### Claude Code
