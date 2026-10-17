@@ -122,7 +122,7 @@ def main(argv=None) -> int:
     bad = leftovers(dest)
     if bad:
         shutil.rmtree(dest, ignore_errors=True)
-        print(f"refusing: the copy still held {', '.join(bad[:5])}; deleted it", file=sys.stderr)
+        print(f"refusing: the copy still held {len(bad)} secret-like file(s) or symlink(s); deleted it", file=sys.stderr)
         return 1
     print(dest)
     print(json.dumps({"skipped": skipped, "max_file_bytes": args.max_file_bytes}), file=sys.stderr)

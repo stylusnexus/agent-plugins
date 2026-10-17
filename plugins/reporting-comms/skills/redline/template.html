@@ -420,8 +420,8 @@
       L.push("| flag | text | verdict | why |");
       L.push("|---|---|---|---|");
       triage.forEach(function (c) {
-        L.push("| " + c.block + " | " + c.quote.replace(/\|/g, "\\|") + " | " +
-               (c.triage || "undecided") + " | " + c.note.replace(/\|/g, "\\|").replace(/\n/g, " ") + " |");
+        L.push("| " + c.block + " | " + c.quote.replace(/\\/g, "\\\\").replace(/\|/g, "\\|") + " | " +
+               (c.triage || "undecided") + " | " + c.note.replace(/\\/g, "\\\\").replace(/\|/g, "\\|").replace(/\n/g, " ") + " |");
       });
       L.push("");
     }
