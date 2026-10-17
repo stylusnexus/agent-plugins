@@ -62,10 +62,10 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 | `cdf` | Output format for issue lists — one comma-separated line of numbers, nothing added |
 | `db-migration-safety` | Writing schema change — expand-contract sequencing, idempotency, backfills |
 | `db-truth` | Reading schema truth — shape, relationships, permissions, and post-apply confirmation |
-| `deploy` | Production promotion, merge strategy, release-tooling compatibility |
+| `deploy` | Production promotion, merge strategy, release-tooling compatibility, the frozen source commit, live-artifact match, smoke and rollback evidence, closing only issues proved shipped |
 | `feature-flags` | Flag lifecycle — naming, rollout versus kill switch, rollout stages, kill-switch alerts, testing both paths, and stale-flag cleanup |
 | `prove-it` | Evidence standards, gate discovery, the evidence table, `UNVERIFIED` labeling |
-| `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection, head-SHA and required-check confirmation before merge |
+| `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection, evidence tied to the head commit, head-SHA, approval and required-check confirmation before merge |
 | `review-slop` | Report-only slop findings, severity calibration, and suggested repair criteria |
 | `ship-issues` | Batch orchestration — per-issue status, grouping into branches, consult-before-asking, post-deploy validation, the batch report. Owns no step the skills above own. |
 | `start-issue` | Issue comprehension, prior-art checking, baseline capture, branch naming |

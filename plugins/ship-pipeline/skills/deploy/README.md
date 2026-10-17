@@ -1,7 +1,7 @@
 <!-- skill-readme:begin -->
 # deploy
 
-Promote the integration branch to production. Repo-agnostic — detects the repo's branch names, merge strategy, and release tooling from its own history, and defers to any repo-local runbook. Use when ready to push to production.
+Promote the integration branch to production as one authorized batch. Repo-agnostic — detects the repo's branch names, merge strategy, and release tooling from its own history, and defers to any repo-local runbook. Freezes the source commit, proves the live artifact matches it, records migration, publish, smoke, and rollback evidence, and closes only issues proved shipped. Use when ready to push to production.
 
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../../../README.md#compatibility)
 
@@ -11,7 +11,7 @@ Part of the [ship-pipeline](../../README.md) pack.
 
 ## When and how to use it
 
-**Use it when:** The integration branch is ready and you want to promote it to production.
+**Use it when:** The integration branch is ready and you have decided to promote it to production.
 
 **Try:** `/deploy`
 
@@ -36,8 +36,17 @@ Deploy complete:
 - Files changed: 14 (+412/-96)
 - Version: 2.8.0
 - Publishes: none
-- Migrations: applied 20261014_add_export_jobs
+- Migrations: applied 20261014_add_export_jobs (additive; backup verified 2026-10-14 09:12Z)
 - Host: auto-deploys from main
+- Batch: #231 export jobs, #236 export retry
+- Source: 7d2f1e0 · previous source 3a9c4b8
+- Artifact: release commit 5e60b21 · live 5e60b21 (matches)
+- Checks: build, test passed for 7d2f1e0 · approval APPROVED
+- Smoke: health ok · auth read ok · export page ok · write + read-back ok · errors for 5 min: none new
+- Rollback: not needed
+- Issues: closed #231, #236 · candidates not closed: #229 (bare mention, not a closing keyword)
+- Back-merge: clean
+- N/A / UNVERIFIED: none
 ```
 
 ## Install

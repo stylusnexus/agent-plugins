@@ -1,7 +1,7 @@
 <!-- skill-readme:begin -->
 # review-merge-pipeline
 
-Automated pipeline that verifies changes with `prove-it`, code-reviews them, fixes issues found, commits, pushes, creates a PR, and merges. Detects the repo's integration branch rather than assuming one. Accepts an optional worktree path argument and flags --base / --no-prove / --no-review / --no-merge / --rebase / --cross-model. Use when work is done and you want to ship it without manual steps.
+Automated pipeline that verifies changes with `prove-it`, code-reviews them, fixes issues found, commits, pushes, creates a PR, and merges when the user authorized it. Detects the repo's integration branch and branch rules rather than assuming them. Binds test and review evidence to the exact head commit and merges only on the real required-check status. Accepts an optional worktree path argument and flags --base / --no-prove / --no-review / --no-merge / --rebase / --cross-model. Use when work is done and you want to ship it without manual steps.
 
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../../../README.md#compatibility)
 
@@ -36,6 +36,9 @@ Pipeline complete:
 - PR: example-org/notes-app#233
 - Status: Merged to dev
 - Review: 3 issues found, 2 fixed (1 minor, noted in the PR)
+- Base / head: dev@4e1a9c2 / 9b07d3f · merge commit 1c58e60
+- Required checks: build, test passed for 9b07d3f · approval APPROVED
+- N/A / UNVERIFIED: none
 ```
 
 ## Install
