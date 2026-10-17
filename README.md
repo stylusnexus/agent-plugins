@@ -347,8 +347,8 @@ to your local files, repo or local shell (ChatGPT Work can run code and shell co
 managed, isolated environment). Pure-conversation skills work there. Skills that read code work on a
 repo archive you upload, with the live steps lost. Skills that need your live repo, git, `gh`, a live
 database or a local browser do not work, and neither does efficient-frontier-routing, because
-neither app offers subagents with a choice of model. These 21 can't run in ChatGPT, and the same 21
-plus html (whose upload is rejected) can't run in the Claude app: backup-verify, codebase-health,
+neither app offers subagents with a choice of model. These 21 can't run in ChatGPT or the Claude
+app: backup-verify, codebase-health,
 db-truth, debug-feedback-loop, dependency-upgrade, deploy, efficient-frontier-routing,
 exposure-scan, npm-publish, pr-wait, prove-it, rate-limit-audit, readiness-review, redline,
 review-merge-pipeline, review-slop, secrets-leak-audit, ship-issues, spec-review, start-issue,

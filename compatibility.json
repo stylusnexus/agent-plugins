@@ -308,17 +308,18 @@
       "pack": "second-opinion",
       "claude": {
         "code": {
-          "level": "full"
+          "level": "full",
+          "note": "Only the description's \"use only when asked\" wording keeps it from triggering on its own; there is no hard switch."
         },
         "app": {
           "level": "no",
-          "note": "The upload is rejected because of the `disable-model-invocation` frontmatter key, and the loop needs a shell."
+          "note": "The loop needs a shell."
         }
       },
       "codex_chatgpt": {
         "codex": {
           "level": "full",
-          "note": "Codex may trigger it on its own: `disable-model-invocation` is a Claude Code field."
+          "note": "Only the description's \"use only when asked\" wording keeps it from triggering on its own; there is no hard switch."
         },
         "chatgpt": {
           "level": "no",
@@ -327,7 +328,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Cursor honours `disable-model-invocation`; other hosts may trigger it on their own."
+        "note": "Only the description's \"use only when asked\" wording keeps it from triggering on its own; there is no hard switch."
       }
     },
     "dependency-upgrade": {
@@ -487,8 +488,8 @@
           "level": "full"
         },
         "app": {
-          "level": "no",
-          "note": "The upload is rejected because of the `args` frontmatter key."
+          "level": "partial",
+          "note": "Can build the HTML file in the sandbox for download, without grounding in your repo."
         }
       },
       "codex_chatgpt": {
@@ -648,7 +649,7 @@
       },
       "other": {
         "level": "partial",
-        "note": "Needs subagents with no single-agent fallback; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline."
+        "note": "Uses subagents where the host documents them (Cursor, Gemini CLI/Antigravity CLI, opencode); on Copilot, Windsurf or Cline it falls back to a same-context council that loses the advisors' independence."
       }
     },
     "marketing-lead": {
@@ -942,7 +943,7 @@
         },
         "app": {
           "level": "no",
-          "note": "The upload is rejected because of the `version` frontmatter key, and publishing needs a local repo, npm and Chrome."
+          "note": "Publishing needs a local repo, npm and Chrome."
         }
       },
       "codex_chatgpt": {
@@ -1329,7 +1330,7 @@
         },
         "app": {
           "level": "no",
-          "note": "The upload is rejected because of the `color` frontmatter key, and the skill needs gh."
+          "note": "Needs gh and your local repo."
         }
       },
       "codex_chatgpt": {
@@ -1548,7 +1549,7 @@
         },
         "app": {
           "level": "no",
-          "note": "The upload is rejected because of the `args` frontmatter key, and the skill needs a local browser and your Downloads folder."
+          "note": "Needs a local browser and your Downloads folder."
         }
       },
       "codex_chatgpt": {
@@ -1706,7 +1707,7 @@
       "codex_chatgpt": {
         "codex": {
           "level": "partial",
-          "note": "Runs, but the reviewer is Codex reviewing Codex, so the different-model premise is lost, and the nested codex call needs network."
+          "note": "Runs, but the reviewer is Codex reviewing Codex, so the different-model premise is lost, and the default sandbox blocks the network the nested codex call needs."
         },
         "chatgpt": {
           "level": "no",

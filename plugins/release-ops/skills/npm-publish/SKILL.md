@@ -1,6 +1,5 @@
 ---
 name: npm-publish
-version: 3.1.0
 description: "Release an npm package end to end — preflight checks, semver bump, changelog entry, git push, then publish. Rotates an expired npm token automatically through the browser rather than prompting for a one-time code. Use for npm or bun publishing and version bumps; not for GitHub releases or unrelated senses of 'release'."
 allowed-tools: Bash(agent-browser:*), Bash(npm:*), Bash(bun:*), Bash(git:*), Bash(pbpaste:*), Bash(pbcopy:*), Bash(chmod:*), Bash(bash:*), Bash(grep:*), Bash(sed:*), Bash(sleep:*)
 ---

@@ -128,7 +128,7 @@ Bump to 2.5.0? Nothing changes until you confirm.
 
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
-> **Limits.** Claude app: The upload is rejected because of the `color` frontmatter key, and the skill needs gh. ChatGPT: No access to your local repo or git and gh credentials by default.
+> **Limits.** Claude app: Needs gh and your local repo. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 Example output, invented data.
 
@@ -183,7 +183,7 @@ Meantime, each under five minutes:
 
 [![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
-> **Limits.** Claude app: The upload is rejected because of the `version` frontmatter key, and publishing needs a local repo, npm and Chrome. ChatGPT: No access to your local repo or git and gh credentials by default.
+> **Limits.** Claude app: Publishing needs a local repo, npm and Chrome. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 The scripts print a status code; the agent reads it and tells you what happens next.
 

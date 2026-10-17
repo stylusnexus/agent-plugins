@@ -1,6 +1,5 @@
 ---
 name: debug-feedback-loop
-disable-model-invocation: true
 description: >
   Construct a fast, deterministic pass/fail signal for a bug BEFORE hypothesising —
   the missing mechanics behind "reproduce the bug". Offers a ladder of loop-construction
@@ -9,7 +8,9 @@ description: >
   Use when a bug is hard to reproduce, flaky/non-deterministic, lacks an obvious repro,
   or when getting a reliable signal is the bottleneck. Complements (does not replace)
   systematic-debugging, which owns root-cause discipline — reach for this when the hard
-  part is getting a signal, not staying disciplined.
+  part is getting a signal, not staying disciplined. Use only when the user explicitly
+  asks for it ("/debug-feedback-loop", "build a feedback loop for this bug"); do not
+  start it on your own.
 ---
 
 # Debug Feedback Loop

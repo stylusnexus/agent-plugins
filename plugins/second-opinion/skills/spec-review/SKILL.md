@@ -19,6 +19,11 @@ wrong — treating an M2M relationship as scalar, naming a column or field that
 doesn't exist. Reviewers who reason forward from the spec's own assumptions
 tend to miss this class of defect; a reviewer that opens the schema catches it.
 
+Run from inside Codex, this is Codex reviewing Codex, so the different-model point
+is lost. Codex's default sandbox also blocks network access, which the nested
+`codex` call needs to reach its model, so approve network access or use a
+network-enabled Codex profile.
+
 ## When to Use
 
 - A `design.md` / `requirements.md` / `tasks.md` is drafted or freshly ratified.
