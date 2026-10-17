@@ -32,6 +32,135 @@ The split that matters most: **`codebase-health` measures, `codebase-architectur
 
 ---
 
+## What it looks like
+
+The onboarding path through the pack:
+
+```mermaid
+flowchart LR
+    S(["New to the repo"]) --> CH["codebase-health<br/>where it hurts"]
+    CH --> CAS["codebase-architecture-scanner<br/>how it fits together"]
+    CAS --> P["Draft a plan"]
+    P --> GWD["grill-with-docs<br/>challenge the plan"]
+    GWD --> C["Make the change"]
+    RTD["read-the-damn-docs<br/>any third-party API"] -.-> P
+    RTD -.-> C
+```
+
+Each skill below has one collapsed example. All data in them is invented.
+
+<details>
+<summary><b>codebase-health</b> · hotspot report from git history</summary>
+
+*Example output, invented data.*
+
+```text
+## Codebase Health Report — example-shop
+Period: 1 year ago to now | Top: 5 per category
+
+### Priority Targets (churn + bugs)
+  src/checkout/totals.ts        churn 64   bug fixes 19
+  src/api/orders/route.ts       churn 41   bug fixes 11
+
+### Bus Factor
+  dev-a 58%   dev-b 21%   dev-c 9%   others 12%
+  Risk: HIGH (top 2 own 79%)
+
+### Velocity Trend
+  2025-02 88 ... 2025-11 61   2025-12 47   2026-01 39   <- down 3+ months
+
+### Firefighting Index
+  31 of 702 commits (4.4%) — MODERATE
+```
+
+How the report grades each signal:
+
+| Signal | Threshold | Read it as |
+|---|---|---|
+| File in churn and bug lists | appears in both | Highest-risk code: refactor or add tests first |
+| Bus factor | top 2 contributors own over 60% | Knowledge silo |
+| Firefighting index | LOW under 2% · MODERATE 2–5% · HIGH over 5% | Deploy confidence |
+| Velocity | dropping for 3+ months | A team question, not a code one |
+
+</details>
+
+<details>
+<summary><b>codebase-architecture-scanner</b> · generated docs with Mermaid diagrams</summary>
+
+*Example output, invented data: one diagram from a generated `docs/architecture/overview.md`.*
+
+```mermaid
+flowchart TB
+    subgraph client["Client"]
+        Web[Web app]
+    end
+    subgraph app["Application"]
+        API[API routes]
+        Auth[Auth service]
+        Orders[Order service]
+    end
+    DB[(Database)]
+    Pay[Payment gateway]
+    Web --> API
+    API --> Auth
+    API --> Orders
+    Orders --> DB
+    Orders --> Pay
+```
+
+```text
+docs/architecture/
+  overview.md         system context, stack, high-level diagram, data flow
+  components.md       one section per component: purpose, key files, API, dependencies
+  implementation.md   conventions, critical patterns, testing, build
+  data-flow.md · integrations.md · security.md
+```
+
+</details>
+
+<details>
+<summary><b>grill-with-docs</b> · one question at a time, glossary updated as you go</summary>
+
+*Example exchange, invented data.*
+
+> **Agent:** Your glossary defines **Cancellation** as ending a whole Order. This plan cancels one line item. Is that a Cancellation, or a new term? My recommendation: call it a **Line Removal**, and keep Cancellation for whole Orders.
+>
+> **You:** Line Removal. Cancellation stays whole-order.
+>
+> **Agent:** The code agrees: `cancelOrder()` only takes an order ID. Updating `CONTEXT.md` now. Next question: can a Line Removal happen after the Order has shipped?
+
+```text
+CONTEXT.md, added during the session:
+
+**Line Removal**:
+Taking one item off an Order before it ships. The Order stays open.
+_Avoid_: Partial cancellation, item cancel
+```
+
+</details>
+
+<details>
+<summary><b>read-the-damn-docs</b> · official docs before code</summary>
+
+*Example exchange, invented data.*
+
+```text
+You:   Wire up payment-provider webhooks in our Next.js app.
+
+Agent: Checking the docs before writing code.
+       - Installed: next 15.x; provider SDK 17.x (from package.json)
+       - Read: the provider's webhook signature guide, its retry policy page,
+         and Next.js route handler docs for reading the raw request body
+       - From the docs: verify against the raw body, not parsed JSON; the
+         provider retries failed deliveries, so dedupe on the event id
+       Implementing that now, then running the typecheck and a signed test event.
+       Docs consulted are listed at the end of my answer.
+```
+
+</details>
+
+---
+
 ## Install
 
 ### Claude Code
