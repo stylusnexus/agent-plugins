@@ -16,8 +16,8 @@ repo, so Codex can **verify every claim the spec makes against the actual code**
 Why a different model: it reads the codebase fresh, with no investment in the
 spec's framing. The most expensive spec defect is a data-model claim that's
 wrong — treating an M2M relationship as scalar, naming a column or field that
-doesn't exist. Six agent reviewers reasoning forward from a spec missed exactly
-that in a real spec review. A reviewer that opens the schema catches it.
+doesn't exist. Reviewers who reason forward from the spec's own assumptions
+tend to miss this class of defect; a reviewer that opens the schema catches it.
 
 ## When to Use
 
@@ -30,8 +30,10 @@ Not for: reviewing code changes (use `/codex:review`); pure prose/marketing docs
 
 ## Usage
 
+`spec-review.sh` ships next to this SKILL.md. Invoke it via a path relative to this skill's own directory:
+
 ```bash
-~/.claude/skills/spec-review/spec-review.sh [TARGET] [-- extra focus text]
+<this skill's directory>/spec-review.sh [TARGET] [-- extra focus text]
 ```
 
 - `TARGET` = a spec **file**, a spec **folder** (bundles requirements+design+tasks),
@@ -45,9 +47,9 @@ Not for: reviewing code changes (use `/codex:review`); pure prose/marketing docs
 # explicit file
 spec-review.sh docs/superpowers/specs/2026-05-30-foo-design.md
 # folder spec (.spec-workflow style)
-spec-review.sh .spec-workflow/specs/MVP-plot-lifecycle
+spec-review.sh .spec-workflow/specs/checkout-redesign
 # bare name + focus
-spec-review.sh plot-lifecycle -- scrutinize the credit-deduction math
+spec-review.sh checkout-redesign -- scrutinize the refund math
 # auto-detect newest spec
 spec-review.sh
 ```
@@ -66,11 +68,23 @@ spec-section + verified `file:line` evidence, plus a "Verified OK" list.
 `docs/specs`, `docs/plans`, `specs`, `plans`. Extend via `SPEC_REVIEW_DIRS`
 (colon-separated). Override the model via `SPEC_REVIEW_MODEL`.
 
+## Pass / fail
+
+| Exit | Meaning |
+|---|---|
+| `0` | Pass: stdout has a `CODEX SPEC REVIEW:` header followed by Codex's verdict (SHIP / SHIP WITH CHANGES / DO NOT SHIP) and findings. |
+| `1` | Codex returned no verdict — a non-zero Codex exit, or an empty output file. The script prints a hint (stale auth: `codex logout && codex login`; unsupported model: set `SPEC_REVIEW_MODEL`) or the last lines of Codex's stderr. |
+| `2` | No spec to review: nothing matched `TARGET`, auto-detect found no specs, or the resolved folder has no `.md` files. |
+
+A `DO NOT SHIP` verdict still exits `0` — the exit code says whether the review
+ran, not what it concluded. Read the verdict line.
+
 ## Requirements
 
-- `codex` CLI authenticated (`codex exec` runs non-interactively). The MCP/auth
-  lines on stderr are unrelated server noise — the script discards stderr and
-  reads the clean verdict from Codex's `-o` output file.
+- `codex` CLI authenticated (`codex exec` runs non-interactively). The script
+  reads the clean verdict from Codex's `-o` output file. It captures Codex's
+  stderr (mostly MCP/auth noise) to a temp file and shows it only when the run
+  fails, so a failure can be diagnosed.
 - Run from inside the target git repo (the script `cd`s to the repo root so
   Codex can read the code it's verifying against).
 

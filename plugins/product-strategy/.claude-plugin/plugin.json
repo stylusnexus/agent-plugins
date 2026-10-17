@@ -1,0 +1,21 @@
+{
+  "name": "product-strategy",
+  "description": "A chief product manager and teacher, fourteen focused skills and a business-capability specialist for deciding what to build and why. Works through vision, strategy, value proposition, objectives and North Star metrics, roadmaps, discovery and experiments, growth, pricing and packaging, market analysis and team design, labelling evidence and assumptions as it goes and explaining each choice for people without product training.",
+  "author": {
+    "name": "Stylus Nexus"
+  },
+  "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/product-strategy",
+  "repository": "https://github.com/stylusnexus/agent-plugins",
+  "license": "MIT",
+  "keywords": [
+    "product-management",
+    "strategy",
+    "roadmap",
+    "okr",
+    "north-star",
+    "discovery",
+    "experiments",
+    "value-proposition",
+    "pricing"
+  ]
+}

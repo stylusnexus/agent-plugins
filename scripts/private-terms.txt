@@ -1,0 +1,42 @@
+# Denylist for scripts/check-private-terms.sh.
+#
+# One case-insensitive extended-regex pattern per line. Blank lines and lines
+# starting with # are ignored.
+#
+# This is a PUBLIC MIT marketplace. This file is committed and public, so it
+# holds ONLY terms that are already public knowledge or generic patterns --
+# never a private person's name or a private/dormant product, because listing
+# those here would itself disclose them to every installer and fork. Terms
+# that need to stay private are layered on top at scan time, not listed here:
+#
+#   1. scripts/private-terms.local.txt -- gitignored, for the owner's local
+#      runs. Not committed, never shipped.
+#   2. the PRIVATE_TERMS environment variable (newline-separated regexes) --
+#      set as a repository secret for CI on the owner's own pushes/PRs. Empty
+#      on fork PRs, which then scan with this public list only.
+#
+# The check is scoped to plugins/*/skills/**, plugins/*/agents/**, and
+# plugins/*/README.md -- publisher names in plugin.json and LICENSE are
+# legitimate and out of scope.
+#
+# Personal names: none here -- see the local/secret overlays above.
+# Internal filesystem paths (never ship someone's local layout)
+/Users/
+/Applications/
+# Secrets-adjacent filenames
+recovery-codes
+# Public repos in this marketplace's own org (verified PUBLIC via
+# `gh repo view stylusnexus/<name> --json visibility`) that have no business
+# appearing in shipped skill/agent text anyway -- this scan exists to keep
+# the marketplace repo-agnostic, not just to protect private names.
+agent-armor
+skill-loop
+work-plan-toolkit
+todo-sync-flow
+full-starter
+# The org/publisher name -- already public as this repo's own author.
+Stylus Nexus
+# Unrelated companies/products that don't belong here
+ProductCompass
+Product Compass
+Huryn

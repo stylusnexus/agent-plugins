@@ -1,0 +1,116 @@
+# .readiness-review.yaml -- per-repo config for the readiness-review skill.
+#
+# Copy this to the root of the repo you want reviewed and edit it. Every
+# section is optional: with no file at all the skill still runs the code
+# scans and the read-only GitHub checks, and says what it skipped.
+#
+# The examples below describe a made-up invoicing app. Replace them.
+# Never put a secret in this file: the database section names an
+# environment VARIABLE, never a connection string.
+
+product:
+  name: Example Invoices
+  url: https://app.example.com          # the live product the walk visits
+  audience: freelancers who bill a handful of clients a month
+  promise: send a professional invoice in under two minutes
+
+# Where reports go is NOT set here: the person running the review chooses
+# it (--report-dir, else READINESS_REPORT_DIR, else
+# ~/.readiness-review/reports/<repo folder name>/). A report_dir key in this
+# file is ignored, because this file belongs to the repo being reviewed.
+# For the same reason, paths below that point outside the repo are ignored.
+
+# One area gets a deep read per run, in turn (ISO week number mod the number
+# of areas), so the whole codebase is covered every len(areas) runs.
+# Paths are relative to the repo root.
+review_areas:
+  - name: Sign-in and access
+    paths: [middleware.ts, src/lib/auth, src/app/api/auth, src/app/api/account]
+    focus: Every protected route checks the user; admin checks can't be bypassed; sessions and invites can't be forged or reused.
+  - name: Billing
+    paths: [src/lib/billing, src/app/api/billing, src/app/api/webhooks]
+    focus: Prices come from the server, never the request; webhooks verify signatures; paid endpoints are rate-limited.
+  - name: Database access rules
+    paths: [supabase/migrations, src/lib/db]
+    focus: Every table has row-level security; UPDATE policies have WITH CHECK; no policy lets a user reach another user's rows.
+  - name: API surface
+    paths: [src/app/api]
+    focus: Input validated; errors don't leak internals; public endpoints are deliberately public and rate-limited.
+  - name: Front end
+    paths: [next.config.ts, src/app, src/components]
+    focus: Security headers set; no raw HTML from user content; no secrets in client bundles; oversized components.
+
+# Issues that must be fixed before launch. The review reports how many are
+# still open and never lists them as new findings.
+launch_blockers:
+  issues: [101, 102, 117]
+  note: cut-line agreed for the public launch
+
+# Regexes in this file are capped at 200 characters; one that doesn't
+# compile, or nests quantifiers like (a+)+, is skipped and reported.
+# Regex over changed file paths: files matching it that changed in the last
+# github.days days get a closer read.
+risky_paths: '(middleware\.ts|next\.config|migrations/|src/app/api/|src/lib/(auth|billing|db)/)'
+
+github:
+  # The repo is always this checkout's own GitHub remote. A different repo
+  # named here is ignored; the operator can override with --github-repo.
+  repo: example-org/example-invoices
+  days: 7                                 # window for risky changes
+  count_labels: [bug, security]           # open-issue counts to report
+
+# Optional live-database check (Postgres / Supabase only). Catalog only,
+# never table rows, in a read-only session. Point url_env at a READ-ONLY role
+# -- see the SKILL.md for the three SQL lines that create one.
+database:
+  url_env: READINESS_DATABASE_URL         # variable NAME, looked up ONLY in env_file (the operator's
+                                          # --db-env-var also allows the shell environment)
+  env_file: .env                          # inside the repo; never copied or printed
+  schemas: [public]
+  public_roles: [anon]                    # the role your public/anonymous key maps to, if any
+
+# Tune the pattern scan to this codebase's own helpers.
+scan:
+  auth_patterns: ['requireMember\(', 'withOrgAuth']        # extra calls that count as an auth check
+  service_key_patterns: ['ADMIN_API_TOKEN']                # extra names of server-only secrets
+  migrations_dirs: [supabase/migrations]                   # default: common locations
+
+# The product walk. Look-only unless a run passes --exercise.
+product_walk:
+  viewports: [desktop, 390]               # 390 = phone width in CSS pixels
+  public_pages:                           # visited signed OUT
+    - /
+    - /pricing
+    - /docs
+  plans:                                  # what "would they pay" is judged against
+    - {name: Starter, price: 9 USD/month}
+    - {name: Team, price: 29 USD/month}
+  core_jobs:
+    # needs_writes: true means the job can't be done by looking alone.
+    # In look-only mode it is reported "not exercised (read-only mode)" and
+    # only its screens are read.
+    - name: Find an invoice and read its status
+      stage: engagement
+      needs_writes: false
+      steps: [open the invoices list, filter by unpaid, open one invoice]
+    - name: Create and send an invoice
+      stage: activation
+      needs_writes: true
+      steps: [new invoice, add a client, add two line items, preview, send to the test client]
+    - name: Change the plan
+      stage: revenue
+      needs_writes: true
+      steps: [open billing settings, compare plans, start an upgrade, stop before payment]
+
+# The account the walk signs in as. Must be a dedicated NON-admin test account.
+test_account:
+  identity: readiness-test@example.com    # how to recognize it on screen (email or display name)
+  workspace: Readiness Test Workspace     # the only workspace/org/project the walk may act in
+
+# Opt-in exercise mode (per run: pass --exercise). Ignored unless allowed is
+# true AND test_account names both an identity and a workspace.
+exercise:
+  allowed: false
+  spend_cap: 5                            # hard stop, in the unit below
+  spend_unit: credits                     # e.g. credits, USD, messages
+  max_actions: 40                         # hard stop on the number of UI actions

@@ -93,9 +93,9 @@ The five create three natural tensions:
 
 When the user says "council this" (or any trigger phrase), do two things before framing.
 
-**A. Scan the workspace for context.** The user's question is often just the tip of the iceberg. Their Claude setup likely contains files that would dramatically improve the council's output. Before framing, quickly scan for and read any relevant context files:
+**A. Scan the workspace for context.** The user's question is often just the tip of the iceberg. Their coding agent setup likely contains files that would dramatically improve the council's output. Before framing, quickly scan for and read any relevant context files:
 
-- `CLAUDE.md` or `claude.md` in the project root or workspace (business context, preferences, constraints)
+- `CLAUDE.md`/`claude.md` or `AGENTS.md`/`agents.md` in the project root or workspace (business context, preferences, constraints)
 - Any `memory/` folder (audience profiles, voice docs, business details, past decisions)
 - Any files the user explicitly referenced or attached
 - Recent council transcripts in this folder (to avoid re-counciling the same ground)

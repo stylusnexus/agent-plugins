@@ -1,0 +1,16 @@
+# Give first, and why that looks different by audience
+
+The habit underneath every audience in this plugin is the same: show up in other people's conversations with something genuinely useful before ever mentioning your own thing. What "useful" looks like, and where it happens, changes by platform and by audience — a professional network, a hobby community, and a developer/open-source audience don't reward the same kind of contribution.
+
+## A concrete, sourced routine for a professional network
+On LinkedIn specifically, Justin Welsh — a solo-business creator writing about LinkedIn growth from his own practice — describes making it "a habit to leave a thoughtful comment on five to ten posts related [to] your niche every day," and is explicit that a low-effort comment ("'Agree, Justin! The sky is blue!' doesn't count") isn't the same habit at all: the standard he sets is that comments should be so valuable "they could be a standalone posts all by themselves" (quoted as written). He structures a comment in three parts — compliment the post, expand on one point with your own insight, then ask a question that invites a reply — and states that smart commenting "positions you as an expert and naturally leads to more profile visits and new followers," and that a commenter "can even rack up hundreds of engagements and profile views" this way. (Justin Welsh, "4 Unconventional Tactics to Skyrocket LinkedIn Growth" — https://justinwelsh.me/essays/4-unconventional-tactics-to-skyrocket-linkedin-growth)
+
+A small team can run a scaled-down version of this: a daily floor of a few genuinely substantial comments on posts the target audience already reads, applying Welsh's own bar for what counts — never a reflexive "great post!"
+
+## Where the same habit points elsewhere
+The professional-network version above is specific to a feed built around individual profiles and comment visibility. It doesn't transfer directly to other audiences:
+- **A hobby or enthusiast audience** gathers in forums, Discord servers, and subreddits, where reciprocity happens through participation over time (answering other members' questions, trying and crediting their work) rather than through a single platform's comment-ranking mechanics — see [hobby community](../../mk-community/references/hobby-community.md) for that pattern, and always confirm the specific community's current self-promotion rules before posting, per [the platform-rules protocol](../../mk-community/references/platform-rules-protocol.md).
+- **A developer or open-source audience's** real community surface is usually the README, the docs, and the issue tracker rather than a social feed — giving first there means answering issues, reviewing pull requests, and writing docs a stranger can actually follow, not leaving comments on other people's posts. See [open-source community](../../mk-community/references/opensource-community.md).
+
+## Applying it
+Pick the give-first routine that matches where the audience actually is, not the one that's easiest to run from habit. A team selling a dev tool and spending its daily floor of effort commenting on LinkedIn posts is giving in the wrong room; a team building a hobby product and only answering GitHub issues is doing the same thing in reverse. Confirm the audience first (`mk-audience`), then apply the matching routine above.

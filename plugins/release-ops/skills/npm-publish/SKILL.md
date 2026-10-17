@@ -15,10 +15,12 @@ allowed-tools: Bash(agent-browser:*), Bash(npm:*), Bash(bun:*), Bash(git:*), Bas
 
 **You MUST run these scripts. Do NOT skip steps.**
 
+The scripts ship in `scripts/` next to this SKILL.md. Claude Code fills in `${CLAUDE_SKILL_DIR}` below with this skill's directory. On other hosts, replace `${CLAUDE_SKILL_DIR}` with that directory's absolute path in every command: shell calls don't keep variables between runs.
+
 ## Step 1: Preflight
 
 ```bash
-bash ${SKILL_DIR}/scripts/preflight.sh
+bash ${CLAUDE_SKILL_DIR}/scripts/preflight.sh
 ```
 
 Handles deterministically: version check against npm registry, bump if needed (resets gaps), build, commit log output. Pass `minor` or `major` to override default patch bump.
@@ -30,7 +32,7 @@ Read the commit log from preflight output. If CHANGELOG.md exists, add entry at 
 ## Step 3: Release (commit + push + publish)
 
 ```bash
-bash ${SKILL_DIR}/scripts/release.sh [--access public]
+bash ${CLAUDE_SKILL_DIR}/scripts/release.sh [--access public]
 ```
 
 Commits, pushes, then calls publish.sh. If publish.sh outputs `PUBLISH_SUCCESS` — done, go to Step 4.
@@ -42,7 +44,7 @@ The agent must orchestrate token setup. **Do NOT call setup-token.sh as one long
 **Phase 1 — Fill the form:**
 
 ```bash
-bash ${SKILL_DIR}/scripts/setup-token.sh fill
+bash ${CLAUDE_SKILL_DIR}/scripts/setup-token.sh fill
 ```
 
 Status codes:
@@ -57,7 +59,7 @@ After getting `FORM_READY`, **tell the user directly** (not inside a bash comman
 **Phase 2 — Capture the token:**
 
 ```bash
-bash ${SKILL_DIR}/scripts/setup-token.sh capture
+bash ${CLAUDE_SKILL_DIR}/scripts/setup-token.sh capture
 ```
 
 This polls until the token appears on the page, clicks the Copy button, reads from clipboard, writes to `~/.npmrc`, and clears clipboard. The token never appears in terminal output.
@@ -69,7 +71,7 @@ Status codes:
 **After TOKEN_SAVED, retry publish:**
 
 ```bash
-bash ${SKILL_DIR}/scripts/publish.sh [--access public]
+bash ${CLAUDE_SKILL_DIR}/scripts/publish.sh [--access public]
 ```
 
 Tell user: "Complete the OTP checkbox in your browser if prompted."
@@ -77,10 +79,10 @@ Tell user: "Complete the OTP checkbox in your browser if prompted."
 ## Step 4: Verify (background)
 
 ```bash
-bash ${SKILL_DIR}/scripts/verify.sh <package-name> <version>
+bash ${CLAUDE_SKILL_DIR}/scripts/verify.sh <package-name> <version>
 ```
 
-Run with `run_in_background: true`. Exponential backoff (5s, 10s, 20s, 40s, 60s).
+Run in the background (`run_in_background: true` in Claude Code, or your host's equivalent async/background execution). Exponential backoff (5s, 10s, 20s, 40s, 60s).
 
 ## Key Architecture Principle
 
