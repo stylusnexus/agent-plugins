@@ -231,7 +231,7 @@ Remaining risk  CI red until the failing test is fixed; rename needs a decision.
 
 **Try:** `/debug-feedback-loop the cart total is wrong about one time in ten`
 
-**Skip it when:** The bug already has a failing test. Go straight to the fix.
+**Skip it when:** The bug already has a reliable failing test. Move on to finding the root cause.
 
 *Example exchange, invented data. This skill runs only when you invoke it.*
 

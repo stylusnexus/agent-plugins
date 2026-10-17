@@ -336,11 +336,11 @@ Wave 3  FAIL  tsc red; green on the base commit, so the bump caused it. Not ship
 
 > **Limits.** Claude app and ChatGPT: Classifies and drafts from a pasted ticket; no reproduction, error-tracker search or issue filing.
 
-**Use it when:** A customer email arrived and you need it classified, filed and answered.
+**Use it when:** A customer email arrived and you need it classified, filed, and a reply drafted.
 
 **Try:** `Triage this support email: the customer says the export button does nothing.`
 
-**Skip it when:** The message is a sales lead, or you want the reply sent for you. The skill only drafts.
+**Skip it when:** The message is a sales lead, or you want the reply sent for you. It files the GitHub issue but only drafts the reply.
 
 Example output, invented data.
 

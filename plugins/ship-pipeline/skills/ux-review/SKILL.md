@@ -103,7 +103,7 @@ For each screenshot, use the Read tool to view the image, then evaluate against 
 - [ ] Typography is consistent
 - [ ] Button and card styles are consistent across views
 
-#### Mobile Responsiveness (for *-mobile-* screenshots)
+#### Mobile Responsiveness (for screenshots with "mobile" in the file name, such as settings-mobile.png)
 - [ ] No horizontal scroll
 - [ ] Touch targets are at least 44px (Apple Human Interface Guidelines recommend 44x44pt; WCAG 2.2 SC 2.5.8 sets a 24x24 CSS px AA minimum)
 - [ ] Text is readable without zooming
