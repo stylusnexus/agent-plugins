@@ -3,9 +3,9 @@
 
 Take a batch of GitHub issues from intake through merge — and, only for a ship/deploy/release request, on through a production deploy and validation. 'Ship' means deploying to production: for that request it grounds every issue, reports status and grouping before any edit, implements each group, merges, deploys, and validates against production, calling start-issue, prove-it, review-merge-pipeline and deploy rather than restating them. An 'implement and merge' request stops after the merges — no promotion, no deploy. Repo-agnostic; defers to a repo-local ship-issues when one exists. Use on /ship-issues <N> <N> ..., or when asked to implement and ship/deploy/release several issues (deploys), or to implement and merge them (does not deploy).
 
-[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../../../README.md#compatibility)
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../../../README.md#compatibility)
 
-> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default. Other agents: Needs subagents for specialist review and parallel work; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline.
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 Part of the [ship-pipeline](../../README.md) pack.
 
@@ -77,7 +77,7 @@ This installs the whole ship-pipeline pack, so analytics-instrumentation, api-de
 </details>
 
 <details>
-<summary>Other agents, Skills CLI (partial)</summary>
+<summary>Other agents, Skills CLI</summary>
 
 The [Skills CLI](https://github.com/vercel-labs/skills) finds the agents you have and writes the skill into each one's skills folder.
 
@@ -87,12 +87,12 @@ npx skills add stylusnexus/agent-plugins --skill ship-issues
 
 Skills arrive without a pack prefix: `/ship-issues` in most agents and `@ship-issues` in Windsurf. opencode shows `/ship-issues` only when the skill sets an opencode-specific metadata field, and Gemini CLI starts a skill itself after you approve it.
 
-**Limit:** Needs subagents for specialist review and parallel work; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline.
+**Note:** Without subagents, the groups run one at a time in a single worktree and open decisions are settled from the repo's own docs.
 
 </details>
 
 <details>
-<summary>Other agents, by folder (partial)</summary>
+<summary>Other agents, by folder</summary>
 
 `.agents/skills` is read by Codex, Gemini CLI, Antigravity CLI, Cursor, GitHub Copilot, opencode and Windsurf. Claude Code reads `.claude/skills`. Cline does not read `.agents/skills`; use `.cline/skills` or `.claude/skills` there.
 
@@ -104,7 +104,7 @@ mkdir -p .agents/skills
 cp -R agent-plugins/plugins/ship-pipeline/skills/ship-issues .agents/skills/
 ```
 
-**Limit:** Needs subagents for specialist review and parallel work; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline.
+**Note:** Without subagents, the groups run one at a time in a single worktree and open decisions are settled from the repo's own docs.
 
 </details>
 

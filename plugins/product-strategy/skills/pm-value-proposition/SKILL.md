@@ -5,7 +5,7 @@ description: "This skill should be used when the user asks for a value propositi
 
 # Value Proposition and Value Curves
 
-Read [shared principles](../product-manager/references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
+Read [shared principles](references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
 
 Read [value design](references/value-design.md) for how to develop the underlying value proposition from the working sheet's job steps and underserved outcomes; it also explains why positioning and messaging are separate, later work rather than covered here. Use the [working sheet](templates/value-proposition.md) to draft with the user.
 

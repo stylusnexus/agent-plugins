@@ -362,15 +362,17 @@ on. Cline needs its own folder, `.cline/skills`, or reads `.claude/skills`; it d
 agent's own folder, so you don't have to choose. Gemini CLI's docs say Antigravity CLI replaced it
 for unpaid and Google One users on 18 June 2026.
 
-**Install the whole pack.** 20 skills in product-strategy and go-to-market read shared files inside
-sibling skills: every product-strategy skill except pricing-review, plus mk-copy, mk-founder-content,
-mk-launch, mk-lifecycle, mk-outreach and mk-search. Installed alone (`--skill pm-canvas`) or uploaded
-to the Claude app as one folder, those reads have nothing to open. ChatGPT gets them through the
-Codex plugin install, which brings the whole pack.
+**Shared files travel with each skill.** Every pm-* skill and six mk-* skills (mk-copy,
+mk-founder-content, mk-launch, mk-lifecycle, mk-outreach, mk-search) carry their own copy of their
+pack's shared principles file, so a single-skill install (`--skill pm-canvas`) or a Claude app upload
+of one folder has everything the SKILL.md reads; `scripts/check-shared-sync.sh` keeps each copy
+identical to the canonical file. Links to other skills' reference files are optional reading and
+still need the whole pack. product-manager routes to its sibling skills, so it needs the pack.
 
 **Plugin agents stay behind.** The Skills CLI installs skills only. The four plugin agents
 (audience-scout and marketing-lead in go-to-market, product-manager and business-capability-modeler
-in product-strategy) arrive only with the Claude Code plugin.
+in product-strategy) arrive only with the Claude Code plugin. mk-audience carries the audience-scout
+brief in its own `references/` folder and runs that step inline when the agent is absent.
 
 ---
 

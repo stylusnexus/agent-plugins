@@ -682,23 +682,23 @@
           "note": "Uses the audience-scout agent that ships with the Claude Code plugin."
         },
         "app": {
-          "level": "partial",
-          "note": "No audience-scout agent, so the verified-places step must be done inline with web search."
+          "level": "full",
+          "note": "Without the audience-scout agent, the verified-places step runs inline with web search."
         }
       },
       "codex_chatgpt": {
         "codex": {
-          "level": "partial",
-          "note": "Codex plugins do not carry agents, so audience-scout is missing and the verified-places step has no stated fallback."
+          "level": "full",
+          "note": "Without the audience-scout agent, the verified-places step runs inline with web search."
         },
         "chatgpt": {
-          "level": "partial",
-          "note": "No audience-scout agent, so the verified-places step must be done inline with web search."
+          "level": "full",
+          "note": "Without the audience-scout agent, the verified-places step runs inline with web search."
         }
       },
       "other": {
-        "level": "partial",
-        "note": "The Skills CLI installs skills only, so audience-scout is missing and the verified-places step has no stated fallback."
+        "level": "full",
+        "note": "Without the audience-scout agent, the verified-places step runs inline with web search."
       }
     },
     "mk-brand-kit": {
@@ -753,8 +753,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -767,7 +767,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "mk-founder-content": {
@@ -777,8 +777,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -791,7 +791,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "mk-launch": {
@@ -801,8 +801,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -816,7 +816,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "mk-lifecycle": {
@@ -826,8 +826,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -840,7 +840,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "mk-measurement": {
@@ -872,8 +872,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -886,7 +886,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "mk-positioning": {
@@ -918,8 +918,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -932,7 +932,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "npm-publish": {
@@ -1017,8 +1017,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1031,7 +1031,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-capabilities": {
@@ -1041,8 +1041,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1055,7 +1055,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-discovery": {
@@ -1065,8 +1065,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1079,7 +1079,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill. The optional digest script sits outside the skill folder, so a Skills CLI install does not get it."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-growth": {
@@ -1089,8 +1089,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1103,7 +1103,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-market-analysis": {
@@ -1113,8 +1113,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1127,7 +1127,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-objectives": {
@@ -1137,8 +1137,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1151,7 +1151,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill. The optional metrics script sits outside the skill folder, so a Skills CLI install does not get it."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-roadmap": {
@@ -1161,8 +1161,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1175,7 +1175,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-strategy": {
@@ -1185,8 +1185,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1199,7 +1199,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-strategy-fit": {
@@ -1209,8 +1209,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1223,7 +1223,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-teams": {
@@ -1233,8 +1233,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1247,7 +1247,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-value-proposition": {
@@ -1257,8 +1257,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1271,7 +1271,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-vision": {
@@ -1281,8 +1281,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1295,7 +1295,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pm-visuals": {
@@ -1305,8 +1305,8 @@
           "level": "full"
         },
         "app": {
-          "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
         }
       },
       "codex_chatgpt": {
@@ -1319,7 +1319,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "pr-wait": {
@@ -1403,7 +1403,7 @@
         },
         "app": {
           "level": "partial",
-          "note": "Each upload is one skill folder, so the sibling skills it routes to and their reference files are missing unless you bundle them in."
+          "note": "Each upload is one skill folder, so the sibling skills this one routes to are missing unless you upload them too."
         }
       },
       "codex_chatgpt": {
@@ -1416,7 +1416,7 @@
       },
       "other": {
         "level": "full",
-        "note": "Install the whole pack: this skill reads shared files in a sibling skill."
+        "note": "Install the whole pack: this skill routes to its sibling skills."
       }
     },
     "prove-it": {
@@ -1688,8 +1688,8 @@
         }
       },
       "other": {
-        "level": "partial",
-        "note": "Needs subagents for specialist review and parallel work; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline."
+        "level": "full",
+        "note": "Without subagents, the groups run one at a time in a single worktree and open decisions are settled from the repo's own docs."
       }
     },
     "spec-review": {

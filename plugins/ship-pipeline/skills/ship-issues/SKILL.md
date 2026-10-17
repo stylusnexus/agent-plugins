@@ -44,7 +44,7 @@ Then proceed without waiting, unless a decision in Phase 2 stays unresolved.
 
 ## Phase 2 — Decide (consult before asking)
 
-For each open decision, consult a specialist agent before escalating to the user — whichever your setup has for the question type (domain rules, backend or agent design, UI and interaction, data or schema). Ask for the verdict in the agent's opening lines; long reports lose their conclusion.
+For each open decision, consult a specialist agent before escalating to the user — whichever your setup has for the question type (domain rules, backend or agent design, UI and interaction, data or schema). Ask for the verdict in the agent's opening lines; long reports lose their conclusion. With no specialist agents available, settle the decision from the repo's own docs and code, and state the default you chose.
 
 Ask the user only when a decision is still open after consultation AND it changes what gets built: one question, your default stated, then proceed on the default. Legal, licensing, security or secrets doubt is always a full stop.
 
@@ -54,7 +54,7 @@ Per group:
 
 1. Per issue in the group, run `start-issue`'s Steps 1-2 (intake, already-shipped check) and Step 4 (baseline capture) — every issue needs its own comprehension and baseline, and `start-issue` owns both. Run `start-issue`'s Step 3 (branch creation) only ONCE for the whole group, using the group's branch name from Phase 1's grounding report — running it per issue would create a separate branch per issue and defeat the grouping Phase 1 just decided.
 2. Load any repo-local domain-context skill or guidance doc for the subsystem the group touches.
-3. Run independent groups in parallel, each in its own worktree, so one group's failure can't contaminate another's tree. Give each agent a self-contained packet: goal, decided rule, files, tests to write, stop conditions, and the deliverable in its opening lines. Match the model to the risk: a stronger model for core-pipeline, schema, auth or billing changes. When a worktree needs dependencies or env files, copy dependencies rather than symlinking them, and never link a production env file into a worktree.
+3. Run independent groups in parallel, each in its own worktree, so one group's failure can't contaminate another's tree. Give each agent a self-contained packet: goal, decided rule, files, tests to write, stop conditions, and the deliverable in its opening lines. Match the model to the risk: a stronger model for core-pipeline, schema, auth or billing changes. When a worktree needs dependencies or env files, copy dependencies rather than symlinking them, and never link a production env file into a worktree. If the host cannot start subagents, run the groups one at a time in a single worktree, in dependency order, with the same packet and the same `prove-it` gate per group, and say at the top of the report that the run was sequential.
 4. Test-first where a test can lead.
 5. `prove-it` before the PR. It owns the gates, the baseline comparison and the evidence table. Two batch-specific cautions when reading its results:
    - A worktree can report typecheck errors the primary checkout doesn't (a sub-package without its own dependencies installed). Diff the error lists against the baseline before blaming the change.

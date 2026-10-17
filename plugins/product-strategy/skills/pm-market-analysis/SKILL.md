@@ -5,7 +5,7 @@ description: "This skill should be used when the user asks for Porter's Five For
 
 # Market and Competitive Analysis
 
-Read [shared principles](../product-manager/references/principles.md). Use the framework that informs the decision; do not fill three templates automatically. Ground current claims in primary sources with dates and geography. Preserve uncertainty.
+Read [shared principles](references/principles.md). Use the framework that informs the decision; do not fill three templates automatically. Ground current claims in primary sources with dates and geography. Preserve uncertainty.
 
 ## Choose the lens
 - **Porter's Five Forces:** industry structure and the pressures on value capture. Define the industry and boundary before analyzing rivalry, new entrants, substitutes, buyer power, and supplier power. A substitutes analysis is wider than a list of direct competitors. Identify the mechanism behind each pressure and its implication for where/how to compete. Do not confuse a company's weakness with an industry force or imply industry attractiveness predicts a specific product's success.

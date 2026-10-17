@@ -16,7 +16,7 @@ Use this when someone asks who the first customer is, who to target next, what a
 1. **Build the profile from evidence, not a guess.** Combine firmographic/technographic/behavioral criteria with Jobs to Be Done — the job the buyer is hiring the product for, not just their job title. Mark every field `MISSING INFORMATION` until it has a real source: a conversation, a support thread, a forum post in the customer's own words. See [icp.md](references/icp.md).
 2. **Decide whether — and how — to segment.** Check which base the evidence actually supports (geographic, demographic, psychographic, behavioral, or the B2B-specific firmographic/technographic/needs-based bases), then size each candidate segment against a reachability and distinctness bar before keeping it — segmenting past what the evidence supports adds cost without adding insight. See [segmentation-questions.md](references/segmentation-questions.md).
 3. **Name who else is in the room.** The person who signs off is rarely the only one whose opinion mattered — an initiator, a day-to-day user, a technical influencer, a decider, a gatekeeper can all be different people on one purchase. Identify these roles per target rather than assuming a fixed committee every time; a solo-buyer purchase can genuinely be one person's call. See [buying-centre.md](references/buying-centre.md).
-4. **Find where this audience already gathers.** Dispatch the `audience-scout` agent to verify real, active, fetched places rather than guessing at a subreddit or a Discord; hand verified places to `mk-community` for how to participate in them.
+4. **Find where this audience already gathers.** Dispatch the `audience-scout` agent to verify real, active, fetched places rather than guessing at a subreddit or a Discord; hand verified places to `mk-community` for how to participate in them. If no `audience-scout` agent is installed (Codex plugins, the Skills CLI and app uploads carry skills only), follow [the scout brief](references/audience-scout-brief.md) yourself with web search, fetching each place before listing it; with no web search, list candidate places marked `UNVERIFIED` and say why.
 5. **Name the states a contact moves through** once they've signed up or shown up — enters, moves forward, stalls, or comes back — so a waitlist or signup flow can actually be managed. See [contact-paths.md](references/contact-paths.md).
 6. **Fill the [ICP template](templates/icp-template.md).**
 
@@ -31,7 +31,7 @@ Revisit this when a new segment or signup shows up unprompted in real customers,
 
 ## Outputs
 
-A filled [ICP template](templates/icp-template.md) with each field sourced or marked `MISSING INFORMATION`/`ASSUMPTION`, a segmentation decision with the rejected bases named, a short list of buying-centre roles per target, and — from `audience-scout` — a verified table of real places this audience gathers.
+A filled [ICP template](templates/icp-template.md) with each field sourced or marked `MISSING INFORMATION`/`ASSUMPTION`, a segmentation decision with the rejected bases named, a short list of buying-centre roles per target, and — from `audience-scout`, or the scout brief run inline — a verified table of real places this audience gathers.
 
 ## Adaptable prompt
 

@@ -5,7 +5,7 @@ description: "This skill should be used when the user asks for a roadmap, priori
 
 # Outcome-Based Roadmaps
 
-Read [shared principles](../product-manager/references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
+Read [shared principles](references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
 
 ## Workflow
 1. Read the accepted direction, objectives, current capabilities, existing backlog and commitments, research, constraints, and dependencies. Reconcile live issue state when available; do not treat old issue titles as proof work remains.

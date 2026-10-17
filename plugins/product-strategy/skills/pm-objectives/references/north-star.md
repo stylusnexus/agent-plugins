@@ -58,7 +58,7 @@ visibly broken.
 ## Tooling
 
 Use pm-visuals (Lucid where connected, Mermaid otherwise) to diagram the North Star and its
-input tree alongside the written definition. The plugin's `scripts/metrics_lookup.py`, backed
+input tree alongside the written definition. This skill's `scripts/metrics_lookup.py`, backed
 by [the metric reference](metrics-catalog.md), helps pull a candidate definition to adapt — it
 doesn't choose a North Star, compute a live value, or validate a causal link. Read the host
 analytics skill before requesting any authorized data pull.

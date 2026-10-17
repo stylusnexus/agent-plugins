@@ -11,7 +11,7 @@ Reaching out to a specific person or company: a design partner, a journalist or 
 
 ## Workflow
 
-1. **Confirm the recipient is worth writing to — and worth disqualifying if not.** Outreach is expensive per message — a real ICP or segment (`mk-audience`) and a clear value proposition (`mk-positioning`) should already exist before drafting anything. Outreach without that groundwork is a guess dressed up as a plan. Disqualify before drafting when, for example: no one owns the process this product touches, the company already committed to a competing tool, the integration the pitch leans on isn't one they actually use, or the company is too small/large for the segment this product actually serves. Hard rule for the message itself: never invent a product capability, a person's stated reason for anything, a result, or "we've talked to X" evidence — check every sentence against a supplied fact and label a single self-reported result as self-reported, not verified (see `marketing-lead/references/principles.md`).
+1. **Confirm the recipient is worth writing to — and worth disqualifying if not.** Outreach is expensive per message — a real ICP or segment (`mk-audience`) and a clear value proposition (`mk-positioning`) should already exist before drafting anything. Outreach without that groundwork is a guess dressed up as a plan. Disqualify before drafting when, for example: no one owns the process this product touches, the company already committed to a competing tool, the integration the pitch leans on isn't one they actually use, or the company is too small/large for the segment this product actually serves. Hard rule for the message itself: never invent a product capability, a person's stated reason for anything, a result, or "we've talked to X" evidence — check every sentence against a supplied fact and label a single self-reported result as self-reported, not verified (see `references/principles.md`).
 
 2. **Check for a warm path first.** A trusted connector beats a cold message every time — see [warm-intros.md](references/warm-intros.md). Ask the connector, separately, whether they're willing to make the introduction at all, before drafting anything; write the forwardable note yourself, in your own voice, addressed to the target; give the connector an easy out to decline. Only fall back to cold outreach when no real warm path exists — don't stretch a thin connection to manufacture one.
 
@@ -33,7 +33,7 @@ Reaching out to a specific person or company: a design partner, a journalist or 
 
 ## Outputs
 
-A draft cold message or forwardable warm-intro note, ready for the owner's review — drafting is never sending (see `marketing-lead/references/principles.md`: plans are not permission). A filled [outreach tracker](templates/outreach-tracker.md) log. A filled [design-partner invitation](templates/design-partner-invitation.md) when the ask includes a hands-on setup offer.
+A draft cold message or forwardable warm-intro note, ready for the owner's review — drafting is never sending (see `references/principles.md`: plans are not permission). A filled [outreach tracker](templates/outreach-tracker.md) log. A filled [design-partner invitation](templates/design-partner-invitation.md) when the ask includes a hands-on setup offer.
 
 ## Adaptable prompt
 
