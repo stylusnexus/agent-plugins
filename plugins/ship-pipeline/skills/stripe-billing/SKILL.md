@@ -49,10 +49,10 @@ Covers subscriptions. One-off payments and Elements forms are out of scope unles
       const event = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET!);
       ```
       On the Edge runtime use `await stripe.webhooks.constructEventAsync(...)`. Return `400` if verification throws.
-   2. In **one database transaction**: insert `event.id` into a `WebhookEvent` table with a unique constraint, then apply the state change. If the insert hits the unique constraint, return `200` and stop. Recording the id outside the transaction loses events: a failed write marks the event as seen, and Stripe's retry is skipped.
-   3. Return `200` only after commit; return `5xx` on any failure so Stripe retries.
+   2. For subscription events, fetch the current subscription with `stripe.subscriptions.retrieve(id)` now, **before** opening the database transaction. Stripe does not guarantee event order, so write the subscription's current state rather than applying each event's payload as a delta. Keep the network call out of the transaction: a Prisma 7 interactive transaction times out after 5 seconds by default (`timeout` in [Prisma's transaction options](https://www.prisma.io/docs/v6/orm/prisma-client/queries/transactions)), and in any version a slow Stripe call holds the transaction and its row locks open.
+   3. In **one database transaction**: insert `event.id` into a `WebhookEvent` table with a unique constraint, then apply the state change. If the insert hits the unique constraint, return `200` and stop. Recording the id outside the transaction loses events: a failed write marks the event as seen, and Stripe's retry is skipped.
+   4. Return `200` only after commit; return `5xx` on any failure so Stripe retries.
    - Handle at minimum: `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`, `invoice.paid`, `invoice.payment_failed`.
-   - Stripe does not guarantee event order. For subscription events, re-fetch the subscription with `stripe.subscriptions.retrieve(id)` and write its current state, rather than applying each event's payload as a delta.
 
 5. **Plan changes and proration.** Call `stripe.subscriptions.update` on the existing subscription item with the new price. `proration_behavior: 'create_prorations'` (the default) adds prorations to the next invoice; `'always_invoice'` bills them now; `'none'` skips them. Let Stripe compute proration.
 

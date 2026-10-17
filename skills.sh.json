@@ -64,7 +64,7 @@
     },
     {
       "title": "release-ops",
-      "description": "Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases.",
+      "description": "Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, and handling incidents.",
       "skills": [
         "dependency-upgrade",
         "incident-response",

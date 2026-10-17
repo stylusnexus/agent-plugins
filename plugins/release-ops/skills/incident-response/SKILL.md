@@ -92,6 +92,6 @@ The postmortem and its linked issues are the deliverable, not a verbal summary.
 
 ## Stop conditions
 
-- Root cause involves a database migration or data mutation: stop all further database changes and confirm a recent restorable backup exists ([[backup-verify]]) before touching anything.
-- The rollback fails, or the last known-good deploy is unclear: stop and escalate to the designated incident lead rather than guessing.
+- Root cause involves a database migration or data mutation: stop all further database changes and confirm a recent restorable backup exists (the backup-verify skill in the ship-pipeline pack checks this) before touching anything.
+- The rollback fails, or the last known-good deploy is unclear: stop and escalate to whoever owns the service (or the person who can approve a rollback) rather than guessing.
 - Suspected security incident (auth bypass, data exposure): handle it as a security incident, preserve logs, and do not publish details until the scope is known.

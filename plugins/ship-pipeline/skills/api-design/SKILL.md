@@ -33,7 +33,7 @@ REST design for `app/api/**/route.ts` handlers using Zod and Prisma or Supabase.
 
 6. **Status codes.**
    - `200` GET/PUT/PATCH success. `201` POST that creates, with a `Location` header or the created resource. `204` DELETE success, empty body.
-   - `400` malformed or invalid input. `401` no valid session. `403` valid session, not allowed. `404` not found, *or* the caller may not know it exists; for resources scoped to other users, return 404 instead of 403 so existence does not leak. `409` duplicate or version conflict. `422` only if the codebase already separates semantic errors from 400. `429` rate limited, with `Retry-After`. `500` with no cause in the body.
+   - `400` malformed or invalid input. `401` no valid session. `403` valid session, not allowed, and the resource's existence is already known or public. `404` not found, *or* the caller must not learn it exists; for resources scoped to other users, return 404 instead of 403 so existence does not leak. The auth-hardening skill (hardening pack) uses the same rule. `409` duplicate or version conflict. `422` only if the codebase already separates semantic errors from 400. `429` rate limited, with `Retry-After`. `500` with no cause in the body.
    - Every protected endpoint checks permission, not only the ones that look sensitive.
 
 7. **OpenAPI from Zod.** Generate the spec from the Zod schemas rather than hand-writing YAML that drifts. Options: `@asteasolutions/zod-to-openapi`, or Zod 4's built-in `z.toJSONSchema()` for the schema parts. Check whether the repo already has a generator before adding one. Regenerate in the same PR as the route change.
@@ -61,7 +61,7 @@ REST design for `app/api/**/route.ts` handlers using Zod and Prisma or Supabase.
 
 - `findMany()` with no `select`, returned straight to the client.
 - Unbounded `limit` taken from the query string.
-- Returning `403` for another user's resource, which confirms it exists.
+- Returning `403` for another user's private resource, which confirms it exists.
 - `200` with `{ "error": ... }` in the body.
 - Hand-edited OpenAPI YAML that no longer matches validation.
 
