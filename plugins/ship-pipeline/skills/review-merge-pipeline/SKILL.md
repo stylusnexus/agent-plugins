@@ -35,7 +35,13 @@ echo "default=$DEFAULT_BRANCH candidates=$CANDIDATES"
 PRODUCTION=<repo-local runbook value, user-provided, or $DEFAULT_BRANCH per the above>
 ```
 
-If `$CANDIDATES` has more than one entry (e.g. both `dev` and `staging` exist on `$REMOTE`), STOP and ask the user which one PRs actually target. Otherwise set `BASE` explicitly to that single candidate, or to `$PRODUCTION` if the repo ships from a single branch:
+**The PR target comes from the repo, not from a default.** If the repo's own instructions (the runbook sources above, `CLAUDE.md`/`AGENTS.md`, `CONTRIBUTING.md`) name the branch PRs target, use that. Otherwise cross-check the branch listing against where the repo's recent PRs actually landed:
+
+```bash
+gh pr list --repo "$SLUG" --state merged --limit 20 --json baseRefName --jq '[.[].baseRefName] | group_by(.) | map({base: .[0], n: length})'
+```
+
+If `$CANDIDATES` has more than one entry (e.g. both `dev` and `staging` exist on `$REMOTE`), or the PR history disagrees with the branch listing, STOP and ask the user which one PRs actually target. Otherwise set `BASE` explicitly to that single candidate, or to `$PRODUCTION` if the repo ships from a single branch:
 
 ```bash
 BASE=<the single candidate, $PRODUCTION, or user-provided>
@@ -259,13 +265,32 @@ gh api --paginate "repos/$SLUG/commits/$HEAD_SHA/status?per_page=100" \
   --jq '.statuses[] | "\(.context): \(.state)"'
 ```
 
-Cross-reference every name in `$REQUIRED` against both outputs: missing from both entirely counts as missing, not "not applicable" — a job killed by `timeout-minutes` reports `cancelled`, not `failure`, and looks benign unless you check for its absence explicitly. For Check Runs, `status` must be `completed` and `conclusion` must be `success`, `skipped`, or `neutral` — GitHub's protected-branches docs treat all three as passing ("Required status checks must have a successful, skipped, or neutral status before collaborators can make changes to a protected branch"). Treat `cancelled`, `timed_out`, `failure`, `action_required`, and `stale` as failures. For legacy Statuses, `state` must be `success`. Wait for pending checks to finish (the `pr-wait` skill in `release-ops` does this), then re-run both API calls above. Then merge, pinned to the commit you verified:
+Cross-reference every name in `$REQUIRED` against both outputs: missing from both entirely counts as missing, not "not applicable" — a job killed by `timeout-minutes` reports `cancelled`, not `failure`, and looks benign unless you check for its absence explicitly. For Check Runs, `status` must be `completed` and `conclusion` must be `success`, `skipped`, or `neutral` — GitHub's protected-branches docs treat all three as passing ("Required status checks must have a successful, skipped, or neutral status before collaborators can make changes to a protected branch"). Treat `cancelled`, `timed_out`, `failure`, `action_required`, and `stale` as failures. For legacy Statuses, `state` must be `success`. Wait for pending checks to finish, then re-run both API calls above. A convenience wait (the `pr-wait` skill in `release-ops` does the same job):
+
+```bash
+gh pr checks <pr-number> --repo "$SLUG" --watch --required   # drop --required when $REQUIRED is [] (no required checks)
+```
+
+The watch is only a wait — the per-SHA API read above is the merge gate.
+
+**Pre-merge checklist** — merge only when every item is true:
+
+- [ ] The user asked for this run (invoking the skill counts; inferring "they probably want it merged" does not). `--no-merge` stops before this step.
+- [ ] The build/static gates from Step 1 passed after the last fix in Step 3.
+- [ ] No unresolved Critical or Important review finding.
+- [ ] Every required check passed for `$HEAD_SHA` per the cross-reference above — none failing, cancelled, pending, or missing.
+- [ ] `$BASE` is not `$PRODUCTION`, unless the repo's own flow ships from a single branch (Prerequisites) — in a two-trunk repo, production promotion belongs to `deploy`.
+- [ ] The PR head is the commit that was reviewed and built: `$HEAD_SHA` (Step 6) still equals the PR's `headRefOid`.
+
+Then merge, pinned to the commit you verified:
 
 ```bash
 gh pr merge <pr-number> --repo "$SLUG" --squash --match-head-commit "$HEAD_SHA"
 ```
 
-Use `--squash` by default (single clean commit). Never pass `--admin` or otherwise bypass branch protection unless the user explicitly asks for it on this PR.
+`--match-head-commit` makes `gh` refuse the merge if the PR head moved after your review (`gh pr merge --help`: "Commit SHA that the pull request head must match to allow merge").
+
+Use `--squash` by default (single clean commit). Never pass `--admin` or otherwise bypass branch protection unless the user explicitly asks for it on this PR — and even then, **`--admin` is never used to get past a failing, pending, or missing check.** `gh pr merge --help` describes it as merging "a pull request that does not meet requirements"; a red or unfinished check is a reason not to merge, not a requirement to bypass.
 
 **If `$BASE` requires a merge queue:** `gh pr merge` does not merge immediately — it enables auto-merge (checks not yet passed) or adds the PR to the queue (checks passed), per `gh pr merge --help`. Passing `--squash` here is safe even then: `gh` warns ("The merge strategy for `<base>` is set by the merge queue") and proceeds to enqueue using the queue's own configured strategy rather than erroring (verified against `cli/cli`'s `pkg/cmd/pr/merge/merge.go`: `canMerge()` returns immediately for a queue-required PR, and `merge()` only warns before setting `payload.auto = true`). Expect `state: OPEN` with a merge queued, not `MERGED`, until the queue processes it — don't treat that as a failed merge.
 
@@ -319,9 +344,11 @@ Print a concise summary:
 ```
 Pipeline complete:
 - PR: <url>
-- Status: Merged to $BASE
+- Status: <Merged to <actual $BASE> | Queued in <actual $BASE>'s merge queue | PR open, not merged — <reason>>
 - Review: <N> issues found, <M> fixed
 ```
+
+Name the branch the PR actually merged into, read back from `gh pr view <pr-number> --json baseRefName,state`. Never write "Merged to main" unless `state` is `MERGED` and `baseRefName` is `main`.
 
 ## Error Handling
 
@@ -355,6 +382,15 @@ The user may pass flags after the skill invocation:
 
 **Committing unrelated files**
 - Stage specific files, not `git add -A`. Never commit `.env`, credentials, or large binaries.
+
+**Using `--admin` to get past red or pending CI**
+- `--admin` never substitutes for a passing check. A failing, pending, or missing required check means don't merge.
+
+**Merging without `--match-head-commit`**
+- A push that lands after review would merge unreviewed. Always pin the merge to `$HEAD_SHA`.
+
+**Reporting the wrong merge target**
+- The report names the base the PR actually merged into. "Merged to main" when the base was an integration branch, or when the PR is still queued, is wrong.
 
 **Generic PR titles**
 - Use conventional commit format: `type(scope): description`. Match the project's conventions.

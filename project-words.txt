@@ -309,3 +309,5 @@ rollbar
 sameorigin
 securityheaders
 whsec
+asteasolutions
+posthog

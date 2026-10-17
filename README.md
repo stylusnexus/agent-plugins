@@ -10,7 +10,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents — **10 plugins, 67 skills**. Installs natively into **Claude
+A plugin marketplace for AI coding agents — **10 plugins, 73 skills**. Installs natively into **Claude
 Code** and **OpenAI Codex**, and reaches roughly seventy more agents (Cursor, Copilot, Gemini CLI,
 Windsurf, Zed, opencode, Cline, Continue, Hermes and others) through the Skills CLI.
 
@@ -37,11 +37,11 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 
 | Pack | # | What it's for | Skills |
 |---|---|---|---|
-| [**ship-pipeline**](./plugins/ship-pipeline) | 9 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote — one issue or a batch. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `ship-issues` `db-migration-safety` `backup-verify` |
+| [**ship-pipeline**](./plugins/ship-pipeline) | 13 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote — one issue or a batch. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `ship-issues` `db-migration-safety` `backup-verify` `api-design` `stripe-billing` `analytics-instrumentation` `cdf` |
 | [**reporting-comms**](./plugins/reporting-comms) | 7 | The last mile — turning agent output into something a person wants to read, and getting their judgment back. | `html` `visual-plan` `visual-recap` `recap-table` `writing-clearly-and-concisely` `human-writing` `redline` |
 | [**second-opinion**](./plugins/second-opinion) | 5 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` |
 | [**hardening**](./plugins/hardening) | 11 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, and design-time and agent-era audits. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` `readiness-review` `threat-model` `security-headers` `secrets-leak-audit` `agent-tooling-review` `llm-app-security` |
-| [**release-ops**](./plugins/release-ops) | 5 | Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` |
+| [**release-ops**](./plugins/release-ops) | 7 | Deciding the version, waiting on CI, publishing, and keeping dependencies current between releases. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` `observability-setup` `incident-response` |
 | [**product-strategy**](./plugins/product-strategy) | 14 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps and discovery, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` |
 | [**go-to-market**](./plugins/go-to-market) | 12 | Getting a product noticed on a small team's hours — positioning, copy, launches, community, outreach, email and measurement. | `marketing-lead` `mk-positioning` `mk-audience` `mk-copy` `mk-brand-kit` `mk-search` `mk-launch` `mk-community` `mk-founder-content` `mk-outreach` `mk-lifecycle` `mk-measurement` |
 | [**codebase-intel**](./plugins/codebase-intel) | 4 | Building an accurate picture of a codebase, and the libraries it leans on, before changing it. | `codebase-health` `codebase-architecture-scanner` `grill-with-docs` `read-the-damn-docs` |
@@ -50,11 +50,14 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 
 <!-- catalog:start -->
 <details>
-<summary><b>ship-pipeline</b> · 9 skills</summary>
+<summary><b>ship-pipeline</b> · 13 skills</summary>
 
 | Skill | What it covers |
 |---|---|
+| `analytics-instrumentation` | PostHog event taxonomy — `object_verb` naming, property schemas, identify/reset/group calls, PII exclusion, LLM usage events, and the starter dashboards |
+| `api-design` | Route handler conventions — resource naming, versioning, pagination, the error envelope, Zod request/response validation, status codes, generated OpenAPI, and response scrubbing |
 | `backup-verify` | Backup existence and restore-testing; the go/no-go before a risky mutation |
+| `cdf` | Output format for issue lists — one comma-separated line of numbers, nothing added |
 | `db-migration-safety` | Writing schema change — expand-contract sequencing, idempotency, backfills |
 | `db-truth` | Reading schema truth — shape, relationships, permissions, and post-apply confirmation |
 | `deploy` | Production promotion, merge strategy, release-tooling compatibility |
@@ -63,6 +66,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 | `review-slop` | Report-only slop findings, severity calibration, and suggested repair criteria |
 | `ship-issues` | Batch orchestration — per-issue status, grouping into branches, consult-before-asking, post-deploy validation, the batch report. Owns no step the skills above own. |
 | `start-issue` | Issue comprehension, prior-art checking, baseline capture, branch naming |
+| `stripe-billing` | Subscription billing code — Checkout Sessions, customer portal, plan changes and proration, trials, dunning, and the signed, idempotent Stripe webhook handler |
 
 [Pack README →](./plugins/ship-pipeline)
 
@@ -122,12 +126,14 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 </details>
 
 <details>
-<summary><b>release-ops</b> · 5 skills</summary>
+<summary><b>release-ops</b> · 7 skills</summary>
 
 | Skill | What it covers |
 |---|---|
 | `dependency-upgrade` | Bulk dependency bumps. Treats them as a gated pipeline — inventory, batch, then type check, test, and E2E between batches — rather than one update command and hope. |
+| `incident-response` | A service is down, erroring, or degraded in production. Sets severity, runs a fixed triage order, decides on rollback first, drafts user comms, and writes a one-page blameless postmortem. |
 | `npm-publish` | Publishing to npm or bun — preflight checks, semver bump, changelog entry, git push, publish, verify. Rotates an expired npm token through the browser instead of stopping to ask for a one-time code. |
+| `observability-setup` | You are launching a service or auditing its monitoring. Wires a health-check endpoint, uptime checks, log forwarding, error tracking, LLM cost tracking, and page-versus-ticket alert thresholds. |
 | `pr-wait` | A PR is open and you want to block on CI rather than watch it, optionally merging when checks pass. |
 | `the-waiting` | CI is running and you want to know how long is really left, or why a run is still pending. Estimates each job from its own history, spots runs stuck behind a cancelled one, and suggests something small to do meanwhile. Named for Tom Petty's "The Waiting", because it is the hardest part. |
 | `version-check` | You need to decide the next version. Reads the commits since the last tag and recommends major, minor, or patch, with the reasoning. |
@@ -207,8 +213,11 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 |---|---|
 | `agent-tooling-review` | [hardening](./plugins/hardening) |
 | `agent-watchdog` | [second-opinion](./plugins/second-opinion) |
+| `analytics-instrumentation` | [ship-pipeline](./plugins/ship-pipeline) |
+| `api-design` | [ship-pipeline](./plugins/ship-pipeline) |
 | `auth-hardening` | [hardening](./plugins/hardening) |
 | `backup-verify` | [ship-pipeline](./plugins/ship-pipeline) |
+| `cdf` | [ship-pipeline](./plugins/ship-pipeline) |
 | `codebase-architecture-scanner` | [codebase-intel](./plugins/codebase-intel) |
 | `codebase-health` | [codebase-intel](./plugins/codebase-intel) |
 | `db-migration-safety` | [ship-pipeline](./plugins/ship-pipeline) |
@@ -220,6 +229,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `grill-with-docs` | [codebase-intel](./plugins/codebase-intel) |
 | `html` | [reporting-comms](./plugins/reporting-comms) |
 | `human-writing` | [reporting-comms](./plugins/reporting-comms) |
+| `incident-response` | [release-ops](./plugins/release-ops) |
 | `llm-app-security` | [hardening](./plugins/hardening) |
 | `llm-council` | [second-opinion](./plugins/second-opinion) |
 | `marketing-lead` | [go-to-market](./plugins/go-to-market) |
@@ -235,6 +245,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `mk-positioning` | [go-to-market](./plugins/go-to-market) |
 | `mk-search` | [go-to-market](./plugins/go-to-market) |
 | `npm-publish` | [release-ops](./plugins/release-ops) |
+| `observability-setup` | [release-ops](./plugins/release-ops) |
 | `plan-arbiter` | [second-opinion](./plugins/second-opinion) |
 | `pm-canvas` | [product-strategy](./plugins/product-strategy) |
 | `pm-capabilities` | [product-strategy](./plugins/product-strategy) |
@@ -265,6 +276,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `ship-issues` | [ship-pipeline](./plugins/ship-pipeline) |
 | `spec-review` | [second-opinion](./plugins/second-opinion) |
 | `start-issue` | [ship-pipeline](./plugins/ship-pipeline) |
+| `stripe-billing` | [ship-pipeline](./plugins/ship-pipeline) |
 | `the-waiting` | [release-ops](./plugins/release-ops) |
 | `threat-model` | [hardening](./plugins/hardening) |
 | `version-check` | [release-ops](./plugins/release-ops) |
@@ -296,7 +308,7 @@ rather than burying it.
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
-"install everything" is a valid choice — it's 67 skills, all inert until their trigger matches.
+"install everything" is a valid choice — it's 73 skills, all inert until their trigger matches.
 
 ### Claude Code  (terminal · VS Code extension · JetBrains extension)
 
@@ -331,7 +343,7 @@ writes to each one's skills directory. No marketplace step — one command does 
 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
-npx skills add stylusnexus/agent-plugins --skill '*'        # all 67 skills
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 73 skills
 npx skills add stylusnexus/agent-plugins --skill prove-it   # exactly one
 npx skills add stylusnexus/agent-plugins --skill html redline   # several
 npx skills add stylusnexus/agent-plugins --list             # see what's there first

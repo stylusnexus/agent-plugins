@@ -229,7 +229,7 @@ gh api --paginate "repos/$SLUG/commits/$HEAD_SHA/status?per_page=100" \
   --jq '.statuses[] | "\(.context): \(.state)"'
 ```
 
-Wait for anything pending — `gh pr checks <pr-number> --repo "$SLUG" --watch` as a convenience wait, or the `pr-wait` skill in `release-ops` — then **re-run the two API calls above**; the watch rollup is not itself the merge gate.
+Wait for anything pending — `gh pr checks <pr-number> --repo "$SLUG" --watch --fail-fast` as a convenience wait (`--fail-fast` exits the watch on the first failing check, per `gh pr checks --help`), or the `pr-wait` skill in `release-ops` — then **re-run the two API calls above**; the watch rollup is not itself the merge gate.
 
 Cross-reference every name in `$REQUIRED` against both outputs:
 - Missing from both entirely → **treat as failure**, not "not applicable" (a job killed by `timeout-minutes` reports `cancelled`, not `failure`, and a required check that never ran looks benign unless you check for its absence explicitly).
@@ -285,8 +285,9 @@ Run only the ones that apply (from Step 0):
 
 - **DB migrations** — if the host auto-deploys code but not schema, apply pending migrations immediately after merge, **gated on a confirmed restorable `backup-verify` backup — not just user confirmation to proceed — and never auto-applied** (they can't be rolled back by a PR revert). Run `backup-verify` now if Step 6.5 didn't already produce a confirmed backup for this deploy:
   ```bash
-  npx supabase db push        # or: npx prisma migrate deploy · etc.
+  npx supabase db push        # or: npx prisma migrate deploy (Prisma ORM 7 and earlier) · npx prisma db migrate (Prisma ORM 8) · etc.
   ```
+  Prisma ORM 8 replaces `migrate deploy` with `db migrate` ("`migrate deploy` becomes `db migrate`"; in CI and production it runs as `npx prisma db migrate --to <ref>` — [Prisma docs, How migrations work](https://www.prisma.io/docs/orm/migrations/how-migrations-work)). Check the repo's installed Prisma major version before picking the command.
   Report the migration status in the final summary either way (silence here has caused schema-cache outages).
 - **Package/artifact publishes** — npm, VS Code extension, Docker, GitHub Release — via the repo's workflows (e.g. `gh workflow run npm-publish.yml --ref "$RELEASE" -f dry_run=false`). Mind same-day version collisions (date-derived versions may need a suffix; hand-set extension versions must be bumped per publish).
 - **Back-merge the async version stamp** into `$INTEGRATION` (see Step 10) so the next deploy doesn't drift.
@@ -383,10 +384,22 @@ Deploy complete:
 
 Always state the migration and publish status explicitly — even "none."
 
+**Done** means: the deploy PR reads `state: MERGED` (not merely queued), every conditional step from Step 0 either ran or was explicitly declined by the user, and the Step 10 back-merge diff is empty or near-empty. Anything short of that is reported as incomplete, naming the step that stopped.
+
 ## Flags
 
 - `--dry-run` — show what would deploy without merging.
 - `--force` — skip the build gate (emergency hotfix only).
+
+## Common mistakes
+
+- Sizing the deploy by `git diff "$RELEASE..$INTEGRATION"` after a squash deploy — that's the phantom diff (Step 2).
+- Titling the PR `chore: deploy to production` and getting an empty changelog (Step 4).
+- Expecting `Closes #N` in PRs merged into a non-default `$INTEGRATION` to close issues — GitHub ignores closing keywords on PRs that target any branch other than the default branch (Step 9).
+- Treating the `gh pr checks --watch` rollup as the merge gate instead of the per-SHA check read (Step 6).
+- Reaching for `--admin` to get past a failing, pending, or missing required check (Step 7).
+- Auto-applying migrations because the host auto-deployed the code (Step 8.5).
+- Skipping the back-merge, so the next deploy starts from a wrong anchor (Step 10).
 
 ## Error Handling
 
