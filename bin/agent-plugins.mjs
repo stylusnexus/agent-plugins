@@ -11,6 +11,9 @@ import { spawn } from "node:child_process";
 import { createRequire } from "node:module";
 
 const REPO = "stylusnexus/agent-plugins";
+// Exact Skills CLI release, not @latest, so a new upstream publish cannot change
+// what this launcher runs. Bump it only to a release at least two weeks old.
+const SKILLS_CLI = "skills@1.7.0";
 const require = createRequire(import.meta.url);
 
 let version = "";
@@ -57,7 +60,7 @@ process.stderr.write(
     `  (Claude Code and Codex users: '/plugin marketplace add ${REPO}' is the native path.)\n\n`
 );
 
-const child = spawn("npx", ["-y", "skills@latest", "add", REPO, ...args], {
+const child = spawn("npx", ["-y", SKILLS_CLI, "add", REPO, ...args], {
   stdio: "inherit",
   shell: process.platform === "win32",
 });
@@ -66,7 +69,7 @@ child.on("error", (err) => {
   process.stderr.write(
     `\n  Could not launch the Skills CLI: ${err.message}\n` +
       `  Install the skills directly instead:\n\n` +
-      `    npx skills add ${REPO}\n\n`
+      `    npx ${SKILLS_CLI} add ${REPO}\n\n`
   );
   process.exit(1);
 });

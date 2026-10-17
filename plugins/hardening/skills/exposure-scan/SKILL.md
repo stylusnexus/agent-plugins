@@ -20,7 +20,7 @@ This is a personal/machine-level tool — it is global on purpose, not tied to a
 `bumblebee` must be installed and on PATH:
 
 ```bash
-go install github.com/perplexityai/bumblebee/cmd/bumblebee@latest
+go install github.com/perplexityai/bumblebee/cmd/bumblebee@9d22570f364a667eaf4dd11d1539fc4010edc0e4
 # add to ~/.zshrc so it persists:  export PATH="$HOME/go/bin:$PATH"
 ```
 
@@ -39,17 +39,17 @@ bash <this skill's directory>/scan.sh <command>
 | `quick` (default) | Baseline package roots (the standard global/user dirs) | fastest |
 | `deep` | Full `$HOME` walk — catches packages outside standard roots | minutes |
 | `project <path>` | Scan one project/dir tree | seconds–minutes |
-| `refresh` | Pull the latest catalogs from GitHub `main` into `~/.config/bumblebee/threat_intel` | seconds |
+| `refresh` | Pull the catalogs at the pinned bumblebee commit into `~/.config/bumblebee/threat_intel` | seconds |
 | `catalogs` | Show which catalogs are in use + entry counts | instant |
 
 **Recommended flow:**
-1. `scan.sh refresh` — get current threat intel (do this first; intel updates faster than the binary).
+1. `scan.sh refresh` — get the catalogs for the pinned commit (do this first).
 2. `scan.sh quick` — fast match against installed packages.
 3. Only escalate to `deep` if quick is clean but you want full `$HOME` coverage, or you're investigating a specific reported compromise.
 
 ## Catalog freshness (the one thing to understand)
 
-Catalogs bundled in the Go module cache are **pinned to the installed bumblebee version**. Threat intel is published via PRs on `main` much more often. So the script prefers a **refreshable local cache** at `~/.config/bumblebee/threat_intel/` and only falls back to the bundled (pinned) catalogs when that cache is empty or you're offline. Run `refresh` to stay current. Override the cache location with `BUMBLEBEE_CATALOG_DIR`.
+Both the bumblebee install command and `refresh` use one upstream commit, pinned as `BUMBLEBEE_SHA` in `scan.sh`, so a push to bumblebee's `main` cannot change what is installed or what is matched, and the catalog schema always matches the binary. Threat intel is published on `main` more often than that, so the pin needs bumping to pick up new campaigns: choose a newer commit whose code changes are at least two weeks old (catalog-only commits can be newer), read its diff, update `BUMBLEBEE_SHA`, rerun `go install` with the new SHA, then `refresh`. The script prefers the local cache at `~/.config/bumblebee/threat_intel/` and only falls back to the catalogs bundled in the Go module cache when that cache is empty. Override the cache location with `BUMBLEBEE_CATALOG_DIR`.
 
 ## Reading the result
 
@@ -70,7 +70,7 @@ bumblebee's [README](https://github.com/perplexityai/bumblebee#output) states th
 ## Common mistakes
 
 - **Reading CLEAN as "no vulnerabilities".** This is exact name+version matching against catalog entries, not a CVE scan.
-- **Scanning with stale catalogs.** Skipping `refresh` checks against whatever intel shipped with the installed bumblebee version.
+- **Scanning with stale catalogs.** Skipping `refresh` checks against whatever intel shipped with the installed bumblebee version, and an old `BUMBLEBEE_SHA` misses campaigns published since that commit.
 - **Starting with `deep`.** It walks all of `$HOME` and is slow; `quick` covers the standard package roots.
 - **Treating every non-zero exit as findings.** Only exit `2` means findings; exit `1` means the scan did not complete.
 

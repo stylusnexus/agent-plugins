@@ -6,7 +6,7 @@
 #   scan.sh quick           # same as above
 #   scan.sh deep            # thorough $HOME walk (slower, broader)
 #   scan.sh project <path>  # scan one project/dir tree
-#   scan.sh refresh         # pull latest catalogs from GitHub main into local cache
+#   scan.sh refresh         # pull the catalogs at the pinned commit into local cache
 #   scan.sh catalogs        # show which catalogs would be used and their entry counts
 #
 # Exit codes: 0 = clean, 2 = findings present, 1 = setup/usage/scan error, 3 = mixed catalog schema (catalogs).
@@ -14,6 +14,15 @@
 set -euo pipefail
 
 REPO="perplexityai/bumblebee"
+# Pinned upstream commit for both the bumblebee binary and the catalogs that
+# `refresh` downloads, so a change pushed to bumblebee's main cannot alter what
+# this script installs or matches against. Binary and catalogs come from the
+# same commit, so the catalog schema always matches the binary.
+# To bump: pick a newer commit on bumblebee's main whose code changes are at
+# least two weeks old (catalog-only commits can be newer), read its diff, set
+# BUMBLEBEE_SHA to the full 40-character SHA, then run `go install` with the
+# new SHA and `scan.sh refresh`.
+BUMBLEBEE_SHA="9d22570f364a667eaf4dd11d1539fc4010edc0e4"
 LOCAL_CAT="${BUMBLEBEE_CATALOG_DIR:-$HOME/.config/bumblebee/threat_intel}"
 
 # --- ensure bumblebee is reachable (go install drops it in GOBIN, else the first GOPATH entry's bin) ---
@@ -25,7 +34,7 @@ fi
 export PATH="$GO_BIN_DIR:$PATH"
 if ! command -v bumblebee >/dev/null 2>&1; then
   echo "ERROR: 'bumblebee' not on PATH. Install with:" >&2
-  echo "  go install github.com/${REPO}/cmd/bumblebee@latest" >&2
+  echo "  go install github.com/${REPO}/cmd/bumblebee@${BUMBLEBEE_SHA}" >&2
   echo "  export PATH=\"\$HOME/go/bin:\$PATH\"   # add to ~/.zshrc" >&2
   exit 1
 fi
@@ -49,7 +58,7 @@ resolve_catalogs() {
 # --- verify all catalogs share one schema_version (merge requirement) ---
 validate_catalogs() {
   local dir="$1"
-  python3 - "$dir" <<'PY'
+  python3 -I - "$dir" <<'PY'
 import json, sys, glob, os
 d = sys.argv[1]
 schemas, total, files = set(), 0, 0
@@ -71,14 +80,14 @@ if len(schemas) > 1:
 PY
 }
 
-# --- refresh catalogs from GitHub main (auto-discovers new catalog files) ---
+# --- refresh catalogs at the pinned commit (auto-discovers the catalog files in it) ---
 refresh() {
-  echo "Refreshing exposure catalogs from github.com/${REPO} (branch: main) -> $LOCAL_CAT"
+  echo "Refreshing exposure catalogs from github.com/${REPO} (commit: ${BUMBLEBEE_SHA}) -> $LOCAL_CAT"
   mkdir -p "$LOCAL_CAT"
-  local api="https://api.github.com/repos/${REPO}/contents/threat_intel"
+  local api="https://api.github.com/repos/${REPO}/contents/threat_intel?ref=${BUMBLEBEE_SHA}"
   local urls
   urls="$(curl -fsSL "$api" \
-    | python3 -c "import json,sys; [print(f['download_url']) for f in json.load(sys.stdin) if f['name'].endswith('.json')]")" \
+    | python3 -I -c "import json,sys; [print(f['download_url']) for f in json.load(sys.stdin) if f['name'].endswith('.json')]")" \
     || { echo "ERROR: could not list catalogs (offline or GitHub rate-limited). Bundled catalogs still work." >&2; exit 1; }
   local n=0
   while IFS= read -r url; do
@@ -92,7 +101,7 @@ refresh() {
 # --- pretty-print findings, loud banner on hits ---
 report() {
   local findings_file="$1"
-  python3 - "$findings_file" <<'PY'
+  python3 -I - "$findings_file" <<'PY'
 import json, sys
 hits, summary = [], None
 for line in open(sys.argv[1]):
