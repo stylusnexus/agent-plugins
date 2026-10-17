@@ -1,6 +1,6 @@
 {
   "name": "ship-pipeline",
-  "description": "Fourteen repo-agnostic skills for the ship half of the development loop: issue intake, live-schema grounding, evidence-backed verification, report-only slop review, review/PR/merge, production promotion, a batch orchestrator that carries several issues through all of it, build conventions for API routes, Stripe billing, and PostHog analytics, and a visual UX review of screenshots. Every skill detects the repo's own conventions; the shipping-loop skills (start-issue through ship-issues) defer to a repo-local override when one exists.",
+  "description": "Fifteen repo-agnostic skills for the ship half of the development loop: issue intake, live-schema grounding, evidence-backed verification, report-only slop review, review/PR/merge, production promotion, a batch orchestrator that carries several issues through all of it, build conventions for API routes, Stripe billing, and PostHog analytics, a feature-flag lifecycle with stale-flag cleanup, and a visual UX review of screenshots. Every skill detects the repo's own conventions; the shipping-loop skills (start-issue through ship-issues) defer to a repo-local override when one exists.",
   "author": {
     "name": "Stylus Nexus"
   },
@@ -16,6 +16,7 @@
     "migrations",
     "git",
     "pull-request",
-    "ci"
+    "ci",
+    "feature-flags"
   ]
 }

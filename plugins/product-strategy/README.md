@@ -1,6 +1,6 @@
 # Product Strategy
 
-A chief product manager and teacher, thirteen focused skills and a business-capability specialist for deciding what to build and why. Built for product managers and for people with no product training: it starts from what you already know, labels evidence and assumptions, explains each choice, and leaves the decisions with you.
+A chief product manager and teacher, fourteen focused skills and a business-capability specialist for deciding what to build and why. Built for product managers and for people with no product training: it starts from what you already know, labels evidence and assumptions, explains each choice, and leaves the decisions with you.
 
 ---
 
@@ -18,6 +18,7 @@ A chief product manager and teacher, thirteen focused skills and a business-capa
 | `pm-roadmap` | Building an outcome roadmap, prioritizing, or writing a PRD or user stories. |
 | `pm-discovery` | Planning interviews, testing assumptions, Kano surveys, journey maps, or A/B tests. |
 | `pm-growth` | Acquisition, activation, retention, referral loops, and monetization. |
+| `pricing-review` | Reviewing pricing and packaging, or before changing prices: value metric, tiers, willingness-to-pay evidence, a sourced competitor scan, and a grandfathering plan for existing customers. |
 | `pm-market-analysis` | Five Forces, PESTLE, SWOT, and other views of the market around you. |
 | `pm-capabilities` | Mapping the business capabilities a strategy needs, and the gaps. |
 | `pm-teams` | Setting up empowered product teams and team-level objectives. |
@@ -29,7 +30,7 @@ Two Claude Code agents ship alongside: `product-manager` (the same chief PM, in 
 
 ## Rule ownership
 
-`product-manager` owns sequencing and teaching; each `pm-*` skill owns one artifact. When two could fire, the more specific skill wins: "draft our OKRs" goes to `pm-objectives`, "help me figure out what to do next with this product" goes to `product-manager`. `pm-visuals` never decides content; it draws what the other skills produced.
+`product-manager` owns sequencing and teaching; each `pm-*` skill owns one artifact. When two could fire, the more specific skill wins: "draft our OKRs" goes to `pm-objectives`, "help me figure out what to do next with this product" goes to `product-manager`. `pm-visuals` never decides content; it draws what the other skills produced. `pricing-review` owns price points, tiers, and price-change migration; `pm-growth` owns monetization as part of the growth model and hands concrete pricing to it.
 
 ---
 
@@ -56,7 +57,7 @@ In Codex, type `$` and a skill name to use it (`$product-strategy:product-manage
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill pm-canvas pm-capabilities pm-discovery pm-growth pm-market-analysis pm-objectives pm-roadmap pm-strategy pm-strategy-fit pm-teams pm-value-proposition pm-vision pm-visuals product-manager
+npx skills add stylusnexus/agent-plugins --skill pm-canvas pm-capabilities pm-discovery pm-growth pm-market-analysis pm-objectives pm-roadmap pm-strategy pm-strategy-fit pm-teams pm-value-proposition pm-vision pm-visuals pricing-review product-manager
 ```
 
 Skills arrive un-namespaced on this path, so they invoke as `/product-manager`.
