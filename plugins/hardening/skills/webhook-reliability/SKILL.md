@@ -69,7 +69,7 @@ Webhooks fail silently by nature — there's no user staring at a spinner when o
      failedAt   DateTime @default(now())
    }
    ```
-   Alert on any row appearing here (Better Stack log-based alert on the "dead letter recorded" log line, or a simple daily count check) — a dead letter with no one looking at it is worse than no dead-letter table at all, because it creates false confidence.
+   Alert on rows appearing here: one row opens a ticket, and a burst above an hourly count pages someone (the observability-setup skill in the release-ops pack has the threshold table). A Better Stack log-based alert on the "dead letter recorded" log line, or a simple count check, covers both. A dead letter with no one looking at it is worse than no dead-letter table at all, because it creates false confidence.
 
 7. **Replay tooling** — a small internal script or admin route to re-fetch a stored dead-letter payload and re-run it through the same handler logic, so recovering from a bug doesn't require asking the provider to manually resend:
    ```ts

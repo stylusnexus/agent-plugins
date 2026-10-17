@@ -285,9 +285,9 @@ Run only the ones that apply (from Step 0):
 
 - **DB migrations** — if the host auto-deploys code but not schema, apply pending migrations immediately after merge, **gated on a confirmed restorable `backup-verify` backup — not just user confirmation to proceed — and never auto-applied** (they can't be rolled back by a PR revert). Run `backup-verify` now if Step 6.5 didn't already produce a confirmed backup for this deploy:
   ```bash
-  npx supabase db push        # or: npx prisma migrate deploy (Prisma ORM 7 and earlier) · npx prisma db migrate (Prisma ORM 8) · etc.
+  npx supabase db push        # or: npx prisma migrate deploy (Prisma ORM 7 and earlier) · npx prisma db migrate --to <ref> (Prisma ORM 8) · etc.
   ```
-  Prisma ORM 8 replaces `migrate deploy` with `db migrate` ("`migrate deploy` becomes `db migrate`"; in CI and production it runs as `npx prisma db migrate --to <ref>` — [Prisma docs, How migrations work](https://www.prisma.io/docs/orm/migrations/how-migrations-work)). Check the repo's installed Prisma major version before picking the command.
+  Prisma ORM 8 replaces `migrate deploy` with `db migrate` ("`migrate deploy` becomes `db migrate`"; in CI and production it runs as `npx prisma db migrate --to <ref>` — [Prisma docs, How migrations work](https://www.prisma.io/docs/orm/migrations/how-migrations-work)). Prisma 8 was a release candidate in Prisma's [2026-08-02 changelog](https://www.prisma.io/changelog/2026-08-02), so check the repo's installed Prisma version and the current docs before picking the command; the db-migration-safety skill covers how each version handles transactions and `CREATE INDEX CONCURRENTLY`.
   Report the migration status in the final summary either way (silence here has caused schema-cache outages).
 - **Package/artifact publishes** — npm, VS Code extension, Docker, GitHub Release — via the repo's workflows (e.g. `gh workflow run npm-publish.yml --ref "$RELEASE" -f dry_run=false`). Mind same-day version collisions (date-derived versions may need a suffix; hand-set extension versions must be bumped per publish).
 - **Back-merge the async version stamp** into `$INTEGRATION` (see Step 10) so the next deploy doesn't drift.

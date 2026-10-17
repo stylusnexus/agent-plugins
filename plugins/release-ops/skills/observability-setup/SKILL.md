@@ -44,9 +44,9 @@ Render, Better Stack, Sentry, and PostHog are the example stack. Map each step t
      return new Response('Payment processing failed', { status: 500 });
    }
    ```
-   Tag by area (`billing`, `auth`, `llm`) so alert rules and triage ([[incident-response]]) can filter quickly.
+   Tag by area (`billing`, `auth`, `llm`) so alert rules and triage (this pack's incident-response skill) can filter quickly.
 
-5. **Product analytics.** Instrument events per [[analytics-instrumentation]]. Session replay helps show *what the user was doing* when something broke; the error tracker stays the source of truth for the exception itself.
+5. **Product analytics.** Instrument events per the analytics-instrumentation skill in the ship-pipeline pack. Session replay helps show *what the user was doing* when something broke; the error tracker stays the source of truth for the exception itself.
 
 6. **LLM cost tracking.** For features that call an LLM API, record model, input/output tokens, cost, and latency per call in the same analytics tool (PostHog's LLM analytics uses `$ai_generation` events for this). A cost spike should show up on a dashboard someone checks, not in a provider console reviewed monthly.
 

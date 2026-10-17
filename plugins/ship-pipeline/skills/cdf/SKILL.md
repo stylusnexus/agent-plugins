@@ -6,15 +6,15 @@ description: Use when the user types /cdf or $cdf, or asks for issue numbers "co
 # CDF (comma-delimited format)
 
 Output issue lists as a comma-separated line so they paste straight into
-`gh`, a track file, or another prompt.
+`gh`, a notes file, or another prompt.
 
 ## Rules
 
-- Numbers only, no `#`: `6411, 279, 4544`.
+- Numbers only, no `#`: `101, 205, 318`.
 - One line, `, ` between items. No bullets, no table, no trailing comma.
 - Keep the user's order. Drop duplicates.
 - Lead with the list. One short line after it only for things the list
-  cannot carry (e.g. "9149 is a PR"). No recap.
+  cannot carry (e.g. "205 is a PR"). No recap.
 - Empty result: write `none`.
 
 ## Combining with another request

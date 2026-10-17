@@ -2,7 +2,7 @@
 
 Thirteen repo-agnostic skills for the ship half of the development loop — from reading the issue to promoting to production, with evidence at every gate.
 
-Every skill detects the repository's own conventions rather than assuming a house style, and each **defers to a repo-local version of itself** when the project defines one (`.claude/skills/<name>/`). Install it globally; override it per-repo where a project has stronger rules.
+Every skill detects the repository's own conventions rather than assuming a house style. The shipping-loop skills (`start-issue` through `ship-issues` in the table below) **defer to a repo-local version of themselves** when the project defines one (`.claude/skills/<name>/`), and `review-merge-pipeline` defers to a repo-local release runbook. Install it globally; override it per-repo where a project has stronger rules.
 
 ---
 
@@ -18,11 +18,11 @@ Every skill detects the repository's own conventions rather than assuming a hous
 | **Promote** | `deploy` | Integration branch → production, with the repo's own merge strategy inferred from its history. |
 | **Batch** | `ship-issues` | Carries a set of issues through the loop above in one run: grounds and groups them, reports status before any edit, then calls `start-issue`, `prove-it` and `review-merge-pipeline` per group. For a ship/deploy/release request it also runs `deploy` once for the whole batch and validates against production; for an "implement and merge" request it stops after the merges. |
 | **Schema** | `db-migration-safety` | Expand-contract migrations, idempotent SQL, batched backfills. |
+| **Schema** | `backup-verify` | Confirms backups exist **and actually restore** — into a scratch branch, with smoke queries and timestamped evidence. |
 | **Build** | `api-design` | REST conventions for Next.js route handlers — resource naming, versioning, cursor pagination, one error envelope, Zod validation, and OpenAPI generated from Zod. |
 | **Build** | `stripe-billing` | Stripe subscriptions in a Next.js app — Checkout, customer portal, signed and idempotent webhooks, proration, trials, and dunning. |
 | **Build** | `analytics-instrumentation` | PostHog event taxonomy and instrumentation review — naming, flat properties, identify/reset/group, PII exclusion, and a starter dashboard set. |
 | **Output** | `cdf` | Prints a list of GitHub issues as one plain comma-separated line of numbers, nothing else. |
-| **Schema** | `backup-verify` | Confirms backups exist **and actually restore** — into a scratch branch, with smoke queries and timestamped evidence. |
 
 ### Why `prove-it` is not "trust but verify"
 

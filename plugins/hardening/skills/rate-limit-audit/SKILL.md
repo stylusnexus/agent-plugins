@@ -76,7 +76,7 @@ A rate limiter that's configured but never tested is a rate limiter that might n
    # Concurrent: 25 at once, after the window resets — catches count-then-insert races
    seq 1 25 | xargs -P 25 -I{} bash -c send | sort | uniq -c
    ```
-   Expected output for each run: 20 lines of `200`, 5 lines of `429`. More than 20 `200`s means the limiter is not working — investigate before shipping, don't assume the code is correct because it compiles. A sequential run alone can pass while the concurrent run shows the race.
+   Expected output for each run: 20 lines of `200`, 5 lines of `429`. More than 40 `200`s (2x the limit) means the limiter is not working — investigate before shipping, don't assume the code is correct because it compiles. Between 21 and 40 `200`s, rerun and check whether the run crossed a window boundary: a fixed window can admit up to 2x the limit there (see above). If a run that stays inside one window still lets more than 20 through, the limiter is broken. A sequential run alone can pass while the concurrent run shows the race.
 
 5. **Test the auth-lockout case specifically** — brute-force a login endpoint with a wrong password 6+ times, confirm the 6th+ attempt returns 429 (or an account-lock message) rather than a normal "wrong password" 401 indistinguishable from the first attempt.
 

@@ -34,7 +34,7 @@ Bulk dependency bumps are routine but not risk-free — a single bad major-versi
    - `npx playwright test` (projects with an E2E suite) — catches UI/E2E regressions the type checker can't see, especially after UI-library or Next.js bumps.
    - If any gate fails: run the same gate on the base commit the wave branched from. Fails there too → pre-existing; stop and report it, and do not blame or ship the bump. Passes there → the bump caused it.
 
-6. **Run `exposure-scan`** before finalizing any wave — this checks installed packages against known-compromised-release threat-intel catalogs (supply-chain campaigns like shai-hulud, node-ipc, gemstuffer). Run it especially for major bumps that pull in new transitive dependencies, since a new sub-dependency is a new unvetted surface.
+6. **Run `exposure-scan`** before finalizing any wave — this checks installed packages against threat-intel catalogs of known-compromised releases. Run it especially for major bumps that pull in new transitive dependencies, since a new sub-dependency is a new unvetted surface.
 
 7. **Lockfile hygiene:** commit the updated lockfile (`package-lock.json` / `uv.lock`) in the same PR as the version bump — never let `package.json` and the lockfile drift. Don't hand-edit lockfiles; regenerate them via the package manager. Before pushing, confirm the lockfile matches the manifest: `npm ci` succeeds (it errors when `package.json` and `package-lock.json` disagree) or `uv lock --check` passes.
 
