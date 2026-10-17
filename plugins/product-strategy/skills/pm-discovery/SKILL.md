@@ -5,7 +5,7 @@ description: "This skill should be used when the user asks to evaluate feature r
 
 # Product Discovery and Experiments
 
-Read [shared principles](../product-manager/references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
+Read [shared principles](references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
 
 For early demand tests, read [pretotyping lessons](references/pretotyping.md). These draw on public Savoia materials, not a full-book extraction. For market structure and external context use `pm-market-analysis`; use `pm-visuals` for discovery loops and experiment diagrams.
 
@@ -40,7 +40,7 @@ Explain the difference between an assumption and a finding using the actual evid
 Use the [Kano workflow](references/kano.md) when assessing expected basics, performance attributes and delighters. It covers paired questions, response classification, mixed findings, conceptual diagrams and strategy-aware prioritization. Do not infer survey findings from team opinion.
 
 ## Sources and automation
-Read [discovery sources and automation](references/insight-sources.md) to combine sources grouped by what people say, what people do, what the market shows, and what we generate ourselves; plan connector-assisted collection and generate a local evidence digest. Use the bundled `../../scripts/discovery_digest.py` for deterministic provenance checks; keep synthesis and source-quality judgment explicit.
+Read [discovery sources and automation](references/insight-sources.md) to combine sources grouped by what people say, what people do, what the market shows, and what we generate ourselves; plan connector-assisted collection and generate a local evidence digest. Use the bundled `scripts/discovery_digest.py` for deterministic provenance checks; keep synthesis and source-quality judgment explicit.
 
 ## Discovery, risk and handoff connections
 Read [discovery streams](references/discovery-streams.md) for initial versus continuous discovery, and [product risks](references/product-risks.md) for explicit risk responses and residual risk.

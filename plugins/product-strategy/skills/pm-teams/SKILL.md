@@ -5,7 +5,7 @@ description: "This skill should be used when the user asks about empowered produ
 
 # Product Teams and Operating Model
 
-Read [shared principles](../product-manager/references/principles.md). Help organize ownership and collaboration around valuable outcomes. Use the smallest structure suited to the project; a solo builder does not need an enterprise org chart.
+Read [shared principles](references/principles.md). Help organize ownership and collaboration around valuable outcomes. Use the smallest structure suited to the project; a solo builder does not need an enterprise org chart.
 
 ## Workflow
 1. Establish the strategic context, consequential customer/company problems, current people and responsibilities, constraints, and actual collaboration bottlenecks. Distinguish observed problems from suggested organizational diagnoses.

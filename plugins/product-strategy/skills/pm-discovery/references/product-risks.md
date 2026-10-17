@@ -24,4 +24,4 @@ Applied to product risk, this reframes discovery from "is this risky" to "what c
 
 ## Recording the decision
 
-For each material risk, capture: which of the four kinds it is, its evidence status (**evidence-backed** / **hypothesis** / **accepted**, per [shared principles](../../product-manager/references/principles.md)), the chosen response and the reasoning behind it, the owner, and what would change the decision later. A risk with no chosen response has not stayed open — it has defaulted to *accept*, whether or not anyone said so out loud. Surfacing that default explicitly is often the most useful thing this exercise does.
+For each material risk, capture: which of the four kinds it is, its evidence status (**evidence-backed** / **hypothesis** / **accepted**, per [shared principles](principles.md)), the chosen response and the reasoning behind it, the owner, and what would change the decision later. A risk with no chosen response has not stayed open — it has defaulted to *accept*, whether or not anyone said so out loud. Surfacing that default explicitly is often the most useful thing this exercise does.

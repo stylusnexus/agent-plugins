@@ -5,7 +5,7 @@ description: "This skill should be used when the user asks for business capabili
 
 # Business Capability Modeling
 
-Read [shared principles](../product-manager/references/principles.md) before applying this workflow independently. Use the smallest map that supports the decision; a solo project does not need enterprise ceremony.
+Read [shared principles](references/principles.md) before applying this workflow independently. Use the smallest map that supports the decision; a solo project does not need enterprise ceremony.
 
 ## Define the right thing
 Treat a business capability as a stable ability the business or project needs to achieve an outcome: **what it can do**, independent of its current implementation. Use clear noun-based names such as Customer Onboarding or Content Curation. Describe the ability in one sentence with explicit boundaries.

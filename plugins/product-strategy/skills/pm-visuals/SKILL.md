@@ -5,7 +5,7 @@ description: "This skill should be used when product management work needs diagr
 
 # Product Diagrams and Analysis
 
-Read [shared principles](../product-manager/references/principles.md). Produce an actual diagram together with decision-relevant analysis when a visual is requested or materially clarifies the work. A prose description of a diagram is not a delivered diagram.
+Read [shared principles](references/principles.md). Produce an actual diagram together with decision-relevant analysis when a visual is requested or materially clarifies the work. A prose description of a diagram is not a delivered diagram.
 
 ## Analysis-to-visual contract
 1. Identify the decision, audience, scope, date, and relevant PM workflow. Establish the substantive analysis with `pm-canvas`, `pm-value-proposition`, `pm-discovery`, `pm-capabilities`, `pm-strategy-fit`, `pm-roadmap`, `pm-market-analysis`, `pm-teams`, or `pm-strategy` before selecting a visual form. Iterate as the visual exposes gaps.

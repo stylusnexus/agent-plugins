@@ -18,8 +18,8 @@ Two small local scripts and a diagram/report path. Everything else below is a re
 
 | Job | How it works today |
 |---|---|
-| Look up a metric definition | The plugin's `scripts/metrics_lookup.py` searches the bundled metrics catalog by keyword or category and prints the definition plus its caution notes. No network call, no live calculation. |
-| Turn raw discovery notes into a reviewable digest | The plugin's `scripts/discovery_digest.py` reads a local JSONL file of evidence records, validates required fields (source type, status, a real date), and renders a Markdown digest with source-type counts and flags for missing provenance or synthetic (non-customer) evidence. It does not collect evidence or judge whether it's true — that stays a human/agent synthesis step. |
+| Look up a metric definition | pm-objectives' own `scripts/metrics_lookup.py` searches the bundled metrics catalog by keyword or category and prints the definition plus its caution notes. No network call, no live calculation. |
+| Turn raw discovery notes into a reviewable digest | pm-discovery's own `scripts/discovery_digest.py` reads a local JSONL file of evidence records, validates required fields (source type, status, a real date), and renders a Markdown digest with source-type counts and flags for missing provenance or synthetic (non-customer) evidence. It does not collect evidence or judge whether it's true — that stays a human/agent synthesis step. |
 | Produce a diagram | Mermaid is the default, with a table fallback for anything it can't show cleanly. An external diagramming connector can be used instead when one is actually available — check the live tool rather than assuming it's connected. |
 | Produce a standalone report | Self-contained HTML with inline styles and no remote dependencies, so it opens and prints offline. |
 

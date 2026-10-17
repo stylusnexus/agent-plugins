@@ -5,7 +5,7 @@ description: "Use when the user asks to build, fill in, teach, review, or update
 
 # Product Strategy Canvas
 
-Read [shared principles](../product-manager/references/principles.md) first.
+Read [shared principles](references/principles.md) first.
 
 ## What this is
 A one-page synthesis, not a substitute for the deeper work in `pm-vision`, `pm-strategy`, `pm-value-proposition`, `pm-objectives`, `pm-capabilities`, `pm-strategy-fit`, and `pm-discovery`. It follows Roger Martin and A.G. Lafley's *Playing to Win* strategy choice cascade — five integrated choices (winning aspiration, where to play, how to win, capabilities, management systems) — plus a measures-and-assumptions section this plugin adds to connect the cascade to the rest of the workflow. The [template](templates/product-strategy-canvas.md) carries the full public grounding and attribution for each choice.
