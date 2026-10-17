@@ -1403,7 +1403,7 @@
         },
         "app": {
           "level": "partial",
-          "note": "Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in."
+          "note": "Each upload is one skill folder, so the sibling skills it routes to and their reference files are missing unless you bundle them in."
         }
       },
       "codex_chatgpt": {

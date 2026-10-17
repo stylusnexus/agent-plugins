@@ -194,7 +194,7 @@ _Avoid_: Partial cancellation, item cancel
 
 **Try:** `Add payment-provider webhooks to this app. Read the current official docs first.`
 
-**Skip it when:** The task uses only your own code and has no outside API.
+**Skip it when:** The task uses only your own code, has no outside API, and no repo doc or spec defines the behaviour.
 
 *Example exchange, invented data.*
 

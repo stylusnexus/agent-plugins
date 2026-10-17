@@ -149,7 +149,7 @@ Buying roles   initiator and user are the same person; partner may share the app
 
 **Try:** `Write the positioning for Plant Ledger. Buyers now use a phone calendar.`
 
-**Skip it when:** You want a tagline but have no settled positioning. Do the positioning first.
+**Skip it when:** Your positioning is settled and you need page copy. Use mk-copy.
 
 Example output, invented data (fictional product).
 
@@ -258,7 +258,7 @@ Quotable answer on the page: "Plant Ledger builds a separate watering schedule f
 
 **Use it when:** You launch on a set day and need a plan for it.
 
-**Try:** `Plan a Show HN launch for Plant Ledger on Thursday.`
+**Try:** `Plan a Show HN launch on Thursday for Plant Ledger's public beta.`
 
 **Skip it when:** Your product is still a waitlist page. A launch needs something people can use today.
 
@@ -288,7 +288,7 @@ End of day
 
 **Use it when:** You want to take part in a forum, Discord, or subreddit.
 
-**Try:** `Check the rules of a houseplant forum, then draft a first post for Plant Ledger.`
+**Try:** `Check the rules of r/houseplants, then draft a first post for Plant Ledger.`
 
 **Skip it when:** You want to post in bulk. This skill drafts one post at a time for your review.
 
@@ -313,7 +313,7 @@ Example output, invented data (fictional community). The rules page is fetched a
 
 **Try:** `Turn my note on why I built Plant Ledger into a week of posts.`
 
-**Skip it when:** You have no real story or source piece yet. Find one first.
+**Skip it when:** You want to post in a forum or Discord, or write to one person. Use mk-community or mk-outreach.
 
 Example output, invented data (fictional product). One substantial piece, then short posts cut from it. Nothing is scheduled until the owner approves.
 
