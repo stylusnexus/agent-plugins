@@ -1,6 +1,6 @@
 {
   "name": "product-strategy",
-  "description": "A chief product manager and teacher, thirteen focused skills and a business-capability specialist for deciding what to build and why. Works through vision, strategy, value proposition, objectives and North Star metrics, roadmaps, discovery and experiments, growth, market analysis and team design, labelling evidence and assumptions as it goes and explaining each choice for people without product training.",
+  "description": "A chief product manager and teacher, fourteen focused skills and a business-capability specialist for deciding what to build and why. Works through vision, strategy, value proposition, objectives and North Star metrics, roadmaps, discovery and experiments, growth, pricing and packaging, market analysis and team design, labelling evidence and assumptions as it goes and explaining each choice for people without product training.",
   "author": {
     "name": "Stylus Nexus"
   },
@@ -15,6 +15,7 @@
     "north-star",
     "discovery",
     "experiments",
-    "value-proposition"
+    "value-proposition",
+    "pricing"
   ]
 }

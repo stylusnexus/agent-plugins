@@ -1,6 +1,6 @@
 # Hardening
 
-Eleven security skills: six pre-launch gates for the unglamorous failures that ship to production constantly, plus five that cover design time and the agent era.
+Twelve skills: eleven security checks (six pre-launch gates for the unglamorous failures that ship to production constantly, plus five that cover design time and the agent era) and `legal-docs` for the customer-facing legal documents a launch needs.
 
 None of this is exotic. A missing rate limit on an endpoint that calls a paid API, a webhook with no signature check, a compromised transitive dependency, an API key that turns up in a log line. These are cheap to check and expensive to discover in the wild.
 
@@ -21,6 +21,7 @@ None of this is exotic. A missing rate limit on an endpoint that calls a paid AP
 | `secrets-leak-audit` | Before launch, or after a key shows up somewhere it should not. Checks git history, the production bundle, logs and error reports, and API responses. |
 | `agent-tooling-review` | An MCP server, plugin, or token is being connected to an agent, or an agent will run unattended. Applies least privilege and a human gate on irreversible actions. |
 | `llm-app-security` | A feature sends untrusted content to a model or lets a model act. Maps input-to-sink paths, requires gates on output and actions, and proves them with a public adversarial corpus. |
+| `legal-docs` | Drafting or reviewing Terms of Service, a Privacy Policy, a refund policy, or an acceptable use policy. Checks every claim against what the product actually does and marks every draft as not legal advice, for a lawyer to review. |
 
 ---
 
@@ -39,8 +40,11 @@ None of this is exotic. A missing rate limit on an endpoint that calls a paid AP
 | `secrets-leak-audit` | Credentials and personal data leaving through git, bundles, logs, responses |
 | `agent-tooling-review` | What an agent is permitted to connect to and do, attended or not |
 | `llm-app-security` | What untrusted content can make a model do |
+| `legal-docs` | What the customer-facing legal documents say, and that each claim matches the product |
 
 Two of these are about **cost and abuse** (`rate-limit-audit`, `exposure-scan`), two about **trust boundaries** (`auth-hardening`, `webhook-reliability`), one about **data itself** (`privacy-audit`), and one steps back to ask whether the whole thing is ready (`readiness-review`). `threat-model` runs first and decides which of the others a feature needs; its table names the skill that verifies each control. They compose but don't overlap: a rate-limited endpoint can still leak PII, and a correctly-scoped OAuth flow says nothing about whether your dependencies are clean.
+
+`legal-docs` writes the documents; `privacy-audit` checks the practices they describe. A privacy policy is drafted from the `privacy-audit` inventory, never the other way round.
 
 The one worth running first is `privacy-audit`, because it's the only one whose finding might be *"we shouldn't be collecting this at all"* — and that answer changes what the others need to protect. `readiness-review` is the one to run last and then on a schedule: its report points at which of the others a finding belongs to.
 
@@ -69,7 +73,7 @@ In Codex, type `$` and a skill name to use it (`$hardening:rate-limit-audit`; Co
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill agent-tooling-review auth-hardening exposure-scan llm-app-security privacy-audit rate-limit-audit readiness-review secrets-leak-audit security-headers threat-model webhook-reliability
+npx skills add stylusnexus/agent-plugins --skill agent-tooling-review auth-hardening exposure-scan legal-docs llm-app-security privacy-audit rate-limit-audit readiness-review secrets-leak-audit security-headers threat-model webhook-reliability
 ```
 
 Skills arrive un-namespaced on this path, so they invoke as `/rate-limit-audit`.
@@ -90,7 +94,7 @@ Its bundled threat-intelligence catalogs are pinned to the installed version whi
 
 ## Scope note
 
-These are audits and checklists — they find and report. None of them applies a fix without you deciding to, `readiness-review` never files an issue or writes to a database in any mode, and none should be treated as a substitute for a real security review of anything genuinely sensitive.
+These are audits and checklists — they find and report. None of them applies a fix without you deciding to, `legal-docs` produces drafts that are not legal advice and need a lawyer's review, `readiness-review` never files an issue or writes to a database in any mode, and none should be treated as a substitute for a real security review of anything genuinely sensitive.
 
 ## License
 

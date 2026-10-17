@@ -13,6 +13,7 @@
         "db-migration-safety",
         "db-truth",
         "deploy",
+        "feature-flags",
         "prove-it",
         "review-merge-pipeline",
         "review-slop",
@@ -48,11 +49,12 @@
     },
     {
       "title": "hardening",
-      "description": "The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, and design-time and agent-era audits.",
+      "description": "The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, design-time and agent-era audits, and draft legal documents for a lawyer to review.",
       "skills": [
         "agent-tooling-review",
         "auth-hardening",
         "exposure-scan",
+        "legal-docs",
         "llm-app-security",
         "privacy-audit",
         "rate-limit-audit",
@@ -65,10 +67,12 @@
     },
     {
       "title": "release-ops",
-      "description": "Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, and handling incidents.",
+      "description": "Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and auditing model API spend.",
       "skills": [
+        "customer-support-triage",
         "dependency-upgrade",
         "incident-response",
+        "llm-cost-audit",
         "npm-publish",
         "observability-setup",
         "pr-wait",
@@ -78,7 +82,7 @@
     },
     {
       "title": "product-strategy",
-      "description": "Deciding what to build and why — vision, strategy, value, objectives, roadmaps and discovery, taught as it goes.",
+      "description": "Deciding what to build and why — vision, strategy, value, objectives, roadmaps, discovery and pricing, taught as it goes.",
       "skills": [
         "pm-canvas",
         "pm-capabilities",
@@ -93,6 +97,7 @@
         "pm-value-proposition",
         "pm-vision",
         "pm-visuals",
+        "pricing-review",
         "product-manager"
       ]
     },
