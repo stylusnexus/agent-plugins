@@ -10,7 +10,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents — **10 plugins, 79 skills**. Installs natively into **Claude
+A plugin marketplace for AI coding agents — **10 plugins, 80 skills**. Installs natively into **Claude
 Code** and **OpenAI Codex**, and reaches roughly seventy more agents (Cursor, Copilot, Gemini CLI,
 Windsurf, Zed, opencode, Cline, Continue, Hermes and others) through the Skills CLI.
 
@@ -39,7 +39,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 |---|---|---|---|
 | [**ship-pipeline**](./plugins/ship-pipeline) | 15 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote — one issue or a batch. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `ship-issues` `db-migration-safety` `backup-verify` `api-design` `stripe-billing` `analytics-instrumentation` `feature-flags` `ux-review` `cdf` |
 | [**reporting-comms**](./plugins/reporting-comms) | 7 | The last mile — turning agent output into something a person wants to read, and getting their judgment back. | `html` `visual-plan` `visual-recap` `recap-table` `writing-clearly-and-concisely` `human-writing` `redline` |
-| [**second-opinion**](./plugins/second-opinion) | 5 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` |
+| [**second-opinion**](./plugins/second-opinion) | 6 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` `efficient-frontier-routing` |
 | [**hardening**](./plugins/hardening) | 12 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, design-time and agent-era audits, and draft legal documents for a lawyer to review. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` `readiness-review` `threat-model` `security-headers` `secrets-leak-audit` `agent-tooling-review` `llm-app-security` `legal-docs` |
 | [**release-ops**](./plugins/release-ops) | 9 | Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and auditing model API spend. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` `observability-setup` `incident-response` `customer-support-triage` `llm-cost-audit` |
 | [**product-strategy**](./plugins/product-strategy) | 15 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps, discovery and pricing, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` `pricing-review` |
@@ -92,12 +92,13 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 </details>
 
 <details>
-<summary><b>second-opinion</b> · 5 skills</summary>
+<summary><b>second-opinion</b> · 6 skills</summary>
 
 | Skill | What it covers |
 |---|---|
 | `agent-watchdog` | Another agent's work needs watching, auditing, comparing, or fixing, from a session ID or transcript. |
 | `debug-feedback-loop` | A bug needs a fast, deterministic pass/fail signal before hypothesising about causes — the step most debugging skips. |
+| `efficient-frontier-routing` | Any task in Claude Code or Codex where the model should match the work: small tasks stay local, routine work goes to cheaper subagents, and difficult decisions or risky reviews go to a stronger one. |
 | `llm-council` | A question, idea, or decision is consequential enough to want five advisors analysing it independently before synthesis — rather than one answer delivered confidently. |
 | `plan-arbiter` | Two or more plans are on the table and someone has to compare, cross-review, merge, judge, or arbitrate between them. Picks on reasoning, not on whichever was written last. |
 | `spec-review` | A spec or requirements doc is drafted or about to be implemented. Verifies its claims against the real codebase — catching wrong data-model assumptions before code embeds them. |
@@ -232,6 +233,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `debug-feedback-loop` | [second-opinion](./plugins/second-opinion) |
 | `dependency-upgrade` | [release-ops](./plugins/release-ops) |
 | `deploy` | [ship-pipeline](./plugins/ship-pipeline) |
+| `efficient-frontier-routing` | [second-opinion](./plugins/second-opinion) |
 | `exposure-scan` | [hardening](./plugins/hardening) |
 | `feature-flags` | [ship-pipeline](./plugins/ship-pipeline) |
 | `grill-with-docs` | [codebase-intel](./plugins/codebase-intel) |
@@ -322,7 +324,7 @@ rather than burying it.
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
-"install everything" is a valid choice — it's 79 skills, all inert until their trigger matches.
+"install everything" is a valid choice — it's 80 skills, all inert until their trigger matches.
 
 Pick your tool, copy the command, then open its section below for the rest.
 
@@ -397,7 +399,7 @@ writes to each one's skills directory. No marketplace step — one command does 
 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
-npx skills add stylusnexus/agent-plugins --skill '*'        # all 79 skills
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 80 skills
 ```
 
 Skills install without a pack prefix, so you type `/prove-it`.

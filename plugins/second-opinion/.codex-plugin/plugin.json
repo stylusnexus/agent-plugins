@@ -1,6 +1,6 @@
 {
   "name": "second-opinion",
-  "description": "Five skills built on one premise: a single model's confident answer is not evidence. llm-council runs a question through five advisors who analyse independently before synthesis; plan-arbiter compares, judges, and merges competing plans rather than picking one on vibes; spec-review checks a spec's claims against the real codebase before code is written, catching wrong data-model assumptions early; agent-watchdog audits another agent's work from its session or transcript; and debug-feedback-loop builds a deterministic pass/fail signal for a bug BEFORE hypothesising about causes.",
+  "description": "Six skills built on one premise: a single model's confident answer is not evidence. llm-council runs a question through five advisors who analyse independently before synthesis; plan-arbiter compares, judges, and merges competing plans rather than picking one on vibes; spec-review checks a spec's claims against the real codebase before code is written, catching wrong data-model assumptions early; agent-watchdog audits another agent's work from its session or transcript; debug-feedback-loop builds a deterministic pass/fail signal for a bug BEFORE hypothesising about causes; and efficient-frontier-routing keeps small tasks local, sends routine work to cheaper subagents, and escalates difficult decisions or risky reviews to a stronger model.",
   "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/second-opinion",
   "repository": "https://github.com/stylusnexus/agent-plugins",
   "license": "MIT",
@@ -11,7 +11,8 @@
     "debugging",
     "multi-agent",
     "quality",
-    "specs"
+    "specs",
+    "model-routing"
   ],
   "author": {
     "name": "Stylus Nexus",
@@ -20,7 +21,7 @@
   "interface": {
     "displayName": "Second Opinion",
     "shortDescription": "Don't trust one model's verdict",
-    "longDescription": "Five skills built on one premise: a single model's confident answer is not evidence. llm-council runs a question through five advisors who analyse independently before synthesis; plan-arbiter compares, judges, and merges competing plans rather than picking one on vibes; spec-review checks a spec's claims against the real codebase before code is written, catching wrong data-model assumptions early; agent-watchdog audits another agent's work from its session or transcript; and debug-feedback-loop builds a deterministic pass/fail signal for a bug BEFORE hypothesising about causes.",
+    "longDescription": "Six skills built on one premise: a single model's confident answer is not evidence. llm-council runs a question through five advisors who analyse independently before synthesis; plan-arbiter compares, judges, and merges competing plans rather than picking one on vibes; spec-review checks a spec's claims against the real codebase before code is written, catching wrong data-model assumptions early; agent-watchdog audits another agent's work from its session or transcript; debug-feedback-loop builds a deterministic pass/fail signal for a bug BEFORE hypothesising about causes; and efficient-frontier-routing keeps small tasks local, sends routine work to cheaper subagents, and escalates difficult decisions or risky reviews to a stronger model.",
     "developerName": "Stylus Nexus",
     "category": "Developer Tools",
     "capabilities": [
@@ -28,7 +29,8 @@
       "Compares and merges competing plans instead of picking one arbitrarily",
       "Verifies a spec's claims against the actual codebase before implementation",
       "Audits another agent's work from its session or transcript",
-      "Builds a deterministic reproduction signal before hypothesising about a bug"
+      "Builds a deterministic reproduction signal before hypothesising about a bug",
+      "Routes each piece of work to the cheapest suitable model and escalates risky calls to a stronger one"
     ],
     "websiteURL": "https://github.com/stylusnexus/agent-plugins"
   }
