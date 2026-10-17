@@ -4,6 +4,9 @@ name: manifest-sync
 #      that once hid defect-scan from Codex entirely.
 #   2. a SKILL.md that no harness can load — an unquoted ": " in frontmatter drops
 #      the whole block, so the skill has no description and never triggers.
+permissions:
+  contents: read
+
 on:
   pull_request:
   push:
@@ -12,7 +15,7 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
       - name: Manifests in sync (plugins + refs)

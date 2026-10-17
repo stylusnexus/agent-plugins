@@ -7,6 +7,6 @@
   "contentHash": "a4472046cc4e5cc8",
   "mcpUrl": "",
   "installedAt": "2026-06-19T15:20:58.542Z",
-  "updateCommand": "npx @agent-native/core@latest skills update visual-plan",
+  "updateCommand": "npx @agent-native/core@0.200.0 skills update visual-plan",
   "planMode": "local-files"
 }
