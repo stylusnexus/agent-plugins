@@ -2,7 +2,7 @@
 
 Fifteen repo-agnostic skills for the ship half of the development loop — from reading the issue to promoting to production, with evidence at every gate.
 
-Every skill detects the repository's own conventions rather than assuming a house style. The shipping-loop skills (`start-issue` through `ship-issues` in the table below) **defer to a repo-local version of themselves** when the project defines one (`.claude/skills/<name>/`), and `review-merge-pipeline` defers to a repo-local release runbook. Install it globally; override it per-repo where a project has stronger rules.
+Every skill detects the repository's own conventions rather than assuming a house style. The shipping-loop skills (`start-issue` through `ship-issues` in the table below) **defer to a repo-local version of themselves** when the project defines one (`.claude/skills/<name>/`), and `deploy` defers to a repo-local release runbook. Install it globally; override it per-repo where a project has stronger rules.
 
 ---
 
@@ -261,7 +261,7 @@ Open question: is the 500-page limit intended?
 
 **Try:** `/review-merge-pipeline --no-merge`
 
-**Skip it when:** You want to read the diff yourself first, or the change is not ready to merge.
+**Skip it when:** You want to read the diff yourself before anything is committed or pushed.
 
 What happens to each review finding, by the reviewer's confidence:
 
@@ -295,7 +295,7 @@ Pipeline complete:
 
 **Try:** `/deploy`
 
-**Skip it when:** The work is not yet merged to the integration branch, or the repo has its own deploy runbook.
+**Skip it when:** The work is not yet merged to the integration branch, or the repo ships from a single branch with nothing to promote.
 
 After a squash deploy, the file diff can show work that already shipped. The skill reads both signals together:
 
@@ -329,9 +329,9 @@ Deploy complete:
 
 **Use it when:** You have a batch of related issues and want them taken from intake to merge, or to production.
 
-**Try:** `/ship-issues 101 204 317`
+**Try:** `Implement and merge issues 101, 204 and 317 with /ship-issues. Do not deploy.`
 
-**Skip it when:** You have one small issue. Use start-issue instead.
+**Skip it when:** You have one small issue. Run start-issue, then prove-it and review-merge-pipeline.
 
 Example output, invented data.
 
@@ -518,7 +518,7 @@ that removes its code has deployed.
 
 **Try:** `Review our PostHog events for naming and personal data`
 
-**Skip it when:** You need a one-off query on existing data. This skill sets up events and does not analyze them.
+**Skip it when:** You need a one-off answer from existing data. This skill designs and audits events and dashboards; it does not run analyses.
 
 Example output, invented data.
 
@@ -551,7 +551,7 @@ project owner (fix plus possible deletion of past events).
 
 **Try:** `/ux-review ./screenshots/settings-mobile.png`
 
-**Skip it when:** You have no screenshots, or you want a code review.
+**Skip it when:** The project has no screenshots and no visual tests to take them, or you want a code review.
 
 Example output, invented data.
 
