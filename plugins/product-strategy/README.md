@@ -86,11 +86,11 @@ Each example below is a short sample of a skill's output. They all use one inven
 
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
-> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+> **Limits.** Claude app: Each upload is one skill folder, so the sibling skills it routes to and their reference files are missing unless you bundle them in.
 
 **Use it when:** You have a product idea and do not know what to work on first.
 
-**Try:** `I built a recipe-sharing app for home cooks. Where do I start?`
+**Try:** `I built a watering tracker for houseplant collectors. Where do I start?`
 
 **Skip it when:** You already know which single artifact you need, such as OKRs or a roadmap.
 
@@ -276,7 +276,7 @@ Eliminate: social feed   Raise: travel mode   Create: room schedules
 
 **Use it when:** You must set goals for a quarter and say how you will measure them.
 
-**Try:** `Draft OKRs for next quarter for my plant tracker, with baselines.`
+**Try:** `Draft OKRs for next quarter for my plant tracker. Here are my current numbers: [...]`
 
 **Skip it when:** You want a ranked list of features to build.
 
@@ -387,7 +387,7 @@ Economics          acquisition cost unknown; no lifetime value until 3 months of
 
 > **Limits.** Other agents: Web search is the core step; Gemini CLI/Antigravity CLI, Cursor and opencode (with a search provider) have it, Copilot, Windsurf and Cline are not verified.
 
-**Use it when:** You plan to change prices or tiers on a product with paying customers.
+**Use it when:** You are setting prices or tiers, or changing them for customers who already pay.
 
 **Try:** `Review my pricing before I raise the Collector plan from $4 to $6.`
 
@@ -502,7 +502,7 @@ Review trigger     after 4 weeks, or sooner if setup drop-off gets worse
 
 **Use it when:** You have analysis in a table and want a diagram or HTML page of it.
 
-**Try:** `Draw a Mermaid diagram of my value curve table.`
+**Try:** `Draw a Mermaid diagram of my capability map table.`
 
 **Skip it when:** You have no analysis yet. Do the analysis first.
 

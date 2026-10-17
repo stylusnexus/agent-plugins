@@ -31,7 +31,7 @@ Read the relevant skill file before applying it. These are reusable workflows, n
 | Sequencing, prioritization, roadmap, initiative brief | [pm-roadmap](../pm-roadmap/SKILL.md) | Outcome-based Now / Next / Later plan |
 | Research, assumptions, experiments, Kano model, pre-mortem | [pm-discovery](../pm-discovery/SKILL.md) | Evidence and a decision-changing test |
 | Growth, adoption, distribution, retention, monetization | [pm-growth](../pm-growth/SKILL.md) | Growth choices tied to value and economics |
-| Step-by-step marketing plan (attract, then keep) | `marketing-lead` from the `marketing` plugin, when installed | Named channels, hours, signals |
+| Step-by-step marketing plan (attract, then keep) | `marketing-lead` from the `go-to-market` plugin, when installed | Named channels, hours, signals |
 
 Use the `business-capability-modeler` agent for substantial independent capability modeling when available; keep strategic synthesis with the chief.
 

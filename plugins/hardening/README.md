@@ -160,7 +160,7 @@ Record: 2026-01-12, example-agent (model name), B1-B3, accepted risks: none
 
 **Try:** `Audit auth on every route in this app and tell me which ones skip the ownership check.`
 
-**Skip it when:** The app does not use NextAuth v5 and the change does not touch sessions, roles or permissions.
+**Skip it when:** The app does not use NextAuth v5, or the change does not touch sign-in, sessions, roles or permissions.
 
 *Example output, invented data.*
 
@@ -253,7 +253,7 @@ Inbound: POST /api/webhooks/repo-events (provider does not auto-retry)
 
 **Try:** `Check the security headers on staging and tell me who sets each one.`
 
-**Skip it when:** You cannot reach a deployed URL and only have local code.
+**Skip it when:** You need a launch pass but have no deployed URL. Without one it can only read config and flag what is missing.
 
 *Example output, invented data.*
 
@@ -312,7 +312,7 @@ Noticed: credentialed URL in an agent config file -> agent-tooling-review
 
 > **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
-**Use it when:** News reports a compromised npm package and you need to know if your machine has it.
+**Use it when:** A compromised package is reported and you need to know if your machine has it. Refresh the catalogs first; a campaign not yet listed won't match.
 
 **Try:** `Refresh the threat catalogs, then run a quick exposure scan.`
 
@@ -407,9 +407,9 @@ False positives on 200 benign documents: 1 (0.5%)
 
 **Use it when:** You plan a launch and want one report on code health and the user experience.
 
-**Try:** `Run a look-only readiness review of this repo and the staging site.`
+**Try:** `/readiness-review` (with a `.readiness-review.yaml` that names the staging URL and a non-admin test account)
 
-**Skip it when:** You need a fix applied. It reports only and never files issues or writes data.
+**Skip it when:** You need a fix applied. It writes only a local report and never changes code, files issues or writes to the database.
 
 *Example output, invented data.*
 
@@ -447,7 +447,7 @@ Dependabot: NOT VERIFIED (HTTP 403)
 
 **Try:** `Audit what user data we collect, where it is stored, and whether export and delete work.`
 
-**Skip it when:** You only need a policy draft with no check of the product. Use legal-docs.
+**Skip it when:** You need the policy text written. Use legal-docs, which builds on this audit's data inventory.
 
 *Example output, invented data.*
 
