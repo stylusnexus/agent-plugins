@@ -537,10 +537,10 @@ Skills arrive un-namespaced on this path, so most agents invoke them as `/rate-l
 `exposure-scan` shells out to [`bumblebee`](https://github.com/perplexityai/bumblebee), which must be installed and on `PATH`:
 
 ```bash
-go install github.com/perplexityai/bumblebee/cmd/bumblebee@latest
+go install github.com/perplexityai/bumblebee/cmd/bumblebee@9d22570f364a667eaf4dd11d1539fc4010edc0e4
 ```
 
-Its bundled threat-intelligence catalogs are pinned to the installed version while upstream publishes updates far more often, so the skill refreshes them before scanning.
+That commit is pinned in `scan.sh` (`BUMBLEBEE_SHA`), and `scan.sh refresh` downloads the threat-intelligence catalogs from the same commit, so an upstream push cannot change what runs or what it matches against. Newer catalogs arrive only when the pin is bumped; `scan.sh` says how.
 
 `readiness-review` needs `python3` (with [`uv`](https://docs.astral.sh/uv/) recommended, so its scripts fetch their own two dependencies), the `gh` CLI signed in for the GitHub facts, and optionally a browser tool (Claude in Chrome, Chrome DevTools MCP, or Playwright MCP) for the product walk and a read-only Postgres role for the live-database check. Each missing piece is reported as not checked; the run continues. Product specifics go in a `.readiness-review.yaml` in the reviewed repo — start from its [config template](skills/readiness-review/references/config-template.yaml).
 

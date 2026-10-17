@@ -11,6 +11,9 @@ set -euo pipefail
 
 NPMRC="$HOME/.npmrc"
 AB="agent-browser --auto-connect"
+# Exact agent-browser release the agent offers to install (never @latest).
+# Bump it only to a release at least two weeks old.
+AGENT_BROWSER_VERSION="0.38.2"
 
 ab_nav() {
   $AB open "$1" 2>/dev/null || true
@@ -55,10 +58,30 @@ ab_dropdown() {
   sleep 0.5
 }
 
-# Check agent-browser
+# Write the token into ~/.npmrc without touching anything else in it: replace
+# only the registry.npmjs.org auth line (or append it), keep every other
+# registry and setting, and leave the file readable by the owner only. The
+# token is read from stdin and is never printed.
+save_token() {
+  local LINE_PREFIX="//registry.npmjs.org/:_authToken="
+  local TOKEN TMP
+  IFS= read -r TOKEN
+  umask 077
+  TMP=$(mktemp "$NPMRC.XXXXXX")
+  if [ -f "$NPMRC" ]; then
+    grep -v -F "$LINE_PREFIX" "$NPMRC" > "$TMP" || true
+  fi
+  printf '%s%s\n' "$LINE_PREFIX" "$TOKEN" >> "$TMP"
+  chmod 600 "$TMP"
+  mv "$TMP" "$NPMRC"
+  chmod 600 "$NPMRC"
+}
+
+# Check agent-browser. Never install it unasked: report it missing and let the
+# agent ask the user before installing the pinned version.
 if ! command -v agent-browser >/dev/null 2>&1; then
-  echo "INSTALLING_AGENT_BROWSER"
-  bun install -g agent-browser@latest >/dev/null 2>&1
+  echo "AGENT_BROWSER_MISSING:$AGENT_BROWSER_VERSION"
+  exit 1
 fi
 
 MODE="${1:-fill}"
@@ -97,16 +120,16 @@ if [ "$MODE" = "fill" ]; then
     $AB click "@$BYPASS_REF" >/dev/null 2>&1 || true
   fi
 
-  # Select All packages radio (if not already selected)
-  ALL_PKG_REF=$(echo "$SNAPSHOT" | grep -i 'radio "All packages"' | grep -o 'ref=e[0-9]*' | sed 's/ref=//' || true)
-  if [ -n "$ALL_PKG_REF" ]; then
-    $AB click "@$ALL_PKG_REF" >/dev/null 2>&1 || true
+  # Limit the token to selected packages rather than all of them. npm's package
+  # picker is a search field this script cannot drive reliably, so the user
+  # picks the one package being published before generating the token.
+  SELECT_PKG_REF=$(echo "$SNAPSHOT" | grep -i 'radio "Only select packages' | grep -o 'ref=e[0-9]*' | sed 's/ref=//' || true)
+  if [ -n "$SELECT_PKG_REF" ]; then
+    $AB click "@$SELECT_PKG_REF" >/dev/null 2>&1 || true
   fi
 
-  # Set Packages permissions: click "No access" dropdown → select "Read and write"
-  ab_dropdown "No access" "Read and write" || true
-
-  # Set Organizations permissions: click remaining "No access" dropdown → select "Read and write"
+  # Set Packages permissions: click "No access" dropdown → select "Read and write".
+  # Organizations stay at "No access": publishing a package does not need them.
   ab_dropdown "No access" "Read and write" || true
 
   # Set Expiration: click "30 days" dropdown → select "7 days"
@@ -135,9 +158,10 @@ elif [ "$MODE" = "capture" ]; then
       sleep 1
 
       TOKEN=$(pbpaste 2>/dev/null || true)
-      if [ -n "$TOKEN" ] && echo "$TOKEN" | grep -q "^npm_"; then
-        echo "//registry.npmjs.org/:_authToken=$TOKEN" > "$NPMRC"
-        echo -n "" | pbcopy
+      if [ -n "$TOKEN" ] && printf '%s' "$TOKEN" | grep -q "^npm_"; then
+        printf '%s\n' "$TOKEN" | save_token
+        unset TOKEN
+        printf '' | pbcopy
         echo "TOKEN_SAVED"
         TOKEN_FOUND=true
         break
@@ -145,9 +169,10 @@ elif [ "$MODE" = "capture" ]; then
     fi
 
     # Fallback: check for npm_ token in page text
-    NPM_TOKEN=$(echo "$SNAP" | grep -o 'npm_[A-Za-z0-9]*' | head -1 || true)
+    NPM_TOKEN=$(printf '%s\n' "$SNAP" | grep -o 'npm_[A-Za-z0-9]*' | head -1 || true)
     if [ -n "$NPM_TOKEN" ]; then
-      echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > "$NPMRC"
+      printf '%s\n' "$NPM_TOKEN" | save_token
+      unset NPM_TOKEN
       echo "TOKEN_SAVED"
       TOKEN_FOUND=true
       break

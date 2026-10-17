@@ -57,14 +57,15 @@ is likely in, and why.
 
 Look for these, in this order:
 
-| Sign | Likely cause | What to suggest |
+| Sign | Likely cause | What to suggest (for the person to run, never you) |
 |---|---|---|
-| A run is `pending` with zero jobs, and an older run of the same workflow and branch is still `in_progress` | The old run was cancelled but a job gated on `if: always()` ignores cancellation, and it holds the concurrency slot | Force-cancel the old run: `gh api -X POST repos/{owner}/{repo}/actions/runs/<old-id>/force-cancel`. The lasting fix is `!cancelled()` in place of `always()` in job conditions. |
+| A run is `pending` with zero jobs, and an older run of the same workflow and branch is still `in_progress` | The old run was cancelled but a job gated on `if: always()` ignores cancellation, and it holds the concurrency slot | Give the person this command to run themselves, if they choose: `gh api -X POST repos/{owner}/{repo}/actions/runs/<old-id>/force-cancel`. Do not run it. The lasting fix is `!cancelled()` in place of `always()` in job conditions. |
 | A job is `queued` for minutes with no runner | No online runner matches its labels (self-hosted machine asleep, label typo), or the account's minutes are exhausted | Check `actions/runners`; check the billing budget. |
-| Runs show `action_required` | A bot-opened PR, or a first-time contributor, needs approval before workflows run | Approve in the PR's Checks tab, or merge with the repository's bypass rules. |
+| Runs show `action_required` | A bot-opened PR, or a first-time contributor, needs approval before workflows run | Tell the person they can approve the run in the PR's Checks tab, or merge with the repository's bypass rules if they have that right. Both are their actions; do not approve or merge. |
 | Everything is green, but the PR is still blocked | A required check never reported, often because a skipped job and a required job share a name | Compare the branch protection or ruleset's required contexts with the check runs for the head commit. |
 
-Confirm each sign against the data before naming it. Say "not stuck" when
+Present every suggestion as something the person can do, never as something
+you are about to do. Confirm each sign against the data before naming it. Say "not stuck" when
 nothing matches; a slow job is not a stuck job.
 
 ## Step 4: one line of levity
