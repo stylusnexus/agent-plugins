@@ -5,10 +5,10 @@ description: "This skill should be used when the user asks for product strategy,
 
 # Product Strategy and Trade-offs
 
-Read [shared principles](../product-manager/references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
+Read [shared principles](references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
 
 ## Purpose
-Build a coherent set of choices, not a collection of goals. Read `../product-manager/references/principles.md` before strategic recommendations. Use the Playing to Win choice cascade when useful, without forcing every project through every framework.
+Build a coherent set of choices, not a collection of goals. Read `references/principles.md` before strategic recommendations. Use the Playing to Win choice cascade when useful, without forcing every project through every framework.
 
 For workshops, ongoing strategy review, and collaboration, read [working with strategy](../product-manager/references/working-with-strategy.md).
 

@@ -3,9 +3,7 @@
 
 This skill should be used when the user asks for founder posts, building in public, LinkedIn or social content, a blog post, a tweet or X/Bluesky post, a newsletter, personal brand content, a story for a launch, what should I post, or a weekly content plan for a founder.
 
-[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../../../README.md#compatibility)
-
-> **Limits.** Claude app: Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../../../README.md#compatibility)
 
 Part of the [go-to-market](../../README.md) pack.
 
@@ -31,8 +29,6 @@ Example output, invented data (fictional product). One substantial piece, then s
 Hours this week: 2. Stop rule: if waitlist sign-ups from posts don't move after 4 weeks, post less often and change the topic.
 
 ## Install
-
-This skill reads shared files in its sibling skills, so install the whole go-to-market pack. The Claude Code and Codex plugins do that already; with the Skills CLI or a folder copy, take every skill in the pack.
 
 <details>
 <summary>Claude Code (CLI)</summary>
@@ -76,15 +72,13 @@ This installs the whole go-to-market pack, so marketing-lead, mk-audience, mk-br
 
 The [Skills CLI](https://github.com/vercel-labs/skills) finds the agents you have and writes the skill into each one's skills folder.
 
-This skill reads shared files in its sibling skills, so install every skill in the pack:
-
 ```bash
-npx skills add stylusnexus/agent-plugins --skill marketing-lead mk-audience mk-brand-kit mk-community mk-copy mk-founder-content mk-launch mk-lifecycle mk-measurement mk-outreach mk-positioning mk-search
+npx skills add stylusnexus/agent-plugins --skill mk-founder-content
 ```
 
 Skills arrive without a pack prefix: `/mk-founder-content` in most agents and `@mk-founder-content` in Windsurf. opencode shows `/mk-founder-content` only when the skill sets an opencode-specific metadata field, and Gemini CLI starts a skill itself after you approve it.
 
-**Note:** Install the whole pack: this skill reads shared files in a sibling skill.
+**Note:** Optional cross-references to other pack skills need the whole pack.
 
 </details>
 
@@ -93,20 +87,20 @@ Skills arrive without a pack prefix: `/mk-founder-content` in most agents and `@
 
 `.agents/skills` is read by Codex, Gemini CLI, Antigravity CLI, Cursor, GitHub Copilot, opencode and Windsurf. Claude Code reads `.claude/skills`. Cline does not read `.agents/skills`; use `.cline/skills` or `.claude/skills` there.
 
-Copy every skill in the pack, so the shared files sit beside this one:
+Copy the skill folder:
 
 ```bash
 git clone --depth 1 https://github.com/stylusnexus/agent-plugins
 mkdir -p .agents/skills
-cp -R agent-plugins/plugins/go-to-market/skills/. .agents/skills/
+cp -R agent-plugins/plugins/go-to-market/skills/mk-founder-content .agents/skills/
 ```
 
-**Note:** Install the whole pack: this skill reads shared files in a sibling skill.
+**Note:** Optional cross-references to other pack skills need the whole pack.
 
 </details>
 
 <details>
-<summary>Claude app (partial)</summary>
+<summary>Claude app</summary>
 
 1. Turn on **Code execution and file creation** in **Settings > Capabilities**. On Team and Enterprise plans, an owner controls this.
 2. Zip the skill folder, so the ZIP holds the `mk-founder-content` folder:
@@ -119,7 +113,7 @@ cp -R agent-plugins/plugins/go-to-market/skills/. .agents/skills/
 
 3. In Claude, open **Customize > Skills**, click **+**, then **+ Create skill**, choose **Upload a skill** and pick `mk-founder-content.zip`.
 
-**Limit:** Each upload is one skill folder, so the shared-principles file this skill reads from a sibling skill is missing unless you bundle it in.
+**Note:** Optional cross-references to other pack skills need the whole pack.
 
 </details>
 

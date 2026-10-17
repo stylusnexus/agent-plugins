@@ -5,6 +5,7 @@ name: ci
 #      gen-catalog.py --check   -- README catalogue and skills.sh.json are regenerated
 #      check-compat.py          -- compatibility.json covers every skill; pack and skill badges match it
 #      gen-skill-readme.py --check -- every skill folder's README.md is regenerated
+#      check-shared-sync.sh     -- bundled copies of shared files match their canonical source
 #   3. check-private-terms.sh   -- no owner-private names/paths ship in skill/agent text
 #   4. test-plugin-scripts.sh   -- any plugin script's own unit tests actually run
 #   5. cspell                   -- spelling, so a typo doesn't ship in installed skill text
@@ -47,6 +48,9 @@ jobs:
 
       - name: Skill READMEs are current
         run: python3 scripts/gen-skill-readme.py --check
+
+      - name: Bundled copies of shared files match their source
+        run: sh scripts/check-shared-sync.sh
 
       - name: No owner-private terms in shipped skill/agent text
         env:

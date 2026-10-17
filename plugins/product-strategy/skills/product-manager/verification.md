@@ -8,8 +8,8 @@ What's actually been checked in this plugin, and what hasn't. Treat anything not
 - Internal Markdown/HTML links inside `skills/product-manager/` (this file's own directory) resolve to real files: `grep`-derived link targets were resolved against the filesystem and confirmed present.
 
 ## Scripts
-- `scripts/metrics_lookup.py` runs against the bundled `skills/pm-objectives/references/metrics-catalog.json` (40 entries) with no network access and no writes. A smoke query for `activation` returns the expected category entries.
-- `scripts/discovery_digest.py` has a real unit test suite at `scripts/tests/test_discovery_digest.py` (3 cases, run with `python3 -m unittest scripts/tests/test_discovery_digest.py`), covering: provenance flags on an incomplete record plus HTML/pipe-safe output escaping; synthetic-research records being rejected unless labeled `synthetic` status; and rejection of duplicate IDs, invalid dates, and unrecognized source types. All three pass.
+- `skills/pm-objectives/scripts/metrics_lookup.py` runs against the bundled `skills/pm-objectives/references/metrics-catalog.json` (40 entries) with no network access and no writes. A smoke query for `activation` returns the expected category entries.
+- `skills/pm-discovery/scripts/discovery_digest.py` has a real unit test suite at `skills/pm-discovery/scripts/tests/test_discovery_digest.py` (3 cases, run with `cd skills/pm-discovery/scripts/tests && python3 -m unittest discover -s . -t .`), covering: provenance flags on an incomplete record plus HTML/pipe-safe output escaping; synthetic-research records being rejected unless labeled `synthetic` status; and rejection of duplicate IDs, invalid dates, and unrecognized source types. All three pass.
 - Neither script performs network calls, writes files, or mutates anything outside its own return value — both are read-only by construction, not just by convention.
 
 ## Templates and sourcing
@@ -24,7 +24,7 @@ What's actually been checked in this plugin, and what hasn't. Treat anything not
 
 ## Reproducing these checks
 ```bash
-python3 -m unittest scripts/tests/test_discovery_digest.py -v
-python3 scripts/metrics_lookup.py activation
+(cd skills/pm-discovery/scripts/tests && python3 -m unittest discover -s . -t . -v)
+python3 skills/pm-objectives/scripts/metrics_lookup.py activation
 python3 -c "import json; print(len(json.load(open('skills/pm-objectives/references/metrics-catalog.json'))))"
 ```

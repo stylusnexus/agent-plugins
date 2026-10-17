@@ -5,7 +5,7 @@ description: "This skill should be used when the user asks for objectives, OKRs,
 
 # Objectives and Key Metrics
 
-Read [shared principles](../product-manager/references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
+Read [shared principles](references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
 
 ## Workflow
 1. Trace the requested objective to a strategic choice and user/business outcome. Clarify the period and constraints. If direction is missing, make that dependency explicit; avoid inventing strategy to fill a metrics table.

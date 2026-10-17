@@ -5,7 +5,7 @@ description: "This skill should be used when the user asks for product growth, a
 
 # Product Growth
 
-Read [shared principles](../product-manager/references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
+Read [shared principles](references/principles.md) before applying this workflow independently. Use only the sections needed for the current decision.
 
 ## Workflow
 1. Establish what growth means for this product and its mission: sustained valuable use, revenue, adoption, contributions, reach, or another appropriate outcome. Do not impose commercial scale on a personal or community tool.

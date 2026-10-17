@@ -84,7 +84,7 @@ The three database skills are the pairing most worth keeping straight: **`db-tru
 | prove-it | ✔ | ✖ | ✔ | ✖ | ✔ |
 | review-merge-pipeline | ✔ | ✖ | ✔ | ✖ | ✔ |
 | review-slop | ✔ | ✖ | ✔ | ✖ | ✔ |
-| ship-issues | ✔ | ✖ | ✔ | ✖ | ◐ |
+| ship-issues | ✔ | ✖ | ✔ | ✖ | ✔ |
 | start-issue | ✔ | ✖ | ✔ | ✖ | ✔ |
 | stripe-billing | ✔ | ◐ | ✔ | ◐ | ✔ |
 | ux-review | ✔ | ◐ | ✔ | ◐ | ◐ |
@@ -323,9 +323,9 @@ Deploy complete:
 <details>
 <summary><code>ship-issues</code>: the grounding report before any edit</summary>
 
-[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
 
-> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default. Other agents: Needs subagents for specialist review and parallel work; documented for Cursor, Gemini CLI/Antigravity CLI and opencode, not for Copilot, Windsurf or Cline.
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
 
 **Use it when:** You have a batch of related issues and want them taken from intake to merge, or to production.
 

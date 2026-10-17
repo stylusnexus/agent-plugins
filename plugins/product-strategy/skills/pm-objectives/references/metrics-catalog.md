@@ -5,7 +5,7 @@ customer/revenue journey. These are widely published industry conventions, not p
 formulas — sources are named per metric below where one originator is credited (Reichheld's
 NPS, Dixon/Freeman/Toman's CES, Ellis's PMF survey, the DORA/*Accelerate* delivery metrics);
 the rest (CAC, MRR, retention, stickiness, and similar) are common analytics vocabulary with no
-single owner. Pull definitions with the plugin's `scripts/metrics_lookup.py` rather than
+single owner. Pull definitions with this skill's `scripts/metrics_lookup.py` rather than
 scanning the table by hand for a large catalog.
 
 Every metric needs, at minimum, the same six things nailed down before it goes on a dashboard:
