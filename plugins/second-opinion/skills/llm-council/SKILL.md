@@ -346,6 +346,22 @@ The user sees the HTML report. The transcript is there if they want to dig deepe
 
 ---
 
+## Hosts without subagents
+
+Some hosts cannot start subagents. There, run the same six steps in one context:
+
+1. Write each advisor's response in turn, under its own heading, from the Step 2 prompt.
+2. Anonymize the five responses, then write the five peer reviews in turn.
+3. Write the chairman synthesis and the report as usual.
+
+Label the report and transcript **"Same-context council: one model wrote every
+advisor and review in sequence, so they are not independent."** Earlier responses
+will colour later ones, and the reviews know who wrote what, so treat agreement as
+weaker evidence than in a subagent council. Where the host has subagents, use them;
+this fallback does not replace Steps 2 and 3.
+
+---
+
 ## Important notes
 
 - **Always spawn all 5 advisors in parallel.** Sequential spawning wastes time and lets earlier responses bleed into later ones.

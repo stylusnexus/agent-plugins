@@ -1,7 +1,8 @@
 ---
 name: html
 description: Turn complex output (plans, code reviews, research, comparisons, configs, reports) into a single self-contained, reading-first HTML artifact. Structure before style, inline CSS only, no network calls, Markdown export for handoff. Use when the user says "make this an HTML page/report/artifact", "turn this into HTML", "/html", asks for a visual explainer, decision page, code-review page, a summary, recap, wrap-up or handover *page* (including "make it ADHD friendly" or "accessible"; branch or PR recaps use visual-recap, recap tables use recap-table), or a small one-file editor, or when a terminal answer is too long/dense to read comfortably.
-args: "<what to turn into an artifact, e.g. 'turn this code review into a readable page'>"
+metadata:
+  argument-hint: "<what to turn into an artifact, e.g. 'turn this code review into a readable page'>"
 ---
 
 # HTML Artifact

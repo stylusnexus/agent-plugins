@@ -23,8 +23,17 @@ and report the local bridge URL from stdout or `plans/<slug>/.plan-url`. Treat
 UI but reads from the localhost bridge on this machine, so it is not shareable
 across machines. On macOS, use Chrome/Chromium if Safari blocks the localhost
 bridge; run `plan local verify --dir plans/<slug> --kind plan|recap` for
-headless diagnostics. No sharing, all local. Use a hosted or self-hosted Plan MCP
-connector only if the user explicitly asks to publish or share.
+headless diagnostics.
+
+What stays local: the recap content lives in those files and is served by a
+bridge on localhost, so nothing is shared and no recap content reaches the
+hosted Plan database. What does not: each `npx` command downloads
+`@agent-native/core` from npm, `plan blocks` fetches the public block catalog
+(it sends no recap content), and the page that opens is the hosted Plan web
+app, which reads the content from your localhost bridge. This installation
+therefore runs in local-files privacy mode by default. The hosted Plan MCP
+instructions below (create the recap on the connector and return its URL)
+apply only when the user explicitly asks to publish or share.
 
 
 # Visual Recap
@@ -42,8 +51,9 @@ before spending attention on the literal lines.
 
 Use local-files privacy mode when the user explicitly asks for no DB writes,
 no hosted Plan database writes, no Plan MCP publish, fully local files, offline/private
-recaps, or when `AGENT_NATIVE_PLANS_MODE=local-files` is set. This is the only
-exception to the hosted publish rule below.
+recaps, when `AGENT_NATIVE_PLANS_MODE=local-files` is set, or when the
+installation default above is local files (it is for this installation). This
+is the only exception to the hosted publish rule below.
 
 In local-files mode:
 
@@ -101,6 +111,9 @@ for that stronger privacy boundary, the host agent/model must also be local or
 otherwise approved by the user.
 
 ## Always Publish As An Agent-Native Plan — Never Inline
+
+This section applies once the user has opted into hosted publishing; until
+then, this installation follows local-files privacy mode above.
 
 The deliverable is ALWAYS a published Agent-Native Plan, created with the
 `create-visual-recap` tool on the Plan MCP connector. The connector is usually

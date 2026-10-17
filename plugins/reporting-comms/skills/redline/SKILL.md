@@ -1,7 +1,8 @@
 ---
 name: redline
 description: "Hand a draft, plan, report, or page to the human to mark up in a browser; Send returns one Markdown review file the agent applies. Use for anything a person must judge rather than a machine - \"let me look at it\", \"let me mark it up\", \"/redline\". Not for machine-checkable correctness (/prove-it, /code-review)."
-args: "<file.md | file.html> [--comment-only] [--flags <scan-report>]"
+metadata:
+  argument-hint: "<file.md | file.html> [--comment-only] [--flags <scan-report>]"
 ---
 
 # Redline — the human→agent return path
