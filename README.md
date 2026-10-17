@@ -10,7 +10,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents — **10 plugins, 74 skills**. Installs natively into **Claude
+A plugin marketplace for AI coding agents — **10 plugins, 79 skills**. Installs natively into **Claude
 Code** and **OpenAI Codex**, and reaches roughly seventy more agents (Cursor, Copilot, Gemini CLI,
 Windsurf, Zed, opencode, Cline, Continue, Hermes and others) through the Skills CLI.
 
@@ -37,12 +37,12 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 
 | Pack | # | What it's for | Skills |
 |---|---|---|---|
-| [**ship-pipeline**](./plugins/ship-pipeline) | 14 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote — one issue or a batch. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `ship-issues` `db-migration-safety` `backup-verify` `api-design` `stripe-billing` `analytics-instrumentation` `ux-review` `cdf` |
+| [**ship-pipeline**](./plugins/ship-pipeline) | 15 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote — one issue or a batch. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `ship-issues` `db-migration-safety` `backup-verify` `api-design` `stripe-billing` `analytics-instrumentation` `feature-flags` `ux-review` `cdf` |
 | [**reporting-comms**](./plugins/reporting-comms) | 7 | The last mile — turning agent output into something a person wants to read, and getting their judgment back. | `html` `visual-plan` `visual-recap` `recap-table` `writing-clearly-and-concisely` `human-writing` `redline` |
 | [**second-opinion**](./plugins/second-opinion) | 5 | One premise: a single model's confident answer is not evidence. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` |
-| [**hardening**](./plugins/hardening) | 11 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, and design-time and agent-era audits. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` `readiness-review` `threat-model` `security-headers` `secrets-leak-audit` `agent-tooling-review` `llm-app-security` |
-| [**release-ops**](./plugins/release-ops) | 7 | Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, and handling incidents. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` `observability-setup` `incident-response` |
-| [**product-strategy**](./plugins/product-strategy) | 14 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps and discovery, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` |
+| [**hardening**](./plugins/hardening) | 12 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, design-time and agent-era audits, and draft legal documents for a lawyer to review. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` `readiness-review` `threat-model` `security-headers` `secrets-leak-audit` `agent-tooling-review` `llm-app-security` `legal-docs` |
+| [**release-ops**](./plugins/release-ops) | 9 | Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and auditing model API spend. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` `observability-setup` `incident-response` `customer-support-triage` `llm-cost-audit` |
+| [**product-strategy**](./plugins/product-strategy) | 15 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps, discovery and pricing, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` `pricing-review` |
 | [**go-to-market**](./plugins/go-to-market) | 12 | Getting a product noticed on a small team's hours — positioning, copy, launches, community, outreach, email and measurement. | `marketing-lead` `mk-positioning` `mk-audience` `mk-copy` `mk-brand-kit` `mk-search` `mk-launch` `mk-community` `mk-founder-content` `mk-outreach` `mk-lifecycle` `mk-measurement` |
 | [**codebase-intel**](./plugins/codebase-intel) | 4 | Building an accurate picture of a codebase, and the libraries it leans on, before changing it. | `codebase-health` `codebase-architecture-scanner` `grill-with-docs` `read-the-damn-docs` |
 
@@ -50,7 +50,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 
 <!-- catalog:start -->
 <details>
-<summary><b>ship-pipeline</b> · 14 skills</summary>
+<summary><b>ship-pipeline</b> · 15 skills</summary>
 
 | Skill | What it covers |
 |---|---|
@@ -61,6 +61,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 | `db-migration-safety` | Writing schema change — expand-contract sequencing, idempotency, backfills |
 | `db-truth` | Reading schema truth — shape, relationships, permissions, and post-apply confirmation |
 | `deploy` | Production promotion, merge strategy, release-tooling compatibility |
+| `feature-flags` | Flag lifecycle — naming, rollout versus kill switch, rollout stages, kill-switch alerts, testing both paths, and stale-flag cleanup |
 | `prove-it` | Evidence standards, gate discovery, the evidence table, `UNVERIFIED` labeling |
 | `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection, head-SHA and required-check confirmation before merge |
 | `review-slop` | Report-only slop findings, severity calibration, and suggested repair criteria |
@@ -106,13 +107,14 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 </details>
 
 <details>
-<summary><b>hardening</b> · 11 skills</summary>
+<summary><b>hardening</b> · 12 skills</summary>
 
 | Skill | What it covers |
 |---|---|
 | `agent-tooling-review` | An MCP server, plugin, or token is being connected to an agent, or an agent will run unattended. Applies least privilege and a human gate on irreversible actions. |
 | `auth-hardening` | Auth is in place and needs auditing — session and cookie configuration, CSRF, OAuth scopes, per-route protection. |
 | `exposure-scan` | Periodically, and after any dependency change. Checks installed packages across npm, Go, PyPI, RubyGems, and MCP servers against threat-intelligence catalogs for known-compromised releases. |
+| `legal-docs` | Drafting or reviewing Terms of Service, a Privacy Policy, a refund policy, or an acceptable use policy. Checks every claim against what the product actually does and marks every draft as not legal advice, for a lawyer to review. |
 | `llm-app-security` | A feature sends untrusted content to a model or lets a model act. Maps input-to-sink paths, requires gates on output and actions, and proves them with a public adversarial corpus. |
 | `privacy-audit` | User data is collected and someone needs to say exactly what and where. Produces the inventory and checks it against the code and infra — not against what the privacy policy claims. |
 | `rate-limit-audit` | Before launch, or after adding an endpoint that calls a paid API (LLM, email, SMS) or handles auth. Inventories every such endpoint and checks each actually has a limit. |
@@ -127,12 +129,14 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 </details>
 
 <details>
-<summary><b>release-ops</b> · 7 skills</summary>
+<summary><b>release-ops</b> · 9 skills</summary>
 
 | Skill | What it covers |
 |---|---|
+| `customer-support-triage` | A support email or ticket needs handling. Classifies it, tries to reproduce bugs, sets severity, files a GitHub issue with no customer PII, checks refunds against the written policy, and drafts the reply for a person to send. |
 | `dependency-upgrade` | Bulk dependency bumps. Treats them as a gated pipeline — inventory, batch, then type check, test, and E2E between batches — rather than one update command and hope. |
 | `incident-response` | A service is down, erroring, or degraded in production. Sets severity, runs a fixed triage order, decides on rollback first, drafts user comms, and writes a one-page blameless postmortem. |
+| `llm-cost-audit` | The model API bill is high or due a review. Reconciles tracked cost with the provider's bill, checks each call site's model tier, finds caching and batch savings using the provider's current prices, and ends in a savings table. |
 | `npm-publish` | Publishing to npm or bun — preflight checks, semver bump, changelog entry, git push, publish, verify. Rotates an expired npm token through the browser instead of stopping to ask for a one-time code. |
 | `observability-setup` | You are launching a service or auditing its monitoring. Wires a health-check endpoint, uptime checks, log forwarding, error tracking, LLM cost tracking, and page-versus-ticket alert thresholds. |
 | `pr-wait` | A PR is open and you want to block on CI rather than watch it, optionally merging when checks pass. |
@@ -144,7 +148,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 </details>
 
 <details>
-<summary><b>product-strategy</b> · 14 skills · 2 agents</summary>
+<summary><b>product-strategy</b> · 15 skills · 2 agents</summary>
 
 | Skill | What it covers |
 |---|---|
@@ -161,6 +165,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 | `pm-value-proposition` | Working out customer value, alternatives, and a value curve. |
 | `pm-vision` | Defining a mission, vision, or winning aspiration: what success should mean. |
 | `pm-visuals` | Turning any of the above into a diagram (Mermaid by default) or an HTML page. |
+| `pricing-review` | Reviewing pricing and packaging, or before changing prices: value metric, tiers, willingness-to-pay evidence, a sourced competitor scan, and a grandfathering plan for existing customers. |
 | `product-manager` | You want a chief PM to lead the work end to end, or to teach you while you do it. Routes to the skills below. |
 
 Agents (Claude Code): `business-capability-modeler` `product-manager`
@@ -221,17 +226,21 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `cdf` | [ship-pipeline](./plugins/ship-pipeline) |
 | `codebase-architecture-scanner` | [codebase-intel](./plugins/codebase-intel) |
 | `codebase-health` | [codebase-intel](./plugins/codebase-intel) |
+| `customer-support-triage` | [release-ops](./plugins/release-ops) |
 | `db-migration-safety` | [ship-pipeline](./plugins/ship-pipeline) |
 | `db-truth` | [ship-pipeline](./plugins/ship-pipeline) |
 | `debug-feedback-loop` | [second-opinion](./plugins/second-opinion) |
 | `dependency-upgrade` | [release-ops](./plugins/release-ops) |
 | `deploy` | [ship-pipeline](./plugins/ship-pipeline) |
 | `exposure-scan` | [hardening](./plugins/hardening) |
+| `feature-flags` | [ship-pipeline](./plugins/ship-pipeline) |
 | `grill-with-docs` | [codebase-intel](./plugins/codebase-intel) |
 | `html` | [reporting-comms](./plugins/reporting-comms) |
 | `human-writing` | [reporting-comms](./plugins/reporting-comms) |
 | `incident-response` | [release-ops](./plugins/release-ops) |
+| `legal-docs` | [hardening](./plugins/hardening) |
 | `llm-app-security` | [hardening](./plugins/hardening) |
+| `llm-cost-audit` | [release-ops](./plugins/release-ops) |
 | `llm-council` | [second-opinion](./plugins/second-opinion) |
 | `marketing-lead` | [go-to-market](./plugins/go-to-market) |
 | `mk-audience` | [go-to-market](./plugins/go-to-market) |
@@ -262,6 +271,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `pm-vision` | [product-strategy](./plugins/product-strategy) |
 | `pm-visuals` | [product-strategy](./plugins/product-strategy) |
 | `pr-wait` | [release-ops](./plugins/release-ops) |
+| `pricing-review` | [product-strategy](./plugins/product-strategy) |
 | `privacy-audit` | [hardening](./plugins/hardening) |
 | `product-manager` | [product-strategy](./plugins/product-strategy) |
 | `prove-it` | [ship-pipeline](./plugins/ship-pipeline) |
@@ -310,7 +320,7 @@ rather than burying it.
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
-"install everything" is a valid choice — it's 74 skills, all inert until their trigger matches.
+"install everything" is a valid choice — it's 79 skills, all inert until their trigger matches.
 
 ### Claude Code  (terminal · VS Code extension · JetBrains extension)
 
@@ -345,7 +355,7 @@ writes to each one's skills directory. No marketplace step — one command does 
 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
-npx skills add stylusnexus/agent-plugins --skill '*'        # all 74 skills
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 79 skills
 npx skills add stylusnexus/agent-plugins --skill prove-it   # exactly one
 npx skills add stylusnexus/agent-plugins --skill html redline   # several
 npx skills add stylusnexus/agent-plugins --list             # see what's there first

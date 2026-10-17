@@ -89,7 +89,7 @@
             "position": 5,
             "name": "release-ops",
             "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/release-ops",
-            "description": "Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, and handling incidents."
+            "description": "Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and auditing model API spend."
           },
           {
             "@type": "ListItem",
@@ -103,7 +103,7 @@
             "position": 7,
             "name": "product-strategy",
             "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/product-strategy",
-            "description": "Deciding what to build and why: vision, strategy, value, objectives, roadmaps, and discovery. A chief PM that teaches as it goes and labels evidence apart from assumption."
+            "description": "Deciding what to build and why: vision, strategy, value, objectives, roadmaps, discovery, and pricing. A chief PM that teaches as it goes and labels evidence apart from assumption."
           },
           {
             "@type": "ListItem",
@@ -344,14 +344,14 @@
     <div class="eyebrow">stylusnexus / agent-plugins</div>
     <h1>Skills for agents that have to ship something.</h1>
     <p class="lede">
-      agent-plugins is an open-source (MIT) plugin marketplace from Stylus Nexus: ten plugins and 74
+      agent-plugins is an open-source (MIT) plugin marketplace from Stylus Nexus: ten plugins and 79
       skills that install natively into Claude Code and OpenAI Codex, and into about seventy other
       coding agents through the Skills CLI. Eight are skill packs for building, shipping, deciding what
       to build, and getting it noticed; two are tools.
     </p>
     <div class="counts">
       <div class="count"><b>10</b><span>plugins</span></div>
-      <div class="count"><b>74</b><span>skills</span></div>
+      <div class="count"><b>79</b><span>skills</span></div>
       <div class="count"><b>~70</b><span>agents supported</span></div>
       <div class="count"><b>MIT</b><span>license</span></div>
     </div>
@@ -369,13 +369,13 @@
 
     <div class="grid">
       <article class="plugin">
-        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/ship-pipeline">ship-pipeline</a></h3><span class="plugin-n">14 skills</span></div>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/ship-pipeline">ship-pipeline</a></h3><span class="plugin-n">15 skills</span></div>
         <p>The daily loop: read the issue, ground assumptions in the live database, prove it works, then review, merge, and promote. One issue or a batch.</p>
         <div class="chips">
           <span class="chip">start-issue</span><span class="chip">db-truth</span><span class="chip">prove-it</span>
           <span class="chip">review-slop</span><span class="chip">review-merge-pipeline</span><span class="chip">deploy</span>
           <span class="chip">ship-issues</span><span class="chip">db-migration-safety</span><span class="chip">backup-verify</span>
-          <span class="chip">api-design</span><span class="chip">stripe-billing</span><span class="chip">analytics-instrumentation</span><span class="chip">ux-review</span><span class="chip">cdf</span>
+          <span class="chip">api-design</span><span class="chip">stripe-billing</span><span class="chip">analytics-instrumentation</span><span class="chip">feature-flags</span><span class="chip">ux-review</span><span class="chip">cdf</span>
         </div>
       </article>
 
@@ -399,23 +399,24 @@
       </article>
 
       <article class="plugin">
-        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/hardening">hardening</a></h3><span class="plugin-n">11 skills</span></div>
-        <p>The unglamorous pre-launch gates: a missing rate limit, an unsigned webhook, a compromised transitive dependency, a key in a log line, an agent with too much access.</p>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/hardening">hardening</a></h3><span class="plugin-n">12 skills</span></div>
+        <p>The unglamorous pre-launch gates: a missing rate limit, an unsigned webhook, a compromised transitive dependency, a key in a log line, an agent with too much access. Plus draft legal documents for a lawyer to review.</p>
         <div class="chips">
           <span class="chip">rate-limit-audit</span><span class="chip">exposure-scan</span><span class="chip">auth-hardening</span>
           <span class="chip">webhook-reliability</span><span class="chip">privacy-audit</span><span class="chip">readiness-review</span>
           <span class="chip">threat-model</span><span class="chip">security-headers</span><span class="chip">secrets-leak-audit</span>
-          <span class="chip">agent-tooling-review</span><span class="chip">llm-app-security</span>
+          <span class="chip">agent-tooling-review</span><span class="chip">llm-app-security</span><span class="chip">legal-docs</span>
         </div>
       </article>
 
       <article class="plugin">
-        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/release-ops">release-ops</a></h3><span class="plugin-n">7 skills</span></div>
-        <p>Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, and handling incidents.</p>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/release-ops">release-ops</a></h3><span class="plugin-n">9 skills</span></div>
+        <p>Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and auditing model API spend.</p>
         <div class="chips">
           <span class="chip">version-check</span><span class="chip">pr-wait</span><span class="chip">the-waiting</span>
           <span class="chip">npm-publish</span><span class="chip">dependency-upgrade</span>
           <span class="chip">observability-setup</span><span class="chip">incident-response</span>
+          <span class="chip">customer-support-triage</span><span class="chip">llm-cost-audit</span>
         </div>
       </article>
 
@@ -429,14 +430,14 @@
       </article>
 
       <article class="plugin">
-        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/product-strategy">product-strategy</a></h3><span class="plugin-n">14 skills · 2 agents</span></div>
-        <p>Deciding what to build and why: vision, strategy, value, objectives, roadmaps, and discovery. A chief PM that teaches as it goes and labels evidence apart from assumption.</p>
+        <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/product-strategy">product-strategy</a></h3><span class="plugin-n">15 skills · 2 agents</span></div>
+        <p>Deciding what to build and why: vision, strategy, value, objectives, roadmaps, discovery, and pricing. A chief PM that teaches as it goes and labels evidence apart from assumption.</p>
         <div class="chips">
           <span class="chip">product-manager</span><span class="chip">pm-vision</span><span class="chip">pm-strategy</span>
           <span class="chip">pm-strategy-fit</span><span class="chip">pm-canvas</span><span class="chip">pm-value-proposition</span>
           <span class="chip">pm-objectives</span><span class="chip">pm-roadmap</span><span class="chip">pm-discovery</span>
           <span class="chip">pm-growth</span><span class="chip">pm-market-analysis</span><span class="chip">pm-capabilities</span>
-          <span class="chip">pm-teams</span><span class="chip">pm-visuals</span>
+          <span class="chip">pm-teams</span><span class="chip">pm-visuals</span><span class="chip">pricing-review</span>
           <span class="chip agent">product-manager</span><span class="chip agent">business-capability-modeler</span>
         </div>
       </article>
