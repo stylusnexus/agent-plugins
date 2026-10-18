@@ -1967,6 +1967,31 @@
       "other": {
         "level": "full"
       }
+    },
+    "teach-code-to-mastery": {
+      "pack": "codebase-intel",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Teaching works on code you paste in; reading a diff, PR or repo needs repo access."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Multiple-choice quizzes become plain-text questions where the host has no structured question tool."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Teaching works on code you paste in; reading a diff, PR or repo needs repo access."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
     }
   }
 }
