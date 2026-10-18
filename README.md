@@ -323,6 +323,14 @@ These packs have opinions — evidence before "done", detect rather than assume,
 That's useful if you share them and friction if you don't; each README states the opinion plainly
 rather than burying it.
 
+### More skills
+
+Eve McGivern, who maintains these packs, also publishes a personal marketplace,
+[evemcgivern-skills](https://github.com/evemcgivern/agent-skills), with more skills for Claude Code
+and Codex: agent working habits (model routing, handoffs, a background-dispatch orchestrator),
+plain writing, and everyday engineering. Add it the same way:
+`/plugin marketplace add evemcgivern/agent-skills`.
+
 ---
 
 ## Compatibility
