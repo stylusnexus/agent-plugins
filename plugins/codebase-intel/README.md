@@ -1,6 +1,6 @@
 # Codebase Intelligence
 
-Four skills for building an accurate picture of a codebase — and of the libraries it leans on — *before* committing to a change.
+Five skills for building an accurate picture of a codebase — and of the libraries it leans on — *before* committing to a change.
 
 The failure these guard against is the same in both directions: acting on a mental model that was never checked. Inside the repo, that's refactoring around structure you assumed; outside it, that's calling an API the way you remember it working.
 
@@ -14,6 +14,7 @@ The failure these guard against is the same in both directions: acting on a ment
 | `codebase-architecture-scanner` | You need architecture documentation that doesn't exist yet — layered high-level and detailed docs, with C4 context and sequence diagrams. |
 | `grill-with-docs` | A plan is drafted and needs challenging against the domain model that's already there, sharpening terminology and updating docs rather than inventing parallel vocabulary. |
 | `read-the-damn-docs` | Anything touching a third-party API, library, framework, CLI, cloud service, or provider SDK. Goes to current documentation instead of trusting recall. |
+| `teach-code-to-mastery` | You want to really understand a diff, PR, module or algorithm, not just read a summary. Teaches one stage at a time and checks you can explain it back before moving on. |
 
 ---
 
@@ -25,6 +26,7 @@ The failure these guard against is the same in both directions: acting on a ment
 | `codebase-architecture-scanner` | Structural description — components, layers, boundaries, diagrams |
 | `grill-with-docs` | Adversarial review of a plan against the existing domain model and terminology |
 | `read-the-damn-docs` | Everything *outside* the repository — third-party behavior, versions, current APIs |
+| `teach-code-to-mastery` | Checking that a human understands code — free-recall restatement, quizzes, and a checklist that closes only on demonstrated mastery |
 
 The split that matters most: **`codebase-health` measures, `codebase-architecture-scanner` describes.** Health tells you where the pain is concentrated; the scanner tells you how the thing is put together. Reach for health when deciding *whether* and *where* to change something, and the scanner when you need to explain the system to someone — including your future self.
 
@@ -43,6 +45,7 @@ The split that matters most: **`codebase-health` measures, `codebase-architectur
 | codebase-health | ✔ | ✖ | ✔ | ✖ | ✔ |
 | grill-with-docs | ✔ | ◐ | ✔ | ◐ | ✔ |
 | read-the-damn-docs | ✔ | ◐ | ✔ | ◐ | ◐ |
+| teach-code-to-mastery | ✔ | ◐ | ✔ | ◐ | ✔ |
 
 ✔ full · ◐ partial · ✖ no. What each host means, and the limits behind each mark: [Compatibility](../../README.md#compatibility).
 
@@ -209,6 +212,40 @@ Agent: Checking the docs before writing code.
          provider retries failed deliveries, so dedupe on the event id
        Implementing that now, then running the typecheck and a signed test event.
        Docs consulted are listed at the end of my answer.
+```
+
+</details>
+
+<details>
+<summary><b>teach-code-to-mastery</b> · restate, quiz, explain, repeat</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: Teaching works on code you paste in; reading a diff, PR or repo needs repo access.
+
+**Use it when:** You need to really understand a diff, PR, module or algorithm, not skim a summary.
+
+**Try:** `Teach me what PR #412 changed. Don't move on until I can explain it.`
+
+**Skip it when:** You only want a summary, or you are studying for an exam or working through a whole course or book.
+
+*Example exchange, invented data.*
+
+```text
+You:   Teach me what PR #412 did. I need to defend it in review.
+
+Agent: Read the diff and the two files it touches. First, in your own words:
+       why was the old retry loop making outages worse?
+
+You:   It retried too slowly.
+
+Agent: Not quite, and that is the part worth fixing. Every client retried on
+       the same schedule, so they all hit the upstream together. (client.ts:88)
+       Quick check - which of these is the problem?
+       [ ] Retries were too slow
+       [ ] Retries were synchronized
+       [ ] Retries had no cap
+       Checklist: problem 0/3 verified. Solution and context not started.
 ```
 
 </details>
