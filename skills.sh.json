@@ -104,13 +104,14 @@
     },
     {
       "title": "go-to-market",
-      "description": "Getting a product noticed on a small team's hours — positioning, copy, launches, community, outreach, email and measurement.",
+      "description": "Getting a product noticed on a small team's hours — diagnosing why nobody is using it, positioning, copy, launches, community, outreach, email and measurement.",
       "skills": [
         "marketing-lead",
         "mk-audience",
         "mk-brand-kit",
         "mk-community",
         "mk-copy",
+        "mk-first-contact-audit",
         "mk-founder-content",
         "mk-launch",
         "mk-lifecycle",

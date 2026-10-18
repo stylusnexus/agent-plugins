@@ -10,7 +10,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents — **10 plugins, 81 skills**. Installs natively into **Claude
+A plugin marketplace for AI coding agents — **10 plugins, 82 skills**. Installs natively into **Claude
 Code** and **OpenAI Codex**, and installs into roughly 77 more agents' skill folders through the
 Skills CLI. Documented skill support has been checked for only a few of those: Gemini CLI/Antigravity
 CLI, Cursor, GitHub Copilot, Windsurf, opencode and Cline. See [Compatibility](#compatibility).
@@ -45,7 +45,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 | [**hardening**](./plugins/hardening) | 12 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, design-time and agent-era audits, and draft legal documents for a lawyer to review. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` `readiness-review` `threat-model` `security-headers` `secrets-leak-audit` `agent-tooling-review` `llm-app-security` `legal-docs` |
 | [**release-ops**](./plugins/release-ops) | 9 | Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and auditing model API spend. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` `observability-setup` `incident-response` `customer-support-triage` `llm-cost-audit` |
 | [**product-strategy**](./plugins/product-strategy) | 15 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps, discovery and pricing, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` `pricing-review` |
-| [**go-to-market**](./plugins/go-to-market) | 12 | Getting a product noticed on a small team's hours — positioning, copy, launches, community, outreach, email and measurement. | `marketing-lead` `mk-positioning` `mk-audience` `mk-copy` `mk-brand-kit` `mk-search` `mk-launch` `mk-community` `mk-founder-content` `mk-outreach` `mk-lifecycle` `mk-measurement` |
+| [**go-to-market**](./plugins/go-to-market) | 13 | Getting a product noticed on a small team's hours — diagnosing why nobody is using it, positioning, copy, launches, community, outreach, email and measurement. | `marketing-lead` `mk-first-contact-audit` `mk-positioning` `mk-audience` `mk-copy` `mk-brand-kit` `mk-search` `mk-launch` `mk-community` `mk-founder-content` `mk-outreach` `mk-lifecycle` `mk-measurement` |
 | [**codebase-intel**](./plugins/codebase-intel) | 5 | Building an accurate picture of a codebase, and the libraries it leans on, before changing it. | `codebase-health` `codebase-architecture-scanner` `grill-with-docs` `read-the-damn-docs` `teach-code-to-mastery` |
 
 #### Every skill, by pack
@@ -178,7 +178,7 @@ Agents (Claude Code): `business-capability-modeler` `product-manager`
 </details>
 
 <details>
-<summary><b>go-to-market</b> · 12 skills · 2 agents</summary>
+<summary><b>go-to-market</b> · 13 skills · 3 agents</summary>
 
 | Skill | What it covers |
 |---|---|
@@ -187,6 +187,7 @@ Agents (Claude Code): `business-capability-modeler` `product-manager`
 | `mk-brand-kit` | Settling a product's voice, palette, fonts, and logo use, and picking a design tool. |
 | `mk-community` | Taking part in Discord servers, subreddits, forums, and open-source communities without spamming them. |
 | `mk-copy` | Writing or editing a landing page, README opening, store listing, or announcement. |
+| `mk-first-contact-audit` | Finding out why nobody is using a product: a staged cold read of one page, scored, with each fix routed to the skill that owns it. |
 | `mk-founder-content` | Founder posts, building in public, newsletters, and finding the stories worth telling. |
 | `mk-launch` | Planning a launch or relaunch: Show HN, Product Hunt, release-day posts, and the readout afterwards. |
 | `mk-lifecycle` | Waitlist, onboarding, activation, upgrade, and win-back email sequences. |
@@ -195,7 +196,7 @@ Agents (Claude Code): `business-capability-modeler` `product-manager`
 | `mk-positioning` | Working out who the product is for, what it beats, and how to say it in one line. Built on April Dunford's positioning method. |
 | `mk-search` | Getting found in search and cited by AI assistants: citable pages, `llms.txt`, test-question panels. |
 
-Agents (Claude Code): `audience-scout` `marketing-lead`
+Agents (Claude Code): `audience-scout` `cold-reader` `marketing-lead`
 
 [Pack README →](./plugins/go-to-market)
 
@@ -252,6 +253,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `mk-brand-kit` | [go-to-market](./plugins/go-to-market) |
 | `mk-community` | [go-to-market](./plugins/go-to-market) |
 | `mk-copy` | [go-to-market](./plugins/go-to-market) |
+| `mk-first-contact-audit` | [go-to-market](./plugins/go-to-market) |
 | `mk-founder-content` | [go-to-market](./plugins/go-to-market) |
 | `mk-launch` | [go-to-market](./plugins/go-to-market) |
 | `mk-lifecycle` | [go-to-market](./plugins/go-to-market) |
@@ -389,7 +391,7 @@ brief in its own `references/` folder and runs that step inline when the agent i
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
-"install everything" is a valid choice — it's 81 skills, all inert until their trigger matches.
+"install everything" is a valid choice — it's 82 skills, all inert until their trigger matches.
 
 Pick your tool, copy the command, then open its section below for the rest.
 
@@ -466,7 +468,7 @@ writes to each one's skills directory. No marketplace step — one command does 
 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
-npx skills add stylusnexus/agent-plugins --skill '*'        # all 81 skills
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 82 skills
 ```
 
 Skills install without a pack prefix. How you call one depends on the agent: `/prove-it` in Cursor,

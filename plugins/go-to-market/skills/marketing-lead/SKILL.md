@@ -24,6 +24,8 @@ Use this when someone asks for marketing help in general terms — a plan, why n
 
 Route to the focused `mk-*` skill for anything that's really a single question (positioning alone, audience alone, a launch checklist alone) rather than working the whole plan here.
 
+If the ask is really "why isn't anyone using this?", start with `mk-first-contact-audit`: it diagnoses one page as a stranger would see it and routes each fix to the skill that owns it, and the plan is then built from what it finds.
+
 If the `product-strategy` plugin is installed, route there when the problem is upstream of marketing: `product-manager` when there's no clear customer or promise yet, `pm-value-proposition` when the value to the customer is unclear, `pm-objectives` when the marketing goal needs tying to a business target.
 
 ## Outputs

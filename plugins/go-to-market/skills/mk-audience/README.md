@@ -44,7 +44,7 @@ claude plugin marketplace add stylusnexus/agent-plugins
 claude plugin install go-to-market@stylus-nexus
 ```
 
-Inside a session, `/plugin marketplace add stylusnexus/agent-plugins` and `/plugin install go-to-market@stylus-nexus` do the same. This installs the whole go-to-market pack, so marketing-lead, mk-brand-kit, mk-community, mk-copy, mk-founder-content, mk-launch, mk-lifecycle, mk-measurement, mk-outreach, mk-positioning and mk-search come with it.
+Inside a session, `/plugin marketplace add stylusnexus/agent-plugins` and `/plugin install go-to-market@stylus-nexus` do the same. This installs the whole go-to-market pack, so marketing-lead, mk-brand-kit, mk-community, mk-copy, mk-first-contact-audit, mk-founder-content, mk-launch, mk-lifecycle, mk-measurement, mk-outreach, mk-positioning and mk-search come with it.
 
 Call it as `/go-to-market:mk-audience`, or let it start on its own when your request matches.
 
@@ -71,7 +71,7 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add go-to-market@stylus-nexus
 ```
 
-This installs the whole go-to-market pack, so marketing-lead, mk-brand-kit, mk-community, mk-copy, mk-founder-content, mk-launch, mk-lifecycle, mk-measurement, mk-outreach, mk-positioning and mk-search come with it. In Codex, type `$` and the skill name (`$go-to-market:mk-audience`), or run `/skills` to pick it.
+This installs the whole go-to-market pack, so marketing-lead, mk-brand-kit, mk-community, mk-copy, mk-first-contact-audit, mk-founder-content, mk-launch, mk-lifecycle, mk-measurement, mk-outreach, mk-positioning and mk-search come with it. In Codex, type `$` and the skill name (`$go-to-market:mk-audience`), or run `/skills` to pick it.
 
 **Note:** Without the audience-scout agent, the verified-places step runs inline with web search.
 

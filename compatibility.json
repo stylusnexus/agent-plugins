@@ -770,6 +770,33 @@
         "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
+    "mk-first-contact-audit": {
+      "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full",
+          "note": "Uses the cold-reader agent that ships with the Claude Code plugin."
+        },
+        "app": {
+          "level": "full",
+          "note": "Without the cold-reader agent, each stage of the staged read runs by hand in its own fresh context. If the raw-HTML script cannot run or reach the page, the same signals are read by hand from the page source."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Without the cold-reader agent, each stage of the staged read runs by hand in its own fresh context. If the raw-HTML script cannot run or reach the page, the same signals are read by hand from the page source."
+        },
+        "chatgpt": {
+          "level": "full",
+          "note": "Without the cold-reader agent, each stage of the staged read runs by hand in its own fresh context. If the raw-HTML script cannot run or reach the page, the same signals are read by hand from the page source."
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Without the cold-reader agent, each stage of the staged read runs by hand in its own fresh context. If the raw-HTML script cannot run or reach the page, the same signals are read by hand from the page source."
+      }
+    },
     "mk-founder-content": {
       "pack": "go-to-market",
       "claude": {

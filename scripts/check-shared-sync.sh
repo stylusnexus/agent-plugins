@@ -6,8 +6,9 @@
 # still has everything the SKILL.md reads:
 #
 #   product-manager/references/principles.md  -> every pm-* skill's references/
-#   marketing-lead/references/principles.md   -> six mk-* skills' references/
+#   marketing-lead/references/principles.md   -> seven mk-* skills' references/
 #   agents/audience-scout.md (body only)      -> mk-audience/references/audience-scout-brief.md
+#   agents/cold-reader.md (body only)         -> mk-first-contact-audit/references/cold-reader-brief.md
 #
 # Edit the canonical file, then copy it over each listed copy (the brief keeps
 # its title and one-paragraph header; its body is the agent file minus the
@@ -34,27 +35,32 @@ for s in pm-canvas pm-capabilities pm-discovery pm-growth pm-market-analysis pm-
 done
 
 MK=plugins/go-to-market/skills/marketing-lead/references/principles.md
-for s in mk-copy mk-founder-content mk-launch mk-lifecycle mk-outreach mk-search; do
+for s in mk-copy mk-first-contact-audit mk-founder-content mk-launch mk-lifecycle mk-outreach mk-search; do
   same "$MK" "plugins/go-to-market/skills/$s/references/principles.md"
 done
 
-# The brief is the agent file minus its frontmatter, under a fixed two-line header.
-AGENT=plugins/go-to-market/agents/audience-scout.md
-BRIEF=plugins/go-to-market/skills/mk-audience/references/audience-scout-brief.md
-if [ ! -f "$AGENT" ] || [ ! -f "$BRIEF" ]; then
-  echo "missing $AGENT or $BRIEF" >&2; fail=1
-else
+# A brief is the agent file minus its frontmatter, under a fixed two-line header.
+brief_matches() {
+  # brief_matches <agent file> <brief file>
+  if [ ! -f "$1" ] || [ ! -f "$2" ]; then
+    echo "missing $1 or $2" >&2; fail=1; return
+  fi
   tmp_agent=$(mktemp); tmp_brief=$(mktemp)
   # body of the agent: everything after the second --- line
-  awk 'f>=2{print} /^---$/{f++}' "$AGENT" | sed '/./,$!d' >"$tmp_agent"
+  awk 'f>=2{print} /^---$/{f++}' "$1" | sed '/./,$!d' >"$tmp_agent"
   # body of the brief: everything after its title and one-paragraph header (two blank lines)
-  awk 'f>=2{print} /^$/{f++}' "$BRIEF" | sed '/./,$!d' >"$tmp_brief"
+  awk 'f>=2{print} /^$/{f++}' "$2" | sed '/./,$!d' >"$tmp_brief"
   if ! cmp -s "$tmp_agent" "$tmp_brief"; then
-    echo "out of sync: $BRIEF body differs from $AGENT body (paste the agent body under the brief's header)" >&2
+    echo "out of sync: $2 body differs from $1 body (paste the agent body under the brief's header)" >&2
     fail=1
   fi
   rm -f "$tmp_agent" "$tmp_brief"
-fi
+}
+
+brief_matches plugins/go-to-market/agents/audience-scout.md \
+  plugins/go-to-market/skills/mk-audience/references/audience-scout-brief.md
+brief_matches plugins/go-to-market/agents/cold-reader.md \
+  plugins/go-to-market/skills/mk-first-contact-audit/references/cold-reader-brief.md
 
 if [ "$fail" -ne 0 ]; then
   echo "check-shared-sync: FAIL" >&2

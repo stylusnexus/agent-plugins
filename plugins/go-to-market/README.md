@@ -1,6 +1,6 @@
 # Go-to-Market
 
-A head of marketing and eleven focused skills for small teams and solo builders. Plans start from a goal and the hours you actually have, favour honest persuasion over tricks, keep evidence and assumptions separate, and explain the marketing reasoning as they go.
+A head of marketing and twelve focused skills for small teams and solo builders. Plans start from a goal and the hours you actually have, favour honest persuasion over tricks, keep evidence and assumptions separate, and explain the marketing reasoning as they go.
 
 ---
 
@@ -9,6 +9,7 @@ A head of marketing and eleven focused skills for small teams and solo builders.
 | Skill | Use it when |
 |---|---|
 | `marketing-lead` | You want a marketing plan, or don't know why nobody is using the product. Routes to the skills below and teaches as it goes. |
+| `mk-first-contact-audit` | Finding out why nobody is using a product: a staged cold read of one page, scored, with each fix routed to the skill that owns it. |
 | `mk-positioning` | Working out who the product is for, what it beats, and how to say it in one line. Built on April Dunford's positioning method. |
 | `mk-audience` | Choosing the first customer, writing an ideal customer profile, and finding who influences the buyer. |
 | `mk-copy` | Writing or editing a landing page, README opening, store listing, or announcement. |
@@ -21,13 +22,13 @@ A head of marketing and eleven focused skills for small teams and solo builders.
 | `mk-lifecycle` | Waitlist, onboarding, activation, upgrade, and win-back email sequences. |
 | `mk-measurement` | Choosing what to measure, reading whether a channel worked, and running trustworthy experiments. |
 
-Two Claude Code agents ship alongside: `marketing-lead` (the same head of marketing, in its own context) and `audience-scout`, which finds the real online places an audience gathers and verifies each by fetching the page. It only reads; it never posts, joins, or messages.
+Three Claude Code agents ship alongside: `marketing-lead` (the same head of marketing, in its own context), `audience-scout`, which finds the real online places an audience gathers and verifies each by fetching the page, and `cold-reader`, which reads one slice of a page as a stranger would and says what it understood. The last two only read; they never post, join, click through, sign up, or message.
 
 ---
 
 ## Rule ownership
 
-`marketing-lead` owns the plan and the order of work; each `mk-*` skill owns one kind of output. Positioning comes before copy: `mk-copy` asks for a settled position from `mk-positioning` rather than inventing one. Product strategy is out of scope; when there is no clear customer or promise yet, the skills point to the [`product-strategy`](../product-strategy) plugin (`product-manager`, `pm-value-proposition`).
+`marketing-lead` owns the plan and the order of work; each `mk-*` skill owns one kind of output. Positioning comes before copy: `mk-copy` asks for a settled position from `mk-positioning` rather than inventing one. `mk-first-contact-audit` owns the diagnosis of a cold visit and writes no copy: it names which problem is real and hands each fix to the skill above that owns it. Product strategy is out of scope; when there is no clear customer or promise yet, the skills point to the [`product-strategy`](../product-strategy) plugin (`product-manager`, `pm-value-proposition`).
 
 No skill posts, sends, or publishes anything on your behalf. Plans and drafts come back to you.
 
@@ -45,6 +46,7 @@ No skill posts, sends, or publishes anything on your behalf. Plans and drafts co
 | mk-brand-kit | ✔ | ✔ | ✔ | ✔ | ✔ |
 | mk-community | ✔ | ✔ | ✔ | ✔ | ✔ |
 | mk-copy | ✔ | ✔ | ✔ | ✔ | ✔ |
+| mk-first-contact-audit | ✔ | ✔ | ✔ | ✔ | ✔ |
 | mk-founder-content | ✔ | ✔ | ✔ | ✔ | ✔ |
 | mk-launch | ✔ | ✔ | ✔ | ✔ | ✔ |
 | mk-lifecycle | ✔ | ✔ | ✔ | ✔ | ✔ |
@@ -61,7 +63,8 @@ The usual order of work, starting from `marketing-lead`. Who the product is for 
 
 ```mermaid
 flowchart TD
-  ML[marketing-lead] --> A[mk-audience]
+  ML[marketing-lead] --> D[mk-first-contact-audit]
+  D -->|routes each fix| A[mk-audience]
   A --> P[mk-positioning]
   P --> B[mk-brand-kit]
   B --> CP[mk-copy]
@@ -106,6 +109,43 @@ Not doing    paid ads (no budget), press (nothing to show yet)
 Decided      collectors first; casual owners later
 Open         does "travel mode" matter more than room setup? (assumption)
 Next action  today: write the forum intro post as a draft for your review
+```
+
+</details>
+
+<details>
+<summary><code>mk-first-contact-audit</code>: a scorecard of why a stranger leaves, with fixes routed</summary>
+
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+**Use it when:** People visit and do not sign up, and you do not know which part of the page is failing them.
+
+**Try:** `Audit plantledger.example as a stranger would see it. The truth: a watering scheduler for people with 20+ houseplants who travel.`
+
+**Skip it when:** You already know the cause and need the fix. Go straight to the skill that owns it.
+
+Example output, invented data (fictional product). Readers saw only their own stage's slice; the truth was kept from them.
+
+```text
+FIRST-CONTACT SCORECARD   plantledger.example   2026-03-02
+Truth (kept from readers)  watering scheduler for people with 20+ houseplants who travel
+Stage            Who        Problem    Differentiation   Confidence
+1 headline       missing    partly     not stated        35
+2 first screen   partly     matched    not stated        55
+3 whole page     matched    matched    not stated        68
+Time to confidence: never (needs 70 or more with who and problem matched)
+
+Check                  Result   Evidence                                       Tag
+2 Comprehension        Concern  "Smarter plant care" ... reader: "an app for plants"  multi-reader
+4 Claim typing         Fail     9 of 10 headings are bare features              mechanical
+6b Trust surfaced      Concern  export and delete appear only in a footer link   mechanical
+8 Machine legibility   Fail     raw HTML holds 0 visible characters; title is the bare name   mechanical
+
+Top fixes (earliest failing class first)
+1 Headline names no problem and no person   -> mk-positioning, then mk-copy
+2 Headings list features, not outcomes      -> mk-copy
+3 Raw HTML is an empty shell                -> mk-search
+Hypotheses to verify: "name reads oddly aloud" (LLM-only; ask 3 people to spell it back)
 ```
 
 </details>
@@ -430,14 +470,14 @@ In Codex, type `$` and a skill name to use it (`$go-to-market:marketing-lead`; C
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill marketing-lead mk-audience mk-brand-kit mk-community mk-copy mk-founder-content mk-launch mk-lifecycle mk-measurement mk-outreach mk-positioning mk-search
+npx skills add stylusnexus/agent-plugins --skill marketing-lead mk-audience mk-brand-kit mk-community mk-copy mk-first-contact-audit mk-founder-content mk-launch mk-lifecycle mk-measurement mk-outreach mk-positioning mk-search
 ```
 
 Skills arrive un-namespaced on this path, so most agents invoke them as `/marketing-lead`; Windsurf uses `@marketing-lead`, opencode shows `/marketing-lead` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.
 
 ## Prerequisites
 
-None. `audience-scout` uses web search and fetch where the host provides them.
+None. `audience-scout` uses web search and fetch where the host provides them. `cold-reader` only reads the text and screenshots it is handed. `mk-first-contact-audit` has an optional script that needs Python 3 and network access; without them the same signals are read by hand.
 
 ## Sources
 
