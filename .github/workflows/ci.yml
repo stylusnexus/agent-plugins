@@ -52,6 +52,9 @@ jobs:
       - name: Bundled copies of shared files match their source
         run: sh scripts/check-shared-sync.sh
 
+      - name: Private-term scanner public-reference regression
+        run: sh scripts/test-private-terms.sh
+
       - name: No owner-private terms in shipped skill/agent text
         env:
           PRIVATE_TERMS: ${{ secrets.PRIVATE_TERMS }}

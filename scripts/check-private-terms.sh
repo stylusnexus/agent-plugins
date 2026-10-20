@@ -158,17 +158,48 @@ fi
 
 # Public pages outside plugins/: the root README and the Pages site. Private
 # overlay terms fail; warn: vocabulary warns. Public-list terms don't apply here
-# (these pages link this org's repos by design).
+# (these pages link this org's repos by design). The README's exact, reviewed
+# public-marketplace attribution is allowlisted below; edits to those lines
+# must update the allowlist and its regression test.
 PAGES=""
 [ -f README.md ] && PAGES="README.md"
 [ -d site ] && PAGES="$PAGES site"
+
+is_approved_public_reference_line() {
+  case "$1" in
+    'Eve McGivern, who maintains these packs, also publishes a personal marketplace,'|\
+    '[evemcgivern-skills](https://github.com/evemcgivern/agent-skills), with more skills for Claude Code'|\
+    '`/plugin marketplace add evemcgivern/agent-skills`.')
+      return 0 ;;
+  esac
+  return 1
+}
+
+filter_approved_public_reference_hits() {
+  printf '%s\n' "$1" | while IFS= read -r hit; do
+    case "$hit" in
+      README.md:*)
+        rest=${hit#README.md:}
+        line_text=${rest#*:}
+        if is_approved_public_reference_line "$line_text"; then
+          continue
+        fi
+        ;;
+    esac
+    printf '%s\n' "$hit"
+  done
+}
+
 if [ -n "$PAGES" ] && [ -s "$OVERLAY_FILE" ]; then
   while IFS= read -r pattern; do
     case "$pattern" in
       ''|'#'*) continue ;;
       warn:*)
+        # -H keeps the file prefix when README.md is the only target (GNU grep
+        # otherwise omits it, so the README-only allowlist cannot distinguish it).
         # shellcheck disable=SC2086
-        hits=$(grep -rniIE "${pattern#warn:}" $PAGES 2>/dev/null || true)
+        hits=$(grep -rniHE "${pattern#warn:}" $PAGES 2>/dev/null || true)
+        hits=$(filter_approved_public_reference_hits "$hits")
         if [ -n "$hits" ]; then
           echo "WARNING: private-product vocabulary (from the private list) found; check these lines:" >&2
           report_warning "$hits"
@@ -177,7 +208,8 @@ if [ -n "$PAGES" ] && [ -s "$OVERLAY_FILE" ]; then
         continue ;;
     esac
     # shellcheck disable=SC2086
-    hits=$(grep -rniIE "$pattern" $PAGES 2>/dev/null || true)
+    hits=$(grep -rniHE "$pattern" $PAGES 2>/dev/null || true)
+    hits=$(filter_approved_public_reference_hits "$hits")
     if [ -n "$hits" ]; then
       echo "PRIVATE TERM (from the private list) found in README.md or site/ at:" >&2
       echo "$hits" | cut -d: -f1,2 | sed 's/^/  /' >&2

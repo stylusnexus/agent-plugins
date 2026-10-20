@@ -676,7 +676,8 @@ agent-plugins/
 │   ├── check-readme.py          # README tables and counts match plugins/
 │   ├── gen-catalog.py           # writes the skill catalogue and skills.sh.json
 │   ├── check-links.py           # relative links and anchors resolve
-│   └── check-private-terms.sh   # nothing private ships in a skill
+│   ├── check-private-terms.sh   # checks private terms; allows exact public references
+│   └── test-private-terms.sh    # proves public-reference exceptions stay narrow
 ├── site/                        # the catalogue page, published to GitHub Pages
 ├── skills.sh.json               # skills.sh groupings, one per pack
 ├── LICENSE
