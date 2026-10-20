@@ -1868,6 +1868,31 @@
         "level": "full"
       }
     },
+    "vscode-marketplace-publish": {
+      "pack": "release-ops",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Publishing needs a local extension repo, vsce and your publisher token."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
     "visual-plan": {
       "pack": "reporting-comms",
       "claude": {

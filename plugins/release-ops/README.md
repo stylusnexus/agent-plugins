@@ -1,6 +1,6 @@
 # Release Ops
 
-Nine skills for getting a release out the door and keeping it running — deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and keeping model API spend in check.
+Ten skills for getting a release out the door and keeping it running — deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and keeping model API spend in check.
 
 ---
 
@@ -12,6 +12,7 @@ Nine skills for getting a release out the door and keeping it running — decidi
 | `pr-wait` | A PR is open and you want to block on CI rather than watch it, optionally merging when checks pass. |
 | `the-waiting` | CI is running and you want to know how long is really left, or why a run is still pending. Estimates each job from its own history, spots runs stuck behind a cancelled one, and suggests something small to do meanwhile. Named for Tom Petty's "The Waiting", because it is the hardest part. |
 | `npm-publish` | Publishing to npm or bun — preflight checks, semver bump, changelog entry, git push, publish, verify. Rotates an expired npm token through the browser instead of stopping to ask for a one-time code. |
+| `vscode-marketplace-publish` | Publishing a VS Code extension update — preflight, version, package check, then publish to the Visual Studio Marketplace (and Open VSX if you use it) and confirm it is live. Waits for your yes before anything goes out. |
 | `observability-setup` | You are launching a service or auditing its monitoring. Wires a health-check endpoint, uptime checks, log forwarding, error tracking, LLM cost tracking, and page-versus-ticket alert thresholds. |
 | `incident-response` | A service is down, erroring, or degraded in production. Sets severity, runs a fixed triage order, decides on rollback first, drafts user comms, and writes a one-page blameless postmortem. |
 | `dependency-upgrade` | Bulk dependency bumps. Treats them as a gated pipeline — inventory, batch, then type check, test, and E2E between batches — rather than one update command and hope. |
@@ -28,6 +29,7 @@ Nine skills for getting a release out the door and keeping it running — decidi
 | `pr-wait` | Waiting on CI for an open PR, and merging on green |
 | `the-waiting` | Explaining a wait: time left, stuck runs, and what to do meanwhile. Never cancels, reruns, or merges |
 | `npm-publish` | Everything from bump to published artifact, including auth |
+| `vscode-marketplace-publish` | The same path for a VS Code extension: bump, package, publish, live check. Never mints or asks for a token |
 | `dependency-upgrade` | Incoming dependency changes and the gates between batches |
 | `observability-setup` | Setting up monitoring before anything breaks — health checks, uptime, logs, error tracking, alert thresholds |
 | `incident-response` | What to do once something is already broken — severity, triage order, rollback, comms, postmortem |
@@ -37,6 +39,8 @@ Nine skills for getting a release out the door and keeping it running — decidi
 **`observability-setup` runs before an incident; `incident-response` runs during and after one.** The alerts you wire up first are what tell you to start the second. `observability-setup` sets up product analytics events only to the extent a health signal needs them; the event taxonomy belongs to `analytics-instrumentation` in the `ship-pipeline` pack.
 
 **`customer-support-triage` handles one customer's report; `incident-response` handles a live outage.** A P0 ticket that turns out to be an outage is handed to `incident-response`. `observability-setup` wires LLM cost tracking; `llm-cost-audit` reads it and decides what to change.
+
+**`npm-publish` is for npm packages; `vscode-marketplace-publish` is for VS Code extensions.** An extension that also ships an npm package uses both.
 
 **`version-check` recommends; `npm-publish` executes.** Run the first when you want the decision explained, the second when you've made it. `npm-publish` will bump on its own, so pairing them is optional rather than required.
 
@@ -62,6 +66,7 @@ For repository activity summaries — what shipped, what's open, CI health — u
 | pr-wait | ✔ | ✖ | ✔ | ✖ | ✔ |
 | the-waiting | ✔ | ✖ | ✔ | ✖ | ✔ |
 | version-check | ✔ | ◐ | ✔ | ◐ | ✔ |
+| vscode-marketplace-publish | ✔ | ✖ | ✔ | ✖ | ✔ |
 
 ✔ full · ◐ partial · ✖ no. What each host means, and the limits behind each mark: [Compatibility](../../README.md#compatibility).
 
@@ -192,6 +197,37 @@ Meantime, each under five minutes:
   - PR #233 is waiting on your review
   - your PR #229 has a stale lint check
   - issue #241 (typo on the settings page) is assigned to you
+```
+
+</details>
+
+<details>
+<summary><code>vscode-marketplace-publish</code>: from preflight to live listing</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Publishing needs a local extension repo, vsce and your publisher token. ChatGPT: No access to your local repo or git credentials by default.
+
+**Use it when:** You are releasing a new version of a VS Code extension.
+
+**Try:** `Publish the next patch of my VS Code extension.`
+
+**Skip it when:** You are publishing an npm package. Use `npm-publish`.
+
+Example output, invented data.
+
+```text
+Preflight
+  acme.acme-lint  live: 1.4.2  local: 1.4.2  -> next: 1.4.3 (patch)
+  build, lint, tests: pass
+  working tree: clean
+
+Package
+  acme-lint-1.4.3.vsix, 212 KB, 38 files
+  flagged: src/**/*.map (12 source maps) -> added to .vscodeignore, repackaged: 26 files
+
+Ready to publish acme.acme-lint@1.4.3 to the Visual Studio Marketplace.
+This also edits package.json and creates a git commit and tag. Go ahead?
 ```
 
 </details>
@@ -427,7 +463,7 @@ In Codex, type `$` and a skill name to use it (`$release-ops:npm-publish`; Codex
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill customer-support-triage dependency-upgrade incident-response llm-cost-audit npm-publish observability-setup pr-wait the-waiting version-check
+npx skills add stylusnexus/agent-plugins --skill customer-support-triage dependency-upgrade incident-response llm-cost-audit npm-publish observability-setup pr-wait the-waiting version-check vscode-marketplace-publish
 ```
 
 Skills arrive un-namespaced on this path, so most agents invoke them as `/npm-publish`; Windsurf uses `@npm-publish`, opencode shows `/npm-publish` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.
@@ -439,9 +475,12 @@ Skills arrive un-namespaced on this path, so most agents invoke them as `/npm-pu
 - **`gh`** (authenticated) — `pr-wait` reads check status through the GitHub CLI
 - **`npm`** or **`bun`** — `npm-publish` supports either
 - **`agent-browser`** — only for `npm-publish`'s token rotation; without it, publishing still works when your existing npm auth is valid
+- **`vsce`** (`@vscode/vsce`) — `vscode-marketplace-publish` packages and publishes with it, and asks before installing it; Open VSX needs `ovsx`
 - **`uv`** for Python projects — `dependency-upgrade` uses `npm` for Node/TypeScript and `uv` for Python
 
 ## Security note
+
+`vscode-marketplace-publish` never asks for, mints or stores a publisher token; it reads `VSCE_PAT` / `OVSX_PAT` or `vsce login` that you set up yourself, and tells you when a publish is about to happen.
 
 `npm-publish` handles registry credentials. Its `setup-token.sh` replaces only the npm auth line in `~/.npmrc` (other lines stay) and makes the file owner-only, and the token-rotation flow drives a browser to mint a new granular access token limited to the package you pick, with no organization access. It asks before it pushes and again before it publishes. No credentials are stored in this repository, and none are transmitted anywhere except to the npm registry — but read the scripts before first use, as you should with anything that touches publish rights.
 

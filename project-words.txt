@@ -322,3 +322,5 @@ Helicone
 overclaiming
 subprocessor
 triaging
+unpublishing
+vscodeignore
