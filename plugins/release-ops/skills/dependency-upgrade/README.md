@@ -48,7 +48,7 @@ claude plugin marketplace add stylusnexus/agent-plugins
 claude plugin install release-ops@stylus-nexus
 ```
 
-Inside a session, `/plugin marketplace add stylusnexus/agent-plugins` and `/plugin install release-ops@stylus-nexus` do the same. This installs the whole release-ops pack, so customer-support-triage, incident-response, llm-cost-audit, npm-publish, observability-setup, pr-wait, the-waiting and version-check come with it.
+Inside a session, `/plugin marketplace add stylusnexus/agent-plugins` and `/plugin install release-ops@stylus-nexus` do the same. This installs the whole release-ops pack, so customer-support-triage, incident-response, llm-cost-audit, npm-publish, observability-setup, pr-wait, the-waiting, version-check and vscode-marketplace-publish come with it.
 
 Call it as `/release-ops:dependency-upgrade`, or let it start on its own when your request matches.
 
@@ -71,7 +71,7 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add release-ops@stylus-nexus
 ```
 
-This installs the whole release-ops pack, so customer-support-triage, incident-response, llm-cost-audit, npm-publish, observability-setup, pr-wait, the-waiting and version-check come with it. In Codex, type `$` and the skill name (`$release-ops:dependency-upgrade`), or run `/skills` to pick it.
+This installs the whole release-ops pack, so customer-support-triage, incident-response, llm-cost-audit, npm-publish, observability-setup, pr-wait, the-waiting, version-check and vscode-marketplace-publish come with it. In Codex, type `$` and the skill name (`$release-ops:dependency-upgrade`), or run `/skills` to pick it.
 
 **Note:** Network steps need an approval or a network-enabled Codex profile.
 

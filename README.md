@@ -10,7 +10,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents — **10 plugins, 81 skills**. Installs natively into **Claude
+A plugin marketplace for AI coding agents — **10 plugins, 82 skills**. Installs natively into **Claude
 Code** and **OpenAI Codex**, and installs into roughly 77 more agents' skill folders through the
 Skills CLI. Documented skill support has been checked for only a few of those: Gemini CLI/Antigravity
 CLI, Cursor, GitHub Copilot, Windsurf, opencode and Cline. See [Compatibility](#compatibility).
@@ -43,7 +43,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 | [**reporting-comms**](./plugins/reporting-comms) | 7 | The last mile — turning agent output into something a person wants to read, and getting their judgment back. | `html` `visual-plan` `visual-recap` `recap-table` `writing-clearly-and-concisely` `human-writing` `redline` |
 | [**second-opinion**](./plugins/second-opinion) | 6 | One premise: one confident answer is not evidence. Independent passes, arbitration and checks against the code; llm-council's advisors are the same model, and spec-review calls a different one. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` `efficient-frontier-routing` |
 | [**hardening**](./plugins/hardening) | 12 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, design-time and agent-era audits, and draft legal documents for a lawyer to review. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` `readiness-review` `threat-model` `security-headers` `secrets-leak-audit` `agent-tooling-review` `llm-app-security` `legal-docs` |
-| [**release-ops**](./plugins/release-ops) | 9 | Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and auditing model API spend. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` `observability-setup` `incident-response` `customer-support-triage` `llm-cost-audit` |
+| [**release-ops**](./plugins/release-ops) | 10 | Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and auditing model API spend. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` `observability-setup` `incident-response` `customer-support-triage` `llm-cost-audit` `vscode-marketplace-publish` |
 | [**product-strategy**](./plugins/product-strategy) | 15 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps, discovery and pricing, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` `pricing-review` |
 | [**go-to-market**](./plugins/go-to-market) | 12 | Getting a product noticed on a small team's hours — positioning, copy, launches, community, outreach, email and measurement. | `marketing-lead` `mk-positioning` `mk-audience` `mk-copy` `mk-brand-kit` `mk-search` `mk-launch` `mk-community` `mk-founder-content` `mk-outreach` `mk-lifecycle` `mk-measurement` |
 | [**codebase-intel**](./plugins/codebase-intel) | 5 | Building an accurate picture of a codebase, and the libraries it leans on, before changing it. | `codebase-health` `codebase-architecture-scanner` `grill-with-docs` `read-the-damn-docs` `teach-code-to-mastery` |
@@ -132,7 +132,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 </details>
 
 <details>
-<summary><b>release-ops</b> · 9 skills</summary>
+<summary><b>release-ops</b> · 10 skills</summary>
 
 | Skill | What it covers |
 |---|---|
@@ -145,6 +145,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 | `pr-wait` | A PR is open and you want to block on CI rather than watch it, optionally merging when checks pass. |
 | `the-waiting` | CI is running and you want to know how long is really left, or why a run is still pending. Estimates each job from its own history, spots runs stuck behind a cancelled one, and suggests something small to do meanwhile. Named for Tom Petty's "The Waiting", because it is the hardest part. |
 | `version-check` | You need to decide the next version. Reads the commits since the last tag and recommends major, minor, or patch, with the reasoning. |
+| `vscode-marketplace-publish` | Publishing a VS Code extension update — preflight, version, package check, then publish to the Visual Studio Marketplace (and Open VSX if you use it) and confirm it is live. Waits for your yes before anything goes out. |
 
 [Pack README →](./plugins/release-ops)
 
@@ -300,6 +301,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `version-check` | [release-ops](./plugins/release-ops) |
 | `visual-plan` | [reporting-comms](./plugins/reporting-comms) |
 | `visual-recap` | [reporting-comms](./plugins/reporting-comms) |
+| `vscode-marketplace-publish` | [release-ops](./plugins/release-ops) |
 | `webhook-reliability` | [hardening](./plugins/hardening) |
 | `writing-clearly-and-concisely` | [reporting-comms](./plugins/reporting-comms) |
 
@@ -389,7 +391,7 @@ brief in its own `references/` folder and runs that step inline when the agent i
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
-"install everything" is a valid choice — it's 81 skills, all inert until their trigger matches.
+"install everything" is a valid choice — it's 82 skills, all inert until their trigger matches.
 
 Pick your tool, copy the command, then open its section below for the rest.
 
@@ -466,7 +468,7 @@ writes to each one's skills directory. No marketplace step — one command does 
 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
-npx skills add stylusnexus/agent-plugins --skill '*'        # all 81 skills
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 82 skills
 ```
 
 Skills install without a pack prefix. How you call one depends on the agent: `/prove-it` in Cursor,

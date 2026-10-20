@@ -78,7 +78,8 @@
         "observability-setup",
         "pr-wait",
         "the-waiting",
-        "version-check"
+        "version-check",
+        "vscode-marketplace-publish"
       ]
     },
     {
