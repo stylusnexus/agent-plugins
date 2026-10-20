@@ -6,6 +6,7 @@ set -eu
 ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
+CHECK_SH=$(command -v dash || command -v sh)
 
 mkdir -p "$TMP/scripts" "$TMP/plugins/example/skills"
 cp "$ROOT/scripts/check-private-terms.sh" "$TMP/scripts/"
@@ -14,7 +15,7 @@ awk '/^Eve McGivern, who maintains these packs, also publishes a personal market
   "$ROOT/README.md" > "$TMP/README.md"
 
 if (cd "$TMP" && PRIVATE_TERMS='Eve McGivern|evemcgivern' \
-    sh "$TMP/scripts/check-private-terms.sh" > "$TMP/allowed.out" 2>&1); then
+    "$CHECK_SH" "$TMP/scripts/check-private-terms.sh" > "$TMP/allowed.out" 2>&1); then
   :
 else
   cat "$TMP/allowed.out" >&2
@@ -24,7 +25,7 @@ fi
 
 printf '\nUnreviewed reference: Eve McGivern\n' >> "$TMP/README.md"
 if (cd "$TMP" && PRIVATE_TERMS='Eve McGivern|evemcgivern' \
-    sh "$TMP/scripts/check-private-terms.sh" > "$TMP/readme-leak.out" 2>&1); then
+    "$CHECK_SH" "$TMP/scripts/check-private-terms.sh" > "$TMP/readme-leak.out" 2>&1); then
   echo "unreviewed README reference should fail" >&2
   exit 1
 fi
@@ -36,12 +37,19 @@ fi
 
 awk '/^Eve McGivern, who maintains these packs, also publishes a personal marketplace,/{copy=1} copy && NF == 0{exit} copy{print}' \
   "$ROOT/README.md" > "$TMP/README.md"
+mkdir -p "$TMP/site"
+printf 'Eve McGivern\n' > "$TMP/site/page.html"
 printf 'Eve McGivern\n' > "$TMP/plugins/example/skills/SKILL.md"
 if (cd "$TMP" && PRIVATE_TERMS='Eve McGivern|evemcgivern' \
-    sh "$TMP/scripts/check-private-terms.sh" > "$TMP/skill-leak.out" 2>&1); then
-  echo "skill text should still be scanned" >&2
+    "$CHECK_SH" "$TMP/scripts/check-private-terms.sh" > "$TMP/other-leaks.out" 2>&1); then
+  echo "Pages site and skill text should still be scanned" >&2
   exit 1
 fi
-grep -q 'plugins/example/skills' "$TMP/skill-leak.out"
+grep -q 'site/page.html:' "$TMP/other-leaks.out"
+grep -q 'plugins/example/skills' "$TMP/other-leaks.out"
+if grep -Eq 'Eve McGivern|evemcgivern' "$TMP/other-leaks.out"; then
+  echo "scanner output exposed the private-term match" >&2
+  exit 1
+fi
 
 echo "private-term scanner keeps the public-reference exception narrow"
