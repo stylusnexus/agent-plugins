@@ -88,7 +88,7 @@
       "source": {
         "source": "url",
         "url": "https://github.com/stylusnexus/work-plan-toolkit.git",
-        "ref": "v2026.10.20-b1b122f"
+        "ref": "v2026.10.20-24b316a"
       },
       "policy": {
         "installation": "AVAILABLE",
