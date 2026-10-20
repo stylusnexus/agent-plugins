@@ -195,8 +195,10 @@ if [ -n "$PAGES" ] && [ -s "$OVERLAY_FILE" ]; then
     case "$pattern" in
       ''|'#'*) continue ;;
       warn:*)
+        # -H keeps the file prefix when README.md is the only target (GNU grep
+        # otherwise omits it, so the README-only allowlist cannot distinguish it).
         # shellcheck disable=SC2086
-        hits=$(grep -rniIE "${pattern#warn:}" $PAGES 2>/dev/null || true)
+        hits=$(grep -rniHE "${pattern#warn:}" $PAGES 2>/dev/null || true)
         hits=$(filter_approved_public_reference_hits "$hits")
         if [ -n "$hits" ]; then
           echo "WARNING: private-product vocabulary (from the private list) found; check these lines:" >&2
@@ -206,7 +208,7 @@ if [ -n "$PAGES" ] && [ -s "$OVERLAY_FILE" ]; then
         continue ;;
     esac
     # shellcheck disable=SC2086
-    hits=$(grep -rniIE "$pattern" $PAGES 2>/dev/null || true)
+    hits=$(grep -rniHE "$pattern" $PAGES 2>/dev/null || true)
     hits=$(filter_approved_public_reference_hits "$hits")
     if [ -n "$hits" ]; then
       echo "PRIVATE TERM (from the private list) found in README.md or site/ at:" >&2
