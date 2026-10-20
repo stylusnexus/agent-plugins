@@ -46,6 +46,6 @@
   },
   "scripts": {
     "check": "sh scripts/check-manifest-sync.sh && python3 scripts/check-skills.py",
-    "lint": "python3 scripts/check-links.py && python3 scripts/check-readme.py && python3 scripts/check-compat.py && python3 scripts/gen-skill-readme.py --check && sh scripts/check-shared-sync.sh && sh scripts/check-private-terms.sh && sh scripts/test-plugin-scripts.sh && npx --yes cspell@10.3.4 --no-progress \"plugins/**/*.md\" \"README.md\""
+    "lint": "python3 scripts/check-links.py && python3 scripts/check-readme.py && python3 scripts/check-compat.py && python3 scripts/gen-skill-readme.py --check && sh scripts/check-shared-sync.sh && sh scripts/test-private-terms.sh && sh scripts/check-private-terms.sh && sh scripts/test-plugin-scripts.sh && npx --yes cspell@10.3.4 --no-progress \"plugins/**/*.md\" \"README.md\""
   }
 }

@@ -85,7 +85,10 @@ Same as above, plus:
   `scripts/private-terms.txt`, plus a private list the maintainers hold. A PR can
   also get a warning that a line may use a private product's vocabulary: that
   isn't a failure, but check the line was written for this repo and not lifted
-  from elsewhere.
+  from elsewhere. The root README and Pages site use the same private overlay;
+  only the exact reviewed public-marketplace attribution in the README is
+  allowlisted. Keep that exception line-specific, and update
+  `scripts/test-private-terms.sh` if the public copy changes.
 
 ## Running the checks locally
 
@@ -99,13 +102,15 @@ python3 scripts/gen-catalog.py --check # README catalogue and skills.sh.json are
 python3 scripts/gen-skill-readme.py --check # every skill's README.md is current
 sh scripts/check-shared-sync.sh        # bundled copies of shared files match their canonical source
 sh scripts/check-private-terms.sh      # no owner-private terms in skill/agent text
+sh scripts/test-private-terms.sh       # public-reference allowlist stays narrow
 sh scripts/test-plugin-scripts.sh      # any plugin script's own tests pass
 npx --yes cspell@10 --no-progress "plugins/**/*.md" "README.md"
 ```
 
 `npm run lint` runs everything the `hygiene` job in `ci.yml` gates on every PR
 (`check-links.py`, `check-readme.py`, `check-compat.py`, `gen-skill-readme.py --check`,
-`check-shared-sync.sh`, `check-private-terms.sh`, `test-plugin-scripts.sh`, and `cspell`); `npm run check` runs the
+`check-shared-sync.sh`, `test-private-terms.sh`, `check-private-terms.sh`,
+`test-plugin-scripts.sh`, and `cspell`); `npm run check` runs the
 `manifest-sync` job's pair (`check-manifest-sync.sh`, `check-skills.py`).
 
 ## Commits and PR titles
