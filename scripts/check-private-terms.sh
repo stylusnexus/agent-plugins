@@ -180,8 +180,7 @@ filter_approved_public_reference_hits() {
     case "$hit" in
       README.md:*)
         rest=${hit#README.md:}
-        line_number=${rest%%:*}
-        line_text=$(sed -n "${line_number}p" README.md)
+        line_text=${rest#*:}
         if is_approved_public_reference_line "$line_text"; then
           continue
         fi
