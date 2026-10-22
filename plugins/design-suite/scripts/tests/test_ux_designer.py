@@ -58,6 +58,17 @@ CASES = ("nav-item-removed", "hover-flyout-hides-feature", "label-renamed-one-pl
 
 
 class Fixtures(unittest.TestCase):
+    def check_hunks(self, name, text):
+        hunks = re.split(r"^(?=@@ )", text, flags=re.M)[1:]
+        self.assertTrue(hunks, f"{name}: no hunks")
+        for h in hunks:
+            head, *lines = h.splitlines()
+            m = re.fullmatch(r"@@ -\d+,(\d+) \+\d+,(\d+) @@.*", head)
+            self.assertTrue(m, f"{name}: bad hunk header {head!r}")
+            old = sum(1 for l in lines if l[:1] in (" ", "-"))
+            new = sum(1 for l in lines if l[:1] in (" ", "+"))
+            self.assertEqual((old, new), (int(m.group(1)), int(m.group(2))), f"{name}: hunk counts wrong in {head}")
+
     def test_fixtures_are_complete(self):
         for case in CASES:
             self.assertTrue((FIXTURES / case).is_dir(), f"missing case {case}")
@@ -66,6 +77,7 @@ class Fixtures(unittest.TestCase):
             exp = d / "expected.md"
             self.assertTrue(diff.is_file() and diff.read_text().strip(), f"{d.name}: change.diff empty")
             self.assertTrue(exp.is_file() and exp.read_text().strip(), f"{d.name}: expected.md empty")
+            self.check_hunks(d.name, diff.read_text())
             m = re.fullmatch(r"FINDINGS: (\d+)", exp.read_text().splitlines()[0])
             self.assertTrue(m, f"{d.name}: first line must be 'FINDINGS: <n>'")
             if d.name == "clean-copy-fix":

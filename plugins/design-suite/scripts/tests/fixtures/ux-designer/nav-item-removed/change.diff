@@ -1,9 +1,19 @@
 diff --git a/src/nav/menu.ts b/src/nav/menu.ts
+index f6277c2..ed81094 100644
 --- a/src/nav/menu.ts
 +++ b/src/nav/menu.ts
-@@ -4,7 +4,6 @@ export const mainMenu = [
+@@ -1,14 +1,13 @@
+ import { ArchivePage } from "../pages/ArchivePage";
+ 
+ export const mainMenu = [
    { label: "Projects", to: "/projects" },
    { label: "Reports", to: "/reports" },
 -  { label: "Archive", to: "/archive" },
    { label: "Settings", to: "/settings" },
+ ];
+ 
+ export const routes = [
+   { path: "/projects", page: ProjectsPage },
+   { path: "/archive", page: ArchivePage },
+   { path: "/settings", page: SettingsPage },
  ];

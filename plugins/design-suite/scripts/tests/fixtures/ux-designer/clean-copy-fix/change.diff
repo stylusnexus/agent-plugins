@@ -1,7 +1,13 @@
 diff --git a/src/pages/Billing.tsx b/src/pages/Billing.tsx
+index 5e443f0..1e35642 100644
 --- a/src/pages/Billing.tsx
 +++ b/src/pages/Billing.tsx
-@@ -14,4 +14,4 @@ export function Billing() {
+@@ -1,7 +1,7 @@
+ export function Billing() {
+   return (
+     <section>
 -      <p>Your plan renews on the 1st of evrey month.</p>
 +      <p>Your plan renews on the 1st of every month.</p>
      </section>
+   );
+ }
