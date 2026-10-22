@@ -408,9 +408,9 @@ of one folder has everything the SKILL.md reads; `scripts/check-shared-sync.sh` 
 identical to the canonical file. Links to other skills' reference files are optional reading and
 still need the whole pack. product-manager routes to its sibling skills, so it needs the pack.
 
-**Plugin agents stay behind.** The Skills CLI installs skills only. The ten plugin agents
+**Plugin agents stay behind.** The Skills CLI installs skills only. The eleven plugin agents
 (audience-scout and marketing-lead in go-to-market, product-manager and business-capability-modeler
-in product-strategy, and the six design agents in design-suite) arrive only with the Claude Code plugin. mk-audience carries the audience-scout
+in product-strategy, and the seven design agents in design-suite) arrive only with the Claude Code plugin. mk-audience carries the audience-scout
 brief in its own `references/` folder and runs that step inline when the agent is absent.
 
 ---

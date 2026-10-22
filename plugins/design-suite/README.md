@@ -319,6 +319,8 @@ cp agent-plugins/plugins/design-suite/codex-agents/*.toml ~/.codex/agents/
 
 Start a new Codex session afterwards. Each agent reads the matching skill first, so install the plugin too.
 
+Codex agent files have no tool list, so the ux-designer's no-edit rule is only a written instruction on Codex. Run it in a read-only sandbox (`codex exec -s read-only` or `codex --sandbox read-only`). If the sandbox stops the agent reaching the issue tracker, it lists what it could not do.
+
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash

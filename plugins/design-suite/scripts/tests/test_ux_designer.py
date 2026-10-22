@@ -1,15 +1,10 @@
 """The ux-designer agent keeps its review-only guardrails and stays free of research artifacts and private terms.
 Run: python3 -m unittest discover -s scripts/tests"""
-import importlib.util
 import re
 import unittest
 from pathlib import Path
 
 PACK = Path(__file__).resolve().parents[2]
-spec = importlib.util.spec_from_file_location("gen_codex_agents", PACK / "scripts" / "gen_codex_agents.py")
-gen = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(gen)
-
 AGENT = PACK / "agents" / "ux-designer.md"
 
 
@@ -45,7 +40,7 @@ class UxDesigner(unittest.TestCase):
                 if term in s.lower():
                     self.assertTrue(s.strip().startswith("Do not produce"), f"{term!r} outside a 'Do not produce' sentence: {s}")
         low = self.body.lower()
-        for term in ("critforge", "stylus", "company os", "founder", "/users/"):
+        for term in ("critforge", "stylus", "company os", "founder", "/users/", "malcolm", "~/"):
             self.assertNotIn(term, low)
 
     def test_codex_twin_exists(self):
