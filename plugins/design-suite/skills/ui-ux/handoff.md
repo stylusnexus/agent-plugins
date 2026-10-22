@@ -10,6 +10,7 @@ The design lead is the entry point. Bring in only the specialists the problem ne
 | Dashboard, console, metrics, status summary | Dashboard designer (/dashboard-design) | Decisions supported, data sources with owners | Layout by decision, state and freshness design |
 | Phone, touch, responsive, offline, forms on small screens | Mobile design expert (/mobile-design) | Target devices if known, flows, current breakpoints | Mobile states, responsive rules |
 | Keyboard, screen reader, contrast, target size, motion | Accessibility expert (/accessibility-review) | Screens or code, the states, interaction notes | Barriers with remediations and which need testing |
+| Can users find this? Did this change bury or move something? Second opinion on placement | UX designer (ux-designer) | Diff or PR, screenshots, the task the user is doing | Findings with evidence, regressions, issues filed or linked |
 | Approved design to build | design-ui-engineer | Handoff package below | Changed files, validation, unresolved requirements |
 | Typography, surfaces, micro-interactions on a settled design | /interface-polish | Screens and tokens in use | Refinements within the existing system |
 | A new look, a substantial redesign, or "this looks generic" | /art-direction | Brief, brand constraints, what imagery exists | A chosen direction, a built page or screen, and measured inspector results |

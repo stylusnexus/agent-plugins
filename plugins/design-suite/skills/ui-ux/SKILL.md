@@ -34,6 +34,7 @@ Not for: pure data displays (use dashboard-design), pure navigation or labels (i
 | `flow-and-states.md` | Reviewing a task flow, designing states, errors, destructive actions, feedback timing |
 | `design-brief-template.md` | Producing the brief the product owner reviews |
 | `heuristics-review.md` | Asked to critique or audit an existing interface |
+| `findability-review.md` | Reviewing whether users can find and reach a feature, or checking a change for UX regressions |
 | `handoff.md` | Passing work to design-ui-engineer or the accessibility expert, or routing to specialists |
 
 ## Output format
