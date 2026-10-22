@@ -1,0 +1,12 @@
+diff --git a/src/pages/Dashboard.tsx b/src/pages/Dashboard.tsx
+--- a/src/pages/Dashboard.tsx
++++ b/src/pages/Dashboard.tsx
+@@ -8,5 +8,5 @@ export function Dashboard() {
+   return (
+     <section>
+-      <h1>Team members</h1>
++      <h1>People</h1>
+       <MemberTable />
+     </section>
+   );
+ }

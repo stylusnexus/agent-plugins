@@ -1,0 +1,8 @@
+diff --git a/src/styles/header.css b/src/styles/header.css
+--- a/src/styles/header.css
++++ b/src/styles/header.css
+@@ -20,3 +20,8 @@
+ .header .search-link { display: inline-flex; }
++@media (max-width: 900px) {
++  .header .search-link { display: none; }
++}

@@ -52,5 +52,27 @@ class UxDesigner(unittest.TestCase):
         self.assertTrue((PACK / "codex-agents" / "ux-designer.toml").is_file())
 
 
+FIXTURES = PACK / "scripts" / "tests" / "fixtures" / "ux-designer"
+CASES = ("nav-item-removed", "hover-flyout-hides-feature", "label-renamed-one-place",
+         "popover-clipped-mobile", "breakpoint-hides-entry", "clean-copy-fix")
+
+
+class Fixtures(unittest.TestCase):
+    def test_fixtures_are_complete(self):
+        for case in CASES:
+            self.assertTrue((FIXTURES / case).is_dir(), f"missing case {case}")
+        for d in sorted(p for p in FIXTURES.iterdir() if p.is_dir()):
+            diff = d / "change.diff"
+            exp = d / "expected.md"
+            self.assertTrue(diff.is_file() and diff.read_text().strip(), f"{d.name}: change.diff empty")
+            self.assertTrue(exp.is_file() and exp.read_text().strip(), f"{d.name}: expected.md empty")
+            m = re.fullmatch(r"FINDINGS: (\d+)", exp.read_text().splitlines()[0])
+            self.assertTrue(m, f"{d.name}: first line must be 'FINDINGS: <n>'")
+            if d.name == "clean-copy-fix":
+                self.assertEqual(int(m.group(1)), 0)
+            else:
+                self.assertGreaterEqual(int(m.group(1)), 1)
+
+
 if __name__ == "__main__":
     unittest.main()

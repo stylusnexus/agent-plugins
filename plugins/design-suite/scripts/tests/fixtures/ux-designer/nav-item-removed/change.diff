@@ -1,0 +1,9 @@
+diff --git a/src/nav/menu.ts b/src/nav/menu.ts
+--- a/src/nav/menu.ts
++++ b/src/nav/menu.ts
+@@ -4,7 +4,6 @@ export const mainMenu = [
+   { label: "Projects", to: "/projects" },
+   { label: "Reports", to: "/reports" },
+-  { label: "Archive", to: "/archive" },
+   { label: "Settings", to: "/settings" },
+ ];

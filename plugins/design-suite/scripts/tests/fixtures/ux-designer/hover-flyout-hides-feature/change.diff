@@ -1,0 +1,16 @@
+diff --git a/src/components/Toolbar.tsx b/src/components/Toolbar.tsx
+--- a/src/components/Toolbar.tsx
++++ b/src/components/Toolbar.tsx
+@@ -12,9 +12,10 @@ export function Toolbar() {
+   return (
+     <div className="toolbar">
+       <button onClick={newItem}>New</button>
+-      <button onClick={exportCsv}>Export</button>
+-      <button onClick={share}>Share</button>
++      <div className="more" onMouseEnter={openFlyout}>
++        <span>More</span>
++        <Flyout><button onClick={exportCsv}>Export</button><button onClick={share}>Share</button></Flyout>
++      </div>
+     </div>
+   );
+ }
