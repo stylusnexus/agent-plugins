@@ -35,7 +35,7 @@ class UxDesigner(unittest.TestCase):
 
     def test_body_has_required_rules(self):
         low = self.body.lower()
-        for phrase in ("consult", "review", "duplicate", "not verified", "never create", "review only"):
+        for phrase in ("consult", "review", "duplicate", "not verified", "never create", "review only", "decline", "even when asked directly"):
             self.assertIn(phrase, low)
 
     def test_body_has_no_research_artifacts_or_private_terms(self):
