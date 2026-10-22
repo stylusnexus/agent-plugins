@@ -18,7 +18,7 @@ These are AI review perspectives. They inspect your real interface and return sp
 | `mobile-design` | A flow must work on phones and small windows: touch targets, navigation, mobile forms, slow or offline networks, and web-versus-native questions. |
 | `information-architecture` | You are organising navigation, labels, taxonomy, URLs or content types, or chasing a "people cannot find X" report. |
 
-Six Claude Code agents ship alongside, each a bounded role that reads the matching skill first: `ui-ux-lead` (the design lead), `design-ui-engineer` (implements an approved design), `dashboard-designer`, `accessibility-expert`, `mobile-design-expert` and `information-architect`. They ship as Claude Code agents in `agents/` and as Codex agents in `codex-agents/` (generated from the Claude ones, with a test that keeps them in step). The Skills CLI installs skills, not agents. Every skill works without them.
+Seven Claude Code agents ship alongside, each a bounded role that reads the matching skill first: `ui-ux-lead` (the design lead), `design-ui-engineer` (implements an approved design), `dashboard-designer`, `accessibility-expert`, `mobile-design-expert`, `information-architect` and `ux-designer` (checks that users can find things, reviews changes for UX regressions, files issues). They ship as Claude Code agents in `agents/` and as Codex agents in `codex-agents/` (generated from the Claude ones, with a test that keeps them in step). The Skills CLI installs skills, not agents. Every skill works without them.
 
 The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates screenshots against a UX checklist. This pack's skills are complementary: they work from the product, its code and your description rather than from a folder of screenshots, and `ux-review` can feed them findings to act on.
 
@@ -298,7 +298,7 @@ Needs real users: a 5-participant tree test of the new labels. Results: MISSING 
 /plugin install design-suite@stylus-nexus
 ```
 
-Skills are namespaced: `/design-suite:ui-ux`. The six agents install with the plugin.
+Skills are namespaced: `/design-suite:ui-ux`. The seven agents install with the plugin.
 
 ### Codex
 

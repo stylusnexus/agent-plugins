@@ -204,7 +204,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 </details>
 
 <details>
-<summary><b>design-suite</b> · 7 skills · 6 agents</summary>
+<summary><b>design-suite</b> · 7 skills · 7 agents</summary>
 
 | Skill | What it covers |
 |---|---|
@@ -216,7 +216,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `mobile-design` | A flow must work on phones and small windows: touch targets, navigation, mobile forms, slow or offline networks, and web-versus-native questions. |
 | `ui-ux` | You are designing or reviewing a flow, screen, form, or state, or want a design brief or an implementation handoff. The entry point: it frames the user task, then routes to the skills below. |
 
-Agents (Claude Code): `accessibility-expert` `dashboard-designer` `design-ui-engineer` `information-architect` `mobile-design-expert` `ui-ux-lead`
+Agents (Claude Code): `accessibility-expert` `dashboard-designer` `design-ui-engineer` `information-architect` `mobile-design-expert` `ui-ux-lead` `ux-designer`
 
 [Pack README →](./plugins/design-suite)
 
