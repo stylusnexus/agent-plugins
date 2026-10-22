@@ -122,6 +122,18 @@
       ]
     },
     {
+      "title": "design-suite",
+      "description": "Reviewing and shaping UI and UX work — flows and states, interface polish, accessibility against WCAG 2.2, dashboards, mobile, and information architecture.",
+      "skills": [
+        "accessibility-review",
+        "dashboard-design",
+        "information-architecture",
+        "interface-polish",
+        "mobile-design",
+        "ui-ux"
+      ]
+    },
+    {
       "title": "codebase-intel",
       "description": "Building an accurate picture of a codebase, and the libraries it leans on, before changing it.",
       "skills": [

@@ -10,7 +10,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents — **10 plugins, 82 skills**. Installs natively into **Claude
+A plugin marketplace for AI coding agents — **11 plugins, 88 skills**. Installs natively into **Claude
 Code** and **OpenAI Codex**, and installs into roughly 77 more agents' skill folders through the
 Skills CLI. Documented skill support has been checked for only a few of those: Gemini CLI/Antigravity
 CLI, Cursor, GitHub Copilot, Windsurf, opencode and Cline. See [Compatibility](#compatibility).
@@ -34,7 +34,7 @@ stripe-billing, auth-hardening and privacy-audit assume a Next.js/TypeScript sta
 
 ### Skill packs
 
-Eight packs, grouped by the job rather than the technology. Each pack's README carries a
+Nine packs, grouped by the job rather than the technology. Each pack's README carries a
 **rule-ownership table** so the skills inside it don't compete for the same trigger.
 
 | Pack | # | What it's for | Skills |
@@ -46,6 +46,7 @@ Eight packs, grouped by the job rather than the technology. Each pack's README c
 | [**release-ops**](./plugins/release-ops) | 10 | Deciding the version, waiting on CI, publishing, keeping dependencies current, watching production, handling incidents and support tickets, and auditing model API spend. | `version-check` `pr-wait` `the-waiting` `npm-publish` `dependency-upgrade` `observability-setup` `incident-response` `customer-support-triage` `llm-cost-audit` `vscode-marketplace-publish` |
 | [**product-strategy**](./plugins/product-strategy) | 15 | Deciding what to build and why — vision, strategy, value, objectives, roadmaps, discovery and pricing, taught as it goes. | `product-manager` `pm-vision` `pm-strategy` `pm-strategy-fit` `pm-canvas` `pm-value-proposition` `pm-objectives` `pm-roadmap` `pm-discovery` `pm-growth` `pm-market-analysis` `pm-capabilities` `pm-teams` `pm-visuals` `pricing-review` |
 | [**go-to-market**](./plugins/go-to-market) | 12 | Getting a product noticed on a small team's hours — positioning, copy, launches, community, outreach, email and measurement. | `marketing-lead` `mk-positioning` `mk-audience` `mk-copy` `mk-brand-kit` `mk-search` `mk-launch` `mk-community` `mk-founder-content` `mk-outreach` `mk-lifecycle` `mk-measurement` |
+| [**design-suite**](./plugins/design-suite) | 6 | Reviewing and shaping UI and UX work — flows and states, interface polish, accessibility against WCAG 2.2, dashboards, mobile, and information architecture. | `ui-ux` `interface-polish` `accessibility-review` `dashboard-design` `mobile-design` `information-architecture` |
 | [**codebase-intel**](./plugins/codebase-intel) | 5 | Building an accurate picture of a codebase, and the libraries it leans on, before changing it. | `codebase-health` `codebase-architecture-scanner` `grill-with-docs` `read-the-damn-docs` `teach-code-to-mastery` |
 
 #### Every skill, by pack
@@ -203,6 +204,24 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 </details>
 
 <details>
+<summary><b>design-suite</b> · 6 skills · 6 agents</summary>
+
+| Skill | What it covers |
+|---|---|
+| `accessibility-review` | You want a keyboard, screen-reader, contrast, reflow, target-size or motion review against WCAG 2.2 AA, with prioritised findings and fixes. |
+| `dashboard-design` | You are designing or fixing a dashboard, console, status view, or data-heavy screen, including stale, missing and partial data. |
+| `information-architecture` | You are organising navigation, labels, taxonomy, URLs or content types, or chasing a "people cannot find X" report. |
+| `interface-polish` | A screen works but looks uneven: spacing, radii, shadows, type, colour, dark mode, motion, or missing hover, focus, loading, empty and error states. |
+| `mobile-design` | A flow must work on phones and small windows: touch targets, navigation, mobile forms, slow or offline networks, and web-versus-native questions. |
+| `ui-ux` | You are designing or reviewing a flow, screen, form, or state, or want a design brief or an implementation handoff. The entry point: it frames the user task, then routes to the skills below. |
+
+Agents (Claude Code): `accessibility-expert` `dashboard-designer` `design-ui-engineer` `information-architect` `mobile-design-expert` `ui-ux-lead`
+
+[Pack README →](./plugins/design-suite)
+
+</details>
+
+<details>
 <summary><b>codebase-intel</b> · 5 skills</summary>
 
 | Skill | What it covers |
@@ -222,6 +241,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 
 | Skill | Pack |
 |---|---|
+| `accessibility-review` | [design-suite](./plugins/design-suite) |
 | `agent-tooling-review` | [hardening](./plugins/hardening) |
 | `agent-watchdog` | [second-opinion](./plugins/second-opinion) |
 | `analytics-instrumentation` | [ship-pipeline](./plugins/ship-pipeline) |
@@ -232,6 +252,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `codebase-architecture-scanner` | [codebase-intel](./plugins/codebase-intel) |
 | `codebase-health` | [codebase-intel](./plugins/codebase-intel) |
 | `customer-support-triage` | [release-ops](./plugins/release-ops) |
+| `dashboard-design` | [design-suite](./plugins/design-suite) |
 | `db-migration-safety` | [ship-pipeline](./plugins/ship-pipeline) |
 | `db-truth` | [ship-pipeline](./plugins/ship-pipeline) |
 | `debug-feedback-loop` | [second-opinion](./plugins/second-opinion) |
@@ -244,6 +265,8 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `html` | [reporting-comms](./plugins/reporting-comms) |
 | `human-writing` | [reporting-comms](./plugins/reporting-comms) |
 | `incident-response` | [release-ops](./plugins/release-ops) |
+| `information-architecture` | [design-suite](./plugins/design-suite) |
+| `interface-polish` | [design-suite](./plugins/design-suite) |
 | `legal-docs` | [hardening](./plugins/hardening) |
 | `llm-app-security` | [hardening](./plugins/hardening) |
 | `llm-cost-audit` | [release-ops](./plugins/release-ops) |
@@ -260,6 +283,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `mk-outreach` | [go-to-market](./plugins/go-to-market) |
 | `mk-positioning` | [go-to-market](./plugins/go-to-market) |
 | `mk-search` | [go-to-market](./plugins/go-to-market) |
+| `mobile-design` | [design-suite](./plugins/design-suite) |
 | `npm-publish` | [release-ops](./plugins/release-ops) |
 | `observability-setup` | [release-ops](./plugins/release-ops) |
 | `plan-arbiter` | [second-opinion](./plugins/second-opinion) |
@@ -297,6 +321,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `teach-code-to-mastery` | [codebase-intel](./plugins/codebase-intel) |
 | `the-waiting` | [release-ops](./plugins/release-ops) |
 | `threat-model` | [hardening](./plugins/hardening) |
+| `ui-ux` | [design-suite](./plugins/design-suite) |
 | `ux-review` | [ship-pipeline](./plugins/ship-pipeline) |
 | `version-check` | [release-ops](./plugins/release-ops) |
 | `visual-plan` | [reporting-comms](./plugins/reporting-comms) |
@@ -381,9 +406,9 @@ of one folder has everything the SKILL.md reads; `scripts/check-shared-sync.sh` 
 identical to the canonical file. Links to other skills' reference files are optional reading and
 still need the whole pack. product-manager routes to its sibling skills, so it needs the pack.
 
-**Plugin agents stay behind.** The Skills CLI installs skills only. The four plugin agents
+**Plugin agents stay behind.** The Skills CLI installs skills only. The ten plugin agents
 (audience-scout and marketing-lead in go-to-market, product-manager and business-capability-modeler
-in product-strategy) arrive only with the Claude Code plugin. mk-audience carries the audience-scout
+in product-strategy, and the six design agents in design-suite) arrive only with the Claude Code plugin. mk-audience carries the audience-scout
 brief in its own `references/` folder and runs that step inline when the agent is absent.
 
 ---
@@ -671,7 +696,8 @@ agent-plugins/
 │   ├── hardening/
 │   ├── release-ops/
 │   ├── product-strategy/
-│   └── go-to-market/
+│   ├── go-to-market/
+│   └── design-suite/
 ├── scripts/
 │   ├── check-manifest-sync.sh   # the two indexes must agree
 │   ├── check-skills.py          # every SKILL.md must actually load

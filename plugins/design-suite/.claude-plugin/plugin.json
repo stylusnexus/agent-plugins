@@ -1,0 +1,22 @@
+{
+  "name": "design-suite",
+  "description": "A design lead plus five focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), accessibility review against WCAG 2.2, dashboards, mobile and responsive design, and information architecture. These are AI review perspectives that give specific, checkable findings; they do not replace testing with real users or assistive-technology audits.",
+  "author": {
+    "name": "Stylus Nexus"
+  },
+  "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/design-suite",
+  "repository": "https://github.com/stylusnexus/agent-plugins",
+  "license": "MIT",
+  "keywords": [
+    "design",
+    "ui",
+    "ux",
+    "accessibility",
+    "wcag",
+    "dashboard",
+    "mobile",
+    "responsive",
+    "information-architecture",
+    "interface-polish"
+  ]
+}
