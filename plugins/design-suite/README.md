@@ -1,6 +1,6 @@
 # Design Suite
 
-A design lead plus five focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), accessibility review against WCAG 2.2, dashboards, mobile and responsive design, and information architecture.
+A design lead plus six focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), art direction for websites and app screens, accessibility review against WCAG 2.2, dashboards, mobile and responsive design, and information architecture.
 
 These are AI review perspectives. They inspect your real interface and return specific, checkable findings, but they are not user research, an accessibility audit, or a stand-in for testing with real people. Every skill labels its output as expert review and lists the checks that still need real users, a browser, or assistive technology.
 
@@ -12,6 +12,7 @@ These are AI review perspectives. They inspect your real interface and return sp
 |---|---|
 | `ui-ux` | You are designing or reviewing a flow, screen, form, or state, or want a design brief or an implementation handoff. The entry point: it frames the user task, then routes to the skills below. |
 | `interface-polish` | A screen works but looks uneven: spacing, radii, shadows, type, colour, dark mode, motion, or missing hover, focus, loading, empty and error states. |
+| `art-direction` | A page or screen looks generic, templated or "AI-made", or you are building a landing page, portfolio, product page or app screen and want a deliberate look: it deals researched directions, enforces a no-slop house style and checks the result in a real browser. |
 | `accessibility-review` | You want a keyboard, screen-reader, contrast, reflow, target-size or motion review against WCAG 2.2 AA, with prioritised findings and fixes. |
 | `dashboard-design` | You are designing or fixing a dashboard, console, status view, or data-heavy screen, including stale, missing and partial data. |
 | `mobile-design` | A flow must work on phones and small windows: touch targets, navigation, mobile forms, slow or offline networks, and web-versus-native questions. |
@@ -31,6 +32,7 @@ The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates scre
 |---|---|
 | `ui-ux` | The user task, flow and full state set, the heuristic review, the design brief, and the handoff |
 | `interface-polish` | Visual detail: spacing scale, radii, shadows, type, colour tokens, motion, and the state matrix. Report-only unless asked to implement |
+| `art-direction` | The visual idea and look of a page or screen: the chosen direction, type system, palette, photographs, section blueprints, and the browser inspection and look-and-fix loop |
 | `accessibility-review` | WCAG 2.2 AA findings, evidence tags (verified or needs test), and the list of checks not performed. Never states that an interface is compliant |
 | `dashboard-design` | Decision-first layout, freshness and provenance, data states, thresholds, and chart and number choices |
 | `mobile-design` | Touch, narrow-width layout, input and keyboards, offline behaviour, and the web-versus-native question |
@@ -50,6 +52,7 @@ No skill publishes, merges, deploys, or contacts users. Plans, reviews and propo
 | Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |
 |---|---|---|---|---|---|
 | accessibility-review | ✔ | ◐ | ✔ | ◐ | ✔ |
+| art-direction | ✔ | ◐ | ✔ | ◐ | ◐ |
 | dashboard-design | ✔ | ✔ | ✔ | ✔ | ✔ |
 | information-architecture | ✔ | ✔ | ✔ | ✔ | ✔ |
 | interface-polish | ✔ | ◐ | ✔ | ◐ | ✔ |
@@ -136,6 +139,35 @@ Severity  Finding                                           File
 medium    Empty list shows a blank area, no empty state     InvoiceList.tsx
 
 Could not verify: dark mode and 320px width (no browser available)
+```
+
+</details>
+
+<details>
+<summary><code>art-direction</code>: a chosen direction, then a look-and-fix loop on screenshots</summary>
+
+[![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
+
+> **Limits.** Claude app and ChatGPT: No local Node or Chrome to run the direction, inspect and lint scripts; the written art-direction guidance still applies to pages you describe or paste. Other agents: The scripts need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies.
+
+**Use it when:** A landing page, portfolio, product page or app screen looks generic or "AI-made" and you want a deliberate, researched look.
+
+**Try:** `Art-direct the Quill landing page. Deal me directions and build the one I pick.`
+
+**Skip it when:** You need an accessibility verdict, a flow or information architecture. Use the matching skill. Use `interface-polish` for small spacing and state fixes on a look that is already decided.
+
+Example output, invented data (fictional product). The directions and findings below are made up for the sample.
+
+```text
+Brief: Quill, invoicing for freelancers      Idea: "paid on time, quietly"
+Dealt   1 Ledger paper (warm, serif)   2 Field notes (grid, mono accents)   3 Plain speech (large type, one colour)
+Chosen  1 Ledger paper    Type: serif display + grotesque body    Palette: cream, ink, one green
+Built   hero, how it works, pricing, FAQ     Section blueprints applied: 4
+Inspect (real browser, 390 and 1440 px)
+  hero headline overflows at 390 px             fixed: clamp() on the display size
+  three equal icon cards under the hero         fixed: replaced by one worked example
+  placeholder photo copy ("Lorem")              open: needs a real photograph
+Lint: 0 slop patterns remaining
 ```
 
 </details>
@@ -280,11 +312,13 @@ In Codex, type `$` and a skill name to use it (`$design-suite:ui-ux`; Codex pref
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill accessibility-review dashboard-design information-architecture interface-polish mobile-design ui-ux
+npx skills add stylusnexus/agent-plugins --skill accessibility-review art-direction dashboard-design information-architecture interface-polish mobile-design ui-ux
 ```
 
 Skills arrive un-namespaced on this path, so most agents invoke them as `/ui-ux`; Windsurf uses `@ui-ux`, opencode shows `/ui-ux` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.
 
 ## Prerequisites
 
-None for the skills themselves. Python 3 is needed only for the two optional scripts: `accessibility-review/scripts/contrast.py` (WCAG contrast ratios) and `interface-polish/scripts/polish_scan.py` (a read-only scan of source files for checkable polish rules). Both use only the standard library and change no files. A browser and assistive technology are needed for the checks the skills list as "needs test"; the skills never claim those were done.
+None for most of the skills. `art-direction` is the exception: its draw, inspect and lint tools need Node 22+, and the inspector needs a locally installed Chrome, Edge or Chromium. Network access is needed only for the optional `assets.mjs` picture search. Python 3 is needed only for the two optional scripts: `accessibility-review/scripts/contrast.py` (WCAG contrast ratios) and `interface-polish/scripts/polish_scan.py` (a read-only scan of source files for checkable polish rules). Both use only the standard library and change no files. A browser and assistive technology are needed for the checks the skills list as "needs test"; the skills never claim those were done.
+
+`art-direction` is a fork of [Leonxlnx's taste-skill](https://github.com/Leonxlnx/taste-skill) (MIT); see its `PROVENANCE.md` for what changed. Its draw and inspect tools write working files into a `.taste-skill/` folder in your project, and a history file under your home folder; set `TASTE_SKILL_HISTORY` to put the history file somewhere else.

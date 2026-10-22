@@ -22,7 +22,7 @@ Make a dashboard answer the user's next decision or question quickly. A dashboar
 4. For every external signal show state, retrieval time and source where practical. Distinguish missing, stale, unavailable and confirmed-clear (`data-states.md`).
 5. Design loading, error, empty, partial-coverage and normal states. Never imply all clear when sources are missing.
 6. Choose number formats, charts, filters and time ranges per question (`metrics-and-charts.md`). Drop decorative charts and aggregate scores with no decision value.
-7. Provide responsive layout and accessibility requirements; involve the mobile and accessibility roles where relevant.
+7. Provide responsive layout and accessibility requirements; involve the mobile and accessibility roles where relevant. For a new look or a substantial redesign of the screen, use the art-direction skill in its app-screen mode.
 8. Review the result with `review-checklist.md` and return an annotated proposal, rationale, open questions and acceptance criteria.
 
 ## Reference files
