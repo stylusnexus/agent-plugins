@@ -18,7 +18,7 @@ These are AI review perspectives. They inspect your real interface and return sp
 | `mobile-design` | A flow must work on phones and small windows: touch targets, navigation, mobile forms, slow or offline networks, and web-versus-native questions. |
 | `information-architecture` | You are organising navigation, labels, taxonomy, URLs or content types, or chasing a "people cannot find X" report. |
 
-Six Claude Code agents ship alongside, each a bounded role that reads the matching skill first: `ui-ux-lead` (the design lead), `design-ui-engineer` (implements an approved design), `dashboard-designer`, `accessibility-expert`, `mobile-design-expert` and `information-architect`. They are Claude Code agents only: the Skills CLI installs skills, not agents, and Codex uses the skills directly. Every skill works without them.
+Six Claude Code agents ship alongside, each a bounded role that reads the matching skill first: `ui-ux-lead` (the design lead), `design-ui-engineer` (implements an approved design), `dashboard-designer`, `accessibility-expert`, `mobile-design-expert` and `information-architect`. They ship as Claude Code agents in `agents/` and as Codex agents in `codex-agents/` (generated from the Claude ones, with a test that keeps them in step). The Skills CLI installs skills, not agents. Every skill works without them.
 
 The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates screenshots against a UX checklist. This pack's skills are complementary: they work from the product, its code and your description rather than from a folder of screenshots, and `ux-review` can feed them findings to act on.
 
@@ -307,7 +307,17 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add design-suite@stylus-nexus
 ```
 
-In Codex, type `$` and a skill name to use it (`$design-suite:ui-ux`; Codex prefixes plugin skills with the pack name), or run `/skills` to pick one. Codex uses the skills; the agents are Claude Code only.
+In Codex, type `$` and a skill name to use it (`$design-suite:ui-ux`; Codex prefixes plugin skills with the pack name), or run `/skills` to pick one.
+
+The Codex agents are separate files, not part of the plugin install. Copy them once:
+
+```
+git clone --depth 1 https://github.com/stylusnexus/agent-plugins
+mkdir -p ~/.codex/agents
+cp agent-plugins/plugins/design-suite/codex-agents/*.toml ~/.codex/agents/
+```
+
+Start a new Codex session afterwards. Each agent reads the matching skill first, so install the plugin too.
 
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
