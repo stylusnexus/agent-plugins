@@ -12,6 +12,7 @@ The design lead is the entry point. Bring in only the specialists the problem ne
 | Keyboard, screen reader, contrast, target size, motion | Accessibility expert (/accessibility-review) | Screens or code, the states, interaction notes | Barriers with remediations and which need testing |
 | Approved design to build | design-ui-engineer | Handoff package below | Changed files, validation, unresolved requirements |
 | Typography, surfaces, micro-interactions on a settled design | /interface-polish | Screens and tokens in use | Refinements within the existing system |
+| A new look, a substantial redesign, or "this looks generic" | /art-direction | Brief, brand constraints, what imagery exists | A chosen direction, a built page or screen, and measured inspector results |
 
 Dashboard design and information architecture may collaborate briefly on dense information. Accessibility and mobile are focused services; unresolved choices come back to the lead.
 

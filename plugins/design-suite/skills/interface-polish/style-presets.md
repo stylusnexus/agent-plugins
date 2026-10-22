@@ -2,7 +2,7 @@
 
 Ideas restated from the MIT-licensed [taste-skill-classics](https://github.com/Leonxlnx/taste-skill-classics) by Leonxlnx; not copied text.
 
-Three optional, named looks. None is a default.
+Three optional, named looks. None is a default. For the full versions, with the draw step that picks a direction and the browser inspector that checks the result, use the art-direction skill.
 
 - The product owners choose the preset. A reviewer may suggest one and must say why; never apply one unasked.
 - A preset is built from the project's existing tokens and stack. Adopting one adds no fonts, no icon libraries and no motion libraries. If a preset calls for something the project lacks (a serif, a mono face), skip that part or list it as a product owner decision.

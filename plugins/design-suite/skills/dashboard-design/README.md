@@ -42,7 +42,7 @@ claude plugin marketplace add stylusnexus/agent-plugins
 claude plugin install design-suite@stylus-nexus
 ```
 
-Inside a session, `/plugin marketplace add stylusnexus/agent-plugins` and `/plugin install design-suite@stylus-nexus` do the same. This installs the whole design-suite pack, so accessibility-review, information-architecture, interface-polish, mobile-design and ui-ux come with it.
+Inside a session, `/plugin marketplace add stylusnexus/agent-plugins` and `/plugin install design-suite@stylus-nexus` do the same. This installs the whole design-suite pack, so accessibility-review, art-direction, information-architecture, interface-polish, mobile-design and ui-ux come with it.
 
 Call it as `/design-suite:dashboard-design`, or let it start on its own when your request matches.
 
@@ -65,7 +65,7 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add design-suite@stylus-nexus
 ```
 
-This installs the whole design-suite pack, so accessibility-review, information-architecture, interface-polish, mobile-design and ui-ux come with it. In Codex, type `$` and the skill name (`$design-suite:dashboard-design`), or run `/skills` to pick it.
+This installs the whole design-suite pack, so accessibility-review, art-direction, information-architecture, interface-polish, mobile-design and ui-ux come with it. In Codex, type `$` and the skill name (`$design-suite:dashboard-design`), or run `/skills` to pick it.
 
 </details>
 
