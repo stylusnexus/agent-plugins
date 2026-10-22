@@ -1,0 +1,13 @@
+diff --git a/src/styles/header.css b/src/styles/header.css
+index d40a5bb..ad1660d 100644
+--- a/src/styles/header.css
++++ b/src/styles/header.css
+@@ -1,7 +1,8 @@
+ /* The mobile menu lists Home, Projects and Settings. It has no Search entry. */
+ .header .nav-links { display: flex; }
+ .header .search-link { display: inline-flex; }
+ @media (max-width: 900px) {
+   .header .nav-links { display: none; }
++  .header .search-link { display: none; }
+   .header .menu-button { display: block; }
+ }

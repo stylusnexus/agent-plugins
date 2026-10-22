@@ -204,7 +204,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 </details>
 
 <details>
-<summary><b>design-suite</b> · 7 skills · 6 agents</summary>
+<summary><b>design-suite</b> · 7 skills · 7 agents</summary>
 
 | Skill | What it covers |
 |---|---|
@@ -216,7 +216,7 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 | `mobile-design` | A flow must work on phones and small windows: touch targets, navigation, mobile forms, slow or offline networks, and web-versus-native questions. |
 | `ui-ux` | You are designing or reviewing a flow, screen, form, or state, or want a design brief or an implementation handoff. The entry point: it frames the user task, then routes to the skills below. |
 
-Agents (Claude Code): `accessibility-expert` `dashboard-designer` `design-ui-engineer` `information-architect` `mobile-design-expert` `ui-ux-lead`
+Agents (Claude Code): `accessibility-expert` `dashboard-designer` `design-ui-engineer` `information-architect` `mobile-design-expert` `ui-ux-lead` `ux-designer`
 
 [Pack README →](./plugins/design-suite)
 
@@ -408,9 +408,9 @@ of one folder has everything the SKILL.md reads; `scripts/check-shared-sync.sh` 
 identical to the canonical file. Links to other skills' reference files are optional reading and
 still need the whole pack. product-manager routes to its sibling skills, so it needs the pack.
 
-**Plugin agents stay behind.** The Skills CLI installs skills only. The ten plugin agents
+**Plugin agents stay behind.** The Skills CLI installs skills only. The eleven plugin agents
 (audience-scout and marketing-lead in go-to-market, product-manager and business-capability-modeler
-in product-strategy, and the six design agents in design-suite) arrive only with the Claude Code plugin. mk-audience carries the audience-scout
+in product-strategy, and the seven design agents in design-suite) arrive only with the Claude Code plugin. mk-audience carries the audience-scout
 brief in its own `references/` folder and runs that step inline when the agent is absent.
 
 ---

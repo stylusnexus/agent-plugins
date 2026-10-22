@@ -336,6 +336,8 @@ contentful
 dismissable
 emphasise
 flexbox
+flyout
+flyouts
 fname
 focusability
 gsap

@@ -1,0 +1,21 @@
+diff --git a/src/pages/Dashboard.tsx b/src/pages/Dashboard.tsx
+index 1230ac5..ff25eb1 100644
+--- a/src/pages/Dashboard.tsx
++++ b/src/pages/Dashboard.tsx
+@@ -1,15 +1,15 @@
+ const menu = [
+   { label: "Projects", to: "/projects" },
+   { label: "Team members", to: "/team" },
+ ];
+ 
+ export function Dashboard() {
+   return (
+     <section>
+       <nav className="crumbs">Home / Team members</nav>
+-      <h1>Team members</h1>
++      <h1>People</h1>
+       <p className="help">Use Team members to invite or remove teammates.</p>
+       <MemberTable />
+     </section>
+   );
+ }

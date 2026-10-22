@@ -1,0 +1,16 @@
+diff --git a/src/styles/card.css b/src/styles/card.css
+index 28dc914..2a0cac8 100644
+--- a/src/styles/card.css
++++ b/src/styles/card.css
+@@ -1,10 +1,10 @@
+ .card {
+   position: relative;
+-  overflow: visible;
++  overflow: hidden;
+   width: 100%;
+ }
+ .card .help-popover {
+   position: absolute;
+   right: -240px;
+   width: 280px;
+ }
