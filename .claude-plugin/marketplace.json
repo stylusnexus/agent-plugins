@@ -62,6 +62,11 @@
       "name": "go-to-market",
       "source": "./plugins/go-to-market",
       "description": "A head of marketing and eleven focused skills for positioning, audience, copy, brand, search and answer-engine visibility, launches, community, founder-led content, outreach, lifecycle email and measurement. Built for small teams and solo builders: plans start from a goal and the hours you actually have, favour honest persuasion over tricks, and explain the marketing reasoning as they go."
+    },
+    {
+      "name": "design-suite",
+      "source": "./plugins/design-suite",
+      "description": "A design lead plus five focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), accessibility review against WCAG 2.2, dashboards, mobile and responsive design, and information architecture. These are AI review perspectives that give specific, checkable findings; they do not replace testing with real users or assistive-technology audits."
     }
   ]
 }

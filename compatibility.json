@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-17",
+  "updated": "2026-10-21",
   "levels": {
     "full": "The skill does its whole job on this host.",
     "partial": "The skill runs, but a named step or property is lost; the note says which.",
@@ -13,6 +13,31 @@
     "other": "Another coding agent that reads SKILL.md folders and runs shell commands, installed through the Skills CLI; checked against Gemini CLI/Antigravity CLI, Cursor, GitHub Copilot, Windsurf, opencode and Cline."
   },
   "skills": {
+    "accessibility-review": {
+      "pack": "design-suite",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Reviews code or screenshots you paste or upload; the source pass over a whole project needs the repo. The optional contrast script takes colours you type in."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Reviews code or screenshots you paste or upload; the source pass over a whole project needs the repo. The optional contrast script takes colours you type in."
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "The optional contrast script needs Python 3."
+      }
+    },
     "agent-tooling-review": {
       "pack": "hardening",
       "claude": {
@@ -252,6 +277,30 @@
       },
       "other": {
         "level": "full"
+      }
+    },
+    "dashboard-design": {
+      "pack": "design-suite",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "db-migration-safety": {
@@ -549,6 +598,55 @@
       },
       "other": {
         "level": "full"
+      }
+    },
+    "information-architecture": {
+      "pack": "design-suite",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Optional cross-references to other pack skills need the whole pack."
+      }
+    },
+    "interface-polish": {
+      "pack": "design-suite",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Reviews code or screenshots you paste or upload; the source pass over a whole project needs the repo. The optional scan script needs a local checkout."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Reviews code or screenshots you paste or upload; the source pass over a whole project needs the repo. The optional scan script needs a local checkout."
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "The optional scan script needs Python 3."
       }
     },
     "legal-docs": {
@@ -913,6 +1011,30 @@
     },
     "mk-search": {
       "pack": "go-to-market",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Optional cross-references to other pack skills need the whole pack."
+      }
+    },
+    "mobile-design": {
+      "pack": "design-suite",
       "claude": {
         "code": {
           "level": "full"
@@ -1769,6 +1891,31 @@
         "level": "full"
       }
     },
+    "teach-code-to-mastery": {
+      "pack": "codebase-intel",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "partial",
+          "note": "Teaching works on code you paste in; reading a diff, PR or repo needs repo access."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Multiple-choice quizzes become plain-text questions where the host has no structured question tool."
+        },
+        "chatgpt": {
+          "level": "partial",
+          "note": "Teaching works on code you paste in; reading a diff, PR or repo needs repo access."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
     "the-waiting": {
       "pack": "release-ops",
       "claude": {
@@ -1818,6 +1965,30 @@
         "level": "full"
       }
     },
+    "ui-ux": {
+      "pack": "design-suite",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full",
+          "note": "Routing to the sibling skills and design agents needs the whole pack."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Install the whole pack: this skill routes to its sibling skills."
+      }
+    },
     "ux-review": {
       "pack": "ship-pipeline",
       "claude": {
@@ -1862,31 +2033,6 @@
         "chatgpt": {
           "level": "partial",
           "note": "Can judge a pasted diff or commit list; cannot read git history itself."
-        }
-      },
-      "other": {
-        "level": "full"
-      }
-    },
-    "vscode-marketplace-publish": {
-      "pack": "release-ops",
-      "claude": {
-        "code": {
-          "level": "full"
-        },
-        "app": {
-          "level": "no",
-          "note": "Publishing needs a local extension repo, vsce and your publisher token."
-        }
-      },
-      "codex_chatgpt": {
-        "codex": {
-          "level": "full",
-          "note": "Network steps need an approval."
-        },
-        "chatgpt": {
-          "level": "no",
-          "note": "No access to your local repo or git credentials by default."
         }
       },
       "other": {
@@ -1947,6 +2093,31 @@
         "note": "Local mode needs a shell, npx, network and a browser; hosted mode needs the Plan MCP set up by hand, and the skill has no inline fallback."
       }
     },
+    "vscode-marketplace-publish": {
+      "pack": "release-ops",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Publishing needs a local extension repo, vsce and your publisher token."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full",
+          "note": "Network steps need an approval."
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
     "webhook-reliability": {
       "pack": "hardening",
       "claude": {
@@ -1987,31 +2158,6 @@
         },
         "chatgpt": {
           "level": "full"
-        }
-      },
-      "other": {
-        "level": "full"
-      }
-    },
-    "teach-code-to-mastery": {
-      "pack": "codebase-intel",
-      "claude": {
-        "code": {
-          "level": "full"
-        },
-        "app": {
-          "level": "partial",
-          "note": "Teaching works on code you paste in; reading a diff, PR or repo needs repo access."
-        }
-      },
-      "codex_chatgpt": {
-        "codex": {
-          "level": "full",
-          "note": "Multiple-choice quizzes become plain-text questions where the host has no structured question tool."
-        },
-        "chatgpt": {
-          "level": "partial",
-          "note": "Teaching works on code you paste in; reading a diff, PR or repo needs repo access."
         }
       },
       "other": {

@@ -1,6 +1,6 @@
 # Contributing
 
-This repo is a plugin marketplace for AI coding agents: eight markdown skill packs under
+This repo is a plugin marketplace for AI coding agents: nine markdown skill packs under
 `plugins/`, plus two tool plugins (`work-plan`, `defect-scan`) that live in their own
 repositories and are only referenced here. This guide covers the markdown skill packs.
 
