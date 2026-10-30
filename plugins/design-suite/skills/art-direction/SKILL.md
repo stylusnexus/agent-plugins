@@ -487,7 +487,8 @@ asset, say so in the report, and pass `--allow <rule>` to the inspector for that
    (`inspect.mjs <url> --out .taste-skill/before`, with `--app` for an app screen) and lint its
    source. Read the code: the framework, the styling method (Tailwind v3 or v4, CSS modules,
    styled-components, plain CSS), the components, and what must survive: routes, forms, data,
-   behaviour, the brand's own assets.
+   behaviour, the brand's own assets. Record what each page does with
+   `node <skill>/scripts/keep.mjs record <url>` (one URL per page, project running).
 2. **A review stops here.** Critique the before screenshots with `references/critique.md`, list the
    findings with the inspector's measurements, and name the three changes that would move the page
    most.
@@ -501,8 +502,10 @@ asset, say so in the report, and pass `--allow <rule>` to the inspector for that
    every section), states (hover, focus, loading, empty, error), then the stock components (icon
    cards, pill badges, gradient blobs, card grids) replaced by the dealt blueprints.
 5. **Prove it.** Inspect again into `.taste-skill/after`, compare before and after at every width,
-   click through every link, form and menu that worked before, and report the before and after
-   measurements side by side.
+   run `node <skill>/scripts/keep.mjs check <url>` with every URL you recorded (a page left out is a
+   FAIL), and report the before and after measurements side by side. Anything dropped on purpose goes
+   in with `--drop "<key> -- <reason>"` and is listed in the report; the report also says handlers
+   attached by scripts were not checked, so click those through yourself.
 
 **A component or a single section, not a page.** Skip the draw unless there is no direction to follow.
 Match the surrounding design, apply the house rules and the laws, and still inspect the result.

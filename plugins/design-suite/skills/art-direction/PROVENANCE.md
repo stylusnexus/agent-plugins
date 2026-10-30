@@ -15,6 +15,9 @@
 - `references/imagery.md`: one `<video>` code sample that wrapped over three lines is joined onto one line, so the link checker does not read its `src` as a relative link. Wording is unchanged.
 - Nothing else in the engine is touched.
 
+## Added here, not upstream
+- `scripts/keep.mjs`, `scripts/lib/kept.mjs` and `scripts/tests/test_keep.py`: the redesign "kept" check, which records the links, forms, fields, buttons and headings of a page before a redesign and reports what the redesign lost. The idea comes from the redesign check in Hallmark (https://github.com/Nutlope/hallmark, MIT). Ideas only; no Hallmark code was taken.
+
 ## Hashes
 Unpatched upstream (identical at `a9c73c3` and `6010f91`):
 - inspect.mjs 9482c546288d4d5c738a915905959e99394551ec27bc202ed443af12a02bd1f7

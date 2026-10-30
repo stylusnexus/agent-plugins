@@ -32,7 +32,7 @@ The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates scre
 |---|---|
 | `ui-ux` | The user task, flow and full state set, the heuristic review, the design brief, and the handoff |
 | `interface-polish` | Visual detail: spacing scale, radii, shadows, type, colour tokens, motion, and the state matrix. Report-only unless asked to implement |
-| `art-direction` | The visual idea and look of a page or screen: the chosen direction, type system, palette, photographs, section blueprints, and the browser inspection and look-and-fix loop |
+| `art-direction` | The visual idea and look of a page or screen: the chosen direction, type system, palette, photographs, section blueprints, the browser inspection and look-and-fix loop, and a redesign check that the new page kept the old page's links, forms and fields |
 | `accessibility-review` | WCAG 2.2 AA findings, evidence tags (verified or needs test), and the list of checks not performed. Never states that an interface is compliant |
 | `dashboard-design` | Decision-first layout, freshness and provenance, data states, thresholds, and chart and number choices |
 | `mobile-design` | Touch, narrow-width layout, input and keyboards, offline behaviour, and the web-versus-native question |
@@ -148,7 +148,7 @@ Could not verify: dark mode and 320px width (no browser available)
 
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
 
-> **Limits.** Claude app and ChatGPT: No local Node or Chrome to run the direction, inspect and lint scripts; the written art-direction guidance still applies to pages you describe or paste. Other agents: The scripts need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies.
+> **Limits.** Claude app and ChatGPT: No local Node or Chrome to run the direction, inspect, redesign-check and lint scripts; the written art-direction guidance still applies to pages you describe or paste. Other agents: The scripts (the inspector and the redesign check) need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies.
 
 **Use it when:** A landing page, portfolio, product page or app screen looks generic or "AI-made" and you want a deliberate, researched look.
 
@@ -331,6 +331,6 @@ Skills arrive un-namespaced on this path, so most agents invoke them as `/ui-ux`
 
 ## Prerequisites
 
-None for most of the skills. `art-direction` is the exception: its draw, inspect and lint tools need Node 22+, and the inspector needs a locally installed Chrome, Edge or Chromium. Network access is needed only for the optional `assets.mjs` picture search. Python 3 is needed only for the two optional scripts: `accessibility-review/scripts/contrast.py` (WCAG contrast ratios) and `interface-polish/scripts/polish_scan.py` (a read-only scan of source files for checkable polish rules). Both use only the standard library and change no files. A browser and assistive technology are needed for the checks the skills list as "needs test"; the skills never claim those were done.
+None for most of the skills. `art-direction` is the exception: its draw, inspect, redesign-check and lint tools need Node 22+, and the inspector and the redesign check need a locally installed Chrome, Edge or Chromium. Network access is needed only for the optional `assets.mjs` picture search. Python 3 is needed only for the two optional scripts: `accessibility-review/scripts/contrast.py` (WCAG contrast ratios) and `interface-polish/scripts/polish_scan.py` (a read-only scan of source files for checkable polish rules). Both use only the standard library and change no files. A browser and assistive technology are needed for the checks the skills list as "needs test"; the skills never claim those were done.
 
 `art-direction` is a fork of [Leonxlnx's taste-skill](https://github.com/Leonxlnx/taste-skill) (MIT); see its `PROVENANCE.md` for what changed. Its draw and inspect tools write working files into a `.taste-skill/` folder in your project, and a history file under your home folder; set `TASTE_SKILL_HISTORY` to put the history file somewhere else.
