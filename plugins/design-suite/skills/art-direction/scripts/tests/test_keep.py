@@ -64,6 +64,20 @@ class KeptHelpers(unittest.TestCase):
         )
         self.assertEqual(out, "[true,true,true,true,true,false,false]")
 
+    def test_norm_path_bare_hash_and_empty_are_distinct_from_page(self):
+        out = run_node(
+            "const b = 'http://localhost:3000/';"
+            "console.log(JSON.stringify([k.normPath('#', b), k.normPath('/', b), k.normPath('', b), k.normPath('/a#', b)]))"
+        )
+        self.assertEqual(out, '["/#","/","(empty)","/a#"]')
+
+    def test_is_unstable_id_react_formats(self):
+        out = run_node(
+            "console.log(JSON.stringify([':r1:-form-item', '\u00abr1\u00bb', '_r_1_', ':r2:', 'email', 'user_name', 'rating']"
+            ".map(k.isUnstableId)))"
+        )
+        self.assertEqual(out, "[true,true,true,true,false,false,false]")
+
     def test_parse_drop_splits_on_first_separator(self):
         out = run_node("console.log(JSON.stringify(k.parseDrop('href:/search?q=a=b -- retiring search')))")
         self.assertIn('"kind":"href"', out)
@@ -287,6 +301,37 @@ class KeepSnapshot(unittest.TestCase):
         out = json.loads(run_node(code))
         self.assertEqual(out, {"items": [], "skippedButtons": 0})
 
+    def test_snapshot_inlined_helpers_match_exports(self):
+        code = r"""
+import vm from 'node:vm';
+const base = 'http://localhost:3000/';
+const hrefs = ['#', '', '/', '/a/', '/a#', '/a?x=1#t', 'mailto:a@b.c', 'https://other.example/x/', 'pricing/', 'http://localhost:9/p/'];
+const ids = [':r1:', ':r1:-form-item', '\u00abr1\u00bb', '_r_1_', 'radix-:r2:-t', 'a3f09b1c7d', 'headlessui-x', 'email', 'user_name'];
+const texts = ['  Caf\u00e9 \n menu ', 'Buy   for $29', 'x\ty'];
+const el = (attrs, text = '') => ({
+  tagName: attrs.tag || 'DIV', attributes: [], textContent: text,
+  getAttribute: (n) => (n in attrs ? attrs[n] : null),
+  getClientRects: () => [1],
+});
+const lists = {
+  'a[href]': hrefs.map((h) => el({ tag: 'A', href: h })),
+  'input, select, textarea': ids.map((i) => el({ tag: 'INPUT', id: i })),
+  'button, [role=button], input[type=submit], input[type=button], input[type=reset], input[type=image]': texts.map((x) => el({ tag: 'BUTTON' }, x)),
+};
+const doc = { querySelectorAll: (s) => lists[s] ?? [], getElementById: () => null };
+const src = '(' + k.snapshot.toString() + ')(' + JSON.stringify(base) + ')';
+const got = vm.runInNewContext(src, { document: doc, URL });
+const keys = (kind) => got.items.filter((i) => i.kind === kind).map((i) => i.key);
+console.log(JSON.stringify({
+  href: [keys('href'), [...new Set(hrefs.map((h) => k.normPath(h, base)))]],
+  field: [keys('field'), ids.filter((i) => !k.isUnstableId(i))],
+  button: [keys('button'), texts.map(k.normText)],
+}));
+"""
+        out = json.loads(run_node(code))
+        for kind, (got, want) in out.items():
+            self.assertEqual(got, want, kind)
+
 
 BEFORE = """<!doctype html><html><head><title>Home</title></head><body>
 <nav>
@@ -427,7 +472,7 @@ class KeepCli(unittest.TestCase):
         self.assertIn("FAIL", res.stdout)
         self.assertIn("/blog", res.stdout)
         self.assertIn("email", res.stdout)
-        self.assertIn('--drop "href:/blog -- <reason>"', res.stdout)
+        self.assertIn("--drop 'href:/blog -- <reason>'", res.stdout)
         self.assertIn("Not checked:", res.stdout)
 
     def test_check_on_different_port_matches_by_path(self):
@@ -545,6 +590,80 @@ class KeepCli(unittest.TestCase):
         self.assertIn("WARN", res.stdout)
         self.assertIn("from 3 to 1", res.stdout)
         self.assertIn("3→1", res.stdout)
+
+    def _hints(self, stdout):
+        """The --drop arguments printed in a report, evaluated by a real shell."""
+        specs = []
+        for line in stdout.splitlines():
+            if "--drop " in line:
+                rest = line.split("--drop ", 1)[1]
+                self.assertTrue(rest.startswith("'"), line)
+                shown = subprocess.run(["sh", "-c", "printf %s " + rest], capture_output=True, text=True)
+                specs.append(shown.stdout.replace("<reason>", "lost on purpose here"))
+        return specs
+
+    def test_hash_placeholder_does_not_hide_a_lost_home_link(self):
+        self.assertEqual(self.record(self.site("before", '<!doctype html><body><a href="/">Home</a><a href="#">Top</a></body>')).returncode, 0)
+        res = self.check(self.site("after", '<!doctype html><body><a href="#">Top</a></body>'))
+        self.assertEqual(res.returncode, 1, res.stderr + res.stdout)
+        self.assertIn("href /", res.stdout)
+
+    def test_printed_hints_round_trip_through_a_shell(self):
+        long_text = "word " * 12
+        before = (
+            "<!doctype html><body>"
+            f'<div onclick="x()">{long_text}</div>'
+            '<input name=" my  field ">'
+            '<div data-testid="a  b ">hook</div>'
+            "<button>Buy for $29</button>"
+            "</body>"
+        )
+        self.assertEqual(self.record(self.site("before", before)).returncode, 0)
+        after_url = self.site("after", "<!doctype html><body><p>gone</p></body>")
+        first = self.check(after_url)
+        self.assertEqual(first.returncode, 1, first.stdout)
+        specs = self._hints(first.stdout)
+        self.assertGreaterEqual(len(specs), 4, first.stdout)
+        self.assertTrue(any("Buy for $29" in s for s in specs), specs)
+        args = [a for s in specs for a in ("--drop", s)]
+        second = self.check(after_url, *args)
+        self.assertEqual(second.returncode, 0, second.stdout + second.stderr)
+        self.assertNotIn("matched nothing", second.stdout)
+
+    def test_hint_is_single_quoted_and_survives_an_apostrophe(self):
+        self.assertEqual(self.record(self.site("before", "<!doctype html><body><button>Don't $HOME `x` \"y\"</button></body>")).returncode, 0)
+        res = self.check(self.site("after", "<!doctype html><body><p>x</p></body>"))
+        specs = self._hints(res.stdout)
+        self.assertEqual(len(specs), 1)
+        self.assertIn("Don't $HOME `x` \"y\"", specs[0])
+
+    def test_react_ids_are_not_recorded_as_fields(self):
+        html = '<!doctype html><meta charset="utf-8"><body><input id=":r1:-form-item"><input id="\u00abr2\u00bb"><input id="_r_3_"><input id="email"></body>'
+        self.assertEqual(self.record(self.site("react", html)).returncode, 0)
+        items = json.loads((self.out / "before.json").read_text())["pages"]["/"]["items"]
+        self.assertEqual([i["key"] for i in items if i["kind"] == "field"], ["email"])
+
+    def test_force_refusal_says_every_page_is_replaced(self):
+        url = self.site("before", BEFORE)
+        self.assertEqual(self.record(url).returncode, 0)
+        again = self.record(url)
+        self.assertEqual(again.returncode, 2)
+        self.assertIn("every recorded page", again.stderr)
+
+    def test_input_type_button_is_recorded_as_a_button(self):
+        self.assertEqual(self.record(self.site("before", '<!doctype html><body><input type="button" value="Add to cart"><input type="reset"><input type="image" alt="Search" src="x.png"></body>')).returncode, 0)
+        items = json.loads((self.out / "before.json").read_text())["pages"]["/"]["items"]
+        self.assertEqual(sorted(i["key"] for i in items if i["kind"] == "button"), ["Add to cart", "Search"])
+        self.assertEqual([i for i in items if i["kind"] == "field"], [])
+        res = self.check(self.site("after", "<!doctype html><body><p>x</p></body>"))
+        self.assertEqual(res.returncode, 1)
+        self.assertIn("Add to cart", res.stdout)
+
+    def test_invalid_form_action_does_not_abort(self):
+        res = self.record(self.site("bad", '<!doctype html><body><form action="http://"><input name="q"></form></body>'))
+        self.assertEqual(res.returncode, 0, res.stderr + res.stdout)
+        items = json.loads((self.out / "before.json").read_text())["pages"]["/"]["items"]
+        self.assertTrue(any(i["kind"] == "form" for i in items))
 
     def test_usage_errors_exit_2(self):
         self.assertEqual(self.keep().returncode, 2)

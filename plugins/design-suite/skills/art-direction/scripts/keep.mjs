@@ -5,7 +5,8 @@
 //   node keep.mjs check  <url>... [--out DIR] [--width 1440] [--drop "<kind>:<value> -- <reason>"]... [--json]
 //
 // record  opens each page in a real browser and writes what it does to <out>/before.json (default
-//         .taste-skill/kept). It will not overwrite an earlier record without --force.
+//         .taste-skill/kept). It will not overwrite an earlier record without --force,
+//         and --force replaces EVERY recorded page, so record all pages in one command.
 // check   opens the same pages again (the port and host may differ: pages match by path), writes
 //         after.json and report.json, and reports what was lost: links, forms, fields, buttons,
 //         inline handlers, test hooks, headings and in-page anchors. A loss is a FAIL unless it is
@@ -62,7 +63,7 @@ const pageKey = (u) => normPath(u, u);
 
 let before = null;
 if (command === 'record') {
-  if (existsSync(beforeFile) && !force) fail(`${beforeFile} already exists. Pass --force to replace the record.`);
+  if (existsSync(beforeFile) && !force) fail(`${beforeFile} already exists. Pass --force to replace the record; --force replaces every recorded page, so record all pages in one command.`);
 } else {
   if (!existsSync(beforeFile)) fail(`No record at ${beforeFile}. Run "node keep.mjs record <url>" on the old page first.`);
   try { before = JSON.parse(readFileSync(beforeFile, 'utf8')); } catch (e) { fail(`${beforeFile} is not valid JSON: ${e.message}`); }
@@ -162,9 +163,11 @@ writeFileSync(join(outDir, 'report.json'), JSON.stringify(report, null, 2) + '\n
 if (asJson) {
   console.log(JSON.stringify(report, null, 2));
 } else {
-  for (const f of fails) console.log(`FAIL ${f.page}: ${f.message}\n     to accept this loss: --drop "${f.drop}"`);
+  // Single-quoted so a shell leaves "$", backticks and double quotes alone.
+  const hint = (f) => `--drop '${f.drop.replace(/'/g, `'\\''`)}'`;
+  for (const f of fails) console.log(`FAIL ${f.page}: ${f.message}\n     to accept this loss: ${hint(f)}`);
   for (const u of result.unmatchedDrops) console.log(`FAIL --drop matched nothing: "${u}" (check the spelling against the record)`);
-  for (const f of warns) console.log(`WARN ${f.page}: ${f.message}`);
+  for (const f of warns) console.log(`WARN ${f.page}: ${f.message}${f.drop ? `\n     to accept this: ${hint(f)}` : ''}`);
   for (const d of result.dropped) console.log(`dropped ${d.kind}:${d.key} on ${d.page} -- ${d.reason}`);
   const kept = Object.entries(LABELS).filter(([k]) => result.counts[k]).map(([k, label]) => `${result.counts[k].kept}/${result.counts[k].total} ${label}`);
   console.log(kept.length ? `Kept ${kept.join(' · ')}` : 'Kept nothing to count');

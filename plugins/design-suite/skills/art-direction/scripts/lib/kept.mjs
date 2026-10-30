@@ -6,13 +6,16 @@ export const normText = (s) => String(s ?? '').normalize('NFC').replace(/\s+/g, 
 
 // Same-origin results are pathname + search + hash with one trailing slash removed (root stays "/").
 // Cross-origin and non-http schemes come back whole; so do values that are not valid URLs.
+// A bare "#" keeps its "#" (so it is not the page's own path) and an empty value is its own key "(empty)".
 export function normPath(urlOrPath, base) {
+  if (urlOrPath === '') return '(empty)';
+  if (urlOrPath === '(empty)') return urlOrPath;
   try {
     const u = new URL(urlOrPath, base);
     if (u.protocol !== 'http:' && u.protocol !== 'https:') return urlOrPath;
     if (u.hostname !== new URL(base).hostname) return urlOrPath;
     const path = u.pathname.length > 1 && u.pathname.endsWith('/') ? u.pathname.slice(0, -1) : u.pathname;
-    return path + u.search + u.hash;
+    return path + u.search + u.hash + (u.hash === '' && urlOrPath.endsWith('#') ? '#' : '');
   } catch {
     return urlOrPath;
   }
@@ -20,7 +23,7 @@ export function normPath(urlOrPath, base) {
 
 // Generated ids change on every render, so they are never recorded.
 export const isUnstableId = (id) =>
-  /^:r[0-9a-z]+:$/.test(id) || /^(radix-|headlessui-|react-aria)/.test(id) || /[0-9a-f]{8,}/i.test(id);
+  /^(:r|«r|_r_)[0-9a-z]+(:|»|_)/.test(id) || /^(radix-|headlessui-|react-aria)/.test(id) || /[0-9a-f]{8,}/i.test(id);
 
 const usage = (why) => new Error(`usage: ${why}. Expected --drop "<kind>:<value> -- <reason>" with kind one of ${KINDS.join(', ')} and a reason of at least 10 characters`);
 
@@ -167,18 +170,20 @@ export function compare(before, after, drops) {
 export function snapshot(base) {
   const text = (s) => String(s ?? '').normalize('NFC').replace(/\s+/g, ' ').trim();
   const path = (value) => {
+    if (value === '') return '(empty)';
+    if (value === '(empty)') return value;
     try {
       const u = new URL(value, base);
       if (u.protocol !== 'http:' && u.protocol !== 'https:') return value;
       if (u.hostname !== new URL(base).hostname) return value;
       const p = u.pathname.length > 1 && u.pathname.endsWith('/') ? u.pathname.slice(0, -1) : u.pathname;
-      return p + u.search + u.hash;
+      return p + u.search + u.hash + (u.hash === '' && value.endsWith('#') ? '#' : '');
     } catch {
       return value;
     }
   };
   const unstable = (id) =>
-    /^:r[0-9a-z]+:$/.test(id) || /^(radix-|headlessui-|react-aria)/.test(id) || /[0-9a-f]{8,}/i.test(id);
+    /^(:r|«r|_r_)[0-9a-z]+(:|»|_)/.test(id) || /^(radix-|headlessui-|react-aria)/.test(id) || /[0-9a-f]{8,}/i.test(id);
   const shown = (el) => el.getClientRects().length > 0;
 
   const items = [];
@@ -214,22 +219,23 @@ export function snapshot(base) {
 
   for (const f of all('form')) {
     const action = f.getAttribute('action');
-    const where = path(new URL(action || '', base).href);
+    let where;
+    try { where = path(new URL(action || '', base).href); } catch { where = action; }
     add('form', String(f.getAttribute('method') || 'get').toUpperCase() + ' ' + where, '', f);
   }
 
   for (const el of all('input, select, textarea')) {
     const type = String(el.getAttribute('type') || '').toLowerCase();
-    if (type === 'submit') continue; // a submit input is a button
+    if (['submit', 'button', 'reset', 'image'].includes(type)) continue; // these inputs are buttons
     const name = el.getAttribute('name');
     const id = el.getAttribute('id');
-    const key = name || (id && !unstable(id) ? id : '');
+    const key = text(name) || (id && !unstable(id) ? text(id) : '');
     add('field', key, el.tagName === 'INPUT' ? type || 'text' : el.tagName.toLowerCase(), el);
   }
 
   let skippedButtons = 0;
-  for (const b of all('button, [role=button], input[type=submit]')) {
-    const name = text(b.getAttribute('aria-label')) || text(b.tagName === 'INPUT' ? b.getAttribute('value') : b.textContent) || text(b.getAttribute('value'));
+  for (const b of all('button, [role=button], input[type=submit], input[type=button], input[type=reset], input[type=image]')) {
+    const name = text(b.getAttribute('aria-label')) || text(b.tagName === 'INPUT' ? b.getAttribute('value') : b.textContent) || text(b.getAttribute('value')) || text(b.getAttribute('alt'));
     if (!name) { skippedButtons += 1; continue; }
     add('button', name, '', b);
   }
@@ -237,13 +243,13 @@ export function snapshot(base) {
   for (const el of all('*')) {
     for (const attr of Array.from(el.attributes)) {
       if (!/^on/i.test(attr.name)) continue;
-      const who = el.getAttribute('id') || el.getAttribute('name') || text(el.textContent).slice(0, 40);
+      const who = text(el.getAttribute('id')) || text(el.getAttribute('name')) || text(text(el.textContent).slice(0, 40));
       add('handler', attr.name.toLowerCase() + ' ' + el.tagName.toLowerCase() + '#' + who, '', el);
     }
   }
 
   for (const attr of ['data-testid', 'data-test', 'data-cy', 'data-qa']) {
-    for (const el of all('[' + attr + ']')) add('hook', attr + '=' + el.getAttribute(attr), '', el);
+    for (const el of all('[' + attr + ']')) add('hook', attr + '=' + text(el.getAttribute(attr)), '', el);
   }
 
   for (const h of all('h1, h2, h3')) add('heading', text(h.textContent), '', h);
