@@ -3,14 +3,21 @@
 These tests call the real functions in lib/kept.mjs through Node. They are skipped without Node.
 They do not start Chrome.
 """
+import functools
+import http.server
 import json
+import os
 import shutil
 import subprocess
+import tempfile
+import threading
 import unittest
 from pathlib import Path
 
 SCRIPTS = Path(__file__).resolve().parents[1]
 KEPT = SCRIPTS / "lib" / "kept.mjs"
+CLI = SCRIPTS / "keep.mjs"
+CDP = SCRIPTS / "lib" / "cdp.mjs"
 NODE = shutil.which("node")
 
 
@@ -254,6 +261,233 @@ class KeptCompare(unittest.TestCase):
         after = rec({"/": page([it("href", "/a"), it("field", "email")])})
         r = compare(before, after, ["href:/c -- removed on purpose"])
         self.assertEqual(r["counts"], {"href": {"kept": 1, "total": 3}, "field": {"kept": 1, "total": 1}})
+
+
+def find_chrome():
+    if not NODE:
+        return None
+    result = subprocess.run(
+        [NODE, "--input-type=module", "-e", f"import {{ findChrome }} from {CDP.as_uri()!r}; console.log(findChrome() || '');"],
+        capture_output=True, text=True, timeout=30,
+    )
+    return result.stdout.strip() or None
+
+
+@unittest.skipUnless(NODE, "node is required")
+class KeepSnapshot(unittest.TestCase):
+    def test_snapshot_function_is_self_contained(self):
+        # page.eval sends snapshot.toString() to the browser, so it may not use anything outside itself.
+        code = (
+            "import vm from 'node:vm';"
+            "const doc = { querySelectorAll: () => [], getElementById: () => null, title: '', body: null };"
+            "const ctx = { document: doc, URL, location: { href: 'http://localhost:3000/' } };"
+            "const src = '(' + k.snapshot.toString() + ')(' + JSON.stringify('http://localhost:3000/') + ')';"
+            "console.log(JSON.stringify(vm.runInNewContext(src, ctx)));"
+        )
+        out = json.loads(run_node(code))
+        self.assertEqual(out, {"items": [], "skippedButtons": 0})
+
+
+BEFORE = """<!doctype html><html><head><title>Home</title></head><body>
+<nav>
+  <a href="/pricing/">Pricing</a>
+  <a href="/blog">Blog</a>
+  <a href="mailto:hi@example.com">Email us</a>
+  <a href="#features">Features</a>
+</nav>
+<h1>Welcome  home</h1>
+<section id="features"><h2>Features</h2></section>
+<form method="post" action="/subscribe"><input name="email" type="email"><button type="submit">Subscribe</button></form>
+<form action="search"><input name="q"><input type="submit" value="Go"></form>
+<form><input id="note"></form>
+<button aria-label="Open menu" data-testid="menu" onclick="void 0">&#9776;</button>
+<button><svg width="10" height="10"></svg></button>
+</body></html>"""
+
+AFTER_LOST = """<!doctype html><html><head><title>Home</title></head><body>
+<nav>
+  <a href="/pricing">Pricing</a>
+  <a href="mailto:hi@example.com">Email us</a>
+  <a href="#features">Features</a>
+</nav>
+<h1>Welcome home</h1>
+<section id="features"><h2>Features</h2></section>
+<form method="post" action="/subscribe"><button type="submit">Subscribe</button></form>
+<form action="search"><input name="q"><input type="submit" value="Go"></form>
+<form><input id="note"></form>
+<button aria-label="Open menu" data-testid="menu" onclick="void 0">&#9776;</button>
+<button><svg width="10" height="10"></svg></button>
+</body></html>"""
+
+BLANK = "<!doctype html><html><head><title>Blank</title></head><body></body></html>"
+
+
+class QuietHandler(http.server.SimpleHTTPRequestHandler):
+    def log_message(self, *args):
+        pass
+
+
+def serve(directory):
+    handler = functools.partial(QuietHandler, directory=str(directory))
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    return server
+
+
+@unittest.skipUnless(NODE and find_chrome(), "node and a local Chrome are required")
+class KeepCli(unittest.TestCase):
+    def setUp(self):
+        self.tmp = Path(tempfile.mkdtemp(prefix="keep-test-"))
+        self.addCleanup(shutil.rmtree, self.tmp, True)
+        self.out = self.tmp / "out"
+        self.servers = []
+        self.profiles = self.tmp / "profiles"
+        self.profiles.mkdir()
+
+    def site(self, name, html):
+        directory = self.tmp / name
+        directory.mkdir(exist_ok=True)
+        (directory / "index.html").write_text(html, encoding="utf-8")
+        server = serve(directory)
+        self.servers.append(server)
+        self.addCleanup(self._stop, server)
+        return f"http://127.0.0.1:{server.server_address[1]}/"
+
+    @staticmethod
+    def _stop(server):
+        server.shutdown()
+        server.server_close()
+
+    def keep(self, *args):
+        # Chrome's throwaway profiles go under the test's own folder, so leftovers can be seen.
+        env = {**os.environ, "TASTE_SKILL_TMP": str(self.profiles)}
+        return subprocess.run(
+            [NODE, str(CLI), *args], capture_output=True, text=True, timeout=120, env=env,
+        )
+
+    def record(self, url, *extra):
+        return self.keep("record", url, "--out", str(self.out), *extra)
+
+    def check(self, url, *extra):
+        return self.keep("check", url, "--out", str(self.out), *extra)
+
+    def test_record_then_check_identical_passes(self):
+        url = self.site("before", BEFORE)
+        rec = self.record(url)
+        self.assertEqual(rec.returncode, 0, rec.stderr + rec.stdout)
+        before = json.loads((self.out / "before.json").read_text())
+        items = before["pages"]["/"]["items"]
+        keys = {(i["kind"], i["key"]) for i in items}
+        self.assertIn(("href", "/pricing"), keys)
+        self.assertIn(("href", "mailto:hi@example.com"), keys)
+        self.assertIn(("form", "POST /subscribe"), keys)
+        self.assertIn(("form", "GET /search"), keys)
+        self.assertIn(("field", "email"), keys)
+        self.assertIn(("field", "note"), keys)
+        self.assertIn(("button", "Subscribe"), keys)
+        self.assertIn(("button", "Open menu"), keys)
+        self.assertIn(("hook", "data-testid=menu"), keys)
+        self.assertIn(("handler", "onclick button#☰"), keys)
+        self.assertIn(("heading", "Welcome home"), keys)
+        self.assertIn(("anchor", "features"), keys)
+        self.assertEqual(before["pages"]["/"]["skippedButtons"], 1)
+        self.assertIn("no accessible name", rec.stdout)
+        res = self.check(url)
+        self.assertEqual(res.returncode, 0, res.stderr + res.stdout)
+        self.assertIn("Kept ", res.stdout)
+        self.assertIn("Not checked: handlers attached by scripts (framework event handlers), logins, state after interaction.", res.stdout)
+        self.assertIn("no accessible name", res.stdout)
+        self.assertTrue((self.out / "after.json").exists())
+        self.assertTrue((self.out / "report.json").exists())
+
+    def test_check_after_removing_a_link_and_field_exits_1(self):
+        self.assertEqual(self.record(self.site("before", BEFORE)).returncode, 0)
+        res = self.check(self.site("after", AFTER_LOST))
+        self.assertEqual(res.returncode, 1, res.stderr + res.stdout)
+        self.assertIn("FAIL", res.stdout)
+        self.assertIn("/blog", res.stdout)
+        self.assertIn("email", res.stdout)
+        self.assertIn('--drop "href:/blog -- <reason>"', res.stdout)
+        self.assertIn("Not checked:", res.stdout)
+
+    def test_check_on_different_port_matches_by_path(self):
+        self.assertEqual(self.record(self.site("before", BEFORE)).returncode, 0)
+        other = self.site("same", BEFORE)
+        res = self.check(other)
+        self.assertEqual(res.returncode, 0, res.stderr + res.stdout)
+
+    def test_record_refuses_overwrite_without_force(self):
+        url = self.site("before", BEFORE)
+        self.assertEqual(self.record(url).returncode, 0)
+        again = self.record(url)
+        self.assertEqual(again.returncode, 2, again.stderr + again.stdout)
+        self.assertIn("--force", again.stderr)
+        self.assertEqual(self.record(url, "--force").returncode, 0)
+
+    def test_check_without_record_exits_2(self):
+        res = self.check(self.site("after", AFTER_LOST))
+        self.assertEqual(res.returncode, 2, res.stderr + res.stdout)
+        self.assertIn("before.json", res.stderr)
+
+    def test_check_url_without_record_exits_2(self):
+        self.assertEqual(self.record(self.site("before", BEFORE)).returncode, 0)
+        other = self.site("other", BEFORE)
+        res = self.check(other + "never-recorded")
+        self.assertEqual(res.returncode, 2, res.stderr + res.stdout)
+
+    def test_unreachable_url_exits_2(self):
+        url = self.site("before", BEFORE)
+        self.assertEqual(self.record(url).returncode, 0)
+        dead = self.site("dead", BEFORE)
+        server = self.servers[-1]
+        self._stop(server)
+        self.servers.remove(server)
+        res = self.check(dead)
+        self.assertEqual(res.returncode, 2, res.stderr + res.stdout)
+
+    def test_drop_with_reason_turns_fail_into_pass(self):
+        self.assertEqual(self.record(self.site("before", BEFORE)).returncode, 0)
+        after = self.site("after", AFTER_LOST)
+        res = self.check(
+            after,
+            "--drop", "href:/blog -- the blog moved to a subdomain",
+            "--drop", "field:email -- signup moved into a dialog",
+        )
+        self.assertEqual(res.returncode, 0, res.stderr + res.stdout)
+        self.assertIn("the blog moved to a subdomain", res.stdout)
+
+    def test_unmatched_drop_fails(self):
+        url = self.site("before", BEFORE)
+        self.assertEqual(self.record(url).returncode, 0)
+        res = self.check(url, "--drop", "href:/typo -- never existed on this page")
+        self.assertEqual(res.returncode, 1, res.stderr + res.stdout)
+        self.assertIn("/typo", res.stdout)
+
+    def test_bad_drop_exits_2(self):
+        url = self.site("before", BEFORE)
+        self.assertEqual(self.record(url).returncode, 0)
+        res = self.check(url, "--drop", "href:/blog -- short")
+        self.assertEqual(res.returncode, 2, res.stderr + res.stdout)
+
+    def test_blank_page_warns_nothing_recorded(self):
+        url = self.site("blank", BLANK)
+        rec = self.record(url)
+        self.assertEqual(rec.returncode, 0, rec.stderr + rec.stdout)
+        res = self.check(url)
+        self.assertEqual(res.returncode, 0, res.stderr + res.stdout)
+        self.assertIn("WARN", res.stdout)
+        self.assertIn("nothing recorded", res.stdout)
+
+    def test_no_chrome_profile_left_behind(self):
+        url = self.site("before", BEFORE)
+        self.assertEqual(self.record(url).returncode, 0)
+        self.assertEqual(self.check(url).returncode, 0)
+        self.assertEqual(list(self.profiles.iterdir()), [])
+
+    def test_usage_errors_exit_2(self):
+        self.assertEqual(self.keep().returncode, 2)
+        self.assertEqual(self.keep("record").returncode, 2)
+        self.assertEqual(self.keep("nope", "http://127.0.0.1:1/").returncode, 2)
 
 
 if __name__ == "__main__":

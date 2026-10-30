@@ -160,3 +160,88 @@ export function compare(before, after, drops) {
   const unmatchedDrops = normDrops.flatMap((d, i) => (used.has(i) ? [] : [dropSpec(d)]));
   return { findings, dropped, counts, unmatchedDrops };
 }
+
+// Runs inside the page (page.eval serialises it with toString()), so it uses nothing from this module:
+// the normalisation below is a copy of normText, normPath and isUnstableId.
+// Keys come out already normalised, because compare() matches on them as given.
+export function snapshot(base) {
+  const text = (s) => String(s ?? '').normalize('NFC').replace(/\s+/g, ' ').trim();
+  const path = (value) => {
+    try {
+      const u = new URL(value, base);
+      if (u.protocol !== 'http:' && u.protocol !== 'https:') return value;
+      if (u.hostname !== new URL(base).hostname) return value;
+      const p = u.pathname.length > 1 && u.pathname.endsWith('/') ? u.pathname.slice(0, -1) : u.pathname;
+      return p + u.search + u.hash;
+    } catch {
+      return value;
+    }
+  };
+  const unstable = (id) =>
+    /^:r[0-9a-z]+:$/.test(id) || /^(radix-|headlessui-|react-aria)/.test(id) || /[0-9a-f]{8,}/i.test(id);
+  const shown = (el) => el.getClientRects().length > 0;
+
+  const items = [];
+  const seen = new Set();
+  const add = (kind, key, label, el) => {
+    if (!key || seen.has(kind + ':' + key)) return;
+    seen.add(kind + ':' + key);
+    const item = { kind, key, visible: shown(el) };
+    if (label) item.label = label;
+    items.push(item);
+  };
+  const all = (selector) => Array.from(document.querySelectorAll(selector));
+  const basePage = path(base).split('#')[0];
+
+  for (const a of all('a[href]')) {
+    const raw = a.getAttribute('href');
+    const key = path(raw);
+    add('href', key, text(a.innerText ?? a.textContent) || text(a.getAttribute('aria-label')), a);
+    // A link to a spot on this same page: remember the spot it points at.
+    const hash = key.indexOf('#');
+    if (hash >= 0 && key.slice(0, hash) === basePage) {
+      let id = key.slice(hash + 1);
+      try { id = decodeURIComponent(id); } catch {}
+      const target = id ? document.getElementById(id) : null;
+      if (target) add('anchor', id, '', target);
+    }
+  }
+
+  for (const f of all('form')) {
+    const action = f.getAttribute('action');
+    const where = path(new URL(action || '', base).href);
+    add('form', String(f.getAttribute('method') || 'get').toUpperCase() + ' ' + where, '', f);
+  }
+
+  for (const el of all('input, select, textarea')) {
+    const type = String(el.getAttribute('type') || '').toLowerCase();
+    if (type === 'submit') continue; // a submit input is a button
+    const name = el.getAttribute('name');
+    const id = el.getAttribute('id');
+    const key = name || (id && !unstable(id) ? id : '');
+    add('field', key, el.tagName === 'INPUT' ? type || 'text' : el.tagName.toLowerCase(), el);
+  }
+
+  let skippedButtons = 0;
+  for (const b of all('button, [role=button], input[type=submit]')) {
+    const name = text(b.getAttribute('aria-label')) || text(b.tagName === 'INPUT' ? b.getAttribute('value') : b.innerText ?? b.textContent) || text(b.getAttribute('value'));
+    if (!name) { skippedButtons += 1; continue; }
+    add('button', name, '', b);
+  }
+
+  for (const el of all('*')) {
+    for (const attr of Array.from(el.attributes)) {
+      if (!/^on/i.test(attr.name)) continue;
+      const who = el.getAttribute('id') || el.getAttribute('name') || text(el.innerText ?? el.textContent).slice(0, 40);
+      add('handler', attr.name.toLowerCase() + ' ' + el.tagName.toLowerCase() + '#' + who, '', el);
+    }
+  }
+
+  for (const attr of ['data-testid', 'data-test', 'data-cy', 'data-qa']) {
+    for (const el of all('[' + attr + ']')) add('hook', attr + '=' + el.getAttribute(attr), '', el);
+  }
+
+  for (const h of all('h1, h2, h3')) add('heading', text(h.innerText ?? h.textContent), '', h);
+
+  return { items, skippedButtons };
+}
