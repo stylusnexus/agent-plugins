@@ -219,6 +219,30 @@ class KeptCompare(unittest.TestCase):
         self.assertEqual(r["unmatchedDrops"], [])
         self.assertEqual(len(r["dropped"]), 2)
 
+    def test_form_drop_matches_method_and_action(self):
+        before = rec({"/": page([it("form", "POST /x")])})
+        after = rec({"/": page([])})
+        for spec in ("form:POST /x -- retired form here", "form:post /x -- retired form here"):
+            r = compare(before, after, [spec])
+            self.assertEqual(r["findings"], [], spec)
+            self.assertEqual(r["unmatchedDrops"], [], spec)
+
+    def test_form_drop_hint_round_trips(self):
+        before = rec({"/": page([it("form", "POST /subscribe")])})
+        after = rec({"/": page([])})
+        hint = compare(before, after)["findings"][0]["drop"]
+        self.assertEqual(hint, "form:POST /subscribe -- <reason>")
+        r = compare(before, after, [hint.replace("<reason>", "retired form here")])
+        self.assertEqual(r["findings"], [])
+        self.assertEqual(r["unmatchedDrops"], [])
+
+    def test_form_prefix_drop_covers_many(self):
+        before = rec({"/": page([it("form", "POST /api/a"), it("form", "POST /api/b"), it("form", "GET /c")])})
+        after = rec({"/": page([])})
+        r = compare(before, after, ["form:POST /api/* -- api forms retired"])
+        self.assertEqual([x["key"] for x in r["findings"]], ["GET /c"])
+        self.assertEqual(len(r["dropped"]), 2)
+
     def test_unmatched_drop_is_reported(self):
         before = rec({"/": page([it("href", "/a")])})
         after = rec({"/": page([it("href", "/a")])})

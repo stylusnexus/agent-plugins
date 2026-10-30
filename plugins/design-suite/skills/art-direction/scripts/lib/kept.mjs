@@ -51,7 +51,11 @@ function normDrop(drop) {
   let value = drop.value.trim();
   if (drop.kind === 'href' || drop.kind === 'form') {
     const keepSlash = drop.prefix && value.endsWith('/');
-    value = normPath(value, BASE);
+    // A form key is "<METHOD> <action>": only the action is a path.
+    const space = drop.kind === 'form' ? value.indexOf(' ') : -1;
+    if (drop.kind === 'form' && space < 0) return { ...drop, value };
+    const method = space < 0 ? '' : `${value.slice(0, space).toUpperCase()} `;
+    value = method + normPath(value.slice(space + 1), BASE);
     if (keepSlash && !value.endsWith('/')) value += '/';
   } else if (['field', 'button', 'handler', 'hook', 'heading'].includes(drop.kind)) {
     value = normText(value);
