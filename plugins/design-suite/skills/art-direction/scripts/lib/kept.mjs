@@ -44,3 +44,115 @@ export function matchesDrop(drop, item) {
   const want = `${drop.kind}:${drop.value}`;
   return drop.prefix ? item.key.startsWith(want) : item.key === want;
 }
+
+// Drop values are normalised the same way item keys are, so a pasted value still matches.
+const BASE = 'http://localhost/';
+function normDrop(drop) {
+  let value = drop.value.trim();
+  if (drop.kind === 'href' || drop.kind === 'form') {
+    const keepSlash = drop.prefix && value.endsWith('/');
+    value = normPath(value, BASE);
+    if (keepSlash && !value.endsWith('/')) value += '/';
+  } else if (['field', 'button', 'handler', 'hook', 'heading'].includes(drop.kind)) {
+    value = normText(value);
+  }
+  return { ...drop, value };
+}
+
+const withKind = (kind, key) => ({ kind, key: `${kind}:${key}` });
+const dropSpec = (d) => `${d.kind}:${d.value}${d.prefix ? '*' : ''} -- ${d.reason}`;
+
+export function compare(before, after, drops) {
+  const normDrops = drops.map(normDrop);
+  const used = new Set();
+  const findings = [];
+  const dropped = [];
+  const counts = {};
+
+  const dropFor = (kind, key) => {
+    const probe = withKind(kind, key);
+    let hit = null;
+    normDrops.forEach((d, i) => {
+      if (matchesDrop(d, probe)) {
+        used.add(i);
+        hit ??= d;
+      }
+    });
+    return hit;
+  };
+
+  const emit = (level, kind, key, page, message) => {
+    const d = dropFor(kind, key);
+    if (d) {
+      dropped.push({ kind, key, page, reason: d.reason });
+      return true;
+    }
+    findings.push({ level, kind, key, page, message, drop: `${kind}:${key} -- <reason>` });
+    return false;
+  };
+
+  const beforePages = Object.entries(before.pages ?? {});
+  if (beforePages.length === 0) {
+    findings.push({ level: 'WARN', kind: 'page', key: '*', page: '*', message: 'nothing recorded: the before record has no pages', drop: 'page:* -- <reason>' });
+  }
+
+  for (const [path, was] of beforePages) {
+    const now = after.pages?.[path];
+    const items = was.items ?? [];
+    const bump = (item, kept) => {
+      const c = (counts[item.kind] ??= { kept: 0, total: 0 });
+      c.total += 1;
+      if (kept) c.kept += 1;
+    };
+    // A drop that names a recorded item counts as used even when the item survived.
+    for (const item of items) dropFor(item.kind, item.key);
+
+    if (items.length === 0) {
+      emit('WARN', 'page', path, path, `nothing recorded on ${path}: nothing to compare, so a pass here would mean nothing`);
+    }
+    if (!now) {
+      emit('FAIL', 'page', path, path, `${path} was recorded before but is missing from the after run`);
+      for (const item of items) bump(item, false);
+      continue;
+    }
+    if (now.status >= 400) {
+      emit('FAIL', 'page', path, path, `${path} returned status ${now.status}`);
+      for (const item of items) bump(item, false);
+      continue;
+    }
+    if (now.finalPath !== was.finalPath) {
+      emit('WARN', 'page', path, path, `${path} ended on ${now.finalPath}, it ended on ${was.finalPath} before`);
+    }
+
+    const afterIndex = new Map((now.items ?? []).map((i) => [`${i.kind}:${i.key}`, i]));
+    const beforeKeys = new Set(items.map((i) => `${i.kind}:${i.key}`));
+    // Links present only after, by label, so a rewritten href is reported once as "changed".
+    const newLinks = (now.items ?? []).filter((i) => i.kind === 'href' && !beforeKeys.has(`href:${i.key}`) && i.label);
+
+    for (const item of items) {
+      const there = afterIndex.get(`${item.kind}:${item.key}`);
+      if (there) {
+        bump(item, true);
+        if (item.visible && !there.visible) {
+          emit('WARN', item.kind, item.key, path, `${item.kind} ${item.key} was visible and is now hidden`);
+        }
+        continue;
+      }
+      if (item.kind === 'href' && item.label) {
+        const at = newLinks.findIndex((n) => n.label === item.label);
+        if (at >= 0) {
+          const [moved] = newLinks.splice(at, 1);
+          emit('FAIL', 'href', item.key, path, `changed: link "${item.label}" went from ${item.key} to ${moved.key}`);
+          bump(item, false);
+          continue;
+        }
+      }
+      const level = item.kind === 'heading' ? 'WARN' : 'FAIL';
+      emit(level, item.kind, item.key, path, `${item.kind} ${item.key} is missing after`);
+      bump(item, false);
+    }
+  }
+
+  const unmatchedDrops = normDrops.flatMap((d, i) => (used.has(i) ? [] : [dropSpec(d)]));
+  return { findings, dropped, counts, unmatchedDrops };
+}
