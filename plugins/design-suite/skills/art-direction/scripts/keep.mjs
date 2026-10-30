@@ -82,9 +82,11 @@ async function run() {
         const page = await browser.newPage({ width, height: 900 });
         try {
           await page.send('Network.enable');
+          // Only the main frame's document sets the status; an iframe's response must not.
+          const mainFrame = (await page.send('Page.getFrameTree')).frameTree.frame.id;
           let status;
           browser.on(page.sessionId, 'Network.responseReceived', (p) => {
-            if (p.type === 'Document' && p.requestId === p.loaderId) status = p.response.status;
+            if (p.type === 'Document' && p.frameId === mainFrame) status = p.response.status;
           });
           await page.goto(url).catch((e) => { throw new Error(`Cannot reach ${url}: ${e.message}`); });
           if (status === undefined) throw new Error(`Cannot reach ${url}: no response`);
@@ -112,8 +114,9 @@ async function run() {
   return pages;
 }
 
-const skippedLine = (pages) => {
-  const parts = Object.entries(pages).filter(([, p]) => p.skippedButtons > 0).map(([k, p]) => `${p.skippedButtons} on ${k}`);
+const skippedLine = (pages, was) => {
+  const parts = Object.entries(pages).filter(([k, p]) => p.skippedButtons > 0 || was?.[k]?.skippedButtons > 0)
+    .map(([k, p]) => `${was ? `${was[k]?.skippedButtons ?? 0}→` : ''}${p.skippedButtons} on ${k}`);
   return parts.length ? `Skipped buttons with no accessible name (not recorded): ${parts.join(', ')}` : '';
 };
 
@@ -142,6 +145,13 @@ if (command === 'record') {
 
 const after = { version: 1, width, at: now, pages };
 const result = compare(before, after, drops);
+// Icon-only buttons are not recorded, so a drop in their number is the only sign one was lost.
+for (const [k, p] of Object.entries(pages)) {
+  const was = before.pages?.[k]?.skippedButtons ?? 0;
+  if (p.skippedButtons < was) {
+    result.findings.push({ level: 'WARN', kind: 'page', key: k, page: k, message: `buttons with no accessible name went from ${was} to ${p.skippedButtons} on ${k}: one may have been lost, and they are not recorded` });
+  }
+}
 const skippedNow = Object.fromEntries(Object.entries(pages).map(([k, p]) => [k, p.skippedButtons]));
 writeFileSync(join(outDir, 'after.json'), JSON.stringify(after, null, 2) + '\n');
 const fails = result.findings.filter((f) => f.level === 'FAIL');
@@ -158,7 +168,7 @@ if (asJson) {
   for (const d of result.dropped) console.log(`dropped ${d.kind}:${d.key} on ${d.page} -- ${d.reason}`);
   const kept = Object.entries(LABELS).filter(([k]) => result.counts[k]).map(([k, label]) => `${result.counts[k].kept}/${result.counts[k].total} ${label}`);
   console.log(kept.length ? `Kept ${kept.join(' · ')}` : 'Kept nothing to count');
-  const skipped = skippedLine(pages);
+  const skipped = skippedLine(pages, before.pages);
   if (skipped) console.log(skipped);
   console.log(NOT_CHECKED);
 }

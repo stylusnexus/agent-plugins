@@ -182,11 +182,16 @@ export function snapshot(base) {
   const shown = (el) => el.getClientRects().length > 0;
 
   const items = [];
-  const seen = new Set();
+  const seen = new Map();
   const add = (kind, key, label, el) => {
-    if (!key || seen.has(kind + ':' + key)) return;
-    seen.add(kind + ':' + key);
+    if (!key) return;
+    // The same key can appear twice (a hidden drawer copy and a visible one): visible if any copy is.
+    if (seen.has(kind + ':' + key)) {
+      if (!seen.get(kind + ':' + key).visible && shown(el)) seen.get(kind + ':' + key).visible = true;
+      return;
+    }
     const item = { kind, key, visible: shown(el) };
+    seen.set(kind + ':' + key, item);
     if (label) item.label = label;
     items.push(item);
   };
@@ -196,7 +201,7 @@ export function snapshot(base) {
   for (const a of all('a[href]')) {
     const raw = a.getAttribute('href');
     const key = path(raw);
-    add('href', key, text(a.innerText ?? a.textContent) || text(a.getAttribute('aria-label')), a);
+    add('href', key, text(a.textContent) || text(a.getAttribute('aria-label')), a);
     // A link to a spot on this same page: remember the spot it points at.
     const hash = key.indexOf('#');
     if (hash >= 0 && key.slice(0, hash) === basePage) {
@@ -224,7 +229,7 @@ export function snapshot(base) {
 
   let skippedButtons = 0;
   for (const b of all('button, [role=button], input[type=submit]')) {
-    const name = text(b.getAttribute('aria-label')) || text(b.tagName === 'INPUT' ? b.getAttribute('value') : b.innerText ?? b.textContent) || text(b.getAttribute('value'));
+    const name = text(b.getAttribute('aria-label')) || text(b.tagName === 'INPUT' ? b.getAttribute('value') : b.textContent) || text(b.getAttribute('value'));
     if (!name) { skippedButtons += 1; continue; }
     add('button', name, '', b);
   }
@@ -232,7 +237,7 @@ export function snapshot(base) {
   for (const el of all('*')) {
     for (const attr of Array.from(el.attributes)) {
       if (!/^on/i.test(attr.name)) continue;
-      const who = el.getAttribute('id') || el.getAttribute('name') || text(el.innerText ?? el.textContent).slice(0, 40);
+      const who = el.getAttribute('id') || el.getAttribute('name') || text(el.textContent).slice(0, 40);
       add('handler', attr.name.toLowerCase() + ' ' + el.tagName.toLowerCase() + '#' + who, '', el);
     }
   }
@@ -241,7 +246,7 @@ export function snapshot(base) {
     for (const el of all('[' + attr + ']')) add('hook', attr + '=' + el.getAttribute(attr), '', el);
   }
 
-  for (const h of all('h1, h2, h3')) add('heading', text(h.innerText ?? h.textContent), '', h);
+  for (const h of all('h1, h2, h3')) add('heading', text(h.textContent), '', h);
 
   return { items, skippedButtons };
 }

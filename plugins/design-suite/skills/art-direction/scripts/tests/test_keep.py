@@ -322,6 +322,26 @@ AFTER_LOST = """<!doctype html><html><head><title>Home</title></head><body>
 BLANK = "<!doctype html><html><head><title>Blank</title></head><body></body></html>"
 
 
+def serve_status(directory, status, body):
+    class Fixed(QuietHandler):
+        def do_GET(self):
+            if self.path == "/":
+                data = body.encode()
+                self.send_response(status)
+                self.send_header("content-type", "text/html")
+                self.send_header("content-length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+            else:
+                self.send_response(200)
+                self.send_header("content-length", "0")
+                self.end_headers()
+
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), Fixed)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    return server
+
+
 class QuietHandler(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *args):
         pass
@@ -483,6 +503,48 @@ class KeepCli(unittest.TestCase):
         self.assertEqual(self.record(url).returncode, 0)
         self.assertEqual(self.check(url).returncode, 0)
         self.assertEqual(list(self.profiles.iterdir()), [])
+
+    def test_iframe_status_does_not_override_main_status(self):
+        url = self.site("frame", '<!doctype html><body><a href="/a">a</a><iframe src="/missing"></iframe></body>')
+        self.assertEqual(self.record(url).returncode, 0)
+        self.assertEqual(json.loads((self.out / "before.json").read_text())["pages"]["/"]["status"], 200)
+
+    def test_main_404_with_good_iframe_fails(self):
+        good = self.site("good", '<!doctype html><body><a href="/a">a</a><iframe src="/index.html"></iframe></body>')
+        self.assertEqual(self.record(good).returncode, 0)
+        bad = self.site("bad", "<!doctype html><body></body>")
+        server = serve_status(self.tmp / "bad", 404, '<!doctype html><body><iframe src="/ok"></iframe></body>')
+        self.servers.append(server)
+        self.addCleanup(self._stop, server)
+        res = self.check(f"http://127.0.0.1:{server.server_address[1]}/")
+        self.assertEqual(res.returncode, 1, res.stderr + res.stdout)
+        self.assertEqual(json.loads((self.out / "after.json").read_text())["pages"]["/"]["status"], 404)
+
+    def test_hidden_copy_before_visible_copy_is_visible(self):
+        url = self.site("dup", '<!doctype html><body><div style="display:none"><a href="/pricing">Pricing</a></div><a href="/pricing">Pricing</a></body>')
+        self.assertEqual(self.record(url).returncode, 0)
+        items = json.loads((self.out / "before.json").read_text())["pages"]["/"]["items"]
+        self.assertEqual([i["visible"] for i in items if i["key"] == "/pricing"], [True])
+
+    def test_keys_do_not_depend_on_css(self):
+        plain = '<!doctype html><body><h1>Big news</h1><button onclick="void 0">Buy now</button></body>'
+        styled = ('<!doctype html><style>h1,button{text-transform:uppercase}</style><body><h1>Big news</h1>'
+                  '<button onclick="void 0">Buy now</button></body>')
+        hidden = '<!doctype html><body><div style="display:none"><h1>Big news</h1><button onclick="void 0">Buy now</button></div></body>'
+        self.assertEqual(self.record(self.site("plain", plain)).returncode, 0)
+        for name, html in (("styled", styled), ("hidden", hidden)):
+            res = self.check(self.site(name, html))
+            self.assertEqual(res.returncode, 0, name + res.stderr + res.stdout)
+            self.assertNotIn("FAIL", res.stdout, name)
+
+    def test_lost_icon_only_buttons_warn(self):
+        icon = "<button><svg></svg></button>"
+        self.assertEqual(self.record(self.site("three", f"<!doctype html><body><a href='/a'>a</a>{icon * 3}</body>")).returncode, 0)
+        res = self.check(self.site("one", f"<!doctype html><body><a href='/a'>a</a>{icon}</body>"))
+        self.assertEqual(res.returncode, 0, res.stderr + res.stdout)
+        self.assertIn("WARN", res.stdout)
+        self.assertIn("from 3 to 1", res.stdout)
+        self.assertIn("3→1", res.stdout)
 
     def test_usage_errors_exit_2(self):
         self.assertEqual(self.keep().returncode, 2)
