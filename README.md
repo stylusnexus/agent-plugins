@@ -418,7 +418,7 @@ brief in its own `references/` folder and runs that step inline when the agent i
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
-"install everything" is a valid choice — it's 82 skills, all inert until their trigger matches.
+"install everything" is a valid choice — it's 89 skills, all inert until their trigger matches.
 
 Pick your tool, copy the command, then open its section below for the rest.
 
@@ -495,7 +495,7 @@ writes to each one's skills directory. No marketplace step — one command does 
 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
-npx skills add stylusnexus/agent-plugins --skill '*'        # all 82 skills
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 89 skills
 ```
 
 Skills install without a pack prefix. How you call one depends on the agent: `/prove-it` in Cursor,
