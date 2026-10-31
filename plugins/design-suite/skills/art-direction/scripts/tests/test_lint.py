@@ -86,7 +86,9 @@ class LintWaivers(unittest.TestCase):
 
     def test_allow_without_value_is_usage_error(self):
         self.fixture("a.html", GRADIENT)
-        self.assertEqual(self.lint(".", "--allow").returncode, 2)
+        r = self.lint(".", "--allow")
+        self.assertEqual(r.returncode, 2)
+        self.assertIn("--allow needs a value", r.stderr)
 
     def test_unused_waiver_is_a_note(self):
         self.fixture("a.html", "<p>hello</p>\n")
@@ -145,6 +147,52 @@ class LintWaivers(unittest.TestCase):
         r = self.lint(".", "--allow", "gradient -- brand mark is a photo overlay")
         self.assertIn("(8×)", r.stdout)
         self.assertIn("… 2 more", r.stdout)
+
+    def test_all_waived_says_so_and_not_clean(self):
+        self.fixture("a.html", GRADIENT)
+        r = self.lint(".", "--allow", "gradient -- brand mark is a photo overlay")
+        self.assertIn("No un-waived findings. 1 finding(s) waived, listed below. Now run inspect.mjs on the rendered page.", r.stdout)
+        self.assertNotIn("No banned patterns in source", r.stdout)
+
+    def test_clean_source_keeps_the_clean_line(self):
+        self.fixture("a.html", "<p>hello</p>\n")
+        r = self.lint(".")
+        self.assertIn("No banned patterns in source. Now run inspect.mjs on the rendered page.", r.stdout)
+
+    def test_same_rule_twice_is_usage_error(self):
+        self.fixture("a.html", GRADIENT)
+        r = self.lint(".", "--allow", "gradient -- brand mark is a photo overlay",
+                      "--allow", "gradient -- a second reason entirely")
+        self.assertEqual(r.returncode, 2)
+        self.assertIn("rule waived twice: gradient", r.stderr)
+        self.assertEqual(r.stdout, "")
+
+    def test_waiver_for_another_rule_still_fails(self):
+        self.fixture("a.html", GRADIENT)
+        self.assertEqual(self.lint(".", "--allow", "lorem -- quoting the font specimen").returncode, 1)
+
+    def test_missing_path_with_allow_is_usage_error(self):
+        r = self.lint("nope", "--allow", "gradient -- brand mark is a photo overlay")
+        self.assertEqual(r.returncode, 2)
+        self.assertIn("Not found: nope", r.stderr)
+
+    def test_app_json_allow_together(self):
+        self.fixture("a.html", PLACEHOLDER)
+        r = self.lint(".", "--app", "--json", "--allow", "placeholder-data -- seeded demo names stay")
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertEqual(json.loads(r.stdout)["waived"][0]["id"], "placeholder-data")
+
+    def test_allow_equals_form_is_usage_error(self):
+        self.fixture("a.html", GRADIENT)
+        r = self.lint(".", "--allow=gradient -- some reason here")
+        self.assertEqual(r.returncode, 2)
+        self.assertIn("--allow", r.stderr)
+
+    def test_allow_followed_by_flag_is_usage_error(self):
+        self.fixture("a.html", GRADIENT)
+        r = self.lint(".", "--allow", "--json")
+        self.assertEqual(r.returncode, 2)
+        self.assertIn("--allow needs a value", r.stderr)
 
 
 if __name__ == "__main__":

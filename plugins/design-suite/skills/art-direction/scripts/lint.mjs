@@ -93,6 +93,8 @@ const waivers = allowSpecs.map((spec) => {
   if (reason.length < 10) usageError(`--allow: reason is under 10 characters in "${spec}"`);
   return { id, reason, findings: [] };
 });
+const twice = waivers.find((w, i) => waivers.findIndex((x) => x.id === w.id) !== i);
+if (twice) usageError(`rule waived twice: ${twice.id}`);
 
 let findings = [];
 let emDashes = 0;
@@ -141,7 +143,9 @@ if (asJson) { console.log(JSON.stringify({ files: files.length, findings, waived
 const byId = new Map();
 for (const f of findings) { const k = f.level + ' ' + f.id; if (!byId.has(k)) byId.set(k, []); byId.get(k).push(f); }
 console.log(`TASTESKILL · LINT   ${files.length} file(s)`);
-if (!findings.length) console.log('\nNo banned patterns in source. Now run inspect.mjs on the rendered page.');
+const waivedHits = waived.reduce((n, w) => n + w.count, 0);
+if (!findings.length && !waivedHits) console.log('\nNo banned patterns in source. Now run inspect.mjs on the rendered page.');
+else if (!findings.length) console.log(`\nNo un-waived findings. ${waivedHits} finding(s) waived, listed below. Now run inspect.mjs on the rendered page.`);
 for (const lvl of ['FAIL', 'WARN']) {
   const keys = [...byId.keys()].filter((k) => k.startsWith(lvl));
   if (!keys.length) continue;
