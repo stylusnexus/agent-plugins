@@ -18,7 +18,7 @@ These are AI review perspectives. They inspect your real interface and return sp
 | `mobile-design` | A flow must work on phones and small windows: touch targets, navigation, mobile forms, slow or offline networks, and web-versus-native questions. |
 | `information-architecture` | You are organising navigation, labels, taxonomy, URLs or content types, or chasing a "people cannot find X" report. |
 
-Seven Claude Code agents ship alongside, each a bounded role that reads the matching skill first: `ui-ux-lead` (the design lead), `design-ui-engineer` (implements an approved design), `dashboard-designer`, `accessibility-expert`, `mobile-design-expert`, `information-architect` and `ux-designer` (checks that users can find things, reviews changes for UX regressions, files issues). They ship as Claude Code agents in `agents/` and as Codex agents in `codex-agents/` (generated from the Claude ones, with a test that keeps them in step). The Skills CLI installs skills, not agents. Every skill works without them.
+Eight Claude Code agents ship alongside, each a bounded role that reads the matching skill first: `ui-ux-lead` (the design lead), `design-ui-engineer` (implements an approved design), `dashboard-designer`, `accessibility-expert`, `mobile-design-expert`, `information-architect`, `ux-designer` (checks that users can find things, reviews changes for UX regressions, files issues) and `direction-reviewer` (judges a built page from screenshots and the direction sheet only; pages, not app screens). They ship as Claude Code agents in `agents/` and as Codex agents in `codex-agents/` (generated from the Claude ones, with a test that keeps them in step). The Skills CLI installs skills, not agents. Every skill works without them.
 
 The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates screenshots against a UX checklist. This pack's skills are complementary: they work from the product, its code and your description rather than from a folder of screenshots, and `ux-review` can feed them findings to act on.
 
@@ -32,7 +32,7 @@ The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates scre
 |---|---|
 | `ui-ux` | The user task, flow and full state set, the heuristic review, the design brief, and the handoff |
 | `interface-polish` | Visual detail: spacing scale, radii, shadows, type, colour tokens, motion, and the state matrix. Report-only unless asked to implement |
-| `art-direction` | The visual idea and look of a page or screen: the chosen direction, type system, palette, photographs, section blueprints, and the browser inspection and look-and-fix loop |
+| `art-direction` | The visual idea and look of a page or screen: the chosen direction, type system, palette, photographs, section blueprints, the browser inspection and look-and-fix loop, and a redesign check that the new page kept the old page's links, forms and fields, with an up-front warning on framework pages whose click handlers it cannot see |
 | `accessibility-review` | WCAG 2.2 AA findings, evidence tags (verified or needs test), and the list of checks not performed. Never states that an interface is compliant |
 | `dashboard-design` | Decision-first layout, freshness and provenance, data states, thresholds, and chart and number choices |
 | `mobile-design` | Touch, narrow-width layout, input and keyboards, offline behaviour, and the web-versus-native question |
@@ -148,7 +148,7 @@ Could not verify: dark mode and 320px width (no browser available)
 
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../README.md#compatibility)
 
-> **Limits.** Claude app and ChatGPT: No local Node or Chrome to run the direction, inspect and lint scripts; the written art-direction guidance still applies to pages you describe or paste. Other agents: The scripts need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies.
+> **Limits.** Claude app and ChatGPT: No local Node or Chrome to run the direction, inspect, redesign-check and lint scripts; the written art-direction guidance still applies to pages you describe or paste. Other agents: The scripts (the inspector and the redesign check) need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies.
 
 **Use it when:** A landing page, portfolio, product page or app screen looks generic or "AI-made" and you want a deliberate, researched look.
 
@@ -298,7 +298,7 @@ Needs real users: a 5-participant tree test of the new labels. Results: MISSING 
 /plugin install design-suite@stylus-nexus
 ```
 
-Skills are namespaced: `/design-suite:ui-ux`. The seven agents install with the plugin.
+Skills are namespaced: `/design-suite:ui-ux`. The eight agents install with the plugin.
 
 ### Codex
 
@@ -319,7 +319,7 @@ cp agent-plugins/plugins/design-suite/codex-agents/*.toml ~/.codex/agents/
 
 Start a new Codex session afterwards. Each agent reads the matching skill first, so install the plugin too.
 
-Codex agent files have no tool list, so the ux-designer's no-edit rule is only a written instruction on Codex. Run it in a read-only sandbox (`codex exec -s read-only` or `codex --sandbox read-only`). If the sandbox stops the agent reaching the issue tracker, it lists what it could not do.
+Codex agent files have no tool list, so the ux-designer's no-edit rule, and the direction-reviewer's read-only rule and its rule to read only the files it is handed, are only written instructions on Codex. Run them in a read-only sandbox (`codex exec -s read-only` or `codex --sandbox read-only`). If the sandbox stops the ux-designer reaching the issue tracker, it lists what it could not do.
 
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
@@ -331,6 +331,6 @@ Skills arrive un-namespaced on this path, so most agents invoke them as `/ui-ux`
 
 ## Prerequisites
 
-None for most of the skills. `art-direction` is the exception: its draw, inspect and lint tools need Node 22+, and the inspector needs a locally installed Chrome, Edge or Chromium. Network access is needed only for the optional `assets.mjs` picture search. Python 3 is needed only for the two optional scripts: `accessibility-review/scripts/contrast.py` (WCAG contrast ratios) and `interface-polish/scripts/polish_scan.py` (a read-only scan of source files for checkable polish rules). Both use only the standard library and change no files. A browser and assistive technology are needed for the checks the skills list as "needs test"; the skills never claim those were done.
+None for most of the skills. `art-direction` is the exception: its draw, inspect, redesign-check and lint tools need Node 22+, and the inspector and the redesign check need a locally installed Chrome, Edge or Chromium. Network access is needed only for the optional `assets.mjs` picture search. Python 3 is needed only for the two optional scripts: `accessibility-review/scripts/contrast.py` (WCAG contrast ratios) and `interface-polish/scripts/polish_scan.py` (a read-only scan of source files for checkable polish rules). Both use only the standard library and change no files. A browser and assistive technology are needed for the checks the skills list as "needs test"; the skills never claim those were done.
 
 `art-direction` is a fork of [Leonxlnx's taste-skill](https://github.com/Leonxlnx/taste-skill) (MIT); see its `PROVENANCE.md` for what changed. Its draw and inspect tools write working files into a `.taste-skill/` folder in your project, and a history file under your home folder; set `TASTE_SKILL_HISTORY` to put the history file somewhere else.

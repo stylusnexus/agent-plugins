@@ -5,7 +5,7 @@ Art direction for websites and app screens, forked from Leonxlnx's taste-skill v
 
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../../../README.md#compatibility) [![Other agents: partial](https://img.shields.io/badge/Other%20agents-%E2%97%90-yellow)](../../../../README.md#compatibility)
 
-> **Limits.** Claude app and ChatGPT: No local Node or Chrome to run the direction, inspect and lint scripts; the written art-direction guidance still applies to pages you describe or paste. Other agents: The scripts need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies.
+> **Limits.** Claude app and ChatGPT: No local Node or Chrome to run the direction, inspect, redesign-check and lint scripts; the written art-direction guidance still applies to pages you describe or paste. Other agents: The scripts (the inspector and the redesign check) need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies.
 
 Part of the [design-suite](../../README.md) pack.
 
@@ -83,7 +83,7 @@ npx skills add stylusnexus/agent-plugins --skill art-direction
 
 Skills arrive without a pack prefix: `/art-direction` in most agents and `@art-direction` in Windsurf. opencode shows `/art-direction` only when the skill sets an opencode-specific metadata field, and Gemini CLI starts a skill itself after you approve it.
 
-**Limit:** The scripts need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies.
+**Limit:** The scripts (the inspector and the redesign check) need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies.
 
 </details>
 
@@ -100,7 +100,7 @@ mkdir -p .agents/skills
 cp -R agent-plugins/plugins/design-suite/skills/art-direction .agents/skills/
 ```
 
-**Limit:** The scripts need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies.
+**Limit:** The scripts (the inspector and the redesign check) need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies.
 
 </details>
 
@@ -118,7 +118,7 @@ cp -R agent-plugins/plugins/design-suite/skills/art-direction .agents/skills/
 
 3. In Claude, open **Customize > Skills**, click **+**, then **+ Create skill**, choose **Upload a skill** and pick `art-direction.zip`.
 
-**Limit:** No local Node or Chrome to run the direction, inspect and lint scripts; the written art-direction guidance still applies to pages you describe or paste.
+**Limit:** No local Node or Chrome to run the direction, inspect, redesign-check and lint scripts; the written art-direction guidance still applies to pages you describe or paste.
 
 </details>
 
@@ -127,7 +127,7 @@ cp -R agent-plugins/plugins/design-suite/skills/art-direction .agents/skills/
 
 ChatGPT gets this skill through the Codex plugin, which brings the whole design-suite pack. Run the two Codex commands above, then in ChatGPT type `@` and the skill name.
 
-**Limit:** No local Node or Chrome to run the direction, inspect and lint scripts; the written art-direction guidance still applies to pages you describe or paste.
+**Limit:** No local Node or Chrome to run the direction, inspect, redesign-check and lint scripts; the written art-direction guidance still applies to pages you describe or paste.
 
 </details>
 <!-- skill-readme:end -->
