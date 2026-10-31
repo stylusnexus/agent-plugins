@@ -39,17 +39,23 @@ class DirectionReviewer(unittest.TestCase):
     def test_reads_manifest_first_then_in_order(self):
         low = self.body.lower()
         work = low[low.index("## order of work"):]
-        pos = [work.index(x) for x in ("files.md", "screenshot", "five-second", "claim.md", "packet.md")]
+        pos = [work.index(x) for x in ("files.md", "screenshot", "five-second", "claim.md", "packet.md", "laws.md")]
         self.assertEqual(pos, sorted(pos))
+        order = work[work.index("1. read `files.md`"):work.index("re-review:")]
+        steps = [order.index(x) for x in ("1. read `files.md`", "2. then read `claim.md`", "3. judge")]
+        self.assertEqual(steps, sorted(steps))
+        self.assertLess(order.index("`claim.md`"), order.index("`packet.md`"))
+        self.assertLess(order.index("`packet.md`"), order.index("`laws.md`"))
+        self.assertLess(order.index("`laws.md`"), order.index("`earlier-findings.md`"))
         self.assertIn("`files.md` is missing, say so and stop", low)
+
+    def test_earlier_findings_read_in_finish_and_re_review(self):
+        low = self.body.lower()
+        self.assertIn("finish mode and any re-review also hold `earlier-findings.md`", low)
+        self.assertNotIn("finish mode also holds", low)
 
     def test_no_private_terms_in_whole_file(self):
         low = AGENT.read_text().lower()
-        for term in ("critforge", "stylus", "company os", "founder", "/users/", "/applications/", "~/"):
-            self.assertNotIn(term, low)
-
-    def test_body_has_no_private_terms(self):
-        low = self.body.lower()
         for term in ("critforge", "stylus", "company os", "founder", "/users/", "/applications/", "~/"):
             self.assertNotIn(term, low)
 
@@ -68,9 +74,22 @@ class ReviewWiring(unittest.TestCase):
         self.assertTrue(ref.is_file())
         text = ref.read_text()
         for phrase in ("kind: page", "claim.md", "replies.md", ".taste-skill/review/", "fix first", "disputed",
-                       "withheld", "inspect.mjs", "files.md", "laws.md", "findings.md", "earlier-findings.md", "before-",
+                       "withheld", "inspect.mjs", "files.md", "laws.md", "earlier-findings.md", "before-",
                        "scope: re-review", "#153"):
             self.assertIn(phrase, text)
+        self.assertIn("saves its reply as `.taste-skill/review/<n>/findings.md`", text)
+        self.assertIn("findings.md", text.replace("earlier-findings.md", ""))
+
+    def test_checkpoints_sit_between_the_right_steps(self):
+        text = (AD / "SKILL.md").read_text()
+        idx = {n: text.index(f"### {n}. ") for n in (6, 7, 8, 9, 10)}
+        hero = text.index("**Hero checkpoint (pages only):**")
+        finish = text.index("**Finish checkpoint (pages only).**")
+        self.assertTrue(idx[6] < hero < idx[7])
+        self.assertTrue(idx[8] < finish < idx[9])
+        checklist = [l for l in text[idx[10]:].splitlines() if l.startswith("- Pages:")]
+        self.assertEqual(len(checklist), 1)
+        self.assertIn("replies.md", checklist[0])
 
     def test_app_screens_are_not_wired(self):
         self.assertNotIn("direction-reviewer", (AD / "references" / "app-screens.md").read_text())
