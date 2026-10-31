@@ -2,13 +2,30 @@
 // tasteskill / lint — static scan of source files for the tells this skill bans.
 // Catches them before a render, plus the ones a render cannot see (copy habits, motion values).
 //
-//   node lint.mjs [files or directories ...] [--app] [--json]
+//   node lint.mjs [files or directories ...] [--app] [--json] [--allow "<rule> -- <reason>"]...
 //
-// Exit code 1 when any FAIL is found. Zero dependencies.
+// --allow waives one rule, at both levels, for this run. The rule must be one lint.mjs knows and the reason
+// at least 10 characters. Waived findings do not count toward the exit code; the report lists them under
+// WAIVED with the reason, and a waiver that matched nothing is noted, not failed.
+// Exit code 1 when any un-waived FAIL is found. Exit code 2 = usage error (bad flag, missing path). Zero dependencies.
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, extname, relative, resolve } from 'node:path';
 
-const args = process.argv.slice(2);
+const USAGE = 'usage: node lint.mjs [files or directories ...] [--app] [--json] [--allow "<rule> -- <reason>"]...';
+const usageError = (msg) => { console.error(msg + '\n' + USAGE); process.exit(2); };
+// --allow consumes the argument after it, so its value is never read as a path.
+const args = []; const allowSpecs = [];
+{
+  const raw = process.argv.slice(2);
+  for (let i = 0; i < raw.length; i++) {
+    if (raw[i] === '--allow') {
+      const v = raw[++i];
+      if (v === undefined || v.startsWith('--')) usageError('--allow needs a value');
+      allowSpecs.push(v);
+    } else if (raw[i].startsWith('--allow=')) usageError('--allow takes its value as the next argument');
+    else args.push(raw[i]);
+  }
+}
 const asJson = args.includes('--json');
 // App screens (references/app-screens.md) keep quiet table and panel lines, faint shadows, data labels
 // and their own typefaces; a sheet dealt with draw.mjs --app switches this on by itself.
@@ -65,7 +82,19 @@ if (appMode) {
   R.push(['WARN', 'framework-colour', /#(3b82f6|2563eb|1d4ed8|60a5fa|10b981|22c55e|ef4444|f59e0b)\b/i, 'A framework default colour (Tailwind blue, green, red, amber). Take the accent and status colours from the dealt style.']);
 }
 
-const findings = [];
+// Waivers: "<rule> -- <reason>", split at the first " -- ". Checked before any file is read.
+const validIds = [...new Set([...R.map((r) => r[1]), 'em-dash'])];
+const waivers = allowSpecs.map((spec) => {
+  const at = spec.indexOf(' -- ');
+  if (at < 0) usageError(`--allow: missing " -- " in "${spec}"`);
+  const id = spec.slice(0, at).trim();
+  const reason = spec.slice(at + 4).trim();
+  if (!validIds.includes(id)) usageError(`--allow: unknown rule "${id}" in "${spec}". Valid rules: ${validIds.join(', ')}`);
+  if (reason.length < 10) usageError(`--allow: reason is under 10 characters in "${spec}"`);
+  return { id, reason, findings: [] };
+});
+
+let findings = [];
 let emDashes = 0;
 for (const file of files) {
   const rel = relative(process.cwd(), file).split('\\').join('/');
@@ -96,7 +125,18 @@ for (const file of files) {
 }
 if (emDashes > 4) findings.push({ level: 'WARN', id: 'em-dash', file: '(all files)', line: 0, match: `${emDashes} em dashes`, message: 'Em-dash habit. Use a full stop or a comma; keep at most one or two on a page.' });
 
-if (asJson) { console.log(JSON.stringify({ files: files.length, findings }, null, 1)); process.exit(findings.some((f) => f.level === 'FAIL') ? 1 : 0); }
+// A waiver covers every finding with its id, at both levels.
+if (waivers.length) {
+  const kept = [];
+  for (const f of findings) {
+    const w = waivers.filter((x) => x.id === f.id);
+    if (w.length) w.forEach((x) => x.findings.push(f)); else kept.push(f);
+  }
+  findings = kept;
+}
+const waived = waivers.map((w) => ({ id: w.id, reason: w.reason, count: w.findings.length, findings: w.findings }));
+
+if (asJson) { console.log(JSON.stringify({ files: files.length, findings, waived }, null, 1)); process.exit(findings.some((f) => f.level === 'FAIL') ? 1 : 0); }
 
 const byId = new Map();
 for (const f of findings) { const k = f.level + ' ' + f.id; if (!byId.has(k)) byId.set(k, []); byId.get(k).push(f); }
@@ -113,7 +153,16 @@ for (const lvl of ['FAIL', 'WARN']) {
     if (list.length > 6) console.log(`      … ${list.length - 6} more`);
   }
 }
+if (waived.length) {
+  console.log('\nWAIVED');
+  for (const w of waived) {
+    if (!w.count) { console.log(`  [${w.id}] waiver matched nothing: ${w.reason}`); continue; }
+    console.log(`  [${w.id}] ${w.reason}  (${w.count}×)`);
+    for (const f of w.findings.slice(0, 6)) console.log(`      ${f.file}:${f.line}  ${f.match}`);
+    if (w.count > 6) console.log(`      … ${w.count - 6} more`);
+  }
+}
 const fails = findings.filter((f) => f.level === 'FAIL').length;
 console.log(`\nRESULT: ${fails} FAIL, ${findings.length - fails} WARN${fails ? ' — fix the FAILs before rendering.' : ''}`);
-console.log('Interface fragments marked data-ui keep their own borders and shadows. Any other line that must keep a flagged pattern for a real reason can carry the comment taste-skill-ignore.');
+console.log('Interface fragments marked data-ui keep their own borders and shadows. Any other line that must keep a flagged pattern for a real reason can carry the comment taste-skill-ignore, or a rule that does not apply can be waived with --allow "<rule> -- <reason>".');
 process.exit(fails ? 1 : 0);

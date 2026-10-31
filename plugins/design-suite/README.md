@@ -32,7 +32,7 @@ The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates scre
 |---|---|
 | `ui-ux` | The user task, flow and full state set, the heuristic review, the design brief, and the handoff |
 | `interface-polish` | Visual detail: spacing scale, radii, shadows, type, colour tokens, motion, and the state matrix. Report-only unless asked to implement |
-| `art-direction` | The visual idea and look of a page or screen: the chosen direction, type system, palette, photographs, section blueprints, the browser inspection and look-and-fix loop, and a redesign check that the new page kept the old page's links, forms and fields, with an up-front warning on framework pages whose click handlers it cannot see |
+| `art-direction` | The visual idea and look of a page or screen: the chosen direction, type system, palette, photographs, section blueprints, the browser inspection and look-and-fix loop, a source lint whose rules can be waived with a recorded reason, and a redesign check that the new page kept the old page's links, forms and fields, with an up-front warning on framework pages whose click handlers it cannot see |
 | `accessibility-review` | WCAG 2.2 AA findings, evidence tags (verified or needs test), and the list of checks not performed. Never states that an interface is compliant |
 | `dashboard-design` | Decision-first layout, freshness and provenance, data states, thresholds, and chart and number choices |
 | `mobile-design` | Touch, narrow-width layout, input and keyboards, offline behaviour, and the web-versus-native question |

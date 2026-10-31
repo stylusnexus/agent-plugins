@@ -13,6 +13,7 @@
 - Working folder names such as `.taste-skill/` and the `TASTE_SKILL_HISTORY` setting are upstream's and are unchanged.
 - `scripts/lib/cdp.mjs`: the four macOS browser paths (Chrome, Chromium, Edge, Brave) are built with `join('/', 'Applications', ...)` instead of written as one string, because this repository's private-terms check bans the literal macOS applications-folder prefix. The paths are the standard install locations and are unchanged.
 - `references/imagery.md`: one `<video>` code sample that wrapped over three lines is joined onto one line, so the link checker does not read its `src` as a relative link. Wording is unchanged.
+- `scripts/lint.mjs`: a repeatable `--allow "<rule> -- <reason>"` flag waives one lint rule, with a recorded reason, and the report lists each waiver. The idea of waivers with reasons comes from Hallmark (https://github.com/Nutlope/hallmark, MIT). Ideas only; no Hallmark code was taken.
 - Nothing else in the engine is touched.
 
 ## Added here, not upstream

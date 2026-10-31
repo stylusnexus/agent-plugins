@@ -329,7 +329,9 @@ node <skill>/scripts/scenes.mjs <url or path/to/index.html>     # when the page 
 and the reduced-motion page; with scenes on the sheet, `inspect.mjs` also films the whole scroll
 (`desktop-film-NN.jpg`). A scene that never started or rests on desktop is a `FAIL`.
 
-`lint.mjs` scans source for banned patterns and stock phrases. `inspect.mjs` opens the page in a real
+`lint.mjs` scans source for banned patterns and stock phrases. A lint rule that truly does not apply can be
+waived with `--allow "<rule> -- <reason>"`; the report lists every waiver. The inspector's measured `FAIL`s
+cannot be waived. `inspect.mjs` opens the page in a real
 browser at 1440, 768 and 390 pixels, measures it (headline line counts, type sizes, fonts actually
 loaded, colours, rules, shadows, gradients, contrast, overflow, and the frame: equal margins, sections
 huddled on one side, blank stretches, the title, untitled sections, text against the screen edge) and
@@ -392,7 +394,8 @@ sentence and the live thing; the final scores from your last critique round and 
 Pages: every reviewer finding with its reply (fixed or disputed);
 every found picture and clip with its title, creator, licence and source page (`assets.mjs --credits` prints
 the list) and where its credit sits on the page; which bundled photographs and which drawings stand in
-for photography (so they can be replaced); and any sample content that must be swapped before launch.
+for photography (so they can be replaced); any lint rule waived, with its reason; and any sample content
+that must be swapped before launch.
 Do not claim a check you did not run.
 
 ## House rules
