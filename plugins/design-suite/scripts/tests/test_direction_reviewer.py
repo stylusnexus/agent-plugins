@@ -32,8 +32,21 @@ class DirectionReviewer(unittest.TestCase):
         low = self.body.lower()
         for phrase in ("kind: page", "app screens not covered in v1", "no problems seen", "unable to verify",
                        "taste notes", "at most 7", "read only the review folder", "claim.md", "five-second",
-                       "blocks", "weakens", "old page did better", "not shown", "do not read source", "hero", "finish"):
+                       "blocks", "weakens", "old page did better", "not shown", "do not read source", "hero", "finish",
+                       "files.md", "laws.md", "scope: re-review", "fix first", "earlier-findings.md"):
             self.assertIn(phrase, low)
+
+    def test_reads_manifest_first_then_in_order(self):
+        low = self.body.lower()
+        work = low[low.index("## order of work"):]
+        pos = [work.index(x) for x in ("files.md", "screenshot", "five-second", "claim.md", "packet.md")]
+        self.assertEqual(pos, sorted(pos))
+        self.assertIn("`files.md` is missing, say so and stop", low)
+
+    def test_no_private_terms_in_whole_file(self):
+        low = AGENT.read_text().lower()
+        for term in ("critforge", "stylus", "company os", "founder", "/users/", "/applications/", "~/"):
+            self.assertNotIn(term, low)
 
     def test_body_has_no_private_terms(self):
         low = self.body.lower()
@@ -55,7 +68,8 @@ class ReviewWiring(unittest.TestCase):
         self.assertTrue(ref.is_file())
         text = ref.read_text()
         for phrase in ("kind: page", "claim.md", "replies.md", ".taste-skill/review/", "fix first", "disputed",
-                       "withheld", "inspect.mjs"):
+                       "withheld", "inspect.mjs", "files.md", "laws.md", "findings.md", "earlier-findings.md", "before-",
+                       "scope: re-review", "#153"):
             self.assertIn(phrase, text)
 
     def test_app_screens_are_not_wired(self):
