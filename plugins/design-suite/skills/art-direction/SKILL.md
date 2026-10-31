@@ -388,7 +388,7 @@ Do not report until all of these are true; each one was skipped in a test run th
 - Pages: every reviewer finding has a reply in `replies.md`.
 
 Tell the user, briefly: the direction dealt (name and seed) and any redraws with reasons; the idea
-sentence and the live thing; the final scores from your last critique round and what still falls short;
+sentence and the live thing; every reviewer finding with its reply (fixed or disputed); the final scores from your last critique round and what still falls short;
 every found picture and clip with its title, creator, licence and source page (`assets.mjs --credits` prints
 the list) and where its credit sits on the page; which bundled photographs and which drawings stand in
 for photography (so they can be replaced); and any sample content that must be swapped before launch.

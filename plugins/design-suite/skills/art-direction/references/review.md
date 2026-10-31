@@ -37,7 +37,7 @@ does not go in.
 | File | Where it comes from |
 | --- | --- |
 | `packet.md` | The sheet as text, copied from the `direction.json` that `draw.mjs` wrote into its `--out` folder: direction id and one-line rationale; section order with each section's composition; type roles and sizes; palette as proportions; component rules for buttons, nav and footer; the `--have` assets. Then the number of redraws and which slots, and whether `--keep palette,type` was used. The first line is `kind: page`. |
-| `claim.md` | The user's request verbatim, then the sheet's rationale line. The reviewer reads it last, after it has written its five-second read of the screenshots. |
+| `claim.md` | The user's request verbatim, then the sheet's rationale line. The reviewer reads it after it has written its five-second read of the screenshots and before `packet.md`. |
 | screenshots | Copied from `.taste-skill/inspect/`, which `inspect.mjs` writes: `desktop-fold.jpg`, `tablet-fold.jpg`, `mobile-fold.jpg` and the full-page sheets `desktop-page-NN.jpg`, `tablet-page-NN.jpg`, `mobile-page-NN.jpg`. Add scene frames only when the sheet deals scroll scenes. |
 | old-page screenshots | Redesigns only: the before shots at 1440 and 390, copied from the before folder named in the redesign steps. |
 | `report.json` | Redesigns only: the `.taste-skill/kept/report.json` that `keep.mjs` wrote. Its `dropped` list is the declared drops, so the reviewer does not flag them. |
