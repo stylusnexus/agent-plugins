@@ -17,6 +17,7 @@
 
 ## Added here, not upstream
 - `scripts/keep.mjs`, `scripts/lib/kept.mjs` and `scripts/tests/test_keep.py`: the redesign "kept" check, which records the links, forms, fields, buttons and headings of a page before a redesign and reports what the redesign lost. The idea comes from the redesign check in Hallmark (https://github.com/Nutlope/hallmark, MIT). Ideas only; no Hallmark code was taken.
+- `references/review.md` and the hero and finish checkpoints in `SKILL.md` (steps 6 and 8, the step 10 checklist line, the Files list), with the `direction-reviewer` agent: a reviewer that sees only screenshots and the written sheet. The idea of isolating the reviewer comes from Hallmark (https://github.com/Nutlope/hallmark, MIT). Ideas only; no Hallmark code was taken.
 
 ## Hashes
 Unpatched upstream (identical at `a9c73c3` and `6010f91`):

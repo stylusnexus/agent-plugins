@@ -5,6 +5,7 @@ from pathlib import Path
 
 PACK = Path(__file__).resolve().parents[2]
 AGENT = PACK / "agents" / "direction-reviewer.md"
+AD = PACK / "skills" / "art-direction"
 
 
 def split(text):
@@ -41,6 +42,24 @@ class DirectionReviewer(unittest.TestCase):
 
     def test_codex_twin_exists(self):
         self.assertTrue((PACK / "codex-agents" / "direction-reviewer.toml").is_file())
+
+
+class ReviewWiring(unittest.TestCase):
+    def test_skill_points_at_reviewer_and_packet_reference(self):
+        text = (AD / "SKILL.md").read_text()
+        self.assertIn("direction-reviewer", text)
+        self.assertIn("references/review.md", text)
+
+    def test_review_reference_has_packet_contract(self):
+        ref = AD / "references" / "review.md"
+        self.assertTrue(ref.is_file())
+        text = ref.read_text()
+        for phrase in ("kind: page", "claim.md", "replies.md", ".taste-skill/review/", "fix first", "disputed",
+                       "withheld", "inspect.mjs"):
+            self.assertIn(phrase, text)
+
+    def test_app_screens_are_not_wired(self):
+        self.assertNotIn("direction-reviewer", (AD / "references" / "app-screens.md").read_text())
 
 
 if __name__ == "__main__":
