@@ -18,7 +18,8 @@
 //
 // What it sees: the page after load, as a visitor's browser builds it. What it does not see: handlers
 // attached by scripts (framework event handlers), logins, state after interaction. Buttons with no
-// accessible name are counted and not recorded. Zero dependencies: drives an installed Chrome. Node 22+.
+// accessible name are counted and not recorded. A React, Vue or Angular page gets a warning at the top
+// of the check report, since a pass cannot show its script-wired clicks survived. Zero dependencies: drives an installed Chrome. Node 22+.
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 import { Browser, sleep } from './lib/cdp.mjs';
@@ -102,6 +103,7 @@ async function run() {
         finalPath: pageKey(got.href),
         status: got.status,
         skippedButtons: got.snap.skippedButtons,
+        framework: got.snap.framework,
         items: got.snap.items,
       };
     }
@@ -157,7 +159,12 @@ const skippedNow = Object.fromEntries(Object.entries(pages).map(([k, p]) => [k, 
 writeFileSync(join(outDir, 'after.json'), JSON.stringify(after, null, 2) + '\n');
 const fails = result.findings.filter((f) => f.level === 'FAIL');
 const warns = result.findings.filter((f) => f.level === 'WARN');
-const report = { at: now, urls, ...result, skippedButtons: skippedNow, notChecked: NOT_CHECKED };
+// A pass cannot show that script-wired clicks and submits survived, so say so before any result.
+const scripted = Object.entries(pages).filter(([, p]) => p.framework).map(([k, p]) => `${k} (${p.framework})`);
+const frameworkWarning = scripted.length
+  ? `WARN built with a script framework: ${scripted.join(', ')}. Clicks and submits are wired by script, which this check cannot see, so a pass does not prove the buttons still work. Click the main buttons and forms, or run the project's own tests.`
+  : '';
+const report = { at: now, urls, ...result, skippedButtons: skippedNow, frameworkWarning, notChecked: NOT_CHECKED };
 writeFileSync(join(outDir, 'report.json'), JSON.stringify(report, null, 2) + '\n');
 
 if (asJson) {
@@ -165,6 +172,7 @@ if (asJson) {
 } else {
   // Single-quoted so a shell leaves "$", backticks and double quotes alone.
   const hint = (f) => `--drop '${f.drop.replace(/'/g, `'\\''`)}'`;
+  if (frameworkWarning) console.log(frameworkWarning);
   for (const f of fails) console.log(`FAIL ${f.page}: ${f.message}\n     to accept this loss: ${hint(f)}`);
   for (const u of result.unmatchedDrops) console.log(`FAIL --drop matched nothing: "${u}" (check the spelling against the record)`);
   for (const f of warns) console.log(`WARN ${f.page}: ${f.message}${f.drop ? `\n     to accept this: ${hint(f)}` : ''}`);

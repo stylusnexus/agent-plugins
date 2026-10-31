@@ -506,7 +506,7 @@ asset, say so in the report, and pass `--allow <rule>` to the inspector for that
    run `node <skill>/scripts/keep.mjs check <url>` with every URL you recorded (a page left out is a
    FAIL), and report the before and after measurements side by side. Anything dropped on purpose goes
    in with `--drop "<kind>:<value> -- <reason>"` (copy it from the FAIL line) and is listed in the report; the report also says handlers
-   attached by scripts were not checked, so click those through yourself.
+   attached by scripts were not checked (it warns first on React, Vue and Angular pages), so click those through yourself.
 
 **A component or a single section, not a page.** Skip the draw unless there is no direction to follow.
 Match the surrounding design, apply the house rules and the laws, and still inspect the result.

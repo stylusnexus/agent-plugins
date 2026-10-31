@@ -254,5 +254,13 @@ export function snapshot(base) {
 
   for (const h of all('h1, h2, h3')) add('heading', text(h.textContent), '', h);
 
-  return { items, skippedButtons };
+  // Frameworks wire clicks and submits from script, which the items above cannot show.
+  const roots = Array.from(document.querySelectorAll('body, body > *, #root, #app, #__next, #__nuxt'));
+  const owns = (el, re) => Object.keys(el).some((k) => re.test(k));
+  let framework = '';
+  if (roots.some((el) => owns(el, /^(__reactContainer\$|_reactRootContainer)/)) || document.querySelectorAll('#__next, [data-reactroot]').length) framework = 'React';
+  else if (roots.some((el) => el.__vue_app__) || document.querySelectorAll('[data-v-app], #__nuxt').length) framework = 'Vue';
+  else if (document.querySelectorAll('[ng-version]').length) framework = 'Angular';
+
+  return { items, skippedButtons, framework };
 }

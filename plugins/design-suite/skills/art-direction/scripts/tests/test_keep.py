@@ -299,7 +299,7 @@ class KeepSnapshot(unittest.TestCase):
             "console.log(JSON.stringify(vm.runInNewContext(src, ctx)));"
         )
         out = json.loads(run_node(code))
-        self.assertEqual(out, {"items": [], "skippedButtons": 0})
+        self.assertEqual(out, {"items": [], "skippedButtons": 0, "framework": ""})
 
     def test_snapshot_inlined_helpers_match_exports(self):
         code = r"""
@@ -664,6 +664,24 @@ class KeepCli(unittest.TestCase):
         self.assertEqual(res.returncode, 0, res.stderr + res.stdout)
         items = json.loads((self.out / "before.json").read_text())["pages"]["/"]["items"]
         self.assertTrue(any(i["kind"] == "form" for i in items))
+
+    def test_framework_page_gets_a_warning_before_any_result(self):
+        html = '<!doctype html><meta charset="utf-8"><body><div id="__next"><button>Save</button></div></body>'
+        url = self.site("next", html)
+        self.assertEqual(self.record(url).returncode, 0)
+        res = self.check(url)
+        self.assertEqual(res.returncode, 0, res.stderr + res.stdout)
+        self.assertTrue(res.stdout.startswith("WARN built with a script framework: / (React)"), res.stdout)
+        self.assertIn("does not prove the buttons still work", res.stdout)
+        report = json.loads((self.out / "report.json").read_text())
+        self.assertIn("(React)", report["frameworkWarning"])
+
+    def test_plain_page_gets_no_framework_warning(self):
+        url = self.site("plain", BEFORE)
+        self.assertEqual(self.record(url).returncode, 0)
+        res = self.check(url)
+        self.assertNotIn("script framework", res.stdout)
+        self.assertEqual(json.loads((self.out / "report.json").read_text())["frameworkWarning"], "")
 
     def test_usage_errors_exit_2(self):
         self.assertEqual(self.keep().returncode, 2)
