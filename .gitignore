@@ -3,3 +3,6 @@
 scripts/private-terms.local.txt
 __pycache__/
 *.code-workspace
+
+# Local design specs and plans
+/docs/
