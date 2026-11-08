@@ -9,13 +9,15 @@ The design lead is the entry point. Bring in only the specialists the problem ne
 | Navigation, menus, labels, grouping, "can't find X" | Information architect (/information-architecture) | Task list, current structure, content inventory | Sitemap or hierarchy, taxonomy, task paths |
 | Dashboard, console, metrics, status summary | Dashboard designer (/dashboard-design) | Decisions supported, data sources with owners | Layout by decision, state and freshness design |
 | Phone, touch, responsive, offline, forms on small screens | Mobile design expert (/mobile-design) | Target devices if known, flows, current breakpoints | Mobile states, responsive rules |
+| iOS, iPadOS, macOS or watchOS screens that should follow Apple conventions | Apple design expert (/apple-platform-design) | Platforms, minimum OS, UI framework, screens or code | Findings by guideline area, fixes, checks not performed |
+| Android screens that should follow Material 3 and platform behaviour | Android design expert (/android-platform-design) | Minimum API level, window sizes, UI toolkit, screens or code | Findings by guideline area, fixes, checks not performed |
 | Keyboard, screen reader, contrast, target size, motion | Accessibility expert (/accessibility-review) | Screens or code, the states, interaction notes | Barriers with remediations and which need testing |
 | Can users find this? Did this change bury or move something? Second opinion on placement | UX designer (ux-designer) | Diff or PR, screenshots, the task the user is doing | Findings with evidence, regressions, issues filed or linked |
 | Approved design to build | design-ui-engineer | Handoff package below | Changed files, validation, unresolved requirements |
 | Typography, surfaces, micro-interactions on a settled design | /interface-polish | Screens and tokens in use | Refinements within the existing system |
 | A new look, a substantial redesign, or "this looks generic" | /art-direction | Brief, brand constraints, what imagery exists | A chosen direction, a built page or screen, and measured inspector results |
 
-Dashboard design and information architecture may collaborate briefly on dense information. Accessibility and mobile are focused services; unresolved choices come back to the lead.
+Dashboard design and information architecture may collaborate briefly on dense information. Accessibility, mobile and the two platform skills are focused services; unresolved choices come back to the lead.
 
 ## Handoff package for design-ui-engineer
 

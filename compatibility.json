@@ -110,6 +110,30 @@
         "level": "full"
       }
     },
+    "android-platform-design": {
+      "pack": "design-suite",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Optional cross-references to other pack skills need the whole pack."
+      }
+    },
     "api-design": {
       "pack": "ship-pipeline",
       "claude": {
@@ -132,6 +156,30 @@
       },
       "other": {
         "level": "full"
+      }
+    },
+    "apple-platform-design": {
+      "pack": "design-suite",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Optional cross-references to other pack skills need the whole pack."
       }
     },
     "art-direction": {
