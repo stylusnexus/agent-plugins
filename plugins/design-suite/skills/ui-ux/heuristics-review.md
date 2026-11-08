@@ -34,6 +34,7 @@ Heading names follow the widely used ten usability heuristics (Nielsen Norman Gr
 - Accessibility: hand to the accessibility expert; note suspected issues only (focus order, contrast, name/role/value, target size) and mark them as needing browser or assistive-technology confirmation.
 - Content states: run the full state set from flow-and-states.md.
 - Mobile: touch and reflow checks from mobile-design.
+- Native Apple or Android app: platform checks from apple-platform-design or android-platform-design.
 - Data views: freshness and provenance checks from dashboard-design.
 
 ## Output

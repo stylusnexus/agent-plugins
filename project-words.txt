@@ -466,3 +466,12 @@ upsells
 vantablack
 vero
 wordmark
+foldables
+glanceability
+glanceable
+snackbars
+talkback
+resizability
+recents
+Jetpack
+subheadline

@@ -1,6 +1,6 @@
 ---
 name: ui-ux
-description: "Use when the user asks to design, review, critique or improve a product interface, user flow, screen states, error handling, navigation, layout, or interaction, or wants a design brief or a handoff to implementation. Entry point for the design suite: frames the user task, then routes to dashboard, mobile, information-architecture, accessibility or implementation roles."
+description: "Use when the user asks to design, review, critique or improve a product interface, user flow, screen states, error handling, navigation, layout, or interaction, or wants a design brief or a handoff to implementation. Entry point for the design suite: frames the user task, then routes to dashboard, mobile, Apple or Android platform, information-architecture, accessibility or implementation roles."
 ---
 
 # UI/UX design lead
@@ -14,7 +14,7 @@ Help the product owner shape an interface around a real user task. Inspect the c
 - A "this feels confusing" signal that needs turning into a checkable review.
 - Deciding which specialist role to involve (see `handoff.md`).
 
-Not for: pure data displays (use dashboard-design), pure navigation or labels (information-architecture), small-screen specifics (mobile-design). Involve them from here when needed.
+Not for: pure data displays (use dashboard-design), pure navigation or labels (information-architecture), small-screen specifics (mobile-design), Apple platform conventions (apple-platform-design), Android and Material conventions (android-platform-design). Involve them from here when needed.
 
 ## Workflow
 

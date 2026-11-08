@@ -1,6 +1,6 @@
 # Design Suite
 
-A design lead plus six focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), art direction for websites and app screens, accessibility review against WCAG 2.2, dashboards, mobile and responsive design, and information architecture.
+A design lead plus eight focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), art direction for websites and app screens, accessibility review against WCAG 2.2, dashboards, mobile and responsive design, Apple and Android platform conventions, and information architecture.
 
 These are AI review perspectives. They inspect your real interface and return specific, checkable findings, but they are not user research, an accessibility audit, or a stand-in for testing with real people. Every skill labels its output as expert review and lists the checks that still need real users, a browser, or assistive technology.
 
@@ -16,9 +16,11 @@ These are AI review perspectives. They inspect your real interface and return sp
 | `accessibility-review` | You want a keyboard, screen-reader, contrast, reflow, target-size or motion review against WCAG 2.2 AA, with prioritised findings and fixes. |
 | `dashboard-design` | You are designing or fixing a dashboard, console, status view, or data-heavy screen, including stale, missing and partial data. |
 | `mobile-design` | A flow must work on phones and small windows: touch targets, navigation, mobile forms, slow or offline networks, and web-versus-native questions. |
+| `apple-platform-design` | A screen ships on iOS, iPadOS, macOS or watchOS and must follow Apple conventions: tab bars and sheets, Dynamic Type, SF Symbols, safe areas, haptics, the Mac menu bar, VoiceOver and Reduce Motion handling. |
+| `android-platform-design` | A screen ships on Android and must follow Material 3 and platform behaviour: navigation bar, rail and drawer by window size, edge-to-edge, predictive back, dynamic color, 48dp targets, TalkBack and font scaling. |
 | `information-architecture` | You are organising navigation, labels, taxonomy, URLs or content types, or chasing a "people cannot find X" report. |
 
-Eight Claude Code agents ship alongside, each a bounded role that reads the matching skill first: `ui-ux-lead` (the design lead), `design-ui-engineer` (implements an approved design), `dashboard-designer`, `accessibility-expert`, `mobile-design-expert`, `information-architect`, `ux-designer` (checks that users can find things, reviews changes for UX regressions, files issues) and `direction-reviewer` (judges a built page from screenshots and the direction sheet only; pages, not app screens). They ship as Claude Code agents in `agents/` and as Codex agents in `codex-agents/` (generated from the Claude ones, with a test that keeps them in step). The Skills CLI installs skills, not agents. Every skill works without them.
+Ten Claude Code agents ship alongside, each a bounded role that reads the matching skill first: `ui-ux-lead` (the design lead), `design-ui-engineer` (implements an approved design), `dashboard-designer`, `accessibility-expert`, `mobile-design-expert`, `apple-design-expert`, `android-design-expert`, `information-architect`, `ux-designer` (checks that users can find things, reviews changes for UX regressions, files issues) and `direction-reviewer` (judges a built page from screenshots and the direction sheet only; pages, not app screens). They ship as Claude Code agents in `agents/` and as Codex agents in `codex-agents/` (generated from the Claude ones, with a test that keeps them in step). The Skills CLI installs skills, not agents. Every skill works without them.
 
 The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates screenshots against a UX checklist. This pack's skills are complementary: they work from the product, its code and your description rather than from a folder of screenshots, and `ux-review` can feed them findings to act on.
 
@@ -35,10 +37,12 @@ The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates scre
 | `art-direction` | The visual idea and look of a page or screen: the chosen direction, type system, palette, photographs, section blueprints, the browser inspection and look-and-fix loop, a source lint whose rules can be waived with a recorded reason, and a redesign check that the new page kept the old page's links, forms and fields, with an up-front warning on framework pages whose click handlers it cannot see |
 | `accessibility-review` | WCAG 2.2 AA findings, evidence tags (verified or needs test), and the list of checks not performed. Never states that an interface is compliant |
 | `dashboard-design` | Decision-first layout, freshness and provenance, data states, thresholds, and chart and number choices |
-| `mobile-design` | Touch, narrow-width layout, input and keyboards, offline behaviour, and the web-versus-native question |
+| `mobile-design` | Platform-neutral touch, narrow-width layout, input and keyboards, offline behaviour, and the web-versus-native question |
+| `apple-platform-design` | Apple conventions: tab bars, navigation stacks, sheets, SF Symbols, Dynamic Type, safe areas, haptics, iPad multitasking, the macOS menu bar and windows, watchOS screens, and the design-level VoiceOver and Reduce Motion hooks |
+| `android-platform-design` | Android and Material 3 conventions: navigation bar, rail and drawer, window size classes, edge-to-edge, predictive back, dynamic color, snackbars and dialogs, and the design-level TalkBack and font-scale hooks |
 | `information-architecture` | Hierarchy, navigation, labels, taxonomy, URLs and the content model, with a redirect plan for any move |
 
-Exact contrast ratios, target sizes and screen-reader behaviour belong to `accessibility-review`; `interface-polish` points there rather than restating them. Product strategy, pricing and priority stay with you.
+Exact contrast ratios, target sizes and screen-reader behaviour belong to `accessibility-review`; `interface-polish` and the two platform skills point there rather than restating them. `mobile-design` keeps the rules that hold on any phone (touch, offline, forms); `apple-platform-design` and `android-platform-design` own what is specific to one platform, and each says which platform value (44 pt, 48 dp) it is quoting. Product strategy, pricing and priority stay with you.
 
 No skill publishes, merges, deploys, or contacts users. Plans, reviews and proposals come back to you.
 
@@ -52,6 +56,8 @@ No skill publishes, merges, deploys, or contacts users. Plans, reviews and propo
 | Skill | Claude Code | Claude app | Codex | ChatGPT | Other agents |
 |---|---|---|---|---|---|
 | accessibility-review | ✔ | ◐ | ✔ | ◐ | ✔ |
+| android-platform-design | ✔ | ✔ | ✔ | ✔ | ✔ |
+| apple-platform-design | ✔ | ✔ | ✔ | ✔ | ✔ |
 | art-direction | ✔ | ◐ | ✔ | ◐ | ◐ |
 | dashboard-design | ✔ | ✔ | ✔ | ✔ | ✔ |
 | information-architecture | ✔ | ✔ | ✔ | ✔ | ✔ |
@@ -72,6 +78,10 @@ flowchart TD
   U --> M[mobile-design]
   IA --> P[interface-polish]
   D --> P
+  M --> AP[apple-platform-design]
+  M --> AN[android-platform-design]
+  AP --> P
+  AN --> P
   M --> P
   P --> A[accessibility-review]
   A -->|findings: revisit the brief| U
@@ -259,6 +269,70 @@ Web or native   responsive web is enough for this flow (product owners decide)
 </details>
 
 <details>
+<summary><code>apple-platform-design</code>: findings by guideline area, with checks not performed</summary>
+
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+**Use it when:** A screen ships on iPhone, iPad, Mac or Apple Watch and should feel native.
+
+**Try:** `Review the Quill invoice list for iPhone and iPad against the Human Interface Guidelines.`
+
+**Skip it when:** The question is platform-neutral (use mobile-design), needs exact contrast ratios or screen-reader testing (use accessibility-review), or is about Android.
+
+Example output, invented data (fictional product). This is expert review from source and screenshots, not a device test.
+
+```text
+Expert review against Apple Human Interface Guidelines, OS assumed: MISSING INFORMATION
+Screen: Invoice list     Platforms: iPhone, iPad
+
+H1  high    Navigation   Hamburger menu holds all five sections
+            Fix          tab bar with Invoices, Clients, Reports, Settings; sidebar on iPad
+H2  high    Dynamic Type Amount and status sit in one row with a fixed 44 pt height
+            Fix          text styles, and stack the row at accessibility sizes
+H3  medium  Sheets       "New invoice" sheet closes on swipe-down and drops typed data
+            Fix          ask before discarding (Discard, Keep Editing)
+H4  medium  Gestures     Delete is available only as a swipe action
+            Fix          add Delete to the row's context menu and the detail screen
+Evidence    all four VERIFIED from source; none run on a device
+
+Checks not performed: device or simulator run, VoiceOver, largest text size, Reduce Motion, iPad Split View, App Review
+```
+
+</details>
+
+<details>
+<summary><code>android-platform-design</code>: findings by window size class, with checks not performed</summary>
+
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+**Use it when:** A screen ships on Android phones, tablets or foldables and should follow Material 3 and platform behaviour.
+
+**Try:** `Review the Quill invoice list on Android across phone and tablet widths.`
+
+**Skip it when:** The question is platform-neutral (use mobile-design), needs exact contrast ratios or screen-reader testing (use accessibility-review), or is about Apple platforms.
+
+Example output, invented data (fictional product). This is expert review from source and screenshots, not a device test.
+
+```text
+Expert review against Material Design 3 and Android developer guidance, versions assumed: MISSING INFORMATION
+Screen: Invoice list     Window classes: compact, medium
+
+A1  high    Adaptive     Bottom bar is kept at medium width, with a stretched single column
+            Fix          navigation rail at medium; list-detail layout
+A2  high    Edge-to-edge Send button sits under the gesture bar on the invoice form
+            Fix          apply system bar and keyboard insets to the bottom action area
+A3  medium  Back         Back press is intercepted with the old back method, so no preview shows
+            Fix          use the back callback API; ask before discarding a draft
+A4  medium  Targets      Row menu icon is 32dp with no padding
+            Fix          48dp touch target around the icon
+Evidence    all four VERIFIED from source; none run on a device
+
+Checks not performed: device or emulator run, TalkBack, largest font scale, foldable, three-button navigation, Play policy
+```
+
+</details>
+
+<details>
 <summary><code>information-architecture</code>: a hierarchy, label table and task paths</summary>
 
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
@@ -298,7 +372,7 @@ Needs real users: a 5-participant tree test of the new labels. Results: MISSING 
 /plugin install design-suite@stylus-nexus
 ```
 
-Skills are namespaced: `/design-suite:ui-ux`. The eight agents install with the plugin.
+Skills are namespaced: `/design-suite:ui-ux`. The ten agents install with the plugin.
 
 ### Codex
 
@@ -324,7 +398,7 @@ Codex agent files have no tool list, so the ux-designer's no-edit rule, and the 
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill accessibility-review art-direction dashboard-design information-architecture interface-polish mobile-design ui-ux
+npx skills add stylusnexus/agent-plugins --skill accessibility-review android-platform-design apple-platform-design art-direction dashboard-design information-architecture interface-polish mobile-design ui-ux
 ```
 
 Skills arrive un-namespaced on this path, so most agents invoke them as `/ui-ux`; Windsurf uses `@ui-ux`, opencode shows `/ui-ux` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.

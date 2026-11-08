@@ -1,7 +1,7 @@
 <!-- skill-readme:begin -->
 # ui-ux
 
-Use when the user asks to design, review, critique or improve a product interface, user flow, screen states, error handling, navigation, layout, or interaction, or wants a design brief or a handoff to implementation. Entry point for the design suite: frames the user task, then routes to dashboard, mobile, information-architecture, accessibility or implementation roles.
+Use when the user asks to design, review, critique or improve a product interface, user flow, screen states, error handling, navigation, layout, or interaction, or wants a design brief or a handoff to implementation. Entry point for the design suite: frames the user task, then routes to dashboard, mobile, Apple or Android platform, information-architecture, accessibility or implementation roles.
 
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../../../README.md#compatibility)
 
@@ -50,7 +50,7 @@ claude plugin marketplace add stylusnexus/agent-plugins
 claude plugin install design-suite@stylus-nexus
 ```
 
-Inside a session, `/plugin marketplace add stylusnexus/agent-plugins` and `/plugin install design-suite@stylus-nexus` do the same. This installs the whole design-suite pack, so accessibility-review, art-direction, dashboard-design, information-architecture, interface-polish and mobile-design come with it.
+Inside a session, `/plugin marketplace add stylusnexus/agent-plugins` and `/plugin install design-suite@stylus-nexus` do the same. This installs the whole design-suite pack, so accessibility-review, android-platform-design, apple-platform-design, art-direction, dashboard-design, information-architecture, interface-polish and mobile-design come with it.
 
 Call it as `/design-suite:ui-ux`, or let it start on its own when your request matches.
 
@@ -73,7 +73,7 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add design-suite@stylus-nexus
 ```
 
-This installs the whole design-suite pack, so accessibility-review, art-direction, dashboard-design, information-architecture, interface-polish and mobile-design come with it. In Codex, type `$` and the skill name (`$design-suite:ui-ux`), or run `/skills` to pick it.
+This installs the whole design-suite pack, so accessibility-review, android-platform-design, apple-platform-design, art-direction, dashboard-design, information-architecture, interface-polish and mobile-design come with it. In Codex, type `$` and the skill name (`$design-suite:ui-ux`), or run `/skills` to pick it.
 
 </details>
 
@@ -85,7 +85,7 @@ The [Skills CLI](https://github.com/vercel-labs/skills) finds the agents you hav
 This skill reads shared files in its sibling skills, so install every skill in the pack:
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill accessibility-review art-direction dashboard-design information-architecture interface-polish mobile-design ui-ux
+npx skills add stylusnexus/agent-plugins --skill accessibility-review android-platform-design apple-platform-design art-direction dashboard-design information-architecture interface-polish mobile-design ui-ux
 ```
 
 Skills arrive without a pack prefix: `/ui-ux` in most agents and `@ui-ux` in Windsurf. opencode shows `/ui-ux` only when the skill sets an opencode-specific metadata field, and Gemini CLI starts a skill itself after you approve it.
