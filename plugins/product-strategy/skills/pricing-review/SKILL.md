@@ -49,6 +49,16 @@ Related skills in this marketplace: `pm-value-proposition` for who the customer 
    - **Migration plan:** grandfathering terms, notice period, Stripe steps (for a change).
    - **Risks:** the likely churn scenario and the limit most likely to generate support complaints.
 
+## Early-stage price rules
+
+For a young subscription product with few customers, apply these checks to the draft recommendation. They are heuristics from bootstrapped-SaaS practice (see Arvid Kahl, *Zero to Sold*, 2020), not laws; state when evidence says otherwise.
+
+- **With zero customers, lean higher.** No sales at a low price equals no sales at a high price, and a later increase is harder than a later discount. A low price also tells buyers the product is minor.
+- **Offer a yearly plan from launch.** Discounted, non-refundable with a visible policy, with room for hardship exceptions. It brings cash forward and shows who is committed.
+- **Treat free tiers and lifetime plans as modeled bets.** Before offering either, estimate cost per user and what happens if users grow tenfold. Define "lifetime" in the terms, and review lifetime sales as a one-off cash boost, not recurring revenue.
+- **Retire a plan with notice.** Choose upgrade or time-limited grandfathering, and announce at least a few weeks ahead, preferably a month or more. Indefinite grandfathering blocks expansion revenue.
+- **Check the base.** With only a handful of customers, one cancellation can remove a large share of revenue. Say so in the Risks section rather than extrapolating from a small base.
+
 ## Worked example
 
 A team-notes app has 300 paying teams on a single $12 per seat plan and wants tiers.

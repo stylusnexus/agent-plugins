@@ -9,6 +9,8 @@ Read [shared principles](references/principles.md) before applying this workflow
 
 For early demand tests, read [pretotyping lessons](references/pretotyping.md). These draw on public Savoia materials, not a full-book extraction. For market structure and external context use `pm-market-analysis`; use `pm-visuals` for discovery loops and experiment diagrams.
 
+To choose which problem deserves building for, read [critical problem signals](references/critical-problem.md).
+
 ## Workflow
 1. Identify the user, job/context, decision, and desired outcome. Trace requests to problems; a loud request is evidence of that request, not proof of broad demand.
 2. Synthesize available interviews, support reports, analytics, and observations. Keep references to source material and distinguish quotes, observations, interpretations, and hypotheses. Do not simulate users and present the simulation as research.
