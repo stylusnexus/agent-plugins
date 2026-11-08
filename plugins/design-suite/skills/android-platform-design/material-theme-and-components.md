@@ -1,6 +1,6 @@
 # Material 3 theme, components, motion and permissions
 
-Source names: Material Design 3 (Color system, Dynamic color, Typography, Shape, Elevation, Motion, App bars, Buttons, Dialogs, Bottom sheets, Snackbar, Chips); Android Developer documentation (Runtime permissions, Notification runtime permission, Photo picker, Splash screen, Per-app language). Paraphrased. Material has had expressive updates since 2025; check which Material version the project actually uses before judging a screen against the other.
+Source names: Material Design 3 (Color system, Dynamic color, Typography, Shape, Elevation, Motion, App bars, Buttons, Dialogs, Bottom sheets, Snackbar, Chips); Android Developer documentation (Runtime permissions, Notification runtime permission, Photo picker, Splash screen, Per-app language). Paraphrased. The Material motion pattern names and the spring motion system were checked on 2026-11-08 against Google's Material Components for Android docs, and the expressive theme and motion scheme against the Compose Material 3 reference. Compose Material 3 includes Expressive APIs, so check which Material version the project uses before judging a screen against the other.
 
 ## 1. Dynamic color and theming
 
@@ -37,7 +37,7 @@ Source names: Material Design 3 (Color system, Dynamic color, Typography, Shape,
 
 ## 4. Motion
 
-- Material motion patterns: container transform (an item becomes its detail), shared axis (siblings in a sequence), fade through (unrelated destinations), fade (small elements). Pick the one that explains the relationship. (These names come from the Material transition patterns. Material 3 Expressive also adds spring-based motion; check the current motion page for which a given project uses.)
+- Material motion patterns: container transform (an item becomes its detail), shared axis (siblings in a sequence), fade through (unrelated destinations), fade (small elements). Pick the one that explains the relationship. Material also defines a spring-based motion system, and Compose Material 3 offers motion schemes (standard and expressive) through `MaterialExpressiveTheme` and `MotionScheme`.
 - Keep durations short and interruptible. Match predictive back progress to the animation.
 - Respect the system setting that removes animations (the animation scale set to zero, exposed as "Remove animations" in accessibility settings): replace movement with an instant change or a plain fade, and keep feedback.
 - Do not rely on animation to tell the user something happened.

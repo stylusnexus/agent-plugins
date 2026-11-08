@@ -1,6 +1,6 @@
 # Navigation, adaptive layout, edge-to-edge and back
 
-Source names: Material Design 3 (Navigation bar, Navigation rail, Navigation drawer, Canonical layouts, Applying layout); Android Developer documentation (Window size classes, Build adaptive apps, Edge-to-edge, Handle window insets, Predictive back, Large screen app quality). Paraphrased. Version details move fast; confirm against the current docs.
+Source names: Material Design 3 (Navigation bar, Navigation rail, Navigation drawer, Canonical layouts, Applying layout); Android Developer documentation (Window size classes, Build adaptive apps, Edge-to-edge, Handle window insets, Predictive back, Large screen app quality). Paraphrased. Checked on 2026-11-08 against the developer.android.com pages for the navigation bar, rail and drawer, window size classes, edge-to-edge, predictive back and the Android 16 and 17 behavior changes.
 
 ## 1. Window size classes first
 
@@ -29,7 +29,7 @@ Rules:
 |---|---|---|
 | Navigation bar | 3 to 5 equal top-level destinations on compact widths | Labels on every item; one clear active state; badges only for real counts; not for actions |
 | Navigation rail | Medium and larger windows, 3 to 7 destinations | Optional menu button and a FAB or primary action at the top. Do not keep a bottom bar next to a rail |
-| Navigation drawer | Many destinations or a deep top level; expanded windows can use a permanent drawer. Material 3 Expressive favours an expanded navigation rail instead; follow whichever the project uses | On compact it is a modal drawer that hides options; use it for secondary destinations, not the only route to a core task |
+| Navigation drawer | Many destinations or a deep top level; expanded windows can use a permanent drawer. Standard (permanent) and modal variants exist. Compose Material 3 also offers a wide navigation rail (`WideNavigationRail`) for large screens | On compact it is a modal drawer that hides options; use it for secondary destinations, not the only route to a core task |
 | Top app bar | Title, up button and contextual actions for the current screen | Keep a few actions; overflow the rest into a menu |
 | Tabs | Switching views of the same content | Not for top-level destinations; do not nest tab sets |
 | Search bar | Large content sets | Show recents and suggestions; keep scope clear |
