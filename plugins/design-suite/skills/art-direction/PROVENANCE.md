@@ -13,7 +13,12 @@
 - Working folder names such as `.taste-skill/` and the `TASTE_SKILL_HISTORY` setting are upstream's and are unchanged.
 - `scripts/lib/cdp.mjs`: the four macOS browser paths (Chrome, Chromium, Edge, Brave) are built with `join('/', 'Applications', ...)` instead of written as one string, because this repository's private-terms check bans the literal macOS applications-folder prefix. The paths are the standard install locations and are unchanged.
 - `references/imagery.md`: one `<video>` code sample that wrapped over three lines is joined onto one line, so the link checker does not read its `src` as a relative link. Wording is unchanged.
+- `scripts/lint.mjs`: a repeatable `--allow "<rule> -- <reason>"` flag waives one lint rule, with a recorded reason, and the report lists each waiver. The idea of waivers with reasons comes from Hallmark (https://github.com/Nutlope/hallmark, MIT). Ideas only; no Hallmark code was taken.
 - Nothing else in the engine is touched.
+
+## Added here, not upstream
+- `scripts/keep.mjs`, `scripts/lib/kept.mjs` and `scripts/tests/test_keep.py`: the redesign "kept" check, which records the links, forms, fields, buttons and headings of a page before a redesign and reports what the redesign lost. The idea comes from the redesign check in Hallmark (https://github.com/Nutlope/hallmark, MIT). Ideas only; no Hallmark code was taken.
+- `references/review.md` and the hero and finish checkpoints in `SKILL.md` (steps 6 and 8, the step 10 checklist line, the Files list), with the `direction-reviewer` agent: a reviewer that sees only screenshots and the written sheet. The idea of isolating the reviewer comes from Hallmark (https://github.com/Nutlope/hallmark, MIT). Ideas only; no Hallmark code was taken.
 
 ## Hashes
 Unpatched upstream (identical at `a9c73c3` and `6010f91`):

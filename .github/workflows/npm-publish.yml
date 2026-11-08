@@ -3,11 +3,10 @@ name: npm-publish
 # interactive terminal or a one-time password. Mirrors the approach already used
 # by stylusnexus/work-plan-toolkit.
 #
-# One-time setup:
-#   1. npmjs.com -> Access Tokens -> Generate New Token -> Classic -> Automation
-#      (Automation tokens are built for CI and are not prompted for an OTP.)
-#   2. gh secret set NPM_TOKEN --repo stylusnexus/agent-plugins
-#      (paste the token at the prompt so it never lands in a file or a transcript)
+# Publishes with npm trusted publishing (OIDC): no token, no one-time password.
+# One-time setup, on npmjs.com -> package -> Settings -> Trusted publishing:
+# repository stylusnexus/agent-plugins, workflow npm-publish.yml, no environment.
+# Do not set NODE_AUTH_TOKEN on the Publish step: npm prefers a token over OIDC.
 #
 # Run it from the Actions tab. dry_run is ON by default: it packs and validates
 # without publishing, so the first run cannot surprise you.
@@ -15,12 +14,6 @@ name: npm-publish
 # Publishing only happens from main (the Publish step checks github.ref), and
 # every publish carries an npm provenance attestation (--provenance, which needs
 # the job's id-token: write).
-#
-# Next step, owner action: the package exists now, so this can move to trusted
-# publishing (OIDC) and drop the token. That needs the owner to add a trusted
-# publisher for this repo and workflow on npmjs.com (package -> Settings ->
-# Trusted publishing). Once a trusted-publisher run succeeds, delete the
-# NPM_TOKEN secret and revoke the token on npmjs.com.
 on:
   workflow_dispatch:
     inputs:
@@ -73,11 +66,14 @@ jobs:
           echo "::error::Publishing runs only from main. This run is on $GITHUB_REF, so nothing was published. Re-run from main, or leave dry_run checked."
           exit 1
 
+      # Trusted publishing needs npm 11.5.1 or newer; Node 22 bundles an older npm.
+      - name: Install current npm
+        if: ${{ !inputs.dry_run && github.ref == 'refs/heads/main' }}
+        run: npm install -g npm@latest
+
       - name: Publish
         if: ${{ !inputs.dry_run && github.ref == 'refs/heads/main' }}
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Dry run notice
         if: ${{ inputs.dry_run }}

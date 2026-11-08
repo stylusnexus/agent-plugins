@@ -138,7 +138,8 @@ for the user at these points:
   workflow token is read-only.
 - npm publishing is set up to run from `.github/workflows/npm-publish.yml`: it
   publishes only on `main` (a run on any other branch fails), with `--provenance`,
-  and still uses an `NPM_TOKEN` secret. Anyone holding a publish token for the
+  and logs in through npm trusted publishing (OIDC), so no token is stored in the
+  repository. Anyone holding a publish token for the
   package, or using the `npm-publish` skill, can also publish from their own
   machine, without provenance. Provenance exists only for versions the workflow
   publishes after this change; earlier versions, including 1.4.1, have none.

@@ -110,6 +110,30 @@
         "level": "full"
       }
     },
+    "android-platform-design": {
+      "pack": "design-suite",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Optional cross-references to other pack skills need the whole pack."
+      }
+    },
     "api-design": {
       "pack": "ship-pipeline",
       "claude": {
@@ -134,6 +158,30 @@
         "level": "full"
       }
     },
+    "apple-platform-design": {
+      "pack": "design-suite",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Optional cross-references to other pack skills need the whole pack."
+      }
+    },
     "art-direction": {
       "pack": "design-suite",
       "claude": {
@@ -142,7 +190,7 @@
         },
         "app": {
           "level": "partial",
-          "note": "No local Node or Chrome to run the direction, inspect and lint scripts; the written art-direction guidance still applies to pages you describe or paste."
+          "note": "No local Node or Chrome to run the direction, inspect, redesign-check and lint scripts; the written art-direction guidance still applies to pages you describe or paste."
         }
       },
       "codex_chatgpt": {
@@ -151,12 +199,12 @@
         },
         "chatgpt": {
           "level": "partial",
-          "note": "No local Node or Chrome to run the direction, inspect and lint scripts; the written art-direction guidance still applies to pages you describe or paste."
+          "note": "No local Node or Chrome to run the direction, inspect, redesign-check and lint scripts; the written art-direction guidance still applies to pages you describe or paste."
         }
       },
       "other": {
         "level": "partial",
-        "note": "The scripts need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies."
+        "note": "The scripts (the inspector and the redesign check) need Node 22+ and a local Chrome-family browser (Chrome, Edge or Chromium); without them only the written guidance applies."
       }
     },
     "auth-hardening": {

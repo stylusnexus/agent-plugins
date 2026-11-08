@@ -245,7 +245,9 @@ not finished. Order of work:
    names, fluid type steps, grid, focus and selection styles, the motion helpers); it has no look of
    its own.
 2. **The hero, exactly as the blueprint describes it,** at desktop and at phone width. Get the big
-   thing big and the small things small before anything else exists.
+   thing big and the small things small before anything else exists. **Hero checkpoint (pages only):**
+   once it is built, the lead has the `direction-reviewer` agent review the first screen before the
+   rest exists (`references/review.md`).
 3. **Each section from its blueprint,** with this project's content. Keep the geometry, change the
    subject. Neighbouring sections must not share a layout. **Carry the idea into every section,**
    pricing, FAQ and footer included: the commonest failure in the study, even among good sites, is a
@@ -327,14 +329,15 @@ node <skill>/scripts/scenes.mjs <url or path/to/index.html>     # when the page 
 and the reduced-motion page; with scenes on the sheet, `inspect.mjs` also films the whole scroll
 (`desktop-film-NN.jpg`). A scene that never started or rests on desktop is a `FAIL`.
 
-`lint.mjs` scans source for banned patterns and stock phrases. `inspect.mjs` opens the page in a real
-browser at 1440, 768 and 390 pixels, measures it (headline line counts, type sizes, fonts actually
-loaded, colours, rules, shadows, gradients, contrast, overflow, and the frame: equal margins, sections
-huddled on one side, blank stretches, the title, untitled sections, text against the screen edge) and
-saves screenshots to `.taste-skill/inspect/`. Fix every `FAIL`. Treat each `WARN` as wrong unless you can defend it to a
-designer in one sentence. Re-run until there are no `FAIL`s. Do not argue with the meter and do not
-hide things from it. The inspector serves local files over a throwaway local server; if the page must
-also open straight from the file system, open `index.html` that way once before you finish.
+`lint.mjs` scans source for banned patterns and stock phrases. A lint rule that truly does not apply can be waived
+with `--allow "<rule> -- <reason>"`; the report lists every waiver. The inspector's measured `FAIL`s cannot be waived.
+`inspect.mjs` opens the page in a real browser at 1440, 768 and 390 pixels, measures it (headline line counts, type
+sizes, fonts actually loaded, colours, rules, shadows, gradients, contrast, overflow, and the frame: equal margins,
+sections huddled on one side, blank stretches, the title, untitled sections, text against the screen edge) and saves
+screenshots to `.taste-skill/inspect/`. Fix every `FAIL` from either tool (a waived lint rule is not one). Treat each
+`WARN` as wrong unless you can defend it to a designer in one sentence. Re-run until there are no un-waived `FAIL`s.
+Do not argue with the meter and do not hide things from it. The inspector serves local files over a throwaway local
+server; if the page must also open straight from the file system, open `index.html` that way once before you finish.
 
 ### 8. Look
 
@@ -345,6 +348,12 @@ down in its format, fix the top three problems, run the inspector again, look ag
 most.
 
 Judge only the pictures. If a problem is visible in a screenshot, it is real, whatever the code says.
+
+**Finish checkpoint (pages only).** When your own rounds are done and before step 9, the lead has the
+`direction-reviewer` agent review the finished page from the screenshots and the sheet alone, and on a
+redesign the reviewer lists what the old page did better. Every finding gets a one-line reply in `replies.md`: fixed, or
+disputed with a sheet line; a finding that contradicts the sheet cannot be disputed. How to build the
+packet, dispatch the agent and reply: `references/review.md`.
 
 ### 9. Move
 
@@ -377,12 +386,15 @@ Do not report until all of these are true; each one was skipped in a test run th
 - A stranger reading the first screen for five seconds can say what this is and what to do.
 - Every section has a heading; the margins match on both sides; no stretch of the page is empty.
 - The critique of your last round is written down in the shape of `references/critique.md` §4.
+- Pages: every reviewer finding has a reply in `replies.md`.
 
 Tell the user, briefly: the direction dealt (name and seed) and any redraws with reasons; the idea
 sentence and the live thing; the final scores from your last critique round and what still falls short;
+Pages: every reviewer finding with its reply (fixed or disputed);
 every found picture and clip with its title, creator, licence and source page (`assets.mjs --credits` prints
 the list) and where its credit sits on the page; which bundled photographs and which drawings stand in
-for photography (so they can be replaced); and any sample content that must be swapped before launch.
+for photography (so they can be replaced); any lint rule waived, with its reason; and any sample content
+that must be swapped before launch.
 Do not claim a check you did not run.
 
 ## House rules
@@ -487,7 +499,9 @@ asset, say so in the report, and pass `--allow <rule>` to the inspector for that
    (`inspect.mjs <url> --out .taste-skill/before`, with `--app` for an app screen) and lint its
    source. Read the code: the framework, the styling method (Tailwind v3 or v4, CSS modules,
    styled-components, plain CSS), the components, and what must survive: routes, forms, data,
-   behaviour, the brand's own assets.
+   behaviour, the brand's own assets. Record what each page does with
+   `node <skill>/scripts/keep.mjs record <url> [<url>...]` with every page in one command (a second
+   `record` needs `--force`, which replaces every recorded page; project running).
 2. **A review stops here.** Critique the before screenshots with `references/critique.md`, list the
    findings with the inspector's measurements, and name the three changes that would move the page
    most.
@@ -501,8 +515,10 @@ asset, say so in the report, and pass `--allow <rule>` to the inspector for that
    every section), states (hover, focus, loading, empty, error), then the stock components (icon
    cards, pill badges, gradient blobs, card grids) replaced by the dealt blueprints.
 5. **Prove it.** Inspect again into `.taste-skill/after`, compare before and after at every width,
-   click through every link, form and menu that worked before, and report the before and after
-   measurements side by side.
+   run `node <skill>/scripts/keep.mjs check <url>` with every URL you recorded (a page left out is a
+   FAIL), and report the before and after measurements side by side. Anything dropped on purpose goes
+   in with `--drop "<kind>:<value> -- <reason>"` (copy it from the FAIL line) and is listed in the report; the report also says handlers
+   attached by scripts were not checked (it warns first on React, Vue and Angular pages), so click those through yourself.
 
 **A component or a single section, not a page.** Skip the draw unless there is no direction to follow.
 Match the surrounding design, apply the house rules and the laws, and still inspect the result.
@@ -531,6 +547,7 @@ open collections could not be searched.
 | `references/motion.md` | Step 9. Budget, tokens, recipes, reduced motion. |
 | `references/scenes.md` | Step 6, when the sheet deals scroll scenes: putting one on a page, filling, fitting, the phone, checking, the catalogue. |
 | `references/critique.md` | Step 8. How to look, how to score, what to fix first. |
+| `references/review.md` | Steps 6 and 8, pages only. The reviewer packet, what is withheld, dispatching `direction-reviewer`, replying to findings. |
 | `references/tells.md` | The dated registry of generated-page tells and what each is replaced by. |
 | `references/research.md` | The study: method, numbers, what the best and worst sites do. Cite it, do not guess. |
 | `scripts/draw.mjs` | Deals and reprints the direction; `--photos`, `--site <id>` for more references; `--app` deals an app style instead. |
