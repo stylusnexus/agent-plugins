@@ -4,7 +4,7 @@ Source names: Android Developer documentation (Accessibility, Make apps more acc
 
 ## 1. Touch targets
 
-- Android and Material guidance: at least 48 by 48 dp for anything tappable, with about 8dp between neighbouring targets. The visible icon can be smaller (a 24dp icon in a 48dp target).
+- Google's Android accessibility guidance: touch targets at least 48 by 48 dp (about 9 mm), separated by 8 dp of space or more. The visible icon can be smaller (a 24dp icon in a 48dp target).
 - Use the component's built-in minimum touch target and do not turn it off to save space. In Compose, a small clickable may need extra padding or a minimum interactive size.
 - Do not place two small targets inside one 48dp box.
 - For WCAG on the web, 2.5.8 still sets the web minimum (24 CSS px). Cite which standard a finding uses.
