@@ -4,7 +4,7 @@ Source names: Apple Human Interface Guidelines (Typography, SF Symbols, Color, D
 
 ## 1. Dynamic Type
 
-- Use the system text styles (large title, title, headline, body, callout, subheadline, footnote, caption) instead of fixed point sizes. Body defaults to 17 pt on iPhone; confirm the full table on the Typography page.
+- Use the system text styles (large title, title, headline, body, callout, subheadline, footnote, caption) instead of fixed point sizes. Body defaults to 17 pt on iPhone (widely documented; not re-verified here); confirm the full table on the Typography page.
 - People can raise text size in Settings, and further with the larger accessibility sizes. Design and test at the default, the largest standard size and the largest accessibility size.
 - At the accessibility sizes, change the layout, not just the font. Side-by-side rows usually need to stack. Truncation is a last resort; let text wrap and let rows grow in height.
 - Custom fonts are allowed but must scale with the text style (for example through the font metrics APIs). A custom font that ignores Dynamic Type is a finding.
@@ -17,7 +17,7 @@ Source names: Apple Human Interface Guidelines (Typography, SF Symbols, Color, D
 - Prefer SF Symbols over custom icons for common actions. They match the system font's weight and scale with Dynamic Type.
 - Match the symbol weight to nearby text. Use the same weight across a toolbar.
 - Pick a rendering mode on purpose: monochrome, hierarchical, palette or multicolor. Use colour to add meaning, not decoration.
-- Use the filled variant for the selected state in tab bars and the outline variant otherwise, as the system does.
+- Prefer filled symbols for tab bar icons, as the HIG recommends for consistency across platforms. There is no rule to switch between filled and outline for selection.
 - Check that the symbol exists on the minimum OS you support. Symbol availability depends on the OS version, and the SF Symbols app lists it. The current symbol set version is not stated here because it may be out of date.
 - Custom symbols should follow the SF Symbols template so they align and scale. Do not use Apple's marks or SF Symbols for app icons or logos; check the licence terms.
 - Every icon-only control needs an accessibility label (see section 6).
@@ -36,14 +36,14 @@ Source names: Apple Human Interface Guidelines (Typography, SF Symbols, Color, D
 - Use the system feedback types for their meaning: impact for a physical collision or snap, selection for moving through values, notification for success, warning or error.
 - Use them sparingly. Constant buzzing on scroll or tap is noise, and people can turn system haptics off.
 - Pair custom haptics with the same moment in sound and visuals so they feel like one event.
-- Not every device has the hardware (most iPads have none; check the target devices).
+- Not every device has the hardware (the HIG covers iPhone, Apple Watch, Mac trackpads and Apple Pencil Pro; check the target devices).
 
 ## 5. Motion and Reduce Motion
 
 - Use motion to explain a change (where something came from or went), not to decorate.
 - Keep transitions short and interruptible. Do not block input while an animation plays.
 - When Reduce Motion is on: replace large movement, zooms, parallax, spinning and auto-playing animation with a cross-fade or no animation. Keep small state changes.
-- Also consider the Prefer Cross-Fade Transitions option and auto-playing video settings.
+- Also consider the Prefer Cross-Fade Transitions option (an iOS setting; not named on the HIG Motion page, so confirm on a device) and auto-playing video settings.
 - Do not remove feedback; swap the motion for another cue.
 
 ## 6. VoiceOver naming and order (design level)

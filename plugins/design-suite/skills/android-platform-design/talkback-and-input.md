@@ -33,6 +33,7 @@ Other services use the same semantics: Voice Access (speak the visible label to 
 
 - People set a font size and a display size in system settings. Newer Android versions scale large text up to about 200 percent and scale it non-linearly, so very large text grows less than small text. Confirm the current range in the docs.
 - Use sp for text and dp for containers. Never lock text to a pixel height.
+- Google's accessibility guidance asks for body text no smaller than 12sp.
 - Test at the default, at a large setting and at the largest. At the largest, layouts should wrap or stack and nothing should be clipped or overlap.
 - Icons and buttons that sit beside text may need to grow with the text.
 - Display size (density) changes dp as well. Check that nothing relies on a fixed dp width.

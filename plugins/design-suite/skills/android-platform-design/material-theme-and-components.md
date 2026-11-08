@@ -37,7 +37,7 @@ Source names: Material Design 3 (Color system, Dynamic color, Typography, Shape,
 
 ## 4. Motion
 
-- Material motion patterns: container transform (an item becomes its detail), shared axis (siblings in a sequence), fade through (unrelated destinations), fade (small elements). Pick the one that explains the relationship.
+- Material motion patterns: container transform (an item becomes its detail), shared axis (siblings in a sequence), fade through (unrelated destinations), fade (small elements). Pick the one that explains the relationship. (These names come from the Material transition patterns. Material 3 Expressive also adds spring-based motion; check the current motion page for which a given project uses.)
 - Keep durations short and interruptible. Match predictive back progress to the animation.
 - Respect the system setting that removes animations (the animation scale set to zero, exposed as "Remove animations" in accessibility settings): replace movement with an instant change or a plain fade, and keep feedback.
 - Do not rely on animation to tell the user something happened.

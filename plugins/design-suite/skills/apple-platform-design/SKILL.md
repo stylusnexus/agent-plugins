@@ -32,7 +32,7 @@ Not for: platform-neutral touch, offline and responsive-web rules (use mobile-de
 |---|---|
 | `ios-navigation-and-modality.md` | Tab bar versus other navigation, navigation bars, back gesture, sheets and detents, alerts, action menus, safe areas, permissions |
 | `type-symbols-and-feedback.md` | Dynamic Type, SF Symbols, system colours and dark mode, haptics, Reduce Motion, VoiceOver naming |
-| `ipad-mac-watch.md` | iPad layouts, Split View and Stage Manager, sidebars, macOS menu bar, windows, shortcuts, pointer, watchOS screens |
+| `ipad-mac-watch.md` | iPad layouts, windowing, sidebars, macOS menu bar, windows, shortcuts, pointer, watchOS screens |
 
 ## Output format
 
@@ -42,7 +42,8 @@ Label the result "Expert review against Apple Human Interface Guidelines, OS ass
 
 - Cite Apple Human Interface Guidelines, the SF Symbols app and Apple developer documentation by title only. Paraphrase; do not paste guideline text.
 - Where a number or API name is uncertain, say so and point to the current Human Interface Guidelines page rather than guessing.
-- The 44 pt target and similar values are platform guidance. WCAG 2.5.8 remains the web minimum; accessibility-review owns exact targets and ratios.
+- Scope: iOS, iPadOS, macOS and watchOS. visionOS and tvOS are not covered; the 2025 Liquid Glass redesign (floating tab bars and toolbars, minimize on scroll, search as a tab role) is only touched on, so check the HIG for the OS you target.
+- The 44 pt default (28 pt minimum) and similar values are platform guidance. WCAG 2.5.8 remains the web minimum; accessibility-review owns exact targets and ratios.
 - Native conventions are a default, not a law. Product owners keep brand, pricing, priority and any decision to depart from the platform.
 - Do not claim App Store approval or compliance. Review rules change; point to the current App Review Guidelines for submission questions.
 - Do not add a dependency or switch UI framework unless asked. Do not publish, merge, deploy or contact users.

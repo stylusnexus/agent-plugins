@@ -5,12 +5,12 @@ Source names: Apple Human Interface Guidelines (Designing for iPadOS, Multitaski
 ## 1. iPad
 
 - An iPad app is not a stretched iPhone app. Use the extra width for a sidebar, two or three columns, or a content area with a supporting pane.
-- Layouts depend on size classes (compact or regular width and height), not on device name. The same window can be compact in Split View and regular full screen.
-- Support multitasking: Split View, Slide Over and, on current iPadOS, resizable windows. Avoid assuming full screen, and avoid locking orientation. Content must reflow when the window resizes.
+- Layouts depend on size classes (compact or regular width and height), not on device name. The same window can be compact when narrow and regular when wide.
+- Support multitasking and windowing. iPadOS 26 moved to free-form resizable windows, and the older Split View and Slide Over modes changed (Slide Over was removed, then returned in iPadOS 26.1 as a single-window mode; check the current HIG Multitasking page for the OS you target). Avoid assuming full screen, and avoid locking orientation. Content must reflow when the window resizes.
 - Navigation: a sidebar suits many sections; it collapses to a tab bar or a hidden sidebar in a narrow window. Recent iPadOS releases let one tab bar convert to a sidebar; use the system component rather than building two separate navigation systems.
 - Sheets and popovers: on iPad a popover usually anchors to the control that opened it; a form sheet appears centred. Do not show a full-width bottom sheet on a large window.
 - Input: support hardware keyboards (focus, Tab, Return, Escape, shortcuts), pointer hover and the pointer shape, and drag and drop between apps where users move content.
-- Targets stay finger-sized (44 pt) even though a pointer is more precise.
+- Targets stay finger-sized (44 pt default, 28 pt minimum on iPadOS) even though a pointer is more precise.
 - Apple Pencil: if the app takes handwriting or drawing, allow it in text fields where the system supports it, and do not require a Pencil.
 
 ## 2. macOS
@@ -35,7 +35,7 @@ Control sizes on Mac are smaller than on touch devices (small, regular and large
 ## 3. Apple Watch
 
 - Design for a glance: a task takes seconds, text is short, and the main answer is on the first screen.
-- Navigation uses vertical paging with the Digital Crown on current watchOS, and a stack for drill-in. Avoid deep hierarchies and long forms; hand off to iPhone for long input.
+- Navigation uses vertical paging with the Digital Crown on current watchOS (not re-verified against the watchOS pages), and a stack for drill-in. Avoid deep hierarchies and long forms; hand off to iPhone for long input.
 - Targets are large. Primary actions are full-width buttons; toolbar buttons sit in the corners. Check the exact sizes on the current Designing for watchOS pages.
 - Use the Digital Crown for scrolling or adjusting a value, with haptic ticks that match.
 - Always On display: reduce brightness, hide sensitive details when the wrist is down, and avoid fast animation.
@@ -51,7 +51,7 @@ Control sizes on Mac are smaller than on touch devices (small, regular and large
 
 ## 5. Review checks
 
-- iPad: resize to the narrowest Split View width; rotate; does layout reflow and nothing clip?
+- iPad: resize the window to its narrowest width; rotate; does layout reflow and nothing clip?
 - iPad: can every function be used with a hardware keyboard?
 - Mac: list every command and where it is in the menu bar. List any shortcut that overrides a standard one.
 - Mac: does the window keep its size and position, and work at its minimum size?
