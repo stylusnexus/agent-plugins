@@ -41,9 +41,12 @@ Fields collecting information about the user must expose their purpose using the
 
 When an error is detected automatically, identify the field and describe the error in text. When a fix is known, suggest it, unless that would compromise security or purpose.
 - Text message adjacent to the field, naming the problem and the fix: "Enter a date as DD/MM/YYYY", not "Invalid input".
-- Programmatic link: `aria-invalid="true"` on the input and the message in `aria-describedby`. Set `aria-invalid` only after validation fails, not on first render.
+- Programmatic link: `aria-invalid="true"` on the input and the message in `aria-describedby`. Set `aria-invalid` only after validation fails, not on first render. Start at `aria-invalid="false"` rather than leaving it unset: some browsers expose an empty `required` field as invalid from page load, so an unset attribute can announce "invalid entry" before the user has touched the field.
+- List the error message in `aria-describedby` only while the field is invalid. Text referenced by `aria-describedby` is read even when hidden, so a reference in the markup reads the hidden message from page load.
 - Do not rely on color, a red border, or an icon alone (1.4.1).
 - Validation timing: avoid validating on every keystroke or on first blur with a distracting alert. Validate on blur or submit, and clear the error as soon as the value becomes valid.
+  - For the visual state, use `:user-invalid` (and optionally `:user-valid`) instead of `:invalid`. It matches only after the user has changed and left the field, or tried to submit, so a required field is not red on load and an email is not red while it is still being typed.
+  - Make the programmatic state change at the same moment as the visual one: a small script on `blur`, `change`, `input`, and `invalid` that checks `field.matches(":user-invalid")` and sets `aria-invalid` and the `aria-describedby` link to match.
 - Prefer native constraint validation attributes (`required`, `type`, `pattern`, `minlength`) as the baseline, but replace default bubble UI with your own messages if the bubbles are not reliably announced; if using `noValidate`, you own every message.
 
 ### On submit with errors

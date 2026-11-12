@@ -46,6 +46,7 @@ Apple suggests a 44 by 44 pt minimum and Material Design 48 by 48 dp. These are 
   - Check: set the browser window or DevTools device width to 320, zoom to 400 percent, and walk every task.
 - Resize text (1.4.4, AA): text can scale to 200 percent without loss of content or function (browser zoom or text-only zoom). Failures: font sizes in `px` with fixed-height containers that clip, `overflow: hidden` with fixed `height`, `line-clamp` hiding essential content, `user-scalable=no` or `maximum-scale=1` in the viewport meta (blocks pinch zoom on mobile; remove).
   - Prefer `rem` for font sizes and `min-height` over `height`.
+  - Mobile web: browsers ignore the operating system's text-size setting by default. Pages built with `rem`/`em` sizes and flexible layouts can opt in with `<meta name="text-scale" content="scale">` in the `<head>`, so the root font size follows the user's OS setting (browser support is partial; treat it as an enhancement). Do not opt in a page with fixed-pixel layouts: it will break when text grows.
 - Text spacing (1.4.12, AA): no loss of content or function when a user sets line-height 1.5 times the font size, paragraph spacing 2 times the font size, letter-spacing 0.12 times the font size, word-spacing 0.16 times the font size. Test with a user stylesheet or bookmarklet; failures are clipped text in fixed-height buttons, tabs, cards, and truncation that hides content.
 - Orientation (1.3.4, AA): do not lock to portrait or landscape (`screen.orientation.lock`, CSS rotate transforms that force one orientation) unless essential (for example a piano app).
 - Sticky headers and cookie banners that eat a large share of a short viewport at 400 percent zoom are a recurring reflow and focus-obscured problem (see 2.4.11 in `keyboard-and-focus.md`).
@@ -55,13 +56,31 @@ Apple suggests a 44 by 44 pt minimum and Material Design 48 by 48 dp. These are 
 ### Reduced motion
 
 `prefers-reduced-motion: reduce` is the OS setting. Honor it for non-essential motion: parallax, large translate/scale, auto-scrolling, spinning, bouncing. Reduce rather than only remove: swap movement for a fade or instant change when the animation carries meaning.
+Handle it rule by rule. Do not apply a blanket `animation-duration: 0.01ms` (or `transition-duration`) to `*`: it can make some animations more jarring, and it kills harmless non-spatial transitions such as colour changes. Keep those; dampen or remove only movement, scaling, rotation, and persistent animation. Keep the reduced-motion rule beside the animation it changes. Pick the media query by strategy:
+
+- No animation at all under reduced motion: default to the static state and opt in to motion with `no-preference`, rather than declaring the animation and cancelling it with `animation: none`.
+- Gentler animation under reduced motion: declare the base animation and override only what changes inside `reduce`.
+
 ```css
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+/* No animation when reduced: opt in to motion */
+.spinner {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: spin 1s linear infinite;
+  }
+}
+
+/* Gentler animation when reduced: override only the changed parameter */
+.progress-indeterminate {
+  animation: slide 1s infinite linear;
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 20s;
+  }
+}
+
+/* Smooth scrolling is motion too */
+html {
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
   }
 }
 ```
