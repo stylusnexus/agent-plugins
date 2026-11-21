@@ -4,7 +4,7 @@ For charts used in analysis, reports and dashboards. It adds checks to `metrics-
 
 ## 1. Triage every flaw
 
-Tag each finding with exactly one bin (Wilke's terms):
+Tag each finding with exactly one bin:
 
 - Ugly: looks poor, reading is unaffected (clutter, odd fonts).
 - Bad: a reader can misread or be misled (truncated bar, wrong chart type, unreadable labels).
@@ -87,5 +87,3 @@ Write the message as one sentence before choosing. Check: is the question writte
 ## Report
 
 State what was checked and what was not (for example, data not available to recompute totals). Mark findings VERIFIED or NEEDS-TEST. Never claim a chart is correct, only that no issue was found in the checks listed. Report only; do not change charts unless asked.
-
-Sources: Fundamentals of Data Visualization, Claus O. Wilke.

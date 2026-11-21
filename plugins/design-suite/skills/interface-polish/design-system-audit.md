@@ -32,7 +32,7 @@ Evidence labels: VERIFIED (counted or observed in the source), NEEDS-TEST (plaus
 
 ## Base values and steps
 
-- Colour, type, spacing and timing each have one base value and derived steps. Check: count distinct values in use per category against the declared steps (Kholmatova reports one audit that found 62 greys).
+- Colour, type, spacing and timing each have one base value and derived steps. Check: count distinct values in use per category against the declared steps (one published audit found 62 greys).
 - Motion duration grows with distance travelled and element size. Recommended: a full-screen move gets at most two steps above the base duration. Motion never blocks task completion. Check: complete the main task with animations at their slowest; nothing waits on them.
 
 ## Principles and brand
@@ -62,5 +62,3 @@ Content slots: each module lists required and optional slots and their order. Ch
 - Hold naming and contribution debates in a scheduled session every four to six weeks (recommended); park them in a list during build work.
 
 Severity follows `review-format.md`.
-
-Sources: Design Systems (Alla Kholmatova); Smashing Book 6 (Smashing Magazine, 2018).

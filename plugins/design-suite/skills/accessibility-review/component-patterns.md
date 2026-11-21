@@ -81,5 +81,3 @@ Group findings by component and name one replacement, not one ticket per WCAG cr
 
 Mini example:
 - ID A-07, component: "Filter" toggle (`FilterChip.tsx:41`). Observed: `div onClick`, label changes "Show"/"Hide". Criteria: 2.1.1, 4.1.2. Priority: Serious. Fix: native `<button type="button" aria-pressed>` with a fixed label. Evidence: VERIFIED (source); VoiceOver output NEEDS-TEST.
-
-Sources: Inclusive Components by Heydon Pickering; Inclusive Design Patterns by Heydon Pickering; Smashing Book 6 (chapter 2, Marcy Sutton).

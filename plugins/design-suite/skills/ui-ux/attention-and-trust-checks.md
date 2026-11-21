@@ -60,5 +60,3 @@ Check: does the record show last release's score, and who owns the counter-metri
 ## Output
 
 Use the table in `heuristics-review.md` and add an evidence tag. Close with tests not run (five-second, first-click, SUS survey), data not supplied, and the owner decisions needed. A rising conversion number is not proof of a good design; ask what the counter-metric did.
-
-Sources: Click! How to Encourage Clicks Without Shady Tricks (Paul Boag).

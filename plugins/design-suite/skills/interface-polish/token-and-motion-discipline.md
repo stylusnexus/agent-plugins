@@ -46,5 +46,3 @@ Checks for how tokens, motion and state lists are wired, so one change stays one
 ## Long labels
 
 - Layouts survive double-length labels. Check: double the longest label and view at the narrowest width; nothing clips or overlaps, and the main action stays in view.
-
-Sources: Smashing Book 6 (Smashing Magazine, 2018); TypeScript in 50 Lessons (Stefan Baumgartner).

@@ -69,5 +69,3 @@ Check: each disclosure matches the task, and the tab count is within range.
 ## 10. Where a rule came from
 
 Button-size guidance disagrees across sources (reported figures range from under 10 mm to over 20 mm). Check: each cited sizing rule states its source, unit and test population; if it cannot, label it recommended and move on. List real-device measurement and grip testing under "checks not performed" when skipped. This is expert review, not user research.
-
-Sources: Touch Design for Mobile Interfaces (Steven Hoober); Smart Interface Design Patterns Checklists (Vitaly Friedman).

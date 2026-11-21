@@ -63,5 +63,3 @@ Finding: what the user meets, in observation terms. Evidence tag: VERIFIED, NEED
 - Real user testing; think-aloud sessions with about five people would confirm or overturn the top findings.
 - Data-flow inspection: network traces, storage, retention jobs, backups.
 - Vendor and processor contracts, and what third parties do with the data they receive.
-
-Sources: Ethical Design Handbook (Falbe, Andersen, Frederiksen); Understanding Privacy (Heather Burns); Click! (Paul Boag).

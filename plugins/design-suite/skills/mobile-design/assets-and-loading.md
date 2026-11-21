@@ -52,5 +52,3 @@ Complements `performance-and-offline.md` (srcset basics, lazy-load, layout shift
 - Define a failure state per resource type when offline or failing: image (alt text, layout holds), font (fallback), script (core content), video (poster), data (message with retry). Check: force a 404 on each image slot and confirm layout and alt text.
 - Save-Data: when the data-saver signal is on, serve smaller variants, load one carousel item at a time, skip autoplay and decorative media. Check: run with the signal on; each media component has a defined lighter state.
 - Test on the weakest target device and throttled network; the page shows something useful within a few seconds (recommended; confirm threshold). Checks not performed (real device, throttled run) must be listed.
-
-Sources: Image Optimization (Addy Osmani); Smashing Book 6, loading assets chapter (Yoav Weiss).
