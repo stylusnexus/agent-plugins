@@ -548,6 +548,7 @@ open collections could not be searched.
 | `references/scenes.md` | Step 6, when the sheet deals scroll scenes: putting one on a page, filling, fitting, the phone, checking, the catalogue. |
 | `references/critique.md` | Step 8. How to look, how to score, what to fix first. |
 | `references/review.md` | Steps 6 and 8, pages only. The reviewer packet, what is withheld, dispatching `direction-reviewer`, replying to findings. |
+| `references/feeling-and-signature.md` | Before step 3 and in critique: target feeling, journey feelings, brand-word check, the one signature detail, deliberate offsets. |
 | `references/tells.md` | The dated registry of generated-page tells and what each is replaced by. |
 | `references/research.md` | The study: method, numbers, what the best and worst sites do. Cite it, do not guess. |
 | `scripts/draw.mjs` | Deals and reprints the direction; `--photos`, `--site <id>` for more references; `--app` deals an app style instead. |

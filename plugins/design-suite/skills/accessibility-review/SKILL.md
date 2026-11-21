@@ -31,6 +31,7 @@ Do not install dependencies. Use tools already present, or list the check as nee
 | `structure-and-names.md` | Any page or component: landmarks, headings, names, ARIA, buttons vs links, images, tables, lists |
 | `keyboard-and-focus.md` | Anything interactive: dialogs, menus, tabs, custom widgets, focus styles, skip links, shortcuts |
 | `contrast-and-colour.md` | New colors, tokens, themes, dark mode, text over images, state styling, focus rings |
+| `component-patterns.md` | A named widget is present: toggle, switch, tabs, collapsible, menus, tooltip or toggletip, carousel, theme switch, load more; also how to group findings by component |
 | `forms-and-errors.md` | Inputs, validation, submit flows, login, async updates, toasts, live regions |
 | `target-size-and-motion.md` | Small controls, drag and drop, responsive layout, zoom, animation, auto-playing content, timeouts |
 | `testing-methods.md` | Planning or running browser, screen-reader, or axe checks; findings log; report wording |

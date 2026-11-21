@@ -23,6 +23,7 @@ Numbers and charts
 - [ ] Bar charts start at zero; truncated line axes are labelled.
 - [ ] Chart type matches the question; no gauges, 3D, or dual axes without reason.
 - [ ] Colour is not the only carrier of meaning; contrast meets 3:1 for graphics and 4.5:1 for text.
+- [ ] Each chart passes the checks in `chart-integrity.md` (proportional ink, sort order, interval meaning, caption claim, export format).
 - [ ] Tables where exact values or actions matter.
 - [ ] Dense views are unboxed; number columns use tabular figures; skeletons match final tile size.
 - [ ] No looping motion on tiles by default.

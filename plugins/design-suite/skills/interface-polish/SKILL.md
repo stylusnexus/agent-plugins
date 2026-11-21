@@ -26,7 +26,7 @@ Not for: exact contrast ratios, target sizes, screen-reader behaviour (use acces
 
 ## Workflow
 
-1. **Inspect tokens.** Find the Tailwind config or CSS variables (colours, spacing, radii, shadows, fonts, durations). Note what exists. List raw values in the target code that bypass tokens.
+1. **Inspect tokens.** Find the Tailwind config or CSS variables (colours, spacing, radii, shadows, fonts, durations). Note what exists. List raw values in the target code that bypass tokens. When the target is the system itself, use `design-system-audit.md` and `token-and-motion-discipline.md`.
 2. **Audit.** Walk the target against the reference files below. Record each finding with a principle, a severity, and a file.
 3. **Fix.** Apply the smallest change that resolves each finding, using tokens. Prefer one token change over many local overrides.
 4. **Verify.** Render at 320px, 768px, and a wide desktop width, in light and dark themes. Tab through with a keyboard. Toggle reduced motion in the OS or browser devtools. Run typecheck and lint. Anything you cannot run goes under "Could not verify".
@@ -37,6 +37,8 @@ Not for: exact contrast ratios, target sizes, screen-reader behaviour (use acces
 - `motion.md`: open for transitions, durations, easing, press feedback, enter/exit, reduced motion.
 - `typography-and-colour.md`: open for type scale, line height, wrapping, numerals, truncation, colour tokens, dark mode.
 - `layout-and-states.md`: open for grouping, alignment, responsive structure, the state matrix, form visuals, hit areas.
+- `design-system-audit.md`: open to review a design system or component library as a whole: inventory, naming, merge tests, intake, documentation, governance.
+- `token-and-motion-discipline.md`: open for breakpoint tokens, the motion token, theming, unknown-name failures, derived lists, state coverage, minimal-edit renames.
 - `review-format.md`: open before writing the final report; it has the template, severity scale, and checklist.
 - `style-presets.md`: open only when the product owners ask for a named look (soft, minimalist, brutalist). Optional; built from existing tokens.
 

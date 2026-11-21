@@ -21,7 +21,7 @@ Not for: pure data displays (use dashboard-design), pure navigation or labels (i
 1. Identify the user, task, context and evidence. Mark unknowns MISSING INFORMATION. State your read of the brief and a short assumption list before designing; if intent is genuinely unclear, ask one question, not several. Quiet constraints (an accessibility-first audience, a regulated setting, children) override style preference.
 2. Describe the current experience from code, screenshots or supplied material. Keep observation, interpretation and recommendation apart.
 3. Walk the task flow and the full state set (`flow-and-states.md`).
-4. Run an expert heuristic pass if a review is asked for (`heuristics-review.md`). Label it expert review, not user research.
+4. Run an expert heuristic pass if a review is asked for (`heuristics-review.md`). Label it expert review, not user research. For manipulative patterns and consent use `ethics-and-consent-review.md`; for conversion and trust use `attention-and-trust-checks.md`.
 5. Pick only the specialist perspectives the problem needs.
 6. Draft the smallest coherent change that improves task completion, comprehension, confidence or error recovery.
 7. Write it up using `design-brief-template.md`: layout, hierarchy, states, responsive behaviour, accessibility needs, acceptance criteria.
@@ -35,6 +35,8 @@ Not for: pure data displays (use dashboard-design), pure navigation or labels (i
 | `design-brief-template.md` | Producing the brief the product owner reviews |
 | `heuristics-review.md` | Asked to critique or audit an existing interface |
 | `findability-review.md` | Reviewing whether users can find and reach a feature, or checking a change for UX regressions |
+| `ethics-and-consent-review.md` | Reviewing a flow for manipulative patterns, consent, cancellation, cookie banners or data respect |
+| `attention-and-trust-checks.md` | Checking conversion, first-screen focus, CTA wording, redesign shock or trust signals without dark patterns |
 | `handoff.md` | Passing work to design-ui-engineer or the accessibility expert, or routing to specialists |
 
 ## Output format

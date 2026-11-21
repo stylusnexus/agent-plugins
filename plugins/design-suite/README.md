@@ -20,7 +20,7 @@ These are AI review perspectives. They inspect your real interface and return sp
 | `android-platform-design` | A screen ships on Android and must follow Material 3 and platform behaviour: navigation bar, rail and drawer by window size, edge-to-edge, predictive back, dynamic color, 48dp targets, TalkBack and font scaling. |
 | `information-architecture` | You are organising navigation, labels, taxonomy, URLs or content types, or chasing a "people cannot find X" report. |
 
-Ten Claude Code agents ship alongside, each a bounded role that reads the matching skill first: `ui-ux-lead` (the design lead), `design-ui-engineer` (implements an approved design), `dashboard-designer`, `accessibility-expert`, `mobile-design-expert`, `apple-design-expert`, `android-design-expert`, `information-architect`, `ux-designer` (checks that users can find things, reviews changes for UX regressions, files issues) and `direction-reviewer` (judges a built page from screenshots and the direction sheet only; pages, not app screens). They ship as Claude Code agents in `agents/` and as Codex agents in `codex-agents/` (generated from the Claude ones, with a test that keeps them in step). The Skills CLI installs skills, not agents. Every skill works without them.
+Twelve Claude Code agents ship alongside, each a bounded role that reads the matching skill first: `ui-ux-lead` (the design lead), `design-ui-engineer` (implements an approved design), `dashboard-designer`, `accessibility-expert`, `mobile-design-expert`, `apple-design-expert`, `android-design-expert`, `information-architect`, `ux-designer` (checks that users can find things, reviews changes for UX regressions, files issues), `ethics-reviewer` (read-only: manipulative patterns, consent, cancellation and data handling; design-level, not legal advice), `design-system-auditor` (read-only: duplicates, naming, intake rules and token discipline) and `direction-reviewer` (judges a built page from screenshots and the direction sheet only; pages, not app screens). They ship as Claude Code agents in `agents/` and as Codex agents in `codex-agents/` (generated from the Claude ones, with a test that keeps them in step). The Skills CLI installs skills, not agents. Every skill works without them.
 
 The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates screenshots against a UX checklist. This pack's skills are complementary: they work from the product, its code and your description rather than from a folder of screenshots, and `ux-review` can feed them findings to act on.
 
@@ -32,12 +32,12 @@ The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates scre
 
 | Skill | Owns |
 |---|---|
-| `ui-ux` | The user task, flow and full state set, the heuristic review, the design brief, and the handoff |
-| `interface-polish` | Visual detail: spacing scale, radii, shadows, type, colour tokens, motion, and the state matrix. Report-only unless asked to implement |
+| `ui-ux` | The user task, flow and full state set, the heuristic review, the design brief, and the handoff, plus ethics and consent review (design-level, not legal advice) and attention and trust checks |
+| `interface-polish` | Visual detail: spacing scale, radii, shadows, type, colour tokens, motion, and the state matrix, plus design-system audit and token discipline. Report-only unless asked to implement |
 | `art-direction` | The visual idea and look of a page or screen: the chosen direction, type system, palette, photographs, section blueprints, the browser inspection and look-and-fix loop, a source lint whose rules can be waived with a recorded reason, and a redesign check that the new page kept the old page's links, forms and fields, with an up-front warning on framework pages whose click handlers it cannot see |
-| `accessibility-review` | WCAG 2.2 AA findings, evidence tags (verified or needs test), and the list of checks not performed. Never states that an interface is compliant |
-| `dashboard-design` | Decision-first layout, freshness and provenance, data states, thresholds, and chart and number choices |
-| `mobile-design` | Platform-neutral touch, narrow-width layout, input and keyboards, offline behaviour, and the web-versus-native question |
+| `accessibility-review` | WCAG 2.2 AA findings, evidence tags (verified or needs test), component-pattern checks reported by component, and the list of checks not performed. Never states that an interface is compliant |
+| `dashboard-design` | Decision-first layout, freshness and provenance, data states, thresholds, chart and number choices, and chart integrity checks |
+| `mobile-design` | Platform-neutral touch (including reach zones and target sizes), narrow-width layout, input and keyboards, asset and loading checks, offline behaviour, and the web-versus-native question |
 | `apple-platform-design` | Apple conventions: tab bars, navigation stacks, sheets, SF Symbols, Dynamic Type, safe areas, haptics, iPad multitasking, the macOS menu bar and windows, watchOS screens, and the design-level VoiceOver and Reduce Motion hooks |
 | `android-platform-design` | Android and Material 3 conventions: navigation bar, rail and drawer, window size classes, edge-to-edge, predictive back, dynamic color, snackbars and dialogs, and the design-level TalkBack and font-scale hooks |
 | `information-architecture` | Hierarchy, navigation, labels, taxonomy, URLs and the content model, with a redirect plan for any move |
@@ -372,7 +372,7 @@ Needs real users: a 5-participant tree test of the new labels. Results: MISSING 
 /plugin install design-suite@stylus-nexus
 ```
 
-Skills are namespaced: `/design-suite:ui-ux`. The ten agents install with the plugin.
+Skills are namespaced: `/design-suite:ui-ux`. The twelve agents install with the plugin.
 
 ### Codex
 
@@ -393,7 +393,7 @@ cp agent-plugins/plugins/design-suite/codex-agents/*.toml ~/.codex/agents/
 
 Start a new Codex session afterwards. Each agent reads the matching skill first, so install the plugin too.
 
-Codex agent files have no tool list, so the ux-designer's no-edit rule, and the direction-reviewer's read-only rule and its rule to read only the files it is handed, are only written instructions on Codex. Run them in a read-only sandbox (`codex exec -s read-only` or `codex --sandbox read-only`). If the sandbox stops the ux-designer reaching the issue tracker, it lists what it could not do.
+Codex agent files have no tool list, so the no-edit rule of the ux-designer, ethics-reviewer and design-system-auditor, and the direction-reviewer's read-only rule and its rule to read only the files it is handed, are only written instructions on Codex. Run them in a read-only sandbox (`codex exec -s read-only` or `codex --sandbox read-only`). If the sandbox stops the ux-designer reaching the issue tracker, it lists what it could not do.
 
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
