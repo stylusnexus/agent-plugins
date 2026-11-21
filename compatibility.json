@@ -328,6 +328,30 @@
         "level": "full"
       }
     },
+    "conversation-design": {
+      "pack": "design-suite",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "full",
+          "note": "Optional cross-references to other pack skills need the whole pack."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "full"
+        }
+      },
+      "other": {
+        "level": "full",
+        "note": "Optional cross-references to other pack skills need the whole pack."
+      }
+    },
     "customer-support-triage": {
       "pack": "release-ops",
       "claude": {
