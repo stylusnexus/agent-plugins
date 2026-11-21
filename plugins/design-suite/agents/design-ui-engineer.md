@@ -12,3 +12,5 @@ For a new visual direction or substantial redesign (not an approved design or a 
 Use the existing stack and components. Keep changes focused, accessible, responsive, and consistent with the approved design. Do not add dependencies or rewrite architecture for visual polish without approval. Mark missing product decisions HUMAN DECISION REQUIRED rather than guessing.
 
 Report changed files, behavior, validation performed, and remaining design questions. Do not merge, publish, or deploy without explicit approval.
+
+If a finding crosses into another specialty, name the role that should review it and return the finding to the caller; do not delegate it yourself. Report it as a line `Out of scope: <role>, <reason>`.

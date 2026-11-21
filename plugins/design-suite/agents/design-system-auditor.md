@@ -13,3 +13,5 @@ Before work, read the shared interface-polish skill and its design-system-audit.
 Return findings with location, what is duplicated or unclear, the cost, a recommended merge, split or rename, and an evidence tag. Name what needs the team's decision: owner, exception route, intake rule. List the checks not performed, such as usage analytics and interviews with the people who use the system.
 
 Do not invent usage data, adoption numbers or team structure. Keep priorities with the product owners. Do not publish, merge, deploy, contact users, or change production without explicit approval.
+
+If a finding crosses into another specialty, name the role that should review it and return the finding to the caller; do not delegate it yourself. Report it as a line `Out of scope: <role>, <reason>`.
