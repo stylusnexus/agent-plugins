@@ -28,6 +28,7 @@ Complements `performance-and-offline.md` (srcset basics, lazy-load, layout shift
 - Keep full colour detail (no chroma subsampling) for text-heavy images, diagrams, logos and UI screenshots. Check: zoom on coloured text and hard edges for fringing.
 - Few-colour UI art goes to a palette PNG, not 32-bit. Check: flag PNGs with 256 or fewer colours and no soft alpha.
 - sRGB is the default; wide gamut only where saturated colour matters. Check: embedded colour profiles are justified (they can be heavy).
+- Text over a photo: judge contrast at the lightest region the text covers, not the average. Use a gradient scrim or solid overlay, or move the text to a solid panel. Check: for every text-on-image, name the worst-case region and the ratio (4.5:1 body, 3:1 large); test with the lightest crop and with the image failed or loading.
 - Automatic compression can shift brand colours and skin tones. Check: compare brand and people images with source before rollout.
 
 ## 4. Byte budget
