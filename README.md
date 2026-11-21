@@ -220,8 +220,6 @@ Agents (Claude Code): `audience-scout` `marketing-lead`
 
 Agents (Claude Code): `accessibility-expert` `android-design-expert` `apple-design-expert` `dashboard-designer` `design-system-auditor` `design-ui-engineer` `direction-reviewer` `ethics-reviewer` `information-architect` `mobile-design-expert` `ui-ux-lead` `ux-designer`
 
-Specialist agents hand out-of-scope findings back to the caller as `Out of scope: <role>, <reason>`; the lead agent routes them. This is a convention of the pack, not a Claude Code or Codex feature.
-
 [Pack README →](./plugins/design-suite)
 
 </details>
