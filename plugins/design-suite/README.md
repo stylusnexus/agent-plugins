@@ -48,6 +48,23 @@ No skill publishes, merges, deploys, or contacts users. Plans, reviews and propo
 
 ---
 
+## Deeper checks
+
+Each skill keeps its core in `SKILL.md` and opens reference files only when a question needs them. These are the checks added beyond the core, grouped by skill.
+
+| Skill | Deeper checks it can run |
+|---|---|
+| `ui-ux` | **Ethics and consent review** (design-level, not legal advice): total cost before the last step, guest checkout, cancelling as easy as signing up, optional extras off by default, reject as prominent as accept on cookie banners, a stated purpose and retention period for every form field, self-service view and delete, consent that is specific and as easy to withdraw as to give, permissions asked at the moment of use. **Attention and trust:** a five-second test, a first-click test, an attention budget per screen, a "what moved" cue after a redesign, and a named fear answered beside each action. |
+| `dashboard-design` | **Chart integrity** for dashboards, analysis and reports: each chart tagged ugly, misleading or wrong; the chart chosen by the message; bars and areas that start at zero; categories sorted by value; error bars that say what they show; smoothing that is disclosed; overplotting handled; palettes that work for colour-blind readers; a caption that states the claim; vector or PNG export, never JPEG. |
+| `interface-polish` | **Design-system audit:** an inventory grouped by the job each element does, duplicate counts, names that survive a restyle, a rule that a pattern is added on its second real use, an exception log, principles ranked and pinned to real screens, a named owner. **Token and motion discipline:** breakpoints that change a few tokens, one motion token, lists derived from the data, every status handled with a loud fallback. |
+| `mobile-design` | **Touch zones:** centre-out placement, target sizes that differ by screen zone, designing to a hit radius, whole-row targets, undo instead of confirm, fields per step, tab and carousel limits, a check on a real device. **Assets and loading:** served size against displayed size, reserved space, image format and quality choices, font loading, a byte budget, and a page that still renders when a third-party script fails. |
+| `accessibility-review` | **Component patterns:** tabs, menus, tooltips versus toggletips, collapsibles, carousels, theme switches, load-more lists and icon-only controls, with findings reported by component and one native replacement named, not one ticket per rule. |
+| `art-direction` | **Feeling and signature:** one named feeling and its strength before designing, a feeling for each journey step, an element behind every brand word, one signature detail repeated across templates, near-miss offsets flagged, photographs re-cropped for phones. |
+
+The ethics and design-system checks also have read-only agents: `ethics-reviewer` and `design-system-auditor`. Like every skill here they are expert review, not user research, a legal opinion or an audit.
+
+---
+
 ## What it looks like
 
 <details>
