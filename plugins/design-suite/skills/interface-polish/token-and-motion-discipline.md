@@ -9,7 +9,7 @@ Checks for how tokens, motion and state lists are wired, so one change stays one
 
 ## Motion token
 
-- Every transition duration reads one motion token. Under `prefers-reduced-motion: reduce`, large movement becomes a fade or an instant change, following `motion.md`; spinners and state feedback stay.
+- Every transition duration reads a token from one declared duration set (press, small, large, exit; see `motion.md`). Under `prefers-reduced-motion: reduce`, large movement becomes a fade or an instant change, following `motion.md`; spinners and state feedback stay.
 - Check: grep for hard-coded durations; flip the setting and confirm the token changed (see `motion.md` for the wider reduced-motion rules).
 
 ## Theming
