@@ -1,6 +1,6 @@
 # Design Suite
 
-A design lead plus eight focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), art direction for websites and app screens, accessibility review against WCAG 2.2, dashboards, mobile and responsive design, Apple and Android platform conventions, information architecture, and chat and assistant interfaces.
+A design lead plus nine focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), art direction for websites and app screens, accessibility review against WCAG 2.2, dashboards, mobile and responsive design, Apple and Android platform conventions, information architecture, and chat and assistant interfaces.
 
 These are AI review perspectives. They inspect your real interface and return specific, checkable findings, but they are not user research, an accessibility audit, or a stand-in for testing with real people. Every skill labels its output as expert review and lists the checks that still need real users, a browser, or assistive technology.
 
@@ -447,7 +447,7 @@ Codex agent files have no tool list, so the no-edit rule of the ux-designer, eth
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill accessibility-review android-platform-design apple-platform-design art-direction dashboard-design information-architecture interface-polish mobile-design ui-ux
+npx skills add stylusnexus/agent-plugins --skill accessibility-review android-platform-design apple-platform-design art-direction conversation-design dashboard-design information-architecture interface-polish mobile-design ui-ux
 ```
 
 Skills arrive un-namespaced on this path, so most agents invoke them as `/ui-ux`; Windsurf uses `@ui-ux`, opencode shows `/ui-ux` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.

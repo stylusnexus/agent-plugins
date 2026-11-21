@@ -1,6 +1,6 @@
 {
   "name": "design-suite",
-  "description": "A design lead plus eight focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), art direction for websites and app screens, accessibility review against WCAG 2.2, dashboards, mobile and responsive design, Apple and Android platform conventions, and information architecture. These are AI review perspectives that give specific, checkable findings; they do not replace testing with real users or assistive-technology audits.",
+  "description": "A design lead plus nine focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), art direction for websites and app screens, accessibility review against WCAG 2.2, dashboards, mobile and responsive design, Apple and Android platform conventions, information architecture, and chat and assistant interfaces. These are AI review perspectives that give specific, checkable findings; they do not replace testing with real users or assistive-technology audits.",
   "homepage": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/design-suite",
   "repository": "https://github.com/stylusnexus/agent-plugins",
   "license": "MIT",
@@ -28,7 +28,7 @@
   "interface": {
     "displayName": "Design Suite",
     "shortDescription": "Review and shape UI and UX work",
-    "longDescription": "A design lead plus eight focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), art direction for websites and app screens, accessibility review against WCAG 2.2, dashboards, mobile and responsive design, Apple and Android platform conventions, and information architecture. These are AI review perspectives that give specific, checkable findings; they do not replace testing with real users or assistive-technology audits.",
+    "longDescription": "A design lead plus nine focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), art direction for websites and app screens, accessibility review against WCAG 2.2, dashboards, mobile and responsive design, Apple and Android platform conventions, information architecture, and chat and assistant interfaces. These are AI review perspectives that give specific, checkable findings; they do not replace testing with real users or assistive-technology audits.",
     "developerName": "Stylus Nexus",
     "category": "Design",
     "capabilities": [
