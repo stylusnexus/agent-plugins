@@ -7,7 +7,7 @@ Use this to check whether a page or flow helps people act with confidence, witho
 | Test | How | Pass signal |
 |---|---|---|
 | Five-second test | Show the page for five seconds, then ask "What does this offer?" and "Is it for people like me?" | Most testers answer both correctly (recommended) |
-| First-click test | Give a key task, record where the first click lands | Most testers click the right target. Cited figure: one book reports 87% task success after a correct first click versus 46% after a wrong one; treat as an illustration |
+| First-click test | Give a key task, record where the first click lands | Most testers click the right target. Published first-click studies report roughly 87% task success after a correct first click against 46% after a wrong one; treat the figures as an illustration |
 | Distinct choices | Show two similar options and ask what separates them | A tester states the difference in five seconds |
 
 Without people, say "not run" and list the test; do not simulate results.

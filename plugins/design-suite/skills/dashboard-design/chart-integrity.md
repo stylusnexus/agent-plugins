@@ -58,7 +58,7 @@ Write the message as one sentence before choosing. Check: is the question writte
 ## 8. Legends and colour
 
 - Legend order matches the visual order of the lines at the right edge. Check: top to bottom, do they agree?
-- Qualitative colour ceiling: recommended 5 or fewer, never above 8; beyond that use direct labels or panels. Check: count distinct hues.
+- Qualitative colour ceiling: about 5 or 6 hues (recommended, see `metrics-and-charts.md` section 5); past 8, always use direct labels or panels. Check: count distinct hues.
 - Use a colour-blind-safe palette (Okabe-Ito style) and pair colour with shape, line type or label. Check: does a greyscale print still separate every category?
 - No rainbow scales. Check: does a sequential scale get steadily lighter or darker in greyscale?
 

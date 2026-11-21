@@ -26,7 +26,7 @@ Numbers are recommended defaults unless marked as a cited figure. Tag every find
 | Rule | Check |
 |---|---|
 | Non-essential options off by default | Load a clean profile and click nothing: no optional box is ticked, and non-essential requests number zero (recommended target) |
-| Cookie banner parity | Reject-all matches accept-all in size, style and click depth on the first layer; closing the banner is treated as no consent; each third party is named |
+| Cookie banner parity | Reject-all matches accept-all in size, style and click depth on the first layer; closing the banner sets no non-essential cookies (check the network log); each third party is named |
 | "Analytics" that is really advertising | For each cookie in a performance group, confirm it serves only the site owner, not an ad network |
 | Consent is active and granular | No pre-ticked boxes; purposes are separate; consent is not bundled into terms or a newsletter signup |
 | Withdrawal costs no more than granting | Clicks to withdraw are no more than clicks to grant; the control lives in settings |
