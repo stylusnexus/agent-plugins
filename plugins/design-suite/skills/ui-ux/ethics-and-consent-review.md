@@ -2,6 +2,8 @@
 
 > **Scope and limits.** This is a design-level expert review of a flow for manipulative patterns and respect for user data. It is not legal advice and not a compliance audit. It never states that a product complies with GDPR, CCPA or any other law. Legal questions go to qualified counsel and the product owner. Findings are hypotheses from inspection; none is user research.
 
+For a code and data-flow privacy audit of a repository, use `privacy-audit` in the hardening pack; this file reviews the design of the flow.
+
 Numbers are recommended defaults unless marked as a cited figure. Tag every finding VERIFIED (seen in the build, screenshots or a network trace) or NEEDS-TEST (inferred, needs people or tooling). Missing facts are MISSING INFORMATION.
 
 ## How to run it
@@ -52,10 +54,10 @@ Numbers are recommended defaults unless marked as a cited figure. Tag every find
 
 ## Output format
 
-| # | Finding | Evidence tag | Fix | Owner decision |
-|---|---|---|---|---|
+| # | Finding | Evidence tag | Fix | Severity | Owner decision |
+|---|---|---|---|---|---|
 
-Finding: what the user meets, in observation terms. Evidence tag: VERIFIED, NEEDS-TEST or MISSING INFORMATION. Fix: the exact change. Owner decision: accept, reject or defer, with the named person. Rate severity on the scale in `heuristics-review.md`. Close with what was and was not reviewed, then this line: "Design-level review. Not legal advice. No compliance determination made."
+Finding: what the user meets, in observation terms. Evidence tag: VERIFIED, NEEDS-TEST or MISSING INFORMATION. Fix: the exact change. Severity: from `heuristics-review.md`. Owner decision: accept, reject or defer, with the named person. Rate severity on the scale in `heuristics-review.md`. Close with what was and was not reviewed, then this line: "Design-level review. Not legal advice. No compliance determination made."
 
 ## Checks not performed
 

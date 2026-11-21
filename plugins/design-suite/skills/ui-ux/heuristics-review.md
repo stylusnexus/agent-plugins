@@ -47,4 +47,4 @@ Close with: what was reviewed, what was not, number of reviewers (one AI pass un
 
 - A one-sentence reason tied to user impact.
 - The exact fix, not a direction.
-- Any exemption, logged in an exception register with a reason and a named owner, so waivers stay visible and revisited.
+- Any finding that is waived, logged in an exception register with a reason and a named owner, so waivers stay visible and revisited.

@@ -5,7 +5,7 @@ Checks for how tokens, motion and state lists are wired, so one change stays one
 ## Breakpoints and tokens
 
 - Breakpoints reassign a few tokens declared once near the top; components read the tokens.
-- Check: count media queries that set layout or spacing properties directly. Recommended target: zero; each one is a finding.
+- Check: count media queries that put raw spacing or layout values on a component instead of reassigning a token. Recommended target: zero raw values; utility-class breakpoints that map to the system's scale are fine.
 
 ## Motion token
 
