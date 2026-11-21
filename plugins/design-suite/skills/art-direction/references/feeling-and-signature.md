@@ -42,4 +42,4 @@ What a page should make a visitor feel, and the one detail they remember. `criti
 
 ## 9. Offsets: exact or clearly large
 
-- An element is either exactly on the grid line or clearly pushed off it (recommended: roughly 20 to 30 px). Check: search the CSS for `translate`, `margin` and `top`/`left` offsets of 1 to 8 px; each reads as a bug rather than a choice. Fix by snapping to the grid or enlarging the offset.
+- An element is either exactly on the grid line or clearly pushed off it (recommended: roughly 20 to 30 px). Check: search the CSS for `translate` and `top`/`left` offsets of 1 to 8 px that are off the spacing scale (ordinary spacing-scale margins are fine); each reads as a bug rather than a choice. Fix by snapping to the grid or enlarging the offset.
