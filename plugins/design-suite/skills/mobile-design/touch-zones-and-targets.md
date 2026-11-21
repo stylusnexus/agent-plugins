@@ -56,6 +56,7 @@ Check: each disclosure matches the task, and the tab count is within range.
 
 - Bottom tabs: at most 5. Check: count.
 - Form fields per step: about 7 to 8 on desktop, 3 to 4 on phone; split longer forms. Check: count visible fields per step.
+- Postcode, ZIP, phone and card numbers: `type=text` with `inputmode=numeric` (or `tel`) and the right `autocomplete` (for example `postal-code`); never `type=number`, which drops leading zeros. Check: each field's type, inputmode and autocomplete (see `responsive-and-input.md`).
 - Tables on phones: keep the 3 to 5 key columns visible at 375 px, with a way to reach the rest, or reshape rows into cards. Check: render at 375 px.
 - Sliders: pair with +/- steppers and a text field for exact entry; announce value changes to screen readers. Check: enter an exact value without dragging.
 - Carousels: no auto-rotation by default (see `component-patterns.md` in accessibility-review). If the product owner requires it: advance no faster than 5 to 7 s (recommended), visible pause control (2.2.2), stops on interaction, off under reduced motion and on phones. Check: leave the page idle on a phone and confirm nothing rotates.
