@@ -19,8 +19,8 @@ Design around the user's context and task on small screens: constrained width, t
 1. Identify user, task, device context and evidence. Mark unknowns MISSING INFORMATION (device mix, connectivity, one-handed use are all unknown unless supplied).
 2. Inspect existing breakpoints, components and mobile behaviour in code or screenshots.
 3. Prioritise content and actions; do not shrink a desktop layout into a narrow viewport.
-4. Specify navigation, touch targets, text scaling, keyboard behaviour, orientation and reflow, and long-content handling (`touch-and-navigation.md`, `responsive-and-input.md`).
-5. Specify loading, error, slow-network, offline and interrupted-task behaviour, plus motion and layout stability (`performance-and-offline.md`).
+4. Specify navigation, touch targets, text scaling, keyboard behaviour, orientation and reflow, and long-content handling (`touch-and-navigation.md`, `touch-zones-and-targets.md`, `responsive-and-input.md`).
+5. Specify loading, error, slow-network, offline and interrupted-task behaviour, plus motion and layout stability (`performance-and-offline.md`, `assets-and-loading.md`).
 6. Coordinate with the dashboard designer for dense data and the accessibility expert for inclusive interaction.
 7. Return annotated mobile states, responsive rules, trade-offs and acceptance criteria.
 
@@ -31,6 +31,8 @@ Design around the user's context and task on small screens: constrained width, t
 | `touch-and-navigation.md` | Sizing and spacing controls, thumb reach, choosing navigation pattern, back behaviour, gestures |
 | `responsive-and-input.md` | Writing responsive CSS rules, viewport units, safe areas, forms, input types, keyboards, orientation |
 | `performance-and-offline.md` | Slow or no network, images, tap latency, layout shift, motion and reduced motion |
+| `touch-zones-and-targets.md` | Zone-based target sizes, miss cost, tap feedback, encoding meaning twice, disclosure fit, phone limits for forms, tables, sliders, carousels |
+| `assets-and-loading.md` | Image format, quality and byte budgets, fonts and first-paint set, third-party and Save-Data failure tests |
 
 ## Output format
 

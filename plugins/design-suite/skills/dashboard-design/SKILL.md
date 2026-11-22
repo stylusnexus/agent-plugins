@@ -21,7 +21,7 @@ Make a dashboard answer the user's next decision or question quickly. A dashboar
 3. Prioritise by consequence and urgency. Separate attention items, summary and drill-down detail.
 4. For every external signal show state, retrieval time and source where practical. Distinguish missing, stale, unavailable and confirmed-clear (`data-states.md`).
 5. Design loading, error, empty, partial-coverage and normal states. Never imply all clear when sources are missing.
-6. Choose number formats, charts, filters and time ranges per question (`metrics-and-charts.md`). Drop decorative charts and aggregate scores with no decision value.
+6. Choose number formats, charts, filters and time ranges per question (`metrics-and-charts.md`). Drop decorative charts and aggregate scores with no decision value. Check charts that will be reported or exported against `chart-integrity.md`.
 7. Provide responsive layout and accessibility requirements; involve the mobile and accessibility roles where relevant. For a new look or a substantial redesign of the screen, use the art-direction skill in its app-screen mode.
 8. Review the result with `review-checklist.md` and return an annotated proposal, rationale, open questions and acceptance criteria.
 
@@ -32,6 +32,7 @@ Make a dashboard answer the user's next decision or question quickly. A dashboar
 | `decision-first-layout.md` | Starting a design or restructuring one; deciding what goes on top |
 | `data-states.md` | Any signal that can be late, missing, partial or wrong; thresholds and alerts |
 | `metrics-and-charts.md` | Formatting numbers, choosing or critiquing a chart, filters, time ranges, drill-down |
+| `chart-integrity.md` | Reviewing a chart for misleading or incorrect encoding; distributions, smoothing, overplotting, captions, export |
 | `review-checklist.md` | Reviewing an existing dashboard or checking your own proposal; findings format |
 
 ## Output format

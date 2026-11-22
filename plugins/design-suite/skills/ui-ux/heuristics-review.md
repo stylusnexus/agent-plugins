@@ -42,3 +42,9 @@ Heading names follow the widely used ten usability heuristics (Nielsen Norman Gr
 | # | Location | Heading | Observation | Why it may matter | Severity | Suggested fix | Needs testing with people? |
 
 Close with: what was reviewed, what was not, number of reviewers (one AI pass unless stated), and the specific user tests that would confirm or overturn the top findings.
+
+## Every finding states
+
+- A one-sentence reason tied to user impact.
+- The exact fix, not a direction.
+- Any finding that is waived, logged in an exception register with a reason and a named owner, so waivers stay visible and revisited.
