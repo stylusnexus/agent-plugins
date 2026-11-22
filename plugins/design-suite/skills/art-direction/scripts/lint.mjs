@@ -11,6 +11,9 @@
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, extname, relative, resolve } from 'node:path';
 
+// Piped stdout is not always flushed before process.exit(), which cuts long output short on macOS.
+process.stdout._handle?.setBlocking?.(true);
+
 const USAGE = 'usage: node lint.mjs [files or directories ...] [--app] [--json] [--allow "<rule> -- <reason>"]...';
 const usageError = (msg) => { console.error(msg + '\n' + USAGE); process.exit(2); };
 // --allow consumes the argument after it, so its value is never read as a path.
