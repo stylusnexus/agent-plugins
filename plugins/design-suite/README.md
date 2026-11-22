@@ -1,6 +1,6 @@
 # Design Suite
 
-A design lead plus eight focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), art direction for websites and app screens, accessibility review against WCAG 2.2, dashboards, mobile and responsive design, Apple and Android platform conventions, and information architecture.
+A design lead plus nine focused skills for UI/UX work: user flows and screen states, interface polish (spacing, type, colour, motion), art direction for websites and app screens, accessibility review against WCAG 2.2, dashboards, mobile and responsive design, Apple and Android platform conventions, information architecture, and chat and assistant interfaces.
 
 These are AI review perspectives. They inspect your real interface and return specific, checkable findings, but they are not user research, an accessibility audit, or a stand-in for testing with real people. Every skill labels its output as expert review and lists the checks that still need real users, a browser, or assistive technology.
 
@@ -15,6 +15,7 @@ These are AI review perspectives. They inspect your real interface and return sp
 | `art-direction` | A page or screen looks generic, templated or "AI-made", or you are building a landing page, portfolio, product page or app screen and want a deliberate look: it deals researched directions, enforces a no-slop house style and checks the result in a real browser. |
 | `accessibility-review` | You want a keyboard, screen-reader, contrast, reflow, target-size or motion review against WCAG 2.2 AA, with prioritised findings and fixes. |
 | `dashboard-design` | You are designing or fixing a dashboard, console, status view, or data-heavy screen, including stale, missing and partial data. |
+| `conversation-design` | You are designing or reviewing a chat, assistant or bot: replies and openers, what happens when input fails, escape routes to a person, context across turns, tone, and the chat screen itself (typing, streaming, stop, retry). |
 | `mobile-design` | A flow must work on phones and small windows: touch targets, navigation, mobile forms, slow or offline networks, and web-versus-native questions. |
 | `apple-platform-design` | A screen ships on iOS, iPadOS, macOS or watchOS and must follow Apple conventions: tab bars and sheets, Dynamic Type, SF Symbols, safe areas, haptics, the Mac menu bar, VoiceOver and Reduce Motion handling. |
 | `android-platform-design` | A screen ships on Android and must follow Material 3 and platform behaviour: navigation bar, rail and drawer by window size, edge-to-edge, predictive back, dynamic color, 48dp targets, TalkBack and font scaling. |
@@ -37,6 +38,7 @@ The `ux-review` skill in the [`ship-pipeline`](../ship-pipeline) pack rates scre
 | `art-direction` | The visual idea and look of a page or screen: the chosen direction, type system, palette, photographs, section blueprints, the browser inspection and look-and-fix loop, a source lint whose rules can be waived with a recorded reason, and a redesign check that the new page kept the old page's links, forms and fields, with an up-front warning on framework pages whose click handlers it cannot see |
 | `accessibility-review` | WCAG 2.2 AA findings, evidence tags (verified or needs test), component-pattern checks reported by component, and the list of checks not performed. Never states that an interface is compliant |
 | `dashboard-design` | Decision-first layout, freshness and provenance, data states, thresholds, chart and number choices, and chart integrity checks |
+| `conversation-design` | The script and flow of a conversation: bounded choices, repair paths for every input that can fail, escape and handoff, context rules, voice, drop-off measurement, and the chat-specific states. Accessibility and consent details defer to `accessibility-review` and `ui-ux` |
 | `mobile-design` | Platform-neutral touch (including reach zones and target sizes), narrow-width layout, input and keyboards, asset and loading checks, offline behaviour, and the web-versus-native question |
 | `apple-platform-design` | Apple conventions: tab bars, navigation stacks, sheets, SF Symbols, Dynamic Type, safe areas, haptics, iPad multitasking, the macOS menu bar and windows, watchOS screens, and the design-level VoiceOver and Reduce Motion hooks |
 | `android-platform-design` | Android and Material 3 conventions: navigation bar, rail and drawer, window size classes, edge-to-edge, predictive back, dynamic color, snackbars and dialogs, and the design-level TalkBack and font-scale hooks |
@@ -77,6 +79,7 @@ The ethics and design-system checks also have read-only agents: `ethics-reviewer
 | apple-platform-design | ✔ | ✔ | ✔ | ✔ | ✔ |
 | art-direction | ✔ | ◐ | ✔ | ◐ | ◐ |
 | dashboard-design | ✔ | ✔ | ✔ | ✔ | ✔ |
+| conversation-design | ✔ | ✔ | ✔ | ✔ | ✔ |
 | information-architecture | ✔ | ✔ | ✔ | ✔ | ✔ |
 | interface-polish | ✔ | ◐ | ✔ | ◐ | ✔ |
 | mobile-design | ✔ | ✔ | ✔ | ✔ | ✔ |
@@ -259,6 +262,35 @@ Open question   which overdue age should turn red? (owner decision)
 </details>
 
 <details>
+<summary><code>conversation-design</code>: a repair path for each input that can fail</summary>
+
+[![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+**Use it when:** You are designing or reviewing a chat, assistant or bot and want to know what happens when things go wrong.
+
+**Try:** `Review the Quill assistant that helps freelancers send an invoice by chat.`
+
+**Skip it when:** The question is about a form or a dashboard with no conversation in it. Use the matching skill.
+
+Example output, invented data (fictional product). This is expert review of the script, not conversation analytics.
+
+```text
+Flow: "Send invoice" by chat        Evidence: script + 2 screenshots   Traffic data: MISSING INFORMATION
+Happy path   pick client > confirm amount > confirm send (3 turns)
+
+Input         Can fail how                    Repair path today          Finding
+Client name   two clients share a first name  none: picks the first      high: offer both as choices
+Due date      past date, "next Friday"        generic "try again"        high: name the problem, show a valid example
+Amount        "1,200" vs "1.200"              accepted as 1.2            high: read the amount back to confirm
+Any turn      user types "talk to a person"   not recognised             high: escape on every turn
+
+Context      "send it to her" after naming a client resolves correctly; no timeout stated (open question)
+Not reviewed  real conversations, drop-off per step, screen-reader run of the chat
+```
+
+</details>
+
+<details>
 <summary><code>mobile-design</code>: per-screen rules checked at a stated viewport</summary>
 
 [![Claude: Code full, app full](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT full](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%94-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
@@ -415,7 +447,7 @@ Codex agent files have no tool list, so the no-edit rule of the ux-designer, eth
 ### Everything else — Cursor, Copilot, Gemini CLI, Windsurf, Zed, opencode, Cline, Continue, Hermes, and ~60 more
 
 ```bash
-npx skills add stylusnexus/agent-plugins --skill accessibility-review android-platform-design apple-platform-design art-direction dashboard-design information-architecture interface-polish mobile-design ui-ux
+npx skills add stylusnexus/agent-plugins --skill accessibility-review android-platform-design apple-platform-design art-direction conversation-design dashboard-design information-architecture interface-polish mobile-design ui-ux
 ```
 
 Skills arrive un-namespaced on this path, so most agents invoke them as `/ui-ux`; Windsurf uses `@ui-ux`, opencode shows `/ui-ux` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.

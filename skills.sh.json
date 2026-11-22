@@ -123,12 +123,13 @@
     },
     {
       "title": "design-suite",
-      "description": "Reviewing and shaping UI and UX work — flows and states, interface polish, art direction, accessibility against WCAG 2.2, dashboards, mobile, Apple and Android platform conventions, and information architecture.",
+      "description": "Reviewing and shaping UI and UX work — flows and states, interface polish, art direction, accessibility against WCAG 2.2, dashboards, mobile, Apple and Android platform conventions, information architecture, and chat and assistant interfaces.",
       "skills": [
         "accessibility-review",
         "android-platform-design",
         "apple-platform-design",
         "art-direction",
+        "conversation-design",
         "dashboard-design",
         "information-architecture",
         "interface-polish",
