@@ -7,7 +7,7 @@ metadata:
 
 # Deploy state
 
-Answer one question: **what goes out in the next deployment, and what stands in its way?** Check it live. A saved list, an issue comment or your memory of the session is a claim to verify, never the answer.
+Answer one question: **what goes out in the next deployment, and what stands in its way?** The lineup includes work that is planned for it, even if not built yet. Check it live. A saved list, an issue comment or your memory of the session is a claim to verify, never the answer.
 
 If the current repo has its own `.claude/skills/deploy-state/` or `.agents/skills/deploy-state/`, that version is authoritative. Follow it instead.
 
@@ -25,13 +25,14 @@ A rule you could not find is `Not found`, not "none". When a rule uses a word it
 
 ## 2. Find what is live and what is waiting
 
-Fetch first with a plain `git fetch <remote>` (do not prune or delete refs). Then collect four groups.
+Fetch first with a plain `git fetch <remote>` (do not prune or delete refs). Then collect five groups.
 
 | Group | How to find it |
 |---|---|
 | **On integration, not live** | First compare the two trees: `git diff --stat <prod> <integration>`. Empty means nothing is waiting. Otherwise list what merged since the commit the last release actually shipped: the head of the last pull request merged into production that carried code. A version-bump or changelog bot pull request is not that release. |
 | **Open pull requests** | Target branch, draft state, mergeable state and check results for the current head commit. |
 | **Unpushed local work** | Branches and worktrees with unfinished work that exists only here. Name them as local only (see below). |
+| **Asked for, not finished** | Work that is part of an active goal, or that the user asked to have implemented: from this conversation, the saved lineup, and any goal or plan file the repo's instructions name. It can be planned for the next deployment before it is built. An open issue alone is not a request. |
 | **Deploying now** | A release merged but not yet confirmed live on every service. Use the host's CLI or API when the repo has one; otherwise report `Not found`. |
 
 - After squash merges, `<prod>..<integration>` and "ahead by N" overcount. Trust the tree diff and merged pull requests.
@@ -51,8 +52,9 @@ If one exists, compare it with step 2 and report every difference: listed but al
 If none exists, **say so**, then propose one:
 
 1. Built work first: merged to integration, then open pull requests closest to ready.
-2. Then urgent open issues, from one priority source in this order: the list the repo's instructions name (such as a launch list), else the release milestone, else priority labels. Show at most ten and say how many more there are. Write **build status not checked** unless you checked the production branch, open pull requests and local branches; an open issue or its label does not prove nothing is built.
-3. Fit the group to the release-size and order rules. If no group fits, say which rule blocks it and give the closest options. Never relabel work (calling small changes large, or a routine change urgent) to get past a rule.
+2. Then work the user asked for or put in an active goal, whether or not it is built yet. Include it as **planned**, with what is left before it can ship.
+3. Then other urgent open issues, from one priority source in this order: the list the repo's instructions name (such as a launch list), else the release milestone, else priority labels. Show at most ten and say how many more there are. Write **build status not checked** unless you checked the production branch, open pull requests and local branches; an open issue or its label does not prove nothing is built.
+4. Fit the group to the release-size and order rules. If no group fits, say which rule blocks it and give the closest options. Never relabel work (calling small changes large, or a routine change urgent) to get past a rule.
 
 ## 4. Report
 
@@ -61,7 +63,7 @@ Lead with one line: what the next deployment is, or that no lineup is set. Then 
 | Item | What users get | State | Before it can ship |
 |---|---|---|---|
 
-- **State** is one of: on integration · PR ready (checks passed on current head and base) · PR unverified · PR failing · PR draft · PR conflicting · held (quote the hold) · local only · not built (checked) · build status not checked.
+- **State** is one of: on integration · PR ready (checks passed on current head and base) · PR unverified · PR failing · PR draft · PR conflicting · held (quote the hold) · local only · planned, in progress · planned, not started · not built (checked) · build status not checked. A planned item is part of the lineup but never counts as ready: say what is left, and note whether the release could go without it. Count only built work against release-size rules, and say how the count changes when planned items land.
 - Below it, list what is waiting for later and why, then the rules that shape this release (size, order, deadlines).
 - Describe changes by what a user sees, with the PR or issue number.
 - Say what you did not check.
@@ -75,9 +77,10 @@ No saved lineup. Proposed next deployment: 2 changes on dev plus 1 PR (the size 
 | #41 export limits | Larger exports          | on integration | nothing                         |
 | #44 sign-in fix   | Fewer failed sign-ins   | on integration | nothing                         |
 | #47 saved filters | Filters stay after exit | PR unverified  | rerun checks; migration after 0912 |
+| #52 bulk delete   | Delete many at once     | planned, not started | build, review, checks      |
 
 Rule problem: 3 changes, only #47 is large. Options: wait for 2 more small PRs, or ship #44 alone if it qualifies as a named exception.
-Later: #52 (not built).
+Later: #60 (open issue, not requested).
 Not checked: whether #41 works on the live host.
 ```
 
@@ -96,3 +99,5 @@ Save only after a yes, to the path found in step 3 (or `docs/next-deploy.md` if 
 | Learning the release-size rule when CI fails | Read the enforcing script in step 1 |
 | Ignoring migration dates | A change dated earlier than one already live may be refused: list the order |
 | Leaving out finished local work | List it as `local only` |
+| Leaving out requested work because it is not built | List it as `planned` |
+| Treating every open issue as planned | Only goal items and explicit implementation requests |

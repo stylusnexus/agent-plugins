@@ -28,9 +28,10 @@ No saved lineup. Proposed next deployment: 2 changes on dev plus 1 PR (the size 
 | #41 export limits | Larger exports          | on integration | nothing                         |
 | #44 sign-in fix   | Fewer failed sign-ins   | on integration | nothing                         |
 | #47 saved filters | Filters stay after exit | PR unverified  | rerun checks; migration after 0912 |
+| #52 bulk delete   | Delete many at once     | planned, not started | build, review, checks      |
 
 Rule problem: 3 changes, only #47 is large. Options: wait for 2 more small PRs, or ship #44 alone if it qualifies as a named exception.
-Later: #52 (not built).
+Later: #60 (open issue, not requested).
 Not checked: whether #41 works on the live host.
 ```
 
