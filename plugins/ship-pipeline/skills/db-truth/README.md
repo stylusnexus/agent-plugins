@@ -48,7 +48,7 @@ claude plugin marketplace add stylusnexus/agent-plugins
 claude plugin install ship-pipeline@stylus-nexus
 ```
 
-Inside a session, `/plugin marketplace add stylusnexus/agent-plugins` and `/plugin install ship-pipeline@stylus-nexus` do the same. This installs the whole ship-pipeline pack, so analytics-instrumentation, api-design, backup-verify, cdf, db-migration-safety, deploy, feature-flags, prove-it, review-merge-pipeline, review-slop, ship-issues, start-issue, stripe-billing and ux-review come with it.
+Inside a session, `/plugin marketplace add stylusnexus/agent-plugins` and `/plugin install ship-pipeline@stylus-nexus` do the same. This installs the whole ship-pipeline pack, so analytics-instrumentation, api-design, backup-verify, cdf, db-migration-safety, deploy, deploy-state, feature-flags, prove-it, review-merge-pipeline, review-slop, ship-issues, start-issue, stripe-billing and ux-review come with it.
 
 Call it as `/ship-pipeline:db-truth`, or let it start on its own when your request matches.
 
@@ -71,7 +71,7 @@ codex plugin marketplace add stylusnexus/agent-plugins
 codex plugin add ship-pipeline@stylus-nexus
 ```
 
-This installs the whole ship-pipeline pack, so analytics-instrumentation, api-design, backup-verify, cdf, db-migration-safety, deploy, feature-flags, prove-it, review-merge-pipeline, review-slop, ship-issues, start-issue, stripe-billing and ux-review come with it. In Codex, type `$` and the skill name (`$ship-pipeline:db-truth`), or run `/skills` to pick it.
+This installs the whole ship-pipeline pack, so analytics-instrumentation, api-design, backup-verify, cdf, db-migration-safety, deploy, deploy-state, feature-flags, prove-it, review-merge-pipeline, review-slop, ship-issues, start-issue, stripe-billing and ux-review come with it. In Codex, type `$` and the skill name (`$ship-pipeline:db-truth`), or run `/skills` to pick it.
 
 **Note:** Network steps need an approval or a network-enabled Codex profile.
 

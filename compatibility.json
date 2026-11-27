@@ -527,6 +527,30 @@
         "level": "full"
       }
     },
+    "deploy-state": {
+      "pack": "ship-pipeline",
+      "claude": {
+        "code": {
+          "level": "full"
+        },
+        "app": {
+          "level": "no",
+          "note": "Runs in a remote sandbox without your local repo, git remotes or credentials."
+        }
+      },
+      "codex_chatgpt": {
+        "codex": {
+          "level": "full"
+        },
+        "chatgpt": {
+          "level": "no",
+          "note": "No access to your local repo or git and gh credentials by default."
+        }
+      },
+      "other": {
+        "level": "full"
+      }
+    },
     "efficient-frontier-routing": {
       "pack": "second-opinion",
       "claude": {
