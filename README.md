@@ -10,7 +10,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-7C3AED)
 ![Codex](https://img.shields.io/badge/Codex-plugin-10A37F)
 
-A plugin marketplace for AI coding agents — **11 plugins, 92 skills**. Installs natively into **Claude
+A plugin marketplace for AI coding agents — **11 plugins, 93 skills**. Installs natively into **Claude
 Code** and **OpenAI Codex**, and installs into roughly 77 more agents' skill folders through the
 Skills CLI. Documented skill support has been checked for only a few of those: Gemini CLI/Antigravity
 CLI, Cursor, GitHub Copilot, Windsurf, opencode and Cline. See [Compatibility](#compatibility).
@@ -39,7 +39,7 @@ Nine packs, grouped by the job rather than the technology. Each pack's README ca
 
 | Pack | # | What it's for | Skills |
 |---|---|---|---|
-| [**ship-pipeline**](./plugins/ship-pipeline) | 15 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote — one issue or a batch. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `ship-issues` `db-migration-safety` `backup-verify` `api-design` `stripe-billing` `analytics-instrumentation` `feature-flags` `ux-review` `cdf` |
+| [**ship-pipeline**](./plugins/ship-pipeline) | 16 | The daily loop: read the issue, ground assumptions in the live database, prove it works, review, merge, promote — one issue or a batch. | `start-issue` `db-truth` `prove-it` `review-slop` `review-merge-pipeline` `deploy` `deploy-state` `ship-issues` `db-migration-safety` `backup-verify` `api-design` `stripe-billing` `analytics-instrumentation` `feature-flags` `ux-review` `cdf` |
 | [**reporting-comms**](./plugins/reporting-comms) | 7 | The last mile — turning agent output into something a person wants to read, and getting their judgment back. | `html` `visual-plan` `visual-recap` `recap-table` `writing-clearly-and-concisely` `human-writing` `redline` |
 | [**second-opinion**](./plugins/second-opinion) | 6 | One premise: one confident answer is not evidence. Independent passes, arbitration and checks against the code; llm-council's advisors are the same model, and spec-review calls a different one. | `llm-council` `plan-arbiter` `spec-review` `agent-watchdog` `debug-feedback-loop` `efficient-frontier-routing` |
 | [**hardening**](./plugins/hardening) | 12 | The unglamorous pre-launch gates — a missing rate limit, an unsigned webhook, a compromised dependency — one read-only launch-readiness verdict, design-time and agent-era audits, and draft legal documents for a lawyer to review. | `rate-limit-audit` `exposure-scan` `auth-hardening` `webhook-reliability` `privacy-audit` `readiness-review` `threat-model` `security-headers` `secrets-leak-audit` `agent-tooling-review` `llm-app-security` `legal-docs` |
@@ -53,7 +53,7 @@ Nine packs, grouped by the job rather than the technology. Each pack's README ca
 
 <!-- catalog:start -->
 <details>
-<summary><b>ship-pipeline</b> · 15 skills</summary>
+<summary><b>ship-pipeline</b> · 16 skills</summary>
 
 | Skill | What it covers |
 |---|---|
@@ -64,6 +64,7 @@ Nine packs, grouped by the job rather than the technology. Each pack's README ca
 | `db-migration-safety` | Writing schema change — expand-contract sequencing, idempotency, backfills |
 | `db-truth` | Reading schema truth — shape, relationships, permissions, and post-apply confirmation |
 | `deploy` | Production promotion, merge strategy, release-tooling compatibility, the frozen source commit, live-artifact match, smoke and rollback evidence, closing only issues proved shipped |
+| `deploy-state` | The next deployment's lineup — what is waiting, what blocks it, and the saved lineup file. Deploys nothing |
 | `feature-flags` | Flag lifecycle — naming, rollout versus kill switch, rollout stages, kill-switch alerts, testing both paths, and stale-flag cleanup |
 | `prove-it` | Evidence standards, gate discovery, the evidence table, `UNVERIFIED` labeling |
 | `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection, evidence tied to the head commit, head-SHA, approval and required-check confirmation before merge |
@@ -266,6 +267,7 @@ Agents (Claude Code): `accessibility-expert` `android-design-expert` `apple-desi
 | `debug-feedback-loop` | [second-opinion](./plugins/second-opinion) |
 | `dependency-upgrade` | [release-ops](./plugins/release-ops) |
 | `deploy` | [ship-pipeline](./plugins/ship-pipeline) |
+| `deploy-state` | [ship-pipeline](./plugins/ship-pipeline) |
 | `efficient-frontier-routing` | [second-opinion](./plugins/second-opinion) |
 | `exposure-scan` | [hardening](./plugins/hardening) |
 | `feature-flags` | [ship-pipeline](./plugins/ship-pipeline) |
@@ -424,7 +426,7 @@ brief in its own `references/` folder and runs that step inline when the agent i
 ## Install
 
 Two steps: **add the marketplace once**, then **install whichever packs you want**. Skipping to
-"install everything" is a valid choice — it's 92 skills, all inert until their trigger matches.
+"install everything" is a valid choice — it's 93 skills, all inert until their trigger matches.
 
 Pick your tool, copy the command, then open its section below for the rest.
 
@@ -501,7 +503,7 @@ writes to each one's skills directory. No marketplace step — one command does 
 
 ```bash
 npx skills add stylusnexus/agent-plugins                    # choose interactively
-npx skills add stylusnexus/agent-plugins --skill '*'        # all 92 skills
+npx skills add stylusnexus/agent-plugins --skill '*'        # all 93 skills
 ```
 
 Skills install without a pack prefix. How you call one depends on the agent: `/prove-it` in Cursor,

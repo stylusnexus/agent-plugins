@@ -1,6 +1,6 @@
 # Ship Pipeline
 
-Fifteen repo-agnostic skills for the ship half of the development loop — from reading the issue to promoting to production, with evidence at every gate.
+Sixteen repo-agnostic skills for the ship half of the development loop — from reading the issue to promoting to production, with evidence at every gate.
 
 Every skill detects the repository's own conventions rather than assuming a house style. The shipping-loop skills (`start-issue` through `ship-issues` in the table below) **defer to a repo-local version of themselves** when the project defines one (`.claude/skills/<name>/`), and `deploy` defers to a repo-local release runbook. Install it globally; override it per-repo where a project has stronger rules.
 
@@ -16,6 +16,7 @@ Every skill detects the repository's own conventions rather than assuming a hous
 | **Inspect** | `review-slop` | Reports needless complexity, validation gaps, misleading test coverage, and prose problems with evidence and acceptance criteria. Makes no edits. |
 | **Ship** | `review-merge-pipeline` | One shot: verify → review → fix → commit → push → PR → merge. Detects the merge target instead of assuming one, ties test and review evidence to the exact head commit, and merges only on real required checks with your authorization. |
 | **Promote** | `deploy` | Integration branch → production as one authorized batch, with the repo's own merge strategy inferred from its history. Freezes the source commit, proves the live artifact matches it, records smoke and rollback evidence, and closes only issues proved shipped. |
+| **Preview** | `deploy-state` | What is lined up for the next deployment: merged but not live, open pull requests and local work, checked live and compared with a saved lineup. Reads the release-size and order rules, proposes a batch when there is none, and saves it only when you agree. |
 | **Batch** | `ship-issues` | Carries a set of issues through the loop above in one run: grounds and groups them, reports status before any edit, then calls `start-issue`, `prove-it` and `review-merge-pipeline` per group. For a ship/deploy/release request it also runs `deploy` once for the whole batch and validates against production; for an "implement and merge" request it stops after the merges. |
 | **Schema** | `db-migration-safety` | Expand-contract migrations, idempotent SQL, batched backfills. |
 | **Schema** | `backup-verify` | Confirms backups exist **and actually restore** — into a scratch branch, with smoke queries and timestamped evidence. |
@@ -48,6 +49,7 @@ Each concern lives in exactly one skill. When a task crosses domains, the owner 
 | `review-slop` | Report-only slop findings, severity calibration, and suggested repair criteria |
 | `review-merge-pipeline` | Review orchestration, commit/push/PR mechanics, merge-target detection, evidence tied to the head commit, head-SHA, approval and required-check confirmation before merge |
 | `deploy` | Production promotion, merge strategy, release-tooling compatibility, the frozen source commit, live-artifact match, smoke and rollback evidence, closing only issues proved shipped |
+| `deploy-state` | The next deployment's lineup — what is waiting, what blocks it, and the saved lineup file. Deploys nothing |
 | `api-design` | Route handler conventions — resource naming, versioning, pagination, the error envelope, Zod request/response validation, status codes, generated OpenAPI, and response scrubbing |
 | `stripe-billing` | Subscription billing code — Checkout Sessions, customer portal, plan changes and proration, trials, dunning, and the signed, idempotent Stripe webhook handler |
 | `feature-flags` | Flag lifecycle — naming, rollout versus kill switch, rollout stages, kill-switch alerts, testing both paths, and stale-flag cleanup |
@@ -80,6 +82,7 @@ The three database skills are the pairing most worth keeping straight: **`db-tru
 | db-migration-safety | ✔ | ◐ | ✔ | ◐ | ✔ |
 | db-truth | ✔ | ✖ | ✔ | ✖ | ✔ |
 | deploy | ✔ | ✖ | ✔ | ✖ | ✔ |
+| deploy-state | ✔ | ✖ | ✔ | ✖ | ✔ |
 | feature-flags | ✔ | ◐ | ✔ | ◐ | ✔ |
 | prove-it | ✔ | ✖ | ✔ | ✖ | ✔ |
 | review-merge-pipeline | ✔ | ✖ | ✔ | ✖ | ✔ |
@@ -364,6 +367,36 @@ Decisions needing consultation: should the page limit be per plan?
 </details>
 
 <details>
+<summary><code>deploy-state</code>: the next deployment's lineup</summary>
+
+[![Claude: Code full, app no](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT no](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%9C%96-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
+
+> **Limits.** Claude app: Runs in a remote sandbox without your local repo, git remotes or credentials. ChatGPT: No access to your local repo or git and gh credentials by default.
+
+**Use it when:** You want to know what is waiting to deploy, what blocks it, or to put a release batch together.
+
+**Try:** `/deploy-state`
+
+**Skip it when:** You are ready to release. Run deploy.
+
+Example output, invented data.
+
+```text
+No saved lineup. Proposed next deployment: 2 changes on dev plus 1 PR (the size rule needs 5-10, or 2-3 large).
+
+| Item              | What users get          | State          | Before it can ship              |
+| #41 export limits | Larger exports          | on integration | nothing                         |
+| #44 sign-in fix   | Fewer failed sign-ins   | on integration | nothing                         |
+| #47 saved filters | Filters stay after exit | PR unverified  | rerun checks; migration after 0912 |
+
+Rule problem: 3 changes, only #47 is large. Options: wait for 2 more small PRs, or ship #44 alone if it qualifies as a named exception.
+Later: #52 (not built).
+Not checked: whether #41 works on the live host.
+```
+
+</details>
+
+<details>
 <summary><code>db-migration-safety</code>: the expand-contract sequence</summary>
 
 [![Claude: Code full, app partial](https://img.shields.io/badge/Claude-Code%20%E2%9C%94%20%C2%B7%20app%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Codex / ChatGPT: Codex full, ChatGPT partial](https://img.shields.io/badge/Codex%20%2F%20ChatGPT-Codex%20%E2%9C%94%20%C2%B7%20ChatGPT%20%E2%97%90-brightgreen)](../../README.md#compatibility) [![Other agents: full](https://img.shields.io/badge/Other%20agents-%E2%9C%94-brightgreen)](../../README.md#compatibility)
@@ -640,7 +673,7 @@ In Codex, type `$` and a skill name to use it (`$ship-pipeline:prove-it`; Codex 
 
 ```bash
 npx skills add stylusnexus/agent-plugins            # pick interactively
-npx skills add stylusnexus/agent-plugins --skill analytics-instrumentation api-design backup-verify cdf db-migration-safety db-truth deploy feature-flags prove-it review-merge-pipeline review-slop ship-issues start-issue stripe-billing ux-review  # this pack
+npx skills add stylusnexus/agent-plugins --skill analytics-instrumentation api-design backup-verify cdf db-migration-safety db-truth deploy deploy-state feature-flags prove-it review-merge-pipeline review-slop ship-issues start-issue stripe-billing ux-review  # this pack
 ```
 
 The [Skills CLI](https://github.com/vercel-labs/skills) detects which agents you have installed and writes to each one's skills directory. Skills arrive un-namespaced here, so most agents invoke them as `/prove-it` rather than `/ship-pipeline:prove-it`; Windsurf uses `@prove-it`, opencode shows `/prove-it` only when the skill sets an opencode-specific metadata field, and Gemini CLI activates a skill itself after you approve it.

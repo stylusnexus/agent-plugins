@@ -13,6 +13,7 @@
         "db-migration-safety",
         "db-truth",
         "deploy",
+        "deploy-state",
         "feature-flags",
         "prove-it",
         "review-merge-pipeline",
