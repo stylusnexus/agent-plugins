@@ -12,7 +12,7 @@ Install into Claude Code or Codex from the plugin marketplace (`stylusnexus/agen
 
 ## Skill packs
 
-- [ship-pipeline](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/ship-pipeline/README.md): The daily loop: read the issue, ground assumptions in the live database, prove it works, then review, merge, and promote. One issue or a batch.
+- [ship-pipeline](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/ship-pipeline/README.md): The daily loop: read the issue, ground assumptions in the live database, prove it works, then review, merge, check what is lined up to deploy, and promote. One issue or a batch.
 - [reporting-comms](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/reporting-comms/README.md): The last mile: turning agent output into something a person wants to read, and getting their judgment back.
 - [second-opinion](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/second-opinion/README.md): Built on one premise: one confident answer is not evidence. Councils of same-model advisors, arbitration, and specs checked against the actual codebase by a second model.
 - [hardening](https://raw.githubusercontent.com/stylusnexus/agent-plugins/main/plugins/hardening/README.md): The unglamorous pre-launch gates: a missing rate limit, an unsigned webhook, a compromised transitive dependency.
