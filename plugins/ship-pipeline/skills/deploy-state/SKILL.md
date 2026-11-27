@@ -86,9 +86,23 @@ Not checked: whether #41 works on the live host.
 
 ## 5. Ask before saving
 
-Ask the user with the question tool if the host has one (`AskUserQuestion` in Claude Code), otherwise in a short numbered list. Offer: save this lineup, change it, or don't save. Put the recommended option first.
+Before asking, settle two things:
 
-Save only after a yes, to the path found in step 3 (or `docs/next-deploy.md` if none exists, or `.work-plan/next-deploy.md` when `.work-plan/` exists). Write the date, the integration and production commits you checked, the items with their states, and open decisions. With `--no-save`, skip this step. Committing or pushing the file needs its own yes unless the repo's instructions already allow it.
+1. **The exact path:** the saved lineup found in step 3, else `.work-plan/next-deploy.md` when `.work-plan/` exists, else `docs/next-deploy.md`. A path the repo's instructions name wins.
+2. **Who could read it once committed:**
+   - **Repository visibility** (for example `gh repo view --json visibility`). In a public repository, anyone can read the file in any folder.
+   - **Published folders:** the GitHub Pages source (`gh api repos/OWNER/REPO/pages`), deploy workflows, and site configs (`mkdocs.yml`, `docusaurus.config.*`, `_config.yml`) that include the folder. A private repository can still publish a public site.
+
+Ask the user with the question tool if the host has one (`AskUserQuestion` in Claude Code), otherwise in a short numbered list. The question must:
+
+- name the exact path;
+- say when the file could become public, and why (public repository, or published folder);
+- say "not checked" for whichever of the two you could not check, never "private";
+- say they can name a different path in the repo's instructions.
+
+Offer: save this lineup, change it, or don't save. Put the recommended option first. When the folder is published, never recommend saving there: recommend an unpublished path or not saving.
+
+Save only after a yes, to that path. Write the date, the integration and production commits you checked, the items with their states, and open decisions. With `--no-save`, skip this step. Committing or pushing the file needs its own yes unless the repo's instructions already allow it.
 
 ## Common mistakes
 
@@ -101,3 +115,4 @@ Save only after a yes, to the path found in step 3 (or `docs/next-deploy.md` if 
 | Leaving out finished local work | List it as `local only` |
 | Leaving out requested work because it is not built | List it as `planned` |
 | Treating every open issue as planned | Only goal items and explicit implementation requests |
+| Asking to save without showing where, or who could read it | Name the path; say if the repository or folder is public, or that you did not check |
