@@ -16,7 +16,7 @@ Every skill detects the repository's own conventions rather than assuming a hous
 | **Inspect** | `review-slop` | Reports needless complexity, validation gaps, misleading test coverage, and prose problems with evidence and acceptance criteria. Makes no edits. |
 | **Ship** | `review-merge-pipeline` | One shot: verify → review → fix → commit → push → PR → merge. Detects the merge target instead of assuming one, ties test and review evidence to the exact head commit, and merges only on real required checks with your authorization. |
 | **Promote** | `deploy` | Integration branch → production as one authorized batch, with the repo's own merge strategy inferred from its history. Freezes the source commit, proves the live artifact matches it, records smoke and rollback evidence, and closes only issues proved shipped. |
-| **Preview** | `deploy-state` | What is lined up for the next deployment: merged but not live, open pull requests and local work, checked live and compared with a saved lineup. Reads the release-size and order rules, proposes a batch when there is none, and saves it only when you agree. |
+| **Preview** | `deploy-state` | What is lined up for the next deployment: merged but not live, open pull requests, local work and planned work you asked for, checked live and compared with a saved lineup. Reads the release-size and order rules, proposes a batch when there is none, and saves it only when you agree. |
 | **Batch** | `ship-issues` | Carries a set of issues through the loop above in one run: grounds and groups them, reports status before any edit, then calls `start-issue`, `prove-it` and `review-merge-pipeline` per group. For a ship/deploy/release request it also runs `deploy` once for the whole batch and validates against production; for an "implement and merge" request it stops after the merges. |
 | **Schema** | `db-migration-safety` | Expand-contract migrations, idempotent SQL, batched backfills. |
 | **Schema** | `backup-verify` | Confirms backups exist **and actually restore** — into a scratch branch, with smoke queries and timestamped evidence. |
@@ -388,9 +388,10 @@ No saved lineup. Proposed next deployment: 2 changes on dev plus 1 PR (the size 
 | #41 export limits | Larger exports          | on integration | nothing                         |
 | #44 sign-in fix   | Fewer failed sign-ins   | on integration | nothing                         |
 | #47 saved filters | Filters stay after exit | PR unverified  | rerun checks; migration after 0912 |
+| #52 bulk delete   | Delete many at once     | planned, not started | build, review, checks      |
 
 Rule problem: 3 changes, only #47 is large. Options: wait for 2 more small PRs, or ship #44 alone if it qualifies as a named exception.
-Later: #52 (not built).
+Later: #60 (open issue, not requested).
 Not checked: whether #41 works on the live host.
 ```
 
