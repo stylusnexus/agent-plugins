@@ -61,7 +61,7 @@
             "position": 1,
             "name": "ship-pipeline",
             "url": "https://github.com/stylusnexus/agent-plugins/tree/main/plugins/ship-pipeline",
-            "description": "The daily loop: read the issue, ground assumptions in the live database, prove it works, then review, merge, and promote. One issue or a batch."
+            "description": "The daily loop: read the issue, ground assumptions in the live database, prove it works, then review, merge, check what is lined up to deploy, and promote. One issue or a batch."
           },
           {
             "@type": "ListItem",
@@ -179,7 +179,7 @@
           "name": "What is ship-pipeline?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "ship-pipeline is the agent-plugins skill pack for the daily loop: it reads the issue, grounds assumptions in the live database, proves the change works, then reviews, merges, and promotes it, for one issue or a batch."
+            "text": "ship-pipeline is the agent-plugins skill pack for the daily loop: it reads the issue, grounds assumptions in the live database, proves the change works, then reviews, merges, shows what is lined up to deploy, and promotes it, for one issue or a batch."
           }
         },
         {
@@ -380,7 +380,7 @@
     <div class="eyebrow">stylusnexus / agent-plugins</div>
     <h1>Skills for agents that have to ship something.</h1>
     <p class="lede">
-      agent-plugins is an open-source (MIT) plugin marketplace from Stylus Nexus: eleven plugins and 92
+      agent-plugins is an open-source (MIT) plugin marketplace from Stylus Nexus: eleven plugins and 93
       skills that install natively into Claude Code and OpenAI Codex. The Skills CLI also installs them
       into about 77 other coding agents' skill folders; documented skill support has been checked for
       only a few: Gemini CLI/Antigravity CLI, Cursor, GitHub Copilot, Windsurf, opencode and Cline
@@ -408,7 +408,7 @@
     <div class="grid">
       <article class="plugin">
         <div class="plugin-top"><h3 class="plugin-name"><a href="https://github.com/stylusnexus/agent-plugins/tree/main/plugins/ship-pipeline">ship-pipeline</a></h3><span class="plugin-n">16 skills</span></div>
-        <p>The daily loop: read the issue, ground assumptions in the live database, prove it works, then review, merge, and promote. One issue or a batch.</p>
+        <p>The daily loop: read the issue, ground assumptions in the live database, prove it works, then review, merge, check what is lined up to deploy, and promote. One issue or a batch.</p>
         <div class="chips">
           <span class="chip">start-issue</span><span class="chip">db-truth</span><span class="chip">prove-it</span>
           <span class="chip">review-slop</span><span class="chip">review-merge-pipeline</span><span class="chip">deploy</span><span class="chip">deploy-state</span>
@@ -623,7 +623,7 @@ codex plugin add ship-pipeline@stylus-nexus</pre>
       <div class="qa"><h3>How do I install agent-plugins in Codex?</h3><p>Run <code>codex plugin marketplace add stylusnexus/agent-plugins</code>, then <code>codex plugin add ship-pipeline@stylus-nexus</code> for each pack you want. Invoke a skill with <code>$ship-pipeline:prove-it</code>, or run <code>/skills</code>.</p></div>
       <div class="qa"><h3>How do I install agent-plugins in Cursor, Copilot, or another agent?</h3><p>Run <code>npx skills add stylusnexus/agent-plugins</code>. The Skills CLI detects which agents you have and writes the skills into each one; add <code>--skill</code> and skill names to take only some.</p></div>
       <div class="qa"><h3>How do I keep agent-plugins up to date?</h3><p>In Claude Code, enable auto-update for the stylus-nexus marketplace under <code>/plugin</code>, Marketplaces. In Codex, run <code>codex plugin marketplace upgrade stylus-nexus</code>, then add each pack again. With the Skills CLI, run <code>npx skills update</code>.</p></div>
-      <div class="qa"><h3>What is ship-pipeline?</h3><p>ship-pipeline is the agent-plugins skill pack for the daily loop: it reads the issue, grounds assumptions in the live database, proves the change works, then reviews, merges, and promotes it, for one issue or a batch.</p></div>
+      <div class="qa"><h3>What is ship-pipeline?</h3><p>ship-pipeline is the agent-plugins skill pack for the daily loop: it reads the issue, grounds assumptions in the live database, proves the change works, then reviews, merges, shows what is lined up to deploy, and promotes it, for one issue or a batch.</p></div>
       <div class="qa"><h3>Why is a skill called /prove-it in one agent and /ship-pipeline:prove-it in another?</h3><p>Claude Code and Codex plugins prefix skills with the pack name. Skills installed through the Skills CLI or npm have no prefix.</p></div>
     </div>
   </section>
